@@ -646,7 +646,7 @@ Night Mood
 }
 
 .night-mode .ui.toggle.checkbox .box:before, .night-mode .ui.toggle.checkbox label:before {
-    background-color: rgba(36, 36, 36) !important;
+    background-color: rgb(36, 36, 36) !important;
 }
 
 .night-mode ._1457s2 label {
@@ -1240,7 +1240,6 @@ Night Mood
 
 .night-mode .caption-content {
     background-color: #333;
-    border: 242424);
 }
 
 .night-mode .caption-content span {
