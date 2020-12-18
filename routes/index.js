@@ -4,7 +4,10 @@ var courseRouter = require('../routes/course');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
+  res.render('index' );
+});
+router.get('/index', function(req, res, next) {
+  res.render('index');
 });
 router.get('/course_detail_view', function(req, res, next) {
   courseRouter.course_detail_view(req,res);
