@@ -91,3 +91,12 @@ router.post('/create_new_course1', function (req, res, next) {
 
 
 module.exports = router;
+
+
+router.get('/lecture_detail', function (req, res) {
+  res.render('lecture_detail');
+});
+
+router.get('/my_course', function (req, res) {
+  res.render('student_mycourse');
+});
