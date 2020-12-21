@@ -81,5 +81,13 @@ router.route('/auth/facebook/callback')
       res.redirect(redirectUrl);
     }
   });
+router.post('/create_new_course', function (req, res, next) {
+    courseRouter.receive_infor(req, res);
+});
+router.post('/create_new_course1', function (req, res, next) {
+    courseRouter.receive_img(req, res);
+});
+
+
 
 module.exports = router;

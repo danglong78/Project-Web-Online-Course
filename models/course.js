@@ -19,8 +19,13 @@ const courseSchema = mongoose.Schema({
     price: {type: Number},
     chapter:[{
         title: String,
-        content: String,
-        link:String,
+        duration: Number,
+        lecture:[{
+            title:String,
+            duration: Number,
+            content: String,
+            file: String
+        }]
     }],
     viewer: Number,
     participant:[{
