@@ -3,9 +3,7 @@ const Schema = mongoose.Schema;
 
 const studentSchema = Schema({
     courses: [{
-        progress: {
-            type: Number
-        },
+        progress: [Number],
         course: {
             type: Schema.Types.ObjectId,
             ref: "Course"
@@ -13,10 +11,8 @@ const studentSchema = Schema({
     }],
 
     favorites: [{
-        course: {
-            type: Schema.Types.ObjectId,
-            ref: "Course"
-        }
+        type: Schema.Types.ObjectId,
+        ref: "Course"
     }]
 });
 

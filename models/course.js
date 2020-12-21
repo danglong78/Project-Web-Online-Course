@@ -4,45 +4,46 @@ mongoose.set('useCreateIndex', true);
 mongoose.Promise = global.Promise;
 
 const courseSchema = mongoose.Schema({
-    short_description: {type: String,text: true},
-    detail_description:{type: String,text: true},
-    avatar:{type: String,text: true},
-    teacher:{
+    short_description: { type: String, text: true },
+    detail_description: { type: String, text: true },
+    avatar: { type: String, text: true },
+    teacher: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Teacher'
     },
-    category:[{
+    category: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: Course
     }],
     finished: Boolean,
-    price: {type: Number},
-    chapter:[{
+    price: { type: Number },
+    chapter: [{
         title: String,
         duration: Number,
-        lecture:[{
-            title:String,
+        lecture: [{
+            title: String,
             duration: Number,
             content: String,
             file: String
         }]
     }],
     viewer: Number,
-    participant:[{
+    participant: [{
         type: mongoose.Schema.Types.ObjectId,
-        ref:'Student'
+        ref: 'Student'
     }],
-    comment:[{
-        student:{
-        type: mongoose.Schema.Types.ObjectId,
-        ref:'Student'
+    rates: [{
+        student: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Student'
         },
-        content: String
+        score: String,
+        review: String
 
     }]
 
 });
-Course = mongoose.model('Course',courseSchema)
+Course = mongoose.model('Course', courseSchema)
 
 module.exports = {
     model: Course
