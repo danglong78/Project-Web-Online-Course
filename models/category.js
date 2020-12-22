@@ -12,6 +12,15 @@ const categorySchema = Schema({
 
 const Category = mongoose.model('category', categorySchema);
 
+var getMainCate = async function () {
+    var cate = await Category.find({ 'subCate.0': { "$exists": true } });
+    if (cate.length == 0) {
+        return null;
+    }
+    return cate;
+}
+
 module.exports = {
-    model: Category
+    model: Category,
+    GetMainCate: getMainCate
 }
