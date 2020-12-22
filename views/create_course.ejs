@@ -402,7 +402,7 @@
                                                                 </div>
                                                                 <div class="col-lg-12 col-md-12">
                                                                     <div class="save_content">
-                                                                        <button class="save_content_btn" id="saveChapterBtn" data-id="add" type="button">Add Chapter</button>
+                                                                        <button class="save_content_btn uil" id="saveChapterBtn" data-id="add" type="button">Add Chapter</button>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -418,7 +418,6 @@
                                                         <th class="cell-ta">Title</th>
                                                         <th class="text-center" scope="col">Lectures</th>
                                                         <th class="text-center" scope="col">Duration</th>
-                                                        <th class="text-center" scope="col">Update Date</th>
                                                         <th class="text-center" scope="col">Controls</th>
                                                     </tr>
                                                     </thead>
@@ -539,30 +538,41 @@
 
                 return true;
             },
-            onFinish: function () {
+            onFinish: async function () {
+
                 var rs={
                     title: $('input[name="title"]').val(),
                     finished:$('input[name="finishedTag"]:checked').length===1,
                     short_description: $('input[name="shortDescription"]').val(),
                     detail_description: courseEditor.getContent(),
-                    price:$('select[name="price"]').val()
+                    price:$('select[name="price"]').val(),
+                    chapter: chapter
                 }
+                var id;
                 $.ajax({
+                    async:false,
                     url: "/create_new_course",
                     type: 'POST',
                     contentType: "application/json; charset=UTF-8",
                     data:JSON.stringify(rs),
                     success: function(e) {
-                        alert(e);
+                        alert("send success  "+e);
+                        id=e;
+
                     },
                     error: function(result) {
                         alert('error '+ result);
                     }
                 })
+
                 var img = new FormData();
-                img.append('image',$('#inputImage').prop('files')[0])
+                imgname= $('#inputImage').prop('files')[0].name;
+                let extension= imgname.substr( (imgname.lastIndexOf('.') +1) );
+                img.append('image',$('#inputImage').prop('files')[0],`${id}.${extension}`)
+                img.append('id',id)
+
                 $.ajax({
-                    url:'/create_new_course1',
+                    url:'/create_new_course/img',
                     type: 'POST',
                     contentType: false,
                     processData: false,
@@ -570,6 +580,36 @@
                     data: img,
                     success: function(res){
                         alert(res);
+                    },
+                    error: function(){
+                        alert('Error: In sending the request!');
+                    }
+                })
+                var vid= new FormData();
+                var FileName=[]
+                var fieldArr=[]
+                for (i = 0; i < chapter.length; i++) {
+                    lectureArray=[]
+                    for(j=0;j<chapter[i].lecture.length;j++)
+                    {
+                        let filename=chapter[i].lecture[j].file.name;
+                        let extension= filename.substr( (filename.lastIndexOf('.') +1) );
+                        lectureArray.push(`upload/video/${id}c${i}l${j}.${extension}`);
+                        vid.append(`c${i}l${j}`,chapter[i].lecture[j].file,`${id}c${i}l${j}.${extension}`)
+                    }
+                    FileName.push([...lectureArray])
+                }
+                vid.append('video',JSON.stringify(FileName))
+                vid.append('id',id)
+                $.ajax({
+                    url:'/create_new_course/vid',
+                    type: 'POST',
+                    contentType: false,
+                    processData: false,
+                    cache: false,
+                    data: vid,
+                    success: function(res){
+                        alert("Upload Video success");
                     },
                     error: function(){
                         alert('Error: In sending the request!');
@@ -639,7 +679,6 @@
             })
             $("#inputImage").change(function() {
                 if($('#inputImage').val()!=="") {
-                    console.log($('#inputImage').files) ;
                     readURL(this);
                     $('#DelUploadImgBtn').removeAttr('hidden');
                     $('#UploadImgBtn').text('Change');
@@ -705,8 +744,8 @@
 
                         lectures.push({
                             title: $('#lecture_title').val(),
-                            description: chapterEditor.getContent(),
                             duration: $('input[name="duration"]').val(),
+                            content: chapterEditor.getContent(),
                             file: $('#inputGroupFile06').prop('files')[0]
                         })
                     } else {
@@ -714,8 +753,8 @@
                         let fn = lectures[idlecture].file;
                         temp = {
                             title: $('#lecture_title').val(),
-                            description: chapterEditor.getContent(),
                             duration: $('input[name="duration"]').val(),
+                            content: chapterEditor.getContent(),
                             file: $('#inputGroupFile06').prop('files')[0]
                         }
                         if (temp.file === undefined)
@@ -764,9 +803,7 @@
                 }
                 if($('#chapterTitle').val()!=="" && lectures.length !==0)
                 {
-                    let date = new Date();
-                    let outputDate = date.getFullYear() + '/' + ((date.getMonth() + 1) < 10 ? '0' : '') + (date.getMonth() + 1) + '/' + (date.getDate() < 10 ? '0' : '') + date.getDate();
-                    let totalDur = 0;
+                    let totalDur=0;
                     lectures.forEach(element => totalDur += parseInt(element.duration));
                     if ($(this).attr('data-id') === 'add') {
                         $('#chapter_table').append(
@@ -778,8 +815,6 @@
                                 $.el('td', {'class': 'text-center'}).text(lectures.length)
                             ).append(
                                 $.el('td', {'class': 'text-center'}).text(totalDur)
-                            ).append(
-                                $.el('td', {'class': 'text-center'}).text(outputDate)
                             ).append(
                                 $.el('td', {'class': 'text-center d-flex justify-content-center'}).append(
                                     $.el('a', {'class': 'gray-s editChapterBtn', 'title': 'Edit', 'href': '#'}).append(
@@ -794,9 +829,8 @@
                         )
                         chapter.push({
                             title: $('#chapterTitle').val(),
-                            lecture: [...lectures],
                             duration: totalDur,
-                            updateDate: outputDate
+                            lecture: [...lectures],
                         })
 
                         lectures = []
@@ -806,12 +840,10 @@
                             title: $('#chapterTitle').val(),
                             lecture: [...lectures],
                             duration: totalDur,
-                            updateDate: outputDate
                         }
                         $(`#lecture_table tr:eq(${id}) td:eq(1)`).text(temp.title)
                         $(`#lecture_table tr:eq(${id}) td:eq(2)`).text(temp.lecture.length)
                         $(`#lecture_table tr:eq(${id}) td:eq(3)`).text(temp.duration)
-                        $(`#lecture_table tr:eq(${id}) td:eq(4)`).text(outputDate)
                         chapter[id] = temp;
                         $(this).attr('data-id', 'add');
                         $('#saveChapterBtn').text('Add Chapter')

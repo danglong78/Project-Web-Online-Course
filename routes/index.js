@@ -84,8 +84,11 @@ router.route('/auth/facebook/callback')
 router.post('/create_new_course', function (req, res, next) {
     courseRouter.receive_infor(req, res);
 });
-router.post('/create_new_course1', function (req, res, next) {
+router.post('/create_new_course/img', function (req, res, next) {
     courseRouter.receive_img(req, res);
+});
+router.post('/create_new_course/vid', function (req, res, next) {
+    courseRouter.receive_vid(req, res);
 });
 
 

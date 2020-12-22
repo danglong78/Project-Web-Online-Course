@@ -18,7 +18,7 @@ let Imgstorage = multer.diskStorage({
             let errorMess = `The file <strong>${file.originalname}</strong> is invalid.`;
             return callback(errorMess, null);
         }
-        let filename = `${Date.now()}${file.originalname}`;
+        let filename = `${file.originalname}`;
         callback(null, filename);
     }
 });
@@ -26,23 +26,19 @@ let Videostorage = multer.diskStorage({
     destination: (req, file, callback) => {
         callback(null, "upload/video");    },
     filename: (req, file, callback) => {
-
-        let math = ['video/mp4','video/mov','video/wmv'];
-        if (math.indexOf(file.mimetype) === -1) {
-            let errorMess = `The file <strong>${file.originalname}</strong> is invalid.`;
-            return callback(errorMess, null);
-        }
-        let filename = `${Date.now()}${file.originalname}`;
-        callback(null, filename);
+    let filename = `${file.originalname}`;
+    callback(null, filename);
     }
 });
-let uploadImage = multer({storage: Imgstorage}).single("image");
-let uploadSingle= function (name) {
-    multer({storage: storage}).single(name);
-}
-let UploadImgMiddleware = util.promisify(uploadImage);
+let uploadImage = multer({storage: Imgstorage})
+let uploadVideo = multer({storage: Videostorage})
+
+
+
+let UploadImgMiddleware = util.promisify(uploadImage.single("image"));
 
 module.exports = {
     UploadImgMiddleware,
-    uploadSingle
+    uploadVideo,
+    uploadImage
 };
