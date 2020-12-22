@@ -11,5 +11,5 @@ const adminChema = Schema({
 const Admin = mongoose.model('admin', adminChema);
 
 module.exports = {
-    nodel: Admin
+    model: Admin
 }

@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<!-- Mirrored from gambolthemes.net/html-items/cursus_demo_f12/categories.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 20 Jun 2020 12:56:17 GMT -->
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, shrink-to-fit=9">
+    <meta name="description" content="Gambolthemes">
+    <meta name="author" content="Gambolthemes">
+    <title>Cursus - Categories</title>
+
+    <!-- Favicon Icon -->
+    <link rel="icon" type="image/png" href="images/fav.png">
+    <%- include('partials/head'); -%>
+
+
+</head>
+
+<body>
+    <%- include('partials/navbar'); -%>
+        <!-- Header End -->
+        <!-- Left Sidebar Start -->
+        <%- include('partials/left-menu'); -%>
+            <!-- Left Sidebar End -->
+            <!-- Body Start -->
+            <div class="wrapper">
+                <div class="sa4d25">
+                    <div class="container-fluid">
+                        <div class="row">
+
+                            <div class="col-md-12">
+                                <div class="section3125 mt-50">
+                                    <h4 class="item_title  mb-0">Categories Management</h4>
+                                    <div class="la5lo1 cate_521">
+                                        <% for(i=0;i<category.length;i++) {%>
+
+                                            <div class="card" style="border-style: none">
+                                                <div class="card-header d-flex justify-content-between align-items-center"
+                                                    id="heading<%=i%>">
+
+                                                    <a href="#" data-toggle="collapse" data-target="#collapse<%=i%>"
+                                                        class="btn btn-danger">
+                                                        <%= category[i].name%>
+                                                    </a>
+                                                    <div>
+                                                        <a href="#"><i class="uil uil-plus-square addBtn"
+                                                                data-id="<%=category[i]._id%>"
+                                                                style="font-size: 150%;"></i></a>
+                                                        <a href="#"><i class="uil uil-edit-alt editBtn"
+                                                                data-id="<%=category[i]._id%>"
+                                                                style="font-size: 150%;"></i></a>
+                                                        <a href="#"><i class="uil uil-trash-alt delBtn"
+                                                                data-id="<%=category[i]._id%>"
+                                                                style="font-size: 150%;"></i></a>
+                                                    </div>
+                                                </div>
+                                                <div id="collapse<%=i%>" class="collapse "
+                                                    aria-labelledby="heading<%=i%>">
+                                                    <div class="nestable" id="nestable">
+                                                        <ul class="list-group list-group-fit nestable-list-plain mb-0"
+                                                            data-id="<%=category[i]._id%>">
+                                                            <%for(j=0;j<category[i].subCate.length;j++){%>
+                                                                <li class="list-group-item nestable-item">
+                                                                    <div class="media">
+                                                                        <div class="media-body media-middle">
+                                                                            <%=category[i].subCate[j].name%>
+                                                                        </div>
+                                                                        <div class="media-right text-right">
+                                                                            <div style="width:100px">
+                                                                                <a href="#"
+                                                                                    class=" text-danger editSubBtn"
+                                                                                    value="">
+                                                                                    <i class="uil uil-edit-alt"
+                                                                                        style="font-size: 150%;"></i>
+                                                                                </a>
+                                                                                <a href="#"
+                                                                                    data-id="<%=category[i].subCate[j]._id%>"
+                                                                                    class=" text-danger delSubBtn"><i
+                                                                                        class="uil uil-trash-alt"
+                                                                                        style="font-size: 150%;"></i>
+                                                                                </a>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </li>
+                                                                <%}%>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <%}%>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <%- include('partials/footer'); -%>
+
+            </div>
+            <!-- Body End -->
+
+            <script src="js/vertical-responsive-menu.min.js"></script>
+            <script src="js/jquery-3.3.1.min.js"></script>
+            <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+            <script src="vendor/OwlCarousel/owl.carousel.js"></script>
+            <script src="vendor/semantic/semantic.min.js"></script>
+            <script src="js/custom.js"></script>
+            <script src="js/night-mode.js"></script>
+
+            <script>
+                $.extend({
+                    el: function (el, props) {
+                        var $el = $(document.createElement(el));
+                        $el.attr(props);
+                        return $el;
+                    }
+                });
+                $(document).ready(function () {
+
+                    $('.card-header').on('click', '.delBtn', function () {
+                        var x
+                        $.ajax({
+                            async: false,
+                            url: "/category/delCate",
+                            type: 'POST',
+                            contentType: "application/json; charset=UTF-8",
+                            data: JSON.stringify({ id: $(this).attr("data-id") }),
+                            success: function (data) {
+                                x = "Success";
+                            },
+                            error: function (result) {
+                                alert('error ' + JSON.stringify(result));
+                            }
+
+                        })
+                        if (x === "Success") {
+                            $(this).closest('.card').remove()
+                        }
+                    })
+                    $('.card-header').on('click', '.editBtn', function () {
+                        $name = $(this).closest('.card-header').find('a.btn');
+                        $(this).closest('.card-header').prepend(
+                            $.el('div', { 'class': 'input-group', "style": 'width:50%;' }).append(
+                                $.el('input', { 'type': 'text', 'class': 'form-control ', 'aria-describedby': "saveCateBtn" })
+                            ).append(
+                                $.el('button', { 'id': 'saveCateBtn', 'class': 'btn btn-outline-danger', 'style': 'margin-left:20px', 'data-id': `${$(this).attr('data-id')}` }).text('Save')
+                            )
+
+                        )
+                        $name.remove();
+                    })
+                    $('.card-header').on('click', '#saveCateBtn', function () {
+                        var x
+                        $.ajax({
+                            async: false,
+                            url: "/category/editCate",
+                            type: 'POST',
+                            contentType: "application/json; charset=UTF-8",
+                            data: JSON.stringify({ id: $(this).attr("data-id"), name: $(this).prev().val() }),
+                            success: function (data) {
+                                x = "Success";
+                            },
+                            error: function (result) {
+                                alert('error ' + JSON.stringify(result));
+                            }
+
+                        })
+                        if (x === "Success") {
+                            let name = $(this).prev().val()
+                            $(this).closest('.card-header').prepend(
+                                $.el('a', {
+                                    'class': 'btn btn-danger', 'data-toggle': 'collapse', 'href': '#',
+                                    'data-target': `#collapse${$('.card-header').index($(this).closest('.card-header'))}`
+                                }).text(name)
+                            )
+                            $(this).parent().remove();
+
+
+                        }
+                    })
+                    $('.card-header').on('click', '.addBtn', function () {
+                        $(`ul[data-id="${$(this).attr('data-id')}"]`).append(
+                            $.el('li', { 'class': 'list-group-item nestable-item' }).append(
+                                $.el('div', { 'class': 'media' }).append(
+                                    $.el('div', { 'class': 'media-body media-middle input-group' }).append(
+                                        $.el('input', { 'type': 'text', 'class': 'form-control', 'aria-describedby': "saveSubCateBtn" })
+                                    ).append(
+                                        $.el('button', { 'id': 'saveSubCateBtn', 'class': 'btn btn-outline-danger', 'style': 'margin-left:20px' }).text('Save')
+                                    )
+                                ).append(
+                                    $.el('div', { 'class': 'media-right text-right' }).append(
+                                        $.el('div', { 'style': 'width:100px' }).append(
+                                            $.el('a', { 'class': 'text-danger editSubBtn' }).append(
+                                                $.el('i', { 'class': 'uil uil-edit-alt', 'style': 'font-size: 150%;' })
+                                            )
+                                        ).append(
+                                            $.el('a', { 'class': 'text-danger delSubBtn' }).append(
+                                                $.el('i', { 'class': 'uil uil-trash-alt', 'style': 'font-size: 150%;' })
+                                            )
+                                        )
+                                    )
+                                )
+                            )
+                        )
+                    });
+
+                    $('.nestable').on('click', '.delSubBtn', function () {
+                        var x;
+                        $.ajax({
+                            async: false,
+                            url: "/category/delSubCate",
+                            type: 'POST',
+                            contentType: "application/json; charset=UTF-8",
+                            data: JSON.stringify({ id: $(this).closest('ul').attr("data-id"), idSub: $(this).attr('data-id') }),
+                            success: function (data) {
+                                x = "Success";
+                            },
+                            error: function (result) {
+                                alert('error ' + JSON.stringify(result));
+                            }
+
+                        })
+                        if (x === "Success")
+                            $(this).closest('.nestable-item').remove();
+                    });
+                    $('.nestable').on('click', '#saveSubCateBtn', function () {
+                        var x;
+                        $.ajax({
+                            async: false,
+                            url: "/category/addSubCate",
+                            type: 'POST',
+                            contentType: "application/json; charset=UTF-8",
+                            data: JSON.stringify({ id: $(this).closest('ul').attr("data-id"), name: $(this).prev().val() }),
+                            success: function (data) {
+                                x = "Success";
+                            },
+                            error: function (result) {
+                                alert('error ' + JSON.stringify(result));
+                            }
+
+                        })
+                        if (x === "Success") {
+                            let name = $(this).prev().val()
+                            $(this).closest('.media-body').empty().text(name);
+
+
+                        }
+                    })
+
+                })
+            </script>
+</body>
+
+<!-- Mirrored from gambolthemes.net/html-items/cursus_demo_f12/categories.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 20 Jun 2020 12:56:17 GMT -->
+
+</html>
