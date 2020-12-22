@@ -1,5 +1,5 @@
-const Student = require(__basedir + 'models/student').model;
-const Course = require(__basedir + 'models/course').model;
+const Student = require(__basedir + '/models/student').model;
+const Course = require(__basedir + '/models/course').model;
 
 
 module.exports.isAuthenticated = (req, res, next) => {
@@ -16,7 +16,7 @@ module.exports.isAuthenticated = (req, res, next) => {
 }
 
 // Need to check isAuthenticated first so that req.user exists
-module.exports.isJoinedIn = (req, res, next) => {
+module.exports.isJoinedIn = async (req, res, next) => {
     const studentID = req.user.id;
     const courseID = req.body.courseID || req.params.courseID || "0";
 
