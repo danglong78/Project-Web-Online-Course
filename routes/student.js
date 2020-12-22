@@ -63,7 +63,7 @@ router.route('/join')
 
 router.route('/learn/:courseID')
   .get(isJoinedIn, (req, res) => {
-    res.render('learn');
+    res.render('learn', { course });
   });
 
 router.route('/progress/add')

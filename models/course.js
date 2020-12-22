@@ -27,7 +27,6 @@ const courseSchema = mongoose.Schema({
             file: String
         }]
     }],
-    viewer: Number,
     participant: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Student'
@@ -40,7 +39,22 @@ const courseSchema = mongoose.Schema({
         score: String,
         review: String
 
-    }]
+    }],
+    viewCount: {
+        type: Number,
+        index: true
+    },
+    enrollCount: {
+        type: Number,
+        index: true
+    },
+    favoriteCount: {
+        type: Number,
+        index: true
+    },
+    createdAt: {
+        type: Date
+    }
 
 });
 Course = mongoose.model('Course', courseSchema)

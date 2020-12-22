@@ -1,5 +1,5 @@
-const Student = require(__basedir + 'models/student').model;
-const Course = require(__basedir + 'models/course').model;
+const Student = require(__basedir + '/models/student').model;
+const Course = require(__basedir + '/models/course').model;
 
 const getFavorites = async (studentID) => {
     try {
