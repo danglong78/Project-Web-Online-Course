@@ -2,20 +2,21 @@ if (process.env.NODE_ENV !== "production") {
   require('dotenv').config();
 }
 
+global.__host = "http://localhost:3000"
 
 const morgan = require('morgan');
 const createError = require('http-errors');
 const express = require('express');
+require('express-async-errors');
 const path = require('path');
 global.__basedir = __dirname;
 const cookieParser = require('cookie-parser');
-const logger = require('morgan');
 const flash = require('connect-flash');
 const session = require('express-session');
 const database = require('./models/database');
-
+const bodyParser = require('body-parser');
 const indexRouter = require('./routes/index');
-const usersRouter = require('./routes/users');
+const studentRouter = require('./routes/student');
 
 const app = express();
 
@@ -25,8 +26,8 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
 // app.use(morgan('tiny'));
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(session({
@@ -47,7 +48,7 @@ app.use((req, res, next) => {
 
 // Routing
 app.use('/', indexRouter);
-app.use('/user', usersRouter);
+app.use('/student', isAuthenticated, studentRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
