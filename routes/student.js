@@ -1,11 +1,12 @@
 const express = require('express');
 const router = express.Router();
-const addFavorite = require(__basedir + '/controllers/student/add_favorite');
-const getFavorites = require(__basedir + '/controllers/student/get_favorite');
-const deleteFavorite = require(__basedir + '/controllers/student/delete_favorite');
-const getCourses = require(__basedir + '/controllers/student/get_courses');
-const addProgress = require(__basedir + '/controllers/student/add_progress');
-const rateCourse = require(__basedir + '/controllers/student/rate_course');
+const addFavorite = require('../controllers/student/add_favorite');
+const getFavorites = require('../controllers/student/get_favorites');
+const deleteFavorite = require('../controllers/student/delete_favorite');
+const getCourses = require('../controllers/student/get_courses');
+const addProgress = require('../controllers/student/add_progress');
+const rateCourse = require('../controllers/student/rate_course');
+const isJoinedIn = require('../controllers/middlewares').isJoinedIn;
 
 
 router.route('/')
@@ -63,7 +64,7 @@ router.route('/join')
 
 router.route('/learn/:courseID')
   .get(isJoinedIn, (req, res) => {
-    res.render('learn');
+    res.render('learn', { course });
   });
 
 router.route('/progress/add')

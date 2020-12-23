@@ -4,6 +4,7 @@ const courseRouter = require('../routes/course');
 const passport = require('passport');
 const signUp = require(__basedir + '/controllers/credential/signup');
 const to = require('await-to-js').default;
+const adminRouter = require('./admin');
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
@@ -82,13 +83,13 @@ router.route('/auth/facebook/callback')
     }
   });
 router.post('/create_new_course', function (req, res, next) {
-    courseRouter.receive_infor(req, res);
+  courseRouter.receive_infor(req, res);
 });
 router.post('/create_new_course/img', function (req, res, next) {
-    courseRouter.receive_img(req, res);
+  courseRouter.receive_img(req, res);
 });
 router.post('/create_new_course/vid', function (req, res, next) {
-    courseRouter.receive_vid(req, res);
+  courseRouter.receive_vid(req, res);
 });
 
 
@@ -103,3 +104,8 @@ router.get('/lecture_detail', function (req, res) {
 router.get('/my_course', function (req, res) {
   res.render('student_mycourse');
 });
+
+router.get('/admin_cate', function (req, res) {
+  adminRouter.View_Cate(res);
+});
+

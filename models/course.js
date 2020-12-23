@@ -5,47 +5,62 @@ mongoose.Promise = global.Promise;
 
 const courseSchema = mongoose.Schema({
     title: String,
-    short_description: {type: String,text: true},
-    detail_description:{type: String,text: true},
+    short_description: { type: String, text: true },
+    detail_description: { type: String, text: true },
     price: Number,
     finished: Boolean,
     updateDate: Date,
-    avatar:{type: String,text: true},
-    teacher:{
+    avatar: { type: String, text: true },
+    teacher: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Teacher'
     },
-    category:[{
+    category: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Category'
     }],
 
-    chapter:[{
+    chapter: [{
         title: String,
         duration: Number,
-        lecture:[{
-            title:String,
+        lecture: [{
+            title: String,
             duration: Number,
             content: String,
             file: String
         }]
     }],
-    viewer: Number,
-    participant:[{
+
+    participant: [{
         type: mongoose.Schema.Types.ObjectId,
-        ref:'Student'
+        ref: 'Student'
     }],
-    comment:[{
-        student:{
-        type: mongoose.Schema.Types.ObjectId,
-        ref:'Student'
+    comment: [{
+        student: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Student'
         },
         content: String
 
-    }]
+    }],
+    viewCount: {
+        type: Number,
+        index: true
+    },
+    enrollCount: {
+        type: Number,
+        index: true
+    },
+    favoriteCount: {
+        type: Number,
+        index: true
+    },
+    createdAt: {
+        type: Date
+    }
 
 });
-Course = mongoose.model('Course',courseSchema)
+Course = mongoose.model('Course', courseSchema)
 
 module.exports = {
     model: Course
