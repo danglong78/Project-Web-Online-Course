@@ -12,16 +12,15 @@
         <title>Learnic - Create New Course</title>
 
         <!-- Favicon Icon -->
-        <link rel="icon" type="image/png" href="images/fav.png">
+        <link rel="icon" type="image/png" href="/images/fav.png">
 
         <!-- Stylesheets -->
+
         <%- include('partials/head'); -%>
-
-
-        <link href="css/instructor-dashboard.css" rel="stylesheet">
-        <link href="css/instructor-responsive.css" rel="stylesheet">
-        <link href="css/vertical-responsive-menu1.min.css" rel="stylesheet">
-        <link href="css/jquery-steps.css" rel="stylesheet">
+        <link href="/css/instructor-dashboard.css" rel="stylesheet" type="text/css">
+        <link href="/css/instructor-responsive.css" rel=rel="stylesheet" type="text/css">
+        <link href="/css/vertical-responsive-menu1.min.css" rel="stylesheet" type="text/css">
+        <link href="/css/jquery-steps.css" rel="stylesheet">
         <script
                 type="text/javascript"
                 src='https://cdn.tiny.cloud/1/l7uyy2f87we33kyvy3smlnrcrkdof0ulv3tcn44r5xwkox4h/tinymce/5/tinymce.min.js' referrerpolicy="origin">
@@ -290,7 +289,7 @@
                                                             <div class="view_all_dt">
                                                                 <div class="view_img_left">
                                                                     <div class="view__img">
-                                                                        <img src="images/courses/add_img.jpg" alt="">
+                                                                        <img src="/images/courses/add_img.jpg" alt="">
                                                                     </div>
                                                                 </div>
                                                                 <div class="view_img_right">
@@ -479,14 +478,14 @@
     </div>
     <!-- Body End -->
 
-    <script src="js/vertical-responsive-menu.min.js"></script>
-    <script src="js/jquery-3.3.1.min.js"></script>
-    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script src="vendor/OwlCarousel/owl.carousel.js"></script>
-    <script src="vendor/semantic/semantic.min.js"></script>
-    <script src="js/custom.js"></script>
-    <script src="js/night-mode.js"></script>
-    <script src="js/jquery-steps.min.js"></script>
+    <script src="/js/vertical-responsive-menu.min.js"></script>
+    <script src="/js/jquery-3.3.1.min.js"></script>
+    <script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="/vendor/OwlCarousel/owl.carousel.js"></script>
+    <script src="/vendor/semantic/semantic.min.js"></script>
+    <script src="/js/custom.js"></script>
+    <script src="/js/night-mode.js"></script>
+    <script src="/js/jquery-steps.min.js"></script>
     <!--Hàm chung-->
     <script>
         $('#add-course-tab').steps({
@@ -689,7 +688,7 @@
                 $('#inputImage').val("");
                 $(this).attr('hidden','true');
                 $('#UploadImgBtn').text('Upload')
-                $('.view__img img').attr('src',"images/courses/add_img.jpg")
+                $('.view__img img').attr('src',"/images/courses/add_img.jpg")
 
             });
 
