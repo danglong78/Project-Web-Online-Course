@@ -147,14 +147,14 @@
                             $.el('div', { 'class': 'input-group', "style": 'width:50%;' }).append(
                                 $.el('input', { 'type': 'text', 'class': 'form-control ', 'aria-describedby': "saveCateBtn" })
                             ).append(
-                                $.el('button', { 'id': 'saveCateBtn', 'class': 'btn btn-outline-danger', 'style': 'margin-left:20px', 'data-id': `${$(this).attr('data-id')}` }).text('Save')
+                                $.el('button', { 'id': 'saveCateBtn', 'class': 'btn btn-outline-danger', 'style': 'margin-left:20px', 'data-id': `${$(this).attr("data-id")}` }).text('Save')
                             )
 
                         )
                         $name.remove();
                     })
                     $('.card-header').on('click', '#saveCateBtn', function () {
-                        var x
+                        var x;
                         $.ajax({
                             async: false,
                             url: "/category/editCate",
@@ -162,7 +162,13 @@
                             contentType: "application/json; charset=UTF-8",
                             data: JSON.stringify({ id: $(this).attr("data-id"), name: $(this).prev().val() }),
                             success: function (data) {
-                                x = "Success";
+                                if (data.success) {
+                                    x = "Success";
+                                }
+                                else {
+                                    x = data.pre_name;
+                                    alert("Can not Rename This Category...");
+                                }
                             },
                             error: function (result) {
                                 alert('error ' + JSON.stringify(result));
@@ -179,7 +185,14 @@
                             )
                             $(this).parent().remove();
 
-
+                        } else {
+                            $(this).closest('.card-header').prepend(
+                                $.el('a', {
+                                    'class': 'btn btn-danger', 'data-toggle': 'collapse', 'href': '#',
+                                    'data-target': `#collapse${$('.card-header').index($(this).closest('.card-header'))}`
+                                }).text(x)
+                            )
+                            $(this).parent().remove();
                         }
                     })
                     $('.card-header').on('click', '.addBtn', function () {
@@ -217,7 +230,12 @@
                             contentType: "application/json; charset=UTF-8",
                             data: JSON.stringify({ id: $(this).closest('ul').attr("data-id"), idSub: $(this).attr('data-id') }),
                             success: function (data) {
-                                x = "Success";
+                                if (data.success) {
+                                    x = "Success";
+                                }
+                                else {
+                                    alert("Can not Delete This Category...");
+                                }
                             },
                             error: function (result) {
                                 alert('error ' + JSON.stringify(result));
@@ -236,7 +254,12 @@
                             contentType: "application/json; charset=UTF-8",
                             data: JSON.stringify({ id: $(this).closest('ul').attr("data-id"), name: $(this).prev().val() }),
                             success: function (data) {
-                                x = "Success";
+                                if (data.success) {
+                                    x = "Success";
+                                } else {
+                                    alert("Add New Category Fail...");
+                                }
+
                             },
                             error: function (result) {
                                 alert('error ' + JSON.stringify(result));
@@ -246,11 +269,10 @@
                         if (x === "Success") {
                             let name = $(this).prev().val()
                             $(this).closest('.media-body').empty().text(name);
-
-
+                        } else {
+                            $(this).closest('.nestable-item').remove();
                         }
                     })
-
                 })
             </script>
 </body>

@@ -20,6 +20,7 @@ const admin_Cate_View = async function (res) {
                 });
             }
             category.push({
+                _id: main_cate[i]._id,
                 name: name,
                 subCate: subcate
             });
