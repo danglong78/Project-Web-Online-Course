@@ -33,7 +33,11 @@
 
                             <div class="col-md-12">
                                 <div class="section3125 mt-50">
-                                    <h4 class="item_title  mb-0">Categories Management</h4>
+                                    <div class=" d-flex align-content-center justify-content-between" style="padding: 2px;">
+                                        <h4 class="item_title  mb-0">Categories Management</h4>
+                                        <a href="#" class=" addBtn btn btn-danger btn-sm" style="padding: 2px 2px" data-toggle="modal" data-target="#CateModal"><i class="uil uil-plus-square "
+                                                       style="font-size: 150%;"></i>Add new</a>
+                                    </div>
                                     <div class="la5lo1 cate_521">
                                         <% for(i=0;i<category.length;i++) {%>
 
@@ -65,14 +69,14 @@
                                                             <%for(j=0;j<category[i].subCate.length;j++){%>
                                                                 <li class="list-group-item nestable-item">
                                                                     <div class="media">
-                                                                        <div class="media-body media-middle">
+                                                                        <div class="media-body media-middle input-group">
                                                                             <%=category[i].subCate[j].name%>
                                                                         </div>
                                                                         <div class="media-right text-right">
                                                                             <div style="width:100px">
                                                                                 <a href="#"
                                                                                     class=" text-danger editSubBtn"
-                                                                                    value="">
+                                                                                   data-id="<%=category[i].subCate[j]._id%>">
                                                                                     <i class="uil uil-edit-alt"
                                                                                         style="font-size: 150%;"></i>
                                                                                 </a>
@@ -103,156 +107,160 @@
             </div>
             <!-- Body End -->
 
-            <script src="js/vertical-responsive-menu.min.js"></script>
-            <script src="js/jquery-3.3.1.min.js"></script>
-            <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-            <script src="vendor/OwlCarousel/owl.carousel.js"></script>
-            <script src="vendor/semantic/semantic.min.js"></script>
-            <script src="js/custom.js"></script>
-            <script src="js/night-mode.js"></script>
+        <script src="js/vertical-responsive-menu.min.js"></script>
+        <script src="js/jquery-3.3.1.min.js"></script>
+        <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+        <script src="vendor/OwlCarousel/owl.carousel.js"></script>
+        <script src="vendor/semantic/semantic.min.js"></script>
+        <script src="js/custom.js"></script>
+        <script src="js/night-mode.js"></script>
 
-            <script>
-                $.extend({
-                    el: function (el, props) {
-                        var $el = $(document.createElement(el));
-                        $el.attr(props);
-                        return $el;
+        <script>
+            $.extend({
+                el: function (el, props) {
+                    var $el = $(document.createElement(el));
+                    $el.attr(props);
+                    return $el;
+                }
+            });
+            $(document).ready(function () {
+
+                $('.card-header').on('click', '.delBtn', function () {
+                    var x
+                    $.ajax({
+                        async: false,
+                        url: "/category/delCate",
+                        type: 'POST',
+                        contentType: "application/json; charset=UTF-8",
+                        data: JSON.stringify({ id: $(this).attr("data-id") }),
+                        success: function (data) {
+                            x = "Success";
+                        },
+                        error: function (result) {
+                            alert('error ' + JSON.stringify(result));
+                        }
+
+                    })
+                    if (x === "Success") {
+                        $(this).closest('.card').remove()
                     }
-                });
-                $(document).ready(function () {
-
-                    $('.card-header').on('click', '.delBtn', function () {
-                        var x
-                        $.ajax({
-                            async: false,
-                            url: "/category/delCate",
-                            type: 'POST',
-                            contentType: "application/json; charset=UTF-8",
-                            data: JSON.stringify({ id: $(this).attr("data-id") }),
-                            success: function (data) {
-                                x = "Success";
-                            },
-                            error: function (result) {
-                                alert('error ' + JSON.stringify(result));
-                            }
-
-                        })
-                        if (x === "Success") {
-                            $(this).closest('.card').remove()
-                        }
-                    })
-                    $('.card-header').on('click', '.editBtn', function () {
-                        $name = $(this).closest('.card-header').find('a.btn');
-                        $(this).closest('.card-header').prepend(
-                            $.el('div', { 'class': 'input-group', "style": 'width:50%;' }).append(
-                                $.el('input', { 'type': 'text', 'class': 'form-control ', 'aria-describedby': "saveCateBtn" })
-                            ).append(
-                                $.el('button', { 'id': 'saveCateBtn', 'class': 'btn btn-outline-danger', 'style': 'margin-left:20px', 'data-id': `${$(this).attr("data-id")}` }).text('Save')
-                            )
-
+                })
+                $('.card-header').on('click', '.editBtn', function () {
+                    $name = $(this).closest('.card-header').find('a.btn');
+                    $(this).closest('.card-header').prepend(
+                        $.el('div', { 'class': 'input-group', "style": 'width:50%;' }).append(
+                            $.el('input', { 'type': 'text', 'class': 'form-control ', 'aria-describedby': "saveCateBtn" })
+                        ).append(
+                            $.el('button', { 'id': 'saveCateBtn', 'class': 'btn btn-outline-danger', 'style': 'margin-left:20px', 'data-id': `${$(this).attr("data-id")}` }).text('Save')
                         )
-                        $name.remove();
-                    })
-                    $('.card-header').on('click', '#saveCateBtn', function () {
-                        var x;
-                        $.ajax({
-                            async: false,
-                            url: "/category/editCate",
-                            type: 'POST',
-                            contentType: "application/json; charset=UTF-8",
-                            data: JSON.stringify({ id: $(this).attr("data-id"), name: $(this).prev().val() }),
-                            success: function (data) {
-                                if (data.success) {
-                                    x = "Success";
-                                }
-                                else {
-                                    x = data.pre_name;
-                                    alert("Can not Rename This Category...");
-                                }
-                            },
-                            error: function (result) {
-                                alert('error ' + JSON.stringify(result));
+
+                    )
+                    $name.remove();
+                })
+                $('.card-header').on('click', '#saveCateBtn', function () {
+                    var x;
+                    $.ajax({
+                        async: false,
+                        url: "/category/editCate",
+                        type: 'POST',
+                        contentType: "application/json; charset=UTF-8",
+                        data: JSON.stringify({ id: $(this).attr("data-id"), name: $(this).prev().val() }),
+                        success: function (data) {
+                            if (data.success) {
+                                x = "Success";
                             }
-
-                        })
-                        if (x === "Success") {
-                            let name = $(this).prev().val()
-                            $(this).closest('.card-header').prepend(
-                                $.el('a', {
-                                    'class': 'btn btn-danger', 'data-toggle': 'collapse', 'href': '#',
-                                    'data-target': `#collapse${$('.card-header').index($(this).closest('.card-header'))}`
-                                }).text(name)
-                            )
-                            $(this).parent().remove();
-
-                        } else {
-                            $(this).closest('.card-header').prepend(
-                                $.el('a', {
-                                    'class': 'btn btn-danger', 'data-toggle': 'collapse', 'href': '#',
-                                    'data-target': `#collapse${$('.card-header').index($(this).closest('.card-header'))}`
-                                }).text(x)
-                            )
-                            $(this).parent().remove();
+                            else {
+                                x = data.pre_name;
+                                alert("Can not Rename This Category...");
+                            }
+                        },
+                        error: function (result) {
+                            alert('error ' + JSON.stringify(result));
                         }
+
                     })
-                    $('.card-header').on('click', '.addBtn', function () {
-                        $(`ul[data-id="${$(this).attr('data-id')}"]`).append(
-                            $.el('li', { 'class': 'list-group-item nestable-item' }).append(
-                                $.el('div', { 'class': 'media' }).append(
-                                    $.el('div', { 'class': 'media-body media-middle input-group' }).append(
-                                        $.el('input', { 'type': 'text', 'class': 'form-control', 'aria-describedby': "saveSubCateBtn" })
-                                    ).append(
-                                        $.el('button', { 'id': 'saveSubCateBtn', 'class': 'btn btn-outline-danger', 'style': 'margin-left:20px' }).text('Save')
-                                    )
+                    if (x === "Success") {
+                        let name = $(this).prev().val()
+                        $(this).closest('.card-header').prepend(
+                            $.el('a', {
+                                'class': 'btn btn-danger', 'data-toggle': 'collapse', 'href': '#',
+                                'data-target': `#collapse${$('.card-header').index($(this).closest('.card-header'))}`
+                            }).text(name)
+                        )
+                        $(this).parent().remove();
+
+                    } else {
+                        $(this).closest('.card-header').prepend(
+                            $.el('a', {
+                                'class': 'btn btn-danger', 'data-toggle': 'collapse', 'href': '#',
+                                'data-target': `#collapse${$('.card-header').index($(this).closest('.card-header'))}`
+                            }).text(x)
+                        )
+                        $(this).parent().remove();
+                    }
+                })
+                $('.card-header').on('click', '.addBtn', function () {
+                    $(`ul[data-id="${$(this).attr('data-id')}"]`).append(
+                        $.el('li', { 'class': 'list-group-item nestable-item' }).append(
+                            $.el('div', { 'class': 'media' }).append(
+                                $.el('div', { 'class': 'media-body media-middle input-group' }).append(
+                                    $.el('input', { 'type': 'text', 'class': 'form-control', 'aria-describedby': "saveSubCateBtn" })
                                 ).append(
-                                    $.el('div', { 'class': 'media-right text-right' }).append(
-                                        $.el('div', { 'style': 'width:100px' }).append(
-                                            $.el('a', { 'class': 'text-danger editSubBtn' }).append(
-                                                $.el('i', { 'class': 'uil uil-edit-alt', 'style': 'font-size: 150%;' })
-                                            )
-                                        ).append(
-                                            $.el('a', { 'class': 'text-danger delSubBtn' }).append(
-                                                $.el('i', { 'class': 'uil uil-trash-alt', 'style': 'font-size: 150%;' })
-                                            )
+                                    $.el('button', { 'id': 'saveSubCateBtn','data-id':'add', 'class': 'btn btn-outline-danger', 'style': 'margin-left:20px' }).text('Save')
+                                )
+                            ).append(
+                                $.el('div', { 'class': 'media-right text-right' }).append(
+                                    $.el('div', { 'style': 'width:100px' }).append(
+                                        $.el('a', { 'class': 'text-danger editSubBtn' }).append(
+                                            $.el('i', { 'class': 'uil uil-edit-alt', 'style': 'font-size: 150%;' })
+                                        )
+                                    ).append(
+                                        $.el('a', { 'class': 'text-danger delSubBtn' }).append(
+                                            $.el('i', { 'class': 'uil uil-trash-alt', 'style': 'font-size: 150%;' })
                                         )
                                     )
                                 )
                             )
                         )
-                    });
+                    )
+                });
 
-                    $('.nestable').on('click', '.delSubBtn', function () {
-                        var x;
-                        $.ajax({
-                            async: false,
-                            url: "/category/delSubCate",
-                            type: 'POST',
-                            contentType: "application/json; charset=UTF-8",
-                            data: JSON.stringify({ id: $(this).closest('ul').attr("data-id"), idSub: $(this).attr('data-id') }),
-                            success: function (data) {
-                                if (data.success) {
-                                    x = "Success";
-                                }
-                                else {
-                                    alert("Can not Delete This Category...");
-                                }
-                            },
-                            error: function (result) {
-                                alert('error ' + JSON.stringify(result));
+                $('.nestable').on('click', '.delSubBtn', function () {
+                    var x;
+                    $.ajax({
+                        async: false,
+                        url: "/category/delSubCate",
+                        type: 'POST',
+                        contentType: "application/json; charset=UTF-8",
+                        data: JSON.stringify({  idSub: $(this).attr('data-id') }),
+                        success: function (data) {
+                            if (data.success) {
+                                x = "Success";
                             }
+                            else {
+                                alert("Can not Delete This Category...");
+                            }
+                        },
+                        error: function (result) {
+                            alert('error ' + JSON.stringify(result));
+                        }
 
-                        })
-                        if (x === "Success")
-                            $(this).closest('.nestable-item').remove();
-                    });
-                    $('.nestable').on('click', '#saveSubCateBtn', function () {
-                        var x;
+                    })
+                    if (x === "Success")
+                        $(this).closest('.nestable-item').remove();
+                });
+                $('.nestable').on('click', '#saveSubCateBtn', function () {
+                    var x;
+                    if($(this).attr('data-id')==="add") {
                         $.ajax({
                             async: false,
                             url: "/category/addSubCate",
                             type: 'POST',
                             contentType: "application/json; charset=UTF-8",
-                            data: JSON.stringify({ id: $(this).closest('ul').attr("data-id"), name: $(this).prev().val() }),
+                            data: JSON.stringify({
+                                id: $(this).closest('ul').attr("data-id"),
+                                name: $(this).prev().val()
+                            }),
                             success: function (data) {
                                 if (data.success) {
                                     x = "Success";
@@ -272,9 +280,203 @@
                         } else {
                             $(this).closest('.nestable-item').remove();
                         }
-                    })
+                    }
+                    else{
+                        $.ajax({
+                            async: false,
+                            url: "/category/editSubCate",
+                            type: 'POST',
+                            contentType: "application/json; charset=UTF-8",
+                            data: JSON.stringify({
+                                id: $(this).attr("data-id"),
+                                name: $(this).prev().val()
+                            }),
+                            success: function (data) {
+                                if (data.success) {
+                                    x = "Success";
+                                } else {
+                                    alert("Edit New Category Fail...");
+                                }
+
+                            },
+                            error: function (result) {
+                                alert('error ' + JSON.stringify(result));
+                            }
+
+                        })
+                        if (x === "Success") {
+                            let name = $(this).prev().val()
+                            $(this).closest('.media-body').empty().text(name);
+                        }
+                    }
                 })
-            </script>
+                $('.nestable').on('click', '.editSubBtn', function () {
+                    let name= $(this).closest('.media').find('.media-body').text().trim()
+                    $(this).closest('.media').find('.media-body').empty().append(
+                        $.el('input', { 'type': 'text', 'class': 'form-control', 'aria-describedby': "saveSubCateBtn",'value':name })
+                    ).append(
+                        $.el('button', { 'id': 'saveSubCateBtn','data-id':$(this).attr('data-id') ,'class': 'btn btn-outline-danger', 'style': 'margin-left:20px' }).text('Save')
+                    )
+                    $(this).closest('.media').find('.media-body').find('input').focus()
+                });
+                $('#CateModal').on('click','.delBtn', function () {
+                    $(this).closest('li').remove();
+                })
+                $('#CateModal').on('click','.addBtn',function () {
+                    $('#CateModal ul').append(
+                        $.el('li', { 'class': 'list-group-item' }).append(
+                            $.el('div', { 'class': 'float-left' }).append(
+                                $.el('div', { 'class': 'input-group' }).append(
+                                    $.el('input', { 'type': 'text', 'class': 'form-control', 'aria-describedby': "saveSubCateBtn" })
+                                ).append(
+                                    $.el('button', {'data-id':'add', 'class': 'btn btn-danger saveBtn', 'style': 'margin-left:20px' }).text('Save')
+                                )
+                            )
+                        ).append(
+                            $.el('div', { 'class': 'float-right' }).append(
+                                $.el('a', { 'class': 'text-danger delBtn' }).append(
+                                    $.el('i', { 'class': 'uil uil-trash-alt', 'style': 'font-size: 150%;' })
+                                )
+                            )
+                        )
+                    )
+                })
+                $('#CateModal').on('click','.saveBtn', function () {
+                    let name = $(this).prev().val();
+                    $(this).closest('div.float-left').empty().append($.el('span',{}).html(name))
+                })
+                $('#CateModal').on('click','.saveModalBtn',function () {
+                    let x;
+                    if($('#CateModal input').val()==="")
+                        $('#CateModal input').tooltip("show");
+                    else if($('#CateModal li').length===0) {
+                        $('#CateModal ul').tooltip("show");
+                    }
+
+                    else {
+                        let subCate=[];
+                        $('#CateModal li span').each(function (i) {
+                            subCate.push($(this).text());
+                        })
+                        $.ajax({
+                            async: false,
+                            url: "/category/addCate",
+                            type: 'POST',
+                            contentType: "application/json; charset=UTF-8",
+                            data: JSON.stringify({
+                                name: $('#CateModal input').val(),
+                                subCate:subCate
+                            }),
+                            success: function (data) {
+                                if (data.success) {
+                                    x = "Success";
+                                    $('.la5lo1').append(
+                                        $.el('div',{'class':'card','style':'border-style: none'}).append(
+                                            $.el('div',{'class':'card-header d-flex justify-content-between align-items-center','id':`heading${$('.la5lo1 .card').length}`}).append(
+                                                $.el('a',{'href':'#','data-toggle':'collapse','data-target':`#collapse${$('.la5lo1 .card').length}`,'class':'btn btn-danger'}).text($('#CateModal input').val())
+                                            )
+                                        ).append(
+                                            $.el('div',{}).append(
+                                                $.el('a',{'href':'#'}).append(
+                                                    $.el('i',{'class':'uil uil-plus-square addBtn','data-id':`${data.cateID}`,'style':'font-size:150%'})
+                                                )
+                                            ).append(
+                                                $.el('a',{'href':'#'}).append(
+                                                    $.el('i',{'class':'uil uil-edit-square editBtn','data-id':`${data.cateID}`,'style':'font-size:150%'})
+                                                )
+                                            ).append(
+                                                $.el('a',{'href':'#'}).append(
+                                                    $.el('i',{'class':'uil uil-trash-square delBtn','data-id':`${data.cateID}`,'style':'font-size:150%'})
+                                                )
+                                            )
+                                        )
+                                    ).append(
+                                        $.el('div',{'id':`collapse${$('.la5lo1 .card').length}`,'class':'collapse','aria-labelledby':`heading${$('.la5lo1 .card').length}`}).append(
+                                            $.el('div',{'class':'nestable','id':'nestable'}).append(
+                                                $.el('ul',{'class':'list-group list-group-fit nestable-list-plain mb-0','data-id':`${data.cateID}`})
+                                            )
+                                        )
+                                    )
+                                for (var i =0;i<subCate.length;i++) {
+                                    $('.la5lo1 .collapse ul').last().append(
+                                        $.el('li',{'class':'list-group-item nestable-item'}).append(
+                                            $.el('div',{'class':'media'}).append(
+                                                $.el('div',{'class':'media-body media-middle input-group'}).text(subCate[i])
+                                            )
+                                        ).append(
+                                            $.el('div',{'class':'media-right text-right'}).append(
+                                                $.el('div',{'style':'width:100px'}).append(
+                                                    $.el('a',{'href':'#','class':'text-danger editSubBtn','data-id':`${data.subCateID[i]}`}).append(
+                                                        $.el('i',{'class':'uil uil-edit-alt','style':'font-size:150%'})
+                                                    )
+                                                ).append(
+                                                    $.el('a',{'href':'#','class':'text-danger delSubBtn','data-id':`${data.subCateID[i]}`}).append(
+                                                        $.el('i',{'class':'uil uil-trash-alt','style':'font-size:150%'})
+                                                    )
+                                                )
+                                            )
+                                        )
+                                    )
+                                }
+
+
+                                } else {
+                                    alert("Add New Category Fail...");
+                                }
+
+                            },
+                            error: function (result) {
+                                alert('error ' + JSON.stringify(result));
+                            }
+
+                        })
+
+                    }
+                })
+            })
+        </script>
+
+    <div class="modal  fade" id="CateModal" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered  " role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 class="modal-title" id="exampleModalLabel">Create Category</h2>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-md-10 col-sm-12">
+                                <div class="input-group mb-4 ">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="basic-addon1">Category</span>
+                                    </div>
+                                    <input type="text" class="form-control" placeholder="Category name" aria-label="Category name" aria-describedby="basic-addon1"  data-placement="top" data-toggle="tooltip" title="Please input name!">
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="card" >
+                                    <div class="card-header  " style="padding: 5px">
+                                        <span class="float-left m-2">Sub Category</span>
+                                        <button type="button" class="btn btn-danger float-right addBtn" > Add</button>
+                                    </div>
+                                    <ul class="list-group list-group-flush" data-toggle="tooltip" data-placement="top" title="Add at least 1 sub category!">
+
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-danger saveModalBtn">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 
 <!-- Mirrored from gambolthemes.net/html-items/cursus_demo_f12/categories.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 20 Jun 2020 12:56:17 GMT -->
