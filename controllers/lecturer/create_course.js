@@ -24,6 +24,7 @@ receive_infor = async function (req,res) {
             lectureArray.push({title:c.chapter[i].lecture[j].title,
                 duration:c.chapter[i].lecture[j].duration,
                 content:c.chapter[i].lecture[j].content,
+                preview:c.chapter[i].lecture[j].preview
             })
         }
         chapter.push({

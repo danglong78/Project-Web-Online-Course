@@ -20,6 +20,7 @@
         <link href="/css/instructor-responsive.css" rel=rel="stylesheet" type="text/css">
         <link href="/css/vertical-responsive-menu1.min.css" rel="stylesheet" type="text/css">
         <link href="/css/jquery-steps.css" rel="stylesheet">
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
         <script
                 type="text/javascript"
                 src='https://cdn.tiny.cloud/1/l7uyy2f87we33kyvy3smlnrcrkdof0ulv3tcn44r5xwkox4h/tinymce/5/tinymce.min.js' referrerpolicy="origin">
@@ -124,7 +125,7 @@
                                                                 <label>Course Title*</label>
                                                                 <div class="ui left icon input swdh19">
                                                                     <input class="prompt srch_explore " type="text" placeholder="Insert your course title." name="title"  maxlength="60" value="" trigger="manual"  data-toggle="tooltip" data-placement="right" title="Please input Title">
-                                                                    <div class="badge_num">60</div>
+                                                                    <div class="badge_num" id="badge_title">60</div>
                                                                 </div>
                                                             </div>
 
@@ -135,7 +136,7 @@
                                                                 <div class="ui left icon input swdh19">
                                                                     <input class="prompt srch_explore " type="text" placeholder="Insert your course Short Description." name="shortDescription"
                                                                            maxlength="60"  value="" trigger="manual"  data-toggle="tooltip" data-placement="right" title="Please input short description">
-                                                                    <div class="badge_num2">120</div>
+                                                                    <div  class="badge_num2" id="badge_shortDescription">120</div>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -296,6 +297,7 @@
                                                                         <label>Chapter Title*</label>
                                                                         <div class="ui left icon input swdh19">
                                                                             <input class="prompt srch_explore" type="text" placeholder="Insert your chapter title." name="titleChapter"  maxlength="60" id="chapterTitle" value="" trigger="manual"  data-toggle="tooltip" data-placement="right" title="Please input chapter title">
+                                                                            <div class="badge_num" id="badge_chapterTitle">80</div>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -309,6 +311,8 @@
                                                                         <label>Lecture Title*</label>
                                                                         <div class="ui left icon input swdh19">
                                                                             <input class="prompt srch_explore" type="text" placeholder="Insert your lecture title." name="titleLecture"  maxlength="60" id="lecture_title" value="" trigger="manual"  data-toggle="tooltip" data-placement="right" title="Please input lecture title">
+                                                                            <div class="badge_num" id="badge_lectureTitle">80</div>
+
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -395,17 +399,7 @@
                                                     </tr>
                                                     </thead>
                                                     <tbody id="chapter_table" >
-    <!--                                                <tr>-->
-    <!--                                                    <td class="text-center">1</td>-->
-    <!--                                                    <td class="cell-ta">Course Content Title</td>-->
-    <!--                                                    <td class="text-center">5</td>-->
-    <!--                                                    <td class="text-center">15</td>-->
-    <!--                                                    <td class="text-center">6 April 2019</td>-->
-    <!--                                                    <td class="text-center">-->
-    <!--                                                        <a href="#" title="Edit" class="gray-s"><i class="uil uil-edit-alt"></i></a>-->
-    <!--                                                        <a href="#" title="Delete" class="gray-s"><i class="uil uil-trash-alt"></i></a>-->
-    <!--                                                    </td>-->
-    <!--                                                </tr>-->
+
                                                     </tbody>
                                                 </table>
                                             </div>
@@ -469,26 +463,48 @@
                     if (stepDirection === 'forward') {
                         if($('input[name="title"]').val()===""){
                             $('input[name="title"]').tooltip("show")
-                            alert("You didn't input Title Course")
+                            Swal.fire({
+                                title: 'Error!',
+                                text: 'You didn\'t input Title Course',
+                                icon: 'error',
+                            })
                             return false;
                         }
                         if($('input[name="shortDescription"]').val()===""){
                             $('input[name="shortDescription"]').tooltip("show")
-                            alert("You didn't input Short Description")
+                            Swal.fire({
+                                title: 'Error!',
+                                text: 'You didn\'t input Short Description',
+                                icon: 'error',
+                            })
                             return false;
                         }
                         if(courseEditor.getContent()===""){
                             $('#CourseDescribe1').tooltip("show")
-                            alert("You didn't input Detail Description")
+                            Swal.fire({
+                                title: 'Error!',
+                                text: 'You didn\'t input Detail Description',
+                                icon: 'error',
+                            })
                             return false;
                         }
                         if($('#category_select').dropdown('get value')==="")
                         {
+                            Swal.fire({
+                                title: 'Error!',
+                                text: 'You didn\'t select Category',
+                                icon: 'error',
+                            })
                             $('#CateLabel').tooltip("show")
                             return false;
                         }
                         if($('#subCategory_select').dropdown('get value')=== "")
                         {
+                            Swal.fire({
+                                title: 'Error!',
+                                text: 'You didn\'t select Sub Category',
+                                icon: 'error',
+                            })
                             $('#subCateLabel').tooltip("show")
                             return false;
                         }
@@ -498,7 +514,11 @@
                     if (stepDirection === 'forward') {
                         if($('#inputImage').val()==="")
                         {
-                            alert("Please choose Image")
+                            Swal.fire({
+                                title: 'Error!',
+                                text: 'You didn\'t choose Image',
+                                icon: 'error',
+                            })
                             return false;
                         }
                     }
@@ -507,7 +527,12 @@
                     if (stepDirection === 'forward') {
                         if($('#chapter_table tr').length===0)
                         {
-                            alert("You don't have any chapter yet")
+
+                            Swal.fire({
+                                title: 'Error!',
+                                text: 'You don\'t have any chapter yet',
+                                icon: 'error',
+                            })
                             return false;
                         }
                     }
@@ -516,85 +541,117 @@
                 return true;
             },
             onFinish: async function () {
+                Swal.fire({
+                    title: 'Are you sure?',
+                    text: "You won't be able to revert this!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonText: 'Yes',
+                    showLoaderOnConfirm: true,
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        var rs={
+                            title: $('input[name="title"]').val(),
+                            finished:$('input[name="finishedTag"]:checked').length===1,
+                            short_description: $('input[name="shortDescription"]').val(),
+                            detail_description: courseEditor.getContent(),
+                            price:$('select[name="price"]').val(),
+                            chapter: chapter,
+                            category:$('#category_select').dropdown('get value'),
+                            subCategory:$('#subCategory_select .item.selected').attr("value")
+                        }
+                        var id;
+                        $.ajax({
+                            async:false,
+                            url: "/lecturer/create",
+                            type: 'POST',
+                            contentType: "application/json; charset=UTF-8",
+                            data:JSON.stringify(rs),
+                            success: function(e) {
+                                // alert("send success  "+e);
+                                id=e;
 
-                var rs={
-                    title: $('input[name="title"]').val(),
-                    finished:$('input[name="finishedTag"]:checked').length===1,
-                    short_description: $('input[name="shortDescription"]').val(),
-                    detail_description: courseEditor.getContent(),
-                    price:$('select[name="price"]').val(),
-                    chapter: chapter,
-                    category:$('#category_select').dropdown('get value'),
-                    subCategory:$('#subCategory_select .item.selected').attr("value")
-                }
-                var id;
-                $.ajax({
-                    async:false,
-                    url: "/lecturer/create",
-                    type: 'POST',
-                    contentType: "application/json; charset=UTF-8",
-                    data:JSON.stringify(rs),
-                    success: function(e) {
-                        alert("send success  "+e);
-                        id=e;
+                            },
+                            error: function(result) {
+                                Swal.fire(
+                                    'Error!',
+                                    'Upload course information fail.',
+                                    'error'
+                                );
+                                return;
+                            }
 
-                    },
-                    error: function(result) {
-                        alert('error '+ result);
+                        })
+
+                        var img = new FormData();
+                        imgname= $('#inputImage').prop('files')[0].name;
+                        let extension= imgname.substr( (imgname.lastIndexOf('.') +1) );
+                        img.append('image',$('#inputImage').prop('files')[0],`${id}.${extension}`)
+                        img.append('id',id)
+
+                        $.ajax({
+                            url:'/lecturer/upload_img',
+                            type: 'POST',
+                            contentType: false,
+                            processData: false,
+                            cache: false,
+                            data: img,
+                            success: function(res){
+                                // alert(res);
+                            },
+                            error: function(){
+                                Swal.fire(
+                                    'Error!',
+                                    'Upload image fail.',
+                                    'error'
+                                );
+                                return;
+                            }
+
+                        })
+                        var vid= new FormData();
+                        var FileName=[]
+                        var fieldArr=[]
+                        for (i = 0; i < chapter.length; i++) {
+                            lectureArray=[]
+                            for(j=0;j<chapter[i].lecture.length;j++)
+                            {
+                                let filename=chapter[i].lecture[j].file.name;
+                                let extension= filename.substr( (filename.lastIndexOf('.') +1) );
+                                lectureArray.push(`upload/video/${id}c${i}l${j}.${extension}`);
+                                vid.append(`c${i}l${j}`,chapter[i].lecture[j].file,`${id}c${i}l${j}.${extension}`)
+                            }
+                            FileName.push([...lectureArray])
+                        }
+                        vid.append('video',JSON.stringify(FileName))
+                        vid.append('id',id)
+                        $.ajax({
+                            url:'/lecturer/upload_vid',
+                            type: 'POST',
+                            contentType: false,
+                            processData: false,
+                            cache: false,
+                            data: vid,
+                            success: function(res){
+                                location.reload();
+                            },
+                            error: function(){
+                                Swal.fire(
+                                    'Error!',
+                                    'Upload video fail.',
+                                    'error'
+                                );
+                                return;
+                            }
+                        })
+                        Swal.fire(
+                            'Save!',
+                            'Your Course has been saved.',
+                            'success'
+                        )
                     }
                 })
 
-                var img = new FormData();
-                imgname= $('#inputImage').prop('files')[0].name;
-                let extension= imgname.substr( (imgname.lastIndexOf('.') +1) );
-                img.append('image',$('#inputImage').prop('files')[0],`${id}.${extension}`)
-                img.append('id',id)
-
-                $.ajax({
-                    url:'/lecturer/upload_img',
-                    type: 'POST',
-                    contentType: false,
-                    processData: false,
-                    cache: false,
-                    data: img,
-                    success: function(res){
-                        alert(res);
-                    },
-                    error: function(){
-                        alert('Error: In sending the request!');
-                    }
-                })
-                var vid= new FormData();
-                var FileName=[]
-                var fieldArr=[]
-                for (i = 0; i < chapter.length; i++) {
-                    lectureArray=[]
-                    for(j=0;j<chapter[i].lecture.length;j++)
-                    {
-                        let filename=chapter[i].lecture[j].file.name;
-                        let extension= filename.substr( (filename.lastIndexOf('.') +1) );
-                        lectureArray.push(`upload/video/${id}c${i}l${j}.${extension}`);
-                        vid.append(`c${i}l${j}`,chapter[i].lecture[j].file,`${id}c${i}l${j}.${extension}`)
-                    }
-                    FileName.push([...lectureArray])
-                }
-                vid.append('video',JSON.stringify(FileName))
-                vid.append('id',id)
-                $.ajax({
-                    url:'/lecturer/upload_vid',
-                    type: 'POST',
-                    contentType: false,
-                    processData: false,
-                    cache: false,
-                    data: vid,
-                    success: function(res){
-                        alert("Upload Video success");
-                        location.reload();
-                    },
-                    error: function(){
-                        alert('Error: In sending the request!');
-                    }
-                })
             }
         })
 
@@ -621,11 +678,19 @@
 
     <script>
         $(document).ready(function () {
+            $('input[name="title"]').on('keyup',function () {
+                $('#badge_title').text( 60-$('input[name="title"]').val().length)
+            });
+
+            $('input[name="shortDescription"]').on('keyup',function () {
+                $('#badge_shortDescription').text( 120-$('input[name="shortDescription"]').val().length)
+            });
+
             $('#category_select').on('change',function () {
                 let id=$('#category_select').val();
                 $('#subCategory_select .menu').empty()
                 $(`#subcateOption div[data-id=${id}]`).clone().appendTo($('#subCategory_select .menu'))
-            })
+            });
         })
     </script>
     <!--Hàm cho tab2-->
@@ -662,6 +727,13 @@
         let lectureVideos=[];
 
         $(document).ready(function () {
+            $('input[name="titleChapter"]').on('keyup',function () {
+                $('#badge_chapterTitle').text( 80-$('input[name="titleChapter"]').val().length)
+            });
+
+            $('input[name="titleLecture"]').on('keyup',function () {
+                $('#badge_lectureTitle').text( 80-$('input[name="titleLecture"]').val().length)
+            });
             $('.custom-file').on('change','#inputGroupFile06',function(e){
                 //get the file name
                 var fileName = e.target.files[0].name;            //replace the "Choose a file" label
@@ -677,7 +749,15 @@
                 if(chapterEditor.getContent() ===""){
                     $('#ChapterDescribe1').tooltip('show');
                 }
-                if(($('#lecture_title').val()!=="") && ($('input[name="duration"]').val() !=="")  &&(chapterEditor.getContent() !=="")) {
+                if($('#inputGroupFile06').val()==="")
+                {
+                    Swal.fire(
+                        'Error!',
+                        'You did not upload video!.',
+                        'error'
+                    );
+                }
+                if(($('#lecture_title').val()!=="") && ($('input[name="duration"]').val() !=="")  &&(chapterEditor.getContent() !=="")&&($('#inputGroupFile06').val()!=="")) {
                     if ($(this).attr('data-id') === 'add') {
                         $('#lecture_table').append(
                             $.el('tr', {}).append(
