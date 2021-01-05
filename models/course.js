@@ -13,11 +13,11 @@ const courseSchema = mongoose.Schema({
     avatar: { type: String, text: true },
     teacher: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Teacher'
+        ref: 'Lecturer'
     },
     category: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Category'
+        ref: 'MainCategory'
     },
     subCategory: {
         type: mongoose.Schema.Types.ObjectId,

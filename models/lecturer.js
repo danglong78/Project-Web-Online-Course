@@ -12,7 +12,7 @@ const lecturerChema = Schema({
     }
 });
 
-const Lecturer = mongoose.model('lecturer', lecturerChema);
+const Lecturer = mongoose.model('Lecturer', lecturerChema);
 
 module.exports = {
     model: Lecturer

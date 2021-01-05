@@ -156,52 +156,23 @@
                                                                 <% for(i=0;i<category.length;i++) {%>
                                                                     <option value='<%=category[i]._id%>'> <%= category[i].name%></option>
                                                                 <%}%>
-<!--                                                                <option value="1">Development</option>-->
-<!--                                                                <option value="2" >Business</option>-->
-<!--                                                                <option value="3">Finance & Accounting</option>-->
-<!--                                                                <option value="4">IT & Software</option>-->
-<!--                                                                <option value="5">Office Productivity</option>-->
-<!--                                                                <option value="6">Personal Development</option>-->
-<!--                                                                <option value="7">Design</option>-->
-<!--                                                                <option value="8">Marketing</option>-->
-<!--                                                                <option value="9">Lifestyle</option>-->
-<!--                                                                <option value="10">Photography</option>-->
-<!--                                                                <option value="11">Health & Fitness</option>-->
-<!--                                                                <option value="12">Music</option>-->
-<!--                                                                <option value="13">Teaching & Academics</option>-->
-<!--                                                                <option value="14">Javascript</option>-->
-<!--                                                                <option value="15">Angular</option>-->
-<!--                                                                <option value="16">React</option>-->
-<!--                                                                <option value="17">CSS</option>-->
-<!--                                                                <option value="18">PHP</option>-->
-<!--                                                                <option value="19">Node.Js</option>-->
-<!--                                                                <option value="20">WordPress</option>-->
-<!--                                                                <option value="21">Vue JS</option>-->
-<!--                                                                <option value="22">Shopify</option>-->
-<!--                                                                <option value="23">Magento</option>-->
-<!--                                                                <option value="24">Open Cart </option>-->
+
+
                                                             </select>
                                                         </div>
                                                         <div class="col-lg-4 col-md-6">
-                                                            <div class="mt-30 lbel25" id="subCateLabel" trigger="manual"  data-toggle="tooltip" data-placement="top" title="Please select subcategory">
+                                                            <div class="mt-30 lbel25" id="subCateLabel" trigger="manual"  data-toggle="tooltip" data-placement="top" title="Please select sub category">
                                                                 <label>Course Subcategory*</label>
                                                             </div>
-                                                            <select class="ui hj145 dropdown cntry152 prompt srch_explore" id="subcategory_select" >
-                                                                <option value="">Select Subcategory</option>
-                                                                <option value="1">Javascript</option>
-                                                                <option value="2">Angular</option>
-                                                                <option value="3">React</option>
-                                                                <option value="4">CSS</option>
-                                                                <option value="5">PHP</option>
-                                                                <option value="6">Node.Js</option>
-                                                                <option value="7">WordPress</option>
-                                                                <option value="8">Vue JS</option>
-                                                                <option value="9">Shopify</option>
-                                                                <option value="10">Magento</option>
-                                                                <option value="11">Open Cart </option>
-                                                            </select>
-                                                        </div>
+                                                            <div class="ui selection dropdown cntry152 prompt srch_explore" id="subCategory_select">
+                                                                <input type="hidden" name="subcategory">
+                                                                <i class="dropdown icon"></i>
+                                                                <div class="default text">Select Subcategory</div>
+                                                                <div class="menu">
 
+                                                                </div>
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                 </div>
                                                 <div class="price_course">
@@ -511,12 +482,12 @@
                             alert("You didn't input Detail Description")
                             return false;
                         }
-                        if($('#category_select').find(':selected').val()==="")
+                        if($('#category_select').dropdown('get value')==="")
                         {
                             $('#CateLabel').tooltip("show")
                             return false;
                         }
-                        if($('#subcategory_select').find(':selected').val()=== "")
+                        if($('#subCategory_select').dropdown('get value')=== "")
                         {
                             $('#subCateLabel').tooltip("show")
                             return false;
@@ -553,8 +524,8 @@
                     detail_description: courseEditor.getContent(),
                     price:$('select[name="price"]').val(),
                     chapter: chapter,
-                    category:$('category_select').val(),
-                    subCategory:$('subcategory_select').val()
+                    category:$('#category_select').dropdown('get value'),
+                    subCategory:$('#subCategory_select .item.selected').attr("value")
                 }
                 var id;
                 $.ajax({
@@ -646,7 +617,17 @@
             }
         }
     </script>
+    <!--Hàm cho tab1-->
 
+    <script>
+        $(document).ready(function () {
+            $('#category_select').on('change',function () {
+                let id=$('#category_select').val();
+                $('#subCategory_select .menu').empty()
+                $(`#subcateOption div[data-id=${id}]`).clone().appendTo($('#subCategory_select .menu'))
+            })
+        })
+    </script>
     <!--Hàm cho tab2-->
     <script>
         $(document).ready(function () {
@@ -890,6 +871,13 @@
     <script>
 
     </script>
+    <div id="subcateOption" hidden>
+        <% for(i=0;i<category.length;i++) {%>
+            <% for(j=0;j<category[i].subCategory.length;j++) {%>
+            <div data-id="<%=category[i]._id%>" value='<%=category[i].subCategory[j]._id%>' class="item"> <%= category[i].subCategory[j].name%></div>
+            <%}%>
+        <%}%>
+    </div>
     </body>
 
     <!-- Mirrored from gambolthemes.net/html-items/Learnic_demo_f12/create_new_course.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 20 Jun 2020 12:56:02 GMT -->

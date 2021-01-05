@@ -10,7 +10,7 @@ const mainCategorySchema = Schema({
     subCate: [{ type: mongoose.Schema.Types.ObjectId, ref: 'subCategory' }]
 });
 
-const mainCategory = mongoose.model('mainCategory', categorySchema);
+const mainCategory = mongoose.model('MainCategory', mainCategorySchema);
 
 var getMainCate = async function () {
     var cate = await mainCategory.find({ 'subCate.0': { "$exists": true } });
