@@ -15,10 +15,14 @@ const courseSchema = mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Teacher'
     },
-    category: [{
+    category: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Category'
-    }],
+    },
+    subCategory: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'SubCategory'
+    },
 
     chapter: [{
         title: String,
@@ -27,7 +31,8 @@ const courseSchema = mongoose.Schema({
             title: String,
             duration: Number,
             content: String,
-            file: String
+            file: String,
+            preview: Boolean
         }]
     }],
 

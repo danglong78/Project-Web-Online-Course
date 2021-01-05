@@ -6,18 +6,19 @@ const signUp = require(__basedir + '/controllers/credential/signup');
 const to = require('await-to-js').default;
 const adminRouter = require('./admin');
 const cateRouter = require('./category');
+const lecturerRouter = require('./lecturer')
 /* GET home page. */
 router.get('/', function (req, res, next) {
   res.render('index');
 });
-
-router.get('/course_detail_view', function (req, res, next) {
-  courseRouter.course_detail_view(req, res);
-});
-
-router.get('/create_new_course', function (req, res, next) {
-  courseRouter.create_course(req, res);
-});
+router.use('/lecturer',lecturerRouter)
+// router.get('/course_detail_view', function (req, res, next) {
+//   courseRouter.course_detail_view(req, res);
+// });
+//
+// router.get('/create_new_course', function (req, res, next) {
+//   courseRouter.create_course(req, res);
+// });
 router.route('/signin')
   .get((req, res) => {
     if (req.isAuthenticated()) {
@@ -81,16 +82,18 @@ router.route('/auth/facebook/callback')
       res.redirect(redirectUrl);
     }
   });
-router.post('/create_new_course', function (req, res, next) {
-  courseRouter.receive_infor(req, res);
-});
-router.post('/create_new_course/img', function (req, res, next) {
-  courseRouter.receive_img(req, res);
-});
-router.post('/create_new_course/vid', function (req, res, next) {
-  courseRouter.receive_vid(req, res);
-});
-
+// router.post('/create_new_course', function (req, res, next) {
+//   courseRouter.receive_infor(req, res);
+// });
+// router.post('/create_new_course/img', function (req, res, next) {
+//   courseRouter.receive_img(req, res);
+// });
+// router.post('/create_new_course/vid', function (req, res, next) {
+//   courseRouter.receive_vid(req, res);
+// });
+// router.get('/instructor_courses', function (req, res, next) {
+//     res.render('lecturer/my_courses')
+// });
 
 
 module.exports = router;
