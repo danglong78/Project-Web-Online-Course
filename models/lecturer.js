@@ -1,19 +1,25 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const lecturerChema = Schema({
-    shortDescbibe: {
-        type: String,
-        required: true
+  shortDescbibe: {
+    type: String,
+    required: true,
+  },
+  detailDescribe: {
+    type: String,
+    required: true,
+  },
+  courses: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "Course",
     },
-    detailDescribe: {
-        type: String,
-        required: true
-    }
+  ],
 });
 
-const Lecturer = mongoose.model('Lecturer', lecturerChema);
+const Lecturer = mongoose.model("Lecturer", lecturerChema);
 
 module.exports = {
-    model: Lecturer
-}
+  model: Lecturer,
+};
