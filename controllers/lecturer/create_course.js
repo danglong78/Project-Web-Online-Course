@@ -1,6 +1,6 @@
 var uploadImg= require('../course/uploadCourse').uploadImage;
 var uploadVideo= require('../course/uploadCourse').uploadVideo;
-var courseModel= require(__basedir+'/models/course').model;
+var courseModel= require('../../models/course').model;
 
 receive_infor = async function (req,res) {
     let c= req.body

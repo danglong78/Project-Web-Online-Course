@@ -14,119 +14,246 @@
 
     <!-- Favicon Icon -->
     <link rel="icon" type="image/png" href="images/fav.png">
+    <link href="/css/instructor-dashboard.css" rel="stylesheet" type="text/css">
+    <link href="/css/instructor-responsive.css" rel=rel="stylesheet" type="text/css">
+    <link href="/css/vertical-responsive-menu1.min.css" rel="stylesheet" type="text/css">
+    <link href="/css/jquery-steps.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.23/css/jquery.dataTables.css">
     <%- include('partials/head'); -%>
 
 
 </head>
 
 <body>
-    <%- include('partials/navbar'); -%>
-        <!-- Header End -->
-        <!-- Left Sidebar Start -->
-        <%- include('partials/left-menu'); -%>
-            <!-- Left Sidebar End -->
-            <!-- Body Start -->
-            <div class="wrapper">
-                <div class="sa4d25">
-                    <div class="container-fluid">
-                        <div class="row">
+<%- include('partials/navbar'); -%>
+<!-- Header End -->
+<!-- Left Sidebar Start -->
+<%- include('partials/left-menu'); -%>
+<!-- Left Sidebar End -->
+<!-- Body Start -->
+<div class="wrapper">
+    <div class="sa4d25">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="my_courses_tabs">
+                        <ul class="nav nav-pills my_crse_nav" id="pills-tab" role="tablist">
+                            <li class="nav-item ">
+                                <a class="nav-link active " id="pills-main-category-tab" data-toggle="pill"
+                                   href="#pill-main-category" role="tab" aria-controls="pill-main-category"
+                                   aria-selected="true"><i class="uil uil-book-alt"></i>Main Category
+                                </a>
+                            </li>
 
-                            <div class="col-md-12">
-                                <div class="section3125 mt-50">
-                                    <div class=" d-flex align-content-center justify-content-between" style="padding: 2px;">
-                                        <h4 class="item_title  mb-0">Categories Management</h4>
-                                        <a href="#" class=" addBtn btn btn-danger btn-sm" style="padding: 2px 2px" data-toggle="modal" data-target="#CateModal"><i class="uil uil-plus-square "
-                                                       style="font-size: 150%;"></i>Add new</a>
+                            <li class="nav-item ">
+                                <a class="nav-link" id="pills-sub-category-tab" data-toggle="pill"
+                                   href="#pill-sub-category" role="tab" aria-controls="pill-sub-category"
+                                   aria-selected="false"><i class="uil uil-tag-alt"></i>Sub Category
+                                </a>
+                            </li>
+
+                        </ul>
+                        <div class="tab-content" id="pills-tabContent">
+                            <div class="tab-pane fade show active" id="pill-main-category" role="tabpanel">
+                                <div class="section3125 mt-20">
+                                    <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading" role="tab" id="headingOne">
+                                                <div class="panel-title adcrse1250">
+                                                    <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                                                        New  Main Category
+                                                    </a>
+                                                </div>
+                                            </div>
+                                            <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+                                                <div class="panel-body adcrse_body">
+                                                    <div class="row">
+                                                        <div class="col-lg-8">
+                                                            <div class="discount_form">
+                                                                <div class="row">
+                                                                    <div class="col-lg-8 col-md-8">
+                                                                        <div class="ui search focus mt-20 lbel25">
+                                                                            <label>Name</label>
+                                                                            <div class="ui left icon input swdh19">
+                                                                                <input class="prompt srch_explore" type="text" data-language="en" placeholder="Type name main category">
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div class="col-lg-6 col-md-12">
+                                                                        <button class="discount_btn" type="submit">Save Changes</button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                     <div class="la5lo1 cate_521">
                                         <% for(i=0;i<category.length;i++) {%>
 
-                                            <div class="card" style="border-style: none">
-                                                <div class="card-header d-flex justify-content-between align-items-center"
-                                                    id="heading<%=i%>">
+                                        <div class="card" style="border-style: none">
+                                            <div class="card-header d-flex justify-content-between align-items-center"
+                                                 id="heading<%=i%>" data-toggle="collapse" data-target="#collapse<%=i%>" style="background-color:#ffecec ">
 
-                                                    <a href="#" data-toggle="collapse" data-target="#collapse<%=i%>"
-                                                        class="btn btn-danger">
-                                                        <%= category[i].name%>
-                                                    </a>
-                                                    <div>
-                                                        <a href="#"><i class="uil uil-plus-square addBtn"
-                                                                data-id="<%=category[i]._id%>"
-                                                                style="font-size: 150%;"></i></a>
-                                                        <a href="#"><i class="uil uil-edit-alt editBtn"
-                                                                data-id="<%=category[i]._id%>"
-                                                                style="font-size: 150%;"></i></a>
-                                                        <a href="#"><i class="uil uil-trash-alt delBtn"
-                                                                data-id="<%=category[i]._id%>"
-                                                                style="font-size: 150%;"></i></a>
-                                                    </div>
+                                                <b style="font-size: 120%" >
+                                                    <%- category[i].name%>
+                                                </b>
+                                                <div>
+                                                    <a href="#"><i class="uil uil-plus-square addBtn"
+                                                                   data-id="<%=category[i]._id%>"
+                                                                   style="font-size: 150%;"></i></a>
+                                                    <a href="#"><i class="uil uil-edit-alt editBtn"
+                                                                   data-id="<%=category[i]._id%>"
+                                                                   style="font-size: 150%;"></i></a>
+                                                    <a href="#"><i class="uil uil-trash-alt delBtn"
+                                                                   data-id="<%=category[i]._id%>"
+                                                                   style="font-size: 150%;"></i></a>
                                                 </div>
-                                                <div id="collapse<%=i%>" class="collapse "
-                                                    aria-labelledby="heading<%=i%>">
-                                                    <div class="nestable" id="nestable">
-                                                        <ul class="list-group list-group-fit nestable-list-plain mb-0"
-                                                            data-id="<%=category[i]._id%>">
-                                                            <%for(j=0;j<category[i].subCate.length;j++){%>
-                                                                <li class="list-group-item nestable-item">
-                                                                    <div class="media">
-                                                                        <div class="media-body media-middle input-group">
-                                                                            <%=category[i].subCate[j].name%>
-                                                                        </div>
-                                                                        <div class="media-right text-right">
-                                                                            <div style="width:100px">
-                                                                                <a href="#"
-                                                                                    class=" text-danger editSubBtn"
-                                                                                   data-id="<%=category[i].subCate[j]._id%>">
-                                                                                    <i class="uil uil-edit-alt"
-                                                                                        style="font-size: 150%;"></i>
-                                                                                </a>
-                                                                                <a href="#"
-                                                                                    data-id="<%=category[i].subCate[j]._id%>"
-                                                                                    class=" text-danger delSubBtn"><i
-                                                                                        class="uil uil-trash-alt"
-                                                                                        style="font-size: 150%;"></i>
-                                                                                </a>
-                                                                            </div>
+                                            </div>
+                                            <div id="collapse<%=i%>" class="collapse "
+                                                 aria-labelledby="heading<%=i%>">
+                                                <div class="nestable" id="nestable">
+                                                    <ul class="list-group list-group-fit nestable-list-plain mb-0"
+                                                        data-id="<%=category[i]._id%>">
+                                                        <%for(j=0;j<category[i].subCate.length;j++){%>
+                                                        <li class="list-group-item nestable-item">
+                                                            <div class="media">
+                                                                <div class="media-body media-middle input-group">
+                                                                    <%=category[i].subCate[j].name%>
+                                                                </div>
+                                                                <div class="media-right text-right">
+                                                                    <div style="width:100px">
+                                                                        <a href="#"
+                                                                           class=" text-danger editSubBtn"
+                                                                           data-id="<%=category[i].subCate[j]._id%>">
+                                                                            <i class="uil uil-edit-alt"
+                                                                               style="font-size: 150%;"></i>
+                                                                        </a>
+                                                                        <a href="#"
+                                                                           data-id="<%=category[i].subCate[j]._id%>"
+                                                                           class=" text-danger delSubBtn"><i
+                                                                                    class="uil uil-trash-alt"
+                                                                                    style="font-size: 150%;"></i>
+                                                                        </a>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </li>
+                                                        <%}%>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <%}%>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="tab-pane fade" id="pill-sub-category" role="tabpanel">
+                                <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading" role="tab" id="headingOne">
+                                            <div class="panel-title adcrse1250">
+                                                <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                                                    New Sub Category
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+                                            <div class="panel-body adcrse_body">
+                                                <div class="row">
+                                                    <div class="col-lg-8">
+                                                        <div class="discount_form">
+                                                            <div class="row">
+
+
+                                                                <div class="col-lg-8 col-md-12">
+                                                                    <div class="ui search focus mt-20 lbel25">
+                                                                        <label>Start Date</label>
+                                                                        <div class="ui left icon input swdh19">
+                                                                            <input class="prompt srch_explore datepicker-here" type="text" data-language="en" placeholder="Name sub category">
                                                                         </div>
                                                                     </div>
-                                                                </li>
-                                                                <%}%>
-                                                        </ul>
+                                                                </div>
+
+                                                                <div class="col-lg-6 col-md-8">
+                                                                    <button class="discount_btn" type="submit">Save Changes</button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <%}%>
+                                        </div>
                                     </div>
+                                </div>
+                                <div class="table-responsive mt-30">
+                                    <table class="table ucp-table display" id="subCategoryTable">
+                                        <thead class="thead-s" >
+                                        <tr>
+                                            <th class="cell-ta" >Name</th>
+                                            <th class="text-center" scope="col">Actions</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <% for(i =0;i<subCategory.length;i++){%>
+                                        <tr data-id="<%=subCategory[i]._id%>">
+                                            <td class="cell-ta" ><%=subCategory[i].name%></td>
+                                            <td class="text-center">
+                                                <a href="#" title="Edit" class="gray-s"><i class="uil uil-edit-alt"></i></a>
+                                                <a href="#" title="Delete" class="gray-s"><i class="uil uil-trash-alt"></i></a>
+                                            </td>
+                                        </tr>
+
+                                        <%}%>
+                                        </tbody>
+                                    </table>
                                 </div>
                             </div>
                         </div>
                     </div>
+
                 </div>
-                <%- include('partials/footer'); -%>
-
             </div>
-            <!-- Body End -->
+        </div>
+        <%- include('partials/footer'); -%>
+    </div>
+</div>
+<!-- Body End -->
 
-        <script src="js/vertical-responsive-menu.min.js"></script>
-        <script src="js/jquery-3.3.1.min.js"></script>
-        <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-        <script src="vendor/OwlCarousel/owl.carousel.js"></script>
-        <script src="vendor/semantic/semantic.min.js"></script>
-        <script src="js/custom.js"></script>
-        <script src="js/night-mode.js"></script>
-
-        <script>
-            $.extend({
-                el: function (el, props) {
-                    var $el = $(document.createElement(el));
-                    $el.attr(props);
-                    return $el;
-                }
-            });
-            $(document).ready(function () {
-
-                $('.card-header').on('click', '.delBtn', function () {
-                    var x
+<script src="js/vertical-responsive-menu.min.js"></script>
+<script src="js/jquery-3.3.1.min.js"></script>
+<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="vendor/OwlCarousel/owl.carousel.js"></script>
+<script src="vendor/semantic/semantic.min.js"></script>
+<script src="js/custom.js"></script>
+<script src="js/night-mode.js"></script>
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.js"></script>
+<script>
+    $.extend({
+        el: function (el, props) {
+            var $el = $(document.createElement(el));
+            $el.attr(props);
+            return $el;
+        }
+    });
+    $(document).ready(function () {
+        $('#subCategoryTable').DataTable();
+        $('.card-header').on('click', '.delBtn', function () {
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    var x;
                     $.ajax({
                         async: false,
                         url: "/category/delCate",
@@ -137,95 +264,121 @@
                             x = "Success";
                         },
                         error: function (result) {
-                            alert('error ' + JSON.stringify(result));
+                            Swal.fire(
+                                'Error!',
+                                `${JSON.stringify(result)}`,
+                                'error'
+                            );
                         }
 
                     })
                     if (x === "Success") {
                         $(this).closest('.card').remove()
                     }
-                })
-                $('.card-header').on('click', '.editBtn', function () {
-                    $name = $(this).closest('.card-header').find('a.btn');
-                    $(this).closest('.card-header').prepend(
-                        $.el('div', { 'class': 'input-group', "style": 'width:50%;' }).append(
-                            $.el('input', { 'type': 'text', 'class': 'form-control ', 'aria-describedby': "saveCateBtn" })
-                        ).append(
-                            $.el('button', { 'id': 'saveCateBtn', 'class': 'btn btn-outline-danger', 'style': 'margin-left:20px', 'data-id': `${$(this).attr("data-id")}` }).text('Save')
-                        )
-
+                    Swal.fire(
+                        'Deleted!',
+                        'Your lecture has been deleted.',
+                        'success'
                     )
-                    $name.remove();
-                })
-                $('.card-header').on('click', '#saveCateBtn', function () {
-                    var x;
-                    $.ajax({
-                        async: false,
-                        url: "/category/editCate",
-                        type: 'POST',
-                        contentType: "application/json; charset=UTF-8",
-                        data: JSON.stringify({ id: $(this).attr("data-id"), name: $(this).prev().val() }),
-                        success: function (data) {
-                            if (data.success) {
-                                x = "Success";
-                            }
-                            else {
-                                x = data.pre_name;
-                                alert("Can not Rename This Category...");
-                            }
-                        },
-                        error: function (result) {
-                            alert('error ' + JSON.stringify(result));
-                        }
+                }
+            })
 
-                    })
-                    if (x === "Success") {
-                        let name = $(this).prev().val()
-                        $(this).closest('.card-header').prepend(
-                            $.el('a', {
-                                'class': 'btn btn-danger', 'data-toggle': 'collapse', 'href': '#',
-                                'data-target': `#collapse${$('.card-header').index($(this).closest('.card-header'))}`
-                            }).text(name)
-                        )
-                        $(this).parent().remove();
+        });
+        $('.card-header').on('click', '.editBtn', function () {
+            $name = $(this).closest('.card-header').find('b');
+            $(this).closest('.card-header').prepend(
+                $.el('div', { 'class': 'input-group', "style": 'width:50%;' }).append(
+                    $.el('input', { 'type': 'text', 'class': 'form-control ', 'aria-describedby': "saveCateBtn" })
+                ).append(
+                    $.el('button', { 'id': 'saveCateBtn', 'class': 'btn btn-outline-danger', 'style': 'margin-left:20px', 'data-id': `${$(this).attr("data-id")}` }).text('Save')
+                )
 
-                    } else {
-                        $(this).closest('.card-header').prepend(
-                            $.el('a', {
-                                'class': 'btn btn-danger', 'data-toggle': 'collapse', 'href': '#',
-                                'data-target': `#collapse${$('.card-header').index($(this).closest('.card-header'))}`
-                            }).text(x)
-                        )
-                        $(this).parent().remove();
+            )
+            $name.remove();
+        })
+        $('.card-header').on('click', '#saveCateBtn', function () {
+            var x;
+            $.ajax({
+                async: false,
+                url: "/category/editCate",
+                type: 'POST',
+                contentType: "application/json; charset=UTF-8",
+                data: JSON.stringify({ id: $(this).attr("data-id"), name: $(this).prev().val() }),
+                success: function (data) {
+                    if (data.success) {
+                        x = "Success";
                     }
-                })
-                $('.card-header').on('click', '.addBtn', function () {
-                    $(`ul[data-id="${$(this).attr('data-id')}"]`).append(
-                        $.el('li', { 'class': 'list-group-item nestable-item' }).append(
-                            $.el('div', { 'class': 'media' }).append(
-                                $.el('div', { 'class': 'media-body media-middle input-group' }).append(
-                                    $.el('input', { 'type': 'text', 'class': 'form-control', 'aria-describedby': "saveSubCateBtn" })
-                                ).append(
-                                    $.el('button', { 'id': 'saveSubCateBtn','data-id':'add', 'class': 'btn btn-outline-danger', 'style': 'margin-left:20px' }).text('Save')
+                    else {
+                        x = data.pre_name;
+                        Swal.fire(
+                            'Error!',
+                            "Can not Rename This Category...",
+                            'error'
+                        );
+                    }
+                },
+                error: function (result) {
+                    Swal.fire(
+                        'Error!',
+                        `${JSON.stringify(result)}`,
+                        'error'
+                    );
+                }
+
+            })
+            if (x === "Success") {
+                let name = $(this).prev().val()
+                $(this).closest('.card-header').prepend(
+                    $.el('b', {
+                        'style':'font-size:120%'
+                    }).text(name)
+                )
+                $(this).parent().remove();
+
+            } else {
+                $(this).closest('.card-header').prepend(
+                    $.el('b', {
+
+                    }).text(x)
+                )
+                $(this).parent().remove();
+            }
+        })
+        $('.card-header').on('click', '.addBtn', function () {
+            $(`ul[data-id="${$(this).attr('data-id')}"]`).append(
+                $.el('li', { 'class': 'list-group-item nestable-item' }).append(
+                    $.el('div', { 'class': 'media' }).append(
+                        $.el('div', { 'class': 'media-body media-middle input-group' }).append(
+                            $.el('input', { 'type': 'text', 'class': 'form-control', 'aria-describedby': "saveSubCateBtn" })
+                        ).append(
+                            $.el('button', { 'id': 'saveSubCateBtn','data-id':'add', 'class': 'btn btn-outline-danger', 'style': 'margin-left:20px' }).text('Save')
+                        )
+                    ).append(
+                        $.el('div', { 'class': 'media-right text-right' }).append(
+                            $.el('div', { 'style': 'width:100px' }).append(
+                                $.el('a', { 'class': 'text-danger editSubBtn' }).append(
+                                    $.el('i', { 'class': 'uil uil-edit-alt', 'style': 'font-size: 150%;' })
                                 )
                             ).append(
-                                $.el('div', { 'class': 'media-right text-right' }).append(
-                                    $.el('div', { 'style': 'width:100px' }).append(
-                                        $.el('a', { 'class': 'text-danger editSubBtn' }).append(
-                                            $.el('i', { 'class': 'uil uil-edit-alt', 'style': 'font-size: 150%;' })
-                                        )
-                                    ).append(
-                                        $.el('a', { 'class': 'text-danger delSubBtn' }).append(
-                                            $.el('i', { 'class': 'uil uil-trash-alt', 'style': 'font-size: 150%;' })
-                                        )
-                                    )
+                                $.el('a', { 'class': 'text-danger delSubBtn' }).append(
+                                    $.el('i', { 'class': 'uil uil-trash-alt', 'style': 'font-size: 150%;' })
                                 )
                             )
                         )
                     )
-                });
+                )
+            )
+        });
 
-                $('.nestable').on('click', '.delSubBtn', function () {
+        $('.nestable').on('click', '.delSubBtn', function () {
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
                     var x;
                     $.ajax({
                         async: false,
@@ -238,245 +391,252 @@
                                 x = "Success";
                             }
                             else {
-                                alert("Can not Delete This Category...");
+                                Swal.fire(
+                                    'Error!',
+                                    "Can not Delete This Category...",
+                                    'error'
+                                );
                             }
                         },
                         error: function (result) {
-                            alert('error ' + JSON.stringify(result));
+                            Swal.fire(
+                                'Error!',
+                                `${JSON.stringify(result)}`,
+                                'error'
+                            );
                         }
 
                     })
                     if (x === "Success")
                         $(this).closest('.nestable-item').remove();
-                });
-                $('.nestable').on('click', '#saveSubCateBtn', function () {
-                    var x;
-                    if($(this).attr('data-id')==="add") {
-                        $.ajax({
-                            async: false,
-                            url: "/category/addSubCate",
-                            type: 'POST',
-                            contentType: "application/json; charset=UTF-8",
-                            data: JSON.stringify({
-                                id: $(this).closest('ul').attr("data-id"),
-                                name: $(this).prev().val()
-                            }),
-                            success: function (data) {
-                                if (data.success) {
-                                    x = "Success";
-                                } else {
-                                    alert("Add New Category Fail...");
-                                }
-
-                            },
-                            error: function (result) {
-                                alert('error ' + JSON.stringify(result));
-                            }
-
-                        })
-                        if (x === "Success") {
-                            let name = $(this).prev().val()
-                            $(this).closest('.media-body').empty().text(name);
-                        } else {
-                            $(this).closest('.nestable-item').remove();
-                        }
-                    }
-                    else{
-                        $.ajax({
-                            async: false,
-                            url: "/category/editSubCate",
-                            type: 'POST',
-                            contentType: "application/json; charset=UTF-8",
-                            data: JSON.stringify({
-                                id: $(this).attr("data-id"),
-                                name: $(this).prev().val()
-                            }),
-                            success: function (data) {
-                                if (data.success) {
-                                    x = "Success";
-                                } else {
-                                    alert("Edit New Category Fail...");
-                                }
-
-                            },
-                            error: function (result) {
-                                alert('error ' + JSON.stringify(result));
-                            }
-
-                        })
-                        if (x === "Success") {
-                            let name = $(this).prev().val()
-                            $(this).closest('.media-body').empty().text(name);
-                        }
-                    }
-                })
-                $('.nestable').on('click', '.editSubBtn', function () {
-                    let name= $(this).closest('.media').find('.media-body').text().trim()
-                    $(this).closest('.media').find('.media-body').empty().append(
-                        $.el('input', { 'type': 'text', 'class': 'form-control', 'aria-describedby': "saveSubCateBtn",'value':name })
-                    ).append(
-                        $.el('button', { 'id': 'saveSubCateBtn','data-id':$(this).attr('data-id') ,'class': 'btn btn-outline-danger', 'style': 'margin-left:20px' }).text('Save')
+                    Swal.fire(
+                        'Deleted!',
+                        'Your lecture has been deleted.',
+                        'success'
                     )
-                    $(this).closest('.media').find('.media-body').find('input').focus()
-                });
-                $('#CateModal').on('click','.delBtn', function () {
-                    $(this).closest('li').remove();
+                }
+            })
+
+        });
+        $('.nestable').on('click', '#saveSubCateBtn', function () {
+            var x;
+            if($(this).attr('data-id')==="add") {
+                $.ajax({
+                    async: false,
+                    url: "/category/addSubCate",
+                    type: 'POST',
+                    contentType: "application/json; charset=UTF-8",
+                    data: JSON.stringify({
+                        id: $(this).closest('ul').attr("data-id"),
+                        name: $(this).prev().val()
+                    }),
+                    success: function (data) {
+                        if (data.success) {
+                            x = "Success";
+                        } else {
+                            Swal.fire(
+                                'Error!',
+                                'Add New Category Fail.',
+                                'error'
+                            );
+                        }
+
+                    },
+                    error: function (result) {
+                        Swal.fire(
+                            'Error!',
+                            `${JSON.stringify(result)}`,
+                            'error'
+                        );
+                    }
+
                 })
-                $('#CateModal').on('click','.addBtn',function () {
-                    $('#CateModal ul').append(
-                        $.el('li', { 'class': 'list-group-item' }).append(
-                            $.el('div', { 'class': 'float-left' }).append(
-                                $.el('div', { 'class': 'input-group' }).append(
-                                    $.el('input', { 'type': 'text', 'class': 'form-control', 'aria-describedby': "saveSubCateBtn" })
-                                ).append(
-                                    $.el('button', {'data-id':'add', 'class': 'btn btn-danger saveBtn', 'style': 'margin-left:20px' }).text('Save')
-                                )
-                            )
+                if (x === "Success") {
+                    let name = $(this).prev().val()
+                    $(this).closest('.media-body').empty().text(name);
+                } else {
+                    $(this).closest('.nestable-item').remove();
+                }
+            }
+            else{
+                $.ajax({
+                    async: false,
+                    url: "/category/editSubCate",
+                    type: 'POST',
+                    contentType: "application/json; charset=UTF-8",
+                    data: JSON.stringify({
+                        id: $(this).attr("data-id"),
+                        name: $(this).prev().val()
+                    }),
+                    success: function (data) {
+                        if (data.success) {
+                            x = "Success";
+                        } else {
+                            Swal.fire(
+                                'Error!',
+                                "Edit New Category Fail...",
+                                'error'
+                            );
+                        }
+
+                    },
+                    error: function (result) {
+                        Swal.fire(
+                            'Error!',
+                            `${JSON.stringify(result)}`,
+                            'error'
+                        );
+                    }
+
+                })
+                if (x === "Success") {
+                    let name = $(this).prev().val()
+                    $(this).closest('.media-body').empty().text(name);
+                }
+            }
+        })
+        $('.nestable').on('click', '.editSubBtn', function () {
+            let name= $(this).closest('.media').find('.media-body').text().trim()
+            $(this).closest('.media').find('.media-body').empty().append(
+                $.el('input', { 'type': 'text', 'class': 'form-control', 'aria-describedby': "saveSubCateBtn",'value':name })
+            ).append(
+                $.el('button', { 'id': 'saveSubCateBtn','data-id':$(this).attr('data-id') ,'class': 'btn btn-outline-danger', 'style': 'margin-left:20px' }).text('Save')
+            )
+            $(this).closest('.media').find('.media-body').find('input').focus()
+        });
+        $('#CateModal').on('click','.delBtn', function () {
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $(this).closest('li').remove();
+                    Swal.fire(
+                        'Deleted!',
+                        'Your lecture has been deleted.',
+                        'success'
+                    )
+                }
+            })
+        })
+        $('#CateModal').on('click','.addBtn',function () {
+            $('#CateModal ul').append(
+                $.el('li', { 'class': 'list-group-item' }).append(
+                    $.el('div', { 'class': 'float-left' }).append(
+                        $.el('div', { 'class': 'input-group' }).append(
+                            $.el('input', { 'type': 'text', 'class': 'form-control', 'aria-describedby': "saveSubCateBtn" })
                         ).append(
-                            $.el('div', { 'class': 'float-right' }).append(
-                                $.el('a', { 'class': 'text-danger delBtn' }).append(
-                                    $.el('i', { 'class': 'uil uil-trash-alt', 'style': 'font-size: 150%;' })
-                                )
-                            )
+                            $.el('button', {'data-id':'add', 'class': 'btn btn-danger saveBtn', 'style': 'margin-left:20px' }).text('Save')
                         )
                     )
-                })
-                $('#CateModal').on('click','.saveBtn', function () {
-                    let name = $(this).prev().val();
-                    $(this).closest('div.float-left').empty().append($.el('span',{}).html(name))
-                })
-                $('#CateModal').on('click','.saveModalBtn',function () {
-                    let x;
-                    if($('#CateModal input').val()==="")
-                        $('#CateModal input').tooltip("show");
-                    else if($('#CateModal li').length===0) {
-                        $('#CateModal ul').tooltip("show");
-                    }
+                ).append(
+                    $.el('div', { 'class': 'float-right' }).append(
+                        $.el('a', { 'class': 'text-danger delBtn' }).append(
+                            $.el('i', { 'class': 'uil uil-trash-alt', 'style': 'font-size: 150%;' })
+                        )
+                    )
+                )
+            )
+        })
+        $('#CateModal').on('click','.saveBtn', function () {
+            let name = $(this).prev().val();
+            $(this).closest('div.float-left').empty().append($.el('span',{}).html(name))
+        })
+        $('#CateModal').on('click','.saveModalBtn',function () {
+            let x;
+            if($('#CateModal input').val()==="")
+                $('#CateModal input').tooltip("show");
+            else if($('#CateModal li').length===0) {
+                $('#CateModal ul').tooltip("show");
+            }
 
-                    else {
-                        let subCate=[];
-                        $('#CateModal li span').each(function (i) {
-                            subCate.push($(this).text());
-                        })
-                        $.ajax({
-                            async: false,
-                            url: "/category/addCate",
-                            type: 'POST',
-                            contentType: "application/json; charset=UTF-8",
-                            data: JSON.stringify({
-                                name: $('#CateModal input').val(),
-                                subCate:subCate
-                            }),
-                            success: function (data) {
-                                if (data.success) {
-                                    x = "Success";
-                                    $('.la5lo1').append(
-                                        $.el('div',{'class':'card','style':'border-style: none'}).append(
-                                            $.el('div',{'class':'card-header d-flex justify-content-between align-items-center','id':`heading${$('.la5lo1 .card').length}`}).append(
-                                                $.el('a',{'href':'#','data-toggle':'collapse','data-target':`#collapse${$('.la5lo1 .card').length}`,'class':'btn btn-danger'}).text($('#CateModal input').val())
-                                            )
-                                        ).append(
-                                            $.el('div',{}).append(
-                                                $.el('a',{'href':'#'}).append(
-                                                    $.el('i',{'class':'uil uil-plus-square addBtn','data-id':`${data.cateID}`,'style':'font-size:150%'})
-                                                )
-                                            ).append(
-                                                $.el('a',{'href':'#'}).append(
-                                                    $.el('i',{'class':'uil uil-edit-square editBtn','data-id':`${data.cateID}`,'style':'font-size:150%'})
-                                                )
-                                            ).append(
-                                                $.el('a',{'href':'#'}).append(
-                                                    $.el('i',{'class':'uil uil-trash-square delBtn','data-id':`${data.cateID}`,'style':'font-size:150%'})
-                                                )
-                                            )
+            else {
+                let subCate=[];
+                $('#CateModal li span').each(function (i) {
+                    subCate.push($(this).text());
+                })
+                $.ajax({
+                    async: false,
+                    url: "/category/addCate",
+                    type: 'POST',
+                    contentType: "application/json; charset=UTF-8",
+                    data: JSON.stringify({
+                        name: $('#CateModal input').val(),
+                        subCate:subCate
+                    }),
+                    success: function (data) {
+                        if (data.success) {
+                            x = "Success";
+                            $('.la5lo1').append(
+                                $.el('div',{'class':'card','style':'border-style: none'}).append(
+                                    $.el('div',{'class':'card-header d-flex justify-content-between align-items-center','id':`heading${$('.la5lo1 .card').length}`}).append(
+                                        $.el('a',{'href':'#','data-toggle':'collapse','data-target':`#collapse${$('.la5lo1 .card').length}`,'class':'btn btn-danger'}).text($('#CateModal input').val())
+                                    )
+                                ).append(
+                                    $.el('div',{}).append(
+                                        $.el('a',{'href':'#'}).append(
+                                            $.el('i',{'class':'uil uil-plus-square addBtn','data-id':`${data.cateID}`,'style':'font-size:150%'})
                                         )
                                     ).append(
-                                        $.el('div',{'id':`collapse${$('.la5lo1 .card').length}`,'class':'collapse','aria-labelledby':`heading${$('.la5lo1 .card').length}`}).append(
-                                            $.el('div',{'class':'nestable','id':'nestable'}).append(
-                                                $.el('ul',{'class':'list-group list-group-fit nestable-list-plain mb-0','data-id':`${data.cateID}`})
-                                            )
+                                        $.el('a',{'href':'#'}).append(
+                                            $.el('i',{'class':'uil uil-edit-square editBtn','data-id':`${data.cateID}`,'style':'font-size:150%'})
+                                        )
+                                    ).append(
+                                        $.el('a',{'href':'#'}).append(
+                                            $.el('i',{'class':'uil uil-trash-square delBtn','data-id':`${data.cateID}`,'style':'font-size:150%'})
                                         )
                                     )
-                                for (var i =0;i<subCate.length;i++) {
-                                    $('.la5lo1 .collapse ul').last().append(
-                                        $.el('li',{'class':'list-group-item nestable-item'}).append(
-                                            $.el('div',{'class':'media'}).append(
-                                                $.el('div',{'class':'media-body media-middle input-group'}).text(subCate[i])
-                                            )
-                                        ).append(
-                                            $.el('div',{'class':'media-right text-right'}).append(
-                                                $.el('div',{'style':'width:100px'}).append(
-                                                    $.el('a',{'href':'#','class':'text-danger editSubBtn','data-id':`${data.subCateID[i]}`}).append(
-                                                        $.el('i',{'class':'uil uil-edit-alt','style':'font-size:150%'})
-                                                    )
-                                                ).append(
-                                                    $.el('a',{'href':'#','class':'text-danger delSubBtn','data-id':`${data.subCateID[i]}`}).append(
-                                                        $.el('i',{'class':'uil uil-trash-alt','style':'font-size:150%'})
-                                                    )
+                                )
+                            ).append(
+                                $.el('div',{'id':`collapse${$('.la5lo1 .card').length}`,'class':'collapse','aria-labelledby':`heading${$('.la5lo1 .card').length}`}).append(
+                                    $.el('div',{'class':'nestable','id':'nestable'}).append(
+                                        $.el('ul',{'class':'list-group list-group-fit nestable-list-plain mb-0','data-id':`${data.cateID}`})
+                                    )
+                                )
+                            )
+                            for (var i =0;i<subCate.length;i++) {
+                                $('.la5lo1 .collapse ul').last().append(
+                                    $.el('li',{'class':'list-group-item nestable-item'}).append(
+                                        $.el('div',{'class':'media'}).append(
+                                            $.el('div',{'class':'media-body media-middle input-group'}).text(subCate[i])
+                                        )
+                                    ).append(
+                                        $.el('div',{'class':'media-right text-right'}).append(
+                                            $.el('div',{'style':'width:100px'}).append(
+                                                $.el('a',{'href':'#','class':'text-danger editSubBtn','data-id':`${data.subCateID[i]}`}).append(
+                                                    $.el('i',{'class':'uil uil-edit-alt','style':'font-size:150%'})
+                                                )
+                                            ).append(
+                                                $.el('a',{'href':'#','class':'text-danger delSubBtn','data-id':`${data.subCateID[i]}`}).append(
+                                                    $.el('i',{'class':'uil uil-trash-alt','style':'font-size:150%'})
                                                 )
                                             )
                                         )
                                     )
-                                }
-
-
-                                } else {
-                                    alert("Add New Category Fail...");
-                                }
-
-                            },
-                            error: function (result) {
-                                alert('error ' + JSON.stringify(result));
+                                )
                             }
 
-                        })
 
+                        } else {
+                            alert("Add New Category Fail...");
+                        }
+
+                    },
+                    error: function (result) {
+                        alert('error ' + JSON.stringify(result));
                     }
+
                 })
-            })
-        </script>
 
-    <div class="modal  fade" id="CateModal" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered  " role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h2 class="modal-title" id="exampleModalLabel">Create Category</h2>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div class="container-fluid">
-                        <div class="row">
-                            <div class="col-md-10 col-sm-12">
-                                <div class="input-group mb-4 ">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text" id="basic-addon1">Category</span>
-                                    </div>
-                                    <input type="text" class="form-control" placeholder="Category name" aria-label="Category name" aria-describedby="basic-addon1"  data-placement="top" data-toggle="tooltip" title="Please input name!">
-                                </div>
-                            </div>
-                            <div class="col-12">
-                                <div class="card" >
-                                    <div class="card-header  " style="padding: 5px">
-                                        <span class="float-left m-2">Sub Category</span>
-                                        <button type="button" class="btn btn-danger float-right addBtn" > Add</button>
-                                    </div>
-                                    <ul class="list-group list-group-flush" data-toggle="tooltip" data-placement="top" title="Add at least 1 sub category!">
+            }
+        })
+    })
+</script>
 
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-danger saveModalBtn">Save changes</button>
-                </div>
-            </div>
-        </div>
-    </div>
+
 </body>
 
 <!-- Mirrored from gambolthemes.net/html-items/cursus_demo_f12/categories.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 20 Jun 2020 12:56:17 GMT -->

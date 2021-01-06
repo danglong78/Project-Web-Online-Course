@@ -27,7 +27,7 @@ route.post('/upload_vid',isAuthenticated, function (req, res, next) {
     upload.receive_vid(req, res);
 });
 route.get('/mycourse', isAuthenticated, function (req, res, next) {
-
+    res.render("lecturer/my_courses")
 });
 
 
