@@ -3,7 +3,8 @@ var uploadVideo= require('../course/uploadCourse').uploadVideo;
 var courseModel= require('../../models/course').model;
 
 receive_infor = async function (req,res) {
-    let c= req.body
+    let c= req.body;
+    console.log(req.user.id);
     chapter=[]
     lecture=[]
     let course= new courseModel({
@@ -13,7 +14,7 @@ receive_infor = async function (req,res) {
         price: c.price,
         finished:c.finished,
         updateDate: c.updateDate,
-        teacher: req.user.id,
+        lecturer: req.user.id,
         category:c.category,
         subCategory:c.subCategory
     })

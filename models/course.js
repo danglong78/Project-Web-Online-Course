@@ -22,9 +22,9 @@ const courseSchema = mongoose.Schema({
 
     avatar: { type: String, text: true },
 
-    teacher: {
+    lecturer: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Lecturer'
+        ref: 'Credential'
     },
     category: {
         type: mongoose.Schema.Types.ObjectId,
