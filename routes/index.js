@@ -9,6 +9,8 @@ const cateRouter = require('./category');
 const lecturerRouter = require('./lecturer')
 /* GET home page. */
 router.get('/', function (req, res, next) {
+  console.log(req.user.id);
+
   res.render('index');
 });
 router.use('/lecturer',lecturerRouter)

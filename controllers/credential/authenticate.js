@@ -16,7 +16,7 @@ passport.serializeUser(function (user, done) {
     console.log(user);
 
     // role = "Student" || "Admin" || "Lecturer"
-    done(null, { role: user.role, id: user._id });
+    done(null, { role: user.role, id: user.id });
     console.log("end serialize");
 });
 
@@ -28,6 +28,7 @@ passport.deserializeUser(async (payload, done) => {
         role: payload.role,
     }
     done(null, user);
+    console.log(user);
     console.log("end deserialize");
 });
 
