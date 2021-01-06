@@ -48,7 +48,7 @@ app.use((req, res, next) => {
 
 // Routing
 app.use('/', indexRouter);
-app.use('/student', isAuthenticated, studentRouter);
+//app.use('/student', isAuthenticated, studentRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

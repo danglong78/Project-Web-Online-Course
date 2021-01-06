@@ -8,7 +8,7 @@ const adminChema = Schema({
     }
 });
 
-const Admin = mongoose.model('admin', adminChema);
+const Admin = mongoose.model('Admin', adminChema);
 
 module.exports = {
     model: Admin

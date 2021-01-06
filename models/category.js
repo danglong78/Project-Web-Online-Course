@@ -1,19 +1,19 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const categorySchema = Schema({
+const mainCategorySchema = Schema({
     name: {
         type: String,
         required: true,
         unique: true
     },
-    subCate: [{ type: mongoose.Schema.Types.ObjectId, ref: 'category' }]
+    subCate: [{ type: mongoose.Schema.Types.ObjectId, ref: 'subCategory' }]
 });
 
-const Category = mongoose.model('category', categorySchema);
+const mainCategory = mongoose.model('MainCategory', mainCategorySchema);
 
 var getMainCate = async function () {
-    var cate = await Category.find({ 'subCate.0': { "$exists": true } });
+    var cate = await mainCategory.find({ 'subCate.0': { "$exists": true } });
     if (cate.length == 0) {
         return null;
     }
@@ -21,6 +21,6 @@ var getMainCate = async function () {
 }
 
 module.exports = {
-    model: Category,
+    model: mainCategory,
     GetMainCate: getMainCate
 }
