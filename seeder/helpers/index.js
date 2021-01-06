@@ -1,4 +1,5 @@
 const { getObjectId, getObjectIds } = require("mongo-seeding");
+
 const {
   courseIDList,
   studentList,
@@ -44,7 +45,7 @@ const joinRandCourses = (nCourses, nProgress) => {
   let courses = [];
   let randCourses = randNumArray(courseIDList.length, nCourses);
 
-  for (let i = 0; i < defaultNumCourses; i++) {
+  for (let i = 0; i < nCourses; i++) {
     courses.push({
       progress: randNumArray(
         courseIDList[randCourses[i]].lectureCount,
@@ -61,12 +62,9 @@ const getRndInteger = (min, max) => {
 };
 
 const randRates = (nRates) => {
-  console.log("DEBUG HERE");
   let rates = [];
-  console.log(studentList);
   let randStudents = randNumArray(studentList.length, nRates);
 
-  console.log(randStudents);
   for (let i = 0; i < randStudents.length; i++) {
     rates.push({
       student: getObjectId(studentList[randStudents[i]] + "student"),
@@ -85,6 +83,12 @@ const randSubCat = () => {
   return subCatList[getRndInteger(0, subCatList.length - 1)];
 };
 
+const randSubCats = (nSubCats) => {
+  return getObjectIds(
+    randNumArray(subCatList.length, nSubCats).map((idx) => subCatList[idx])
+  );
+};
+
 module.exports = {
   mapToEntities,
   getObjectId,
@@ -95,4 +99,5 @@ module.exports = {
   randRates,
   randMainCat,
   randSubCat,
+  randSubCats,
 };

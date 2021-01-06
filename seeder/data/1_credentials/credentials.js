@@ -1,4 +1,4 @@
-const { studentList, lecturerList } = require("../generator");
+const { studentList, lecturerList } = require("../../generator");
 const { getObjectId } = require("../../helpers/index");
 const bcrypt = require("bcrypt");
 const saltRounds = 10;
