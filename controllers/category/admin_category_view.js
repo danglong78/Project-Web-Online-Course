@@ -1,11 +1,11 @@
 const Cate = require('../../models/category').model;
 const SubCate = require('../../models/subCategory').model
-const GetMainCate = require('../../models/category').GetMainCate;
+//const GetMainCate = require('../../models/category').GetMainCate;
 
 const admin_Cate_View = async function (res) {
     try {
         let main_cate = await Cate.find();
-        let sub_cate= await SubCate.find();
+        let sub_cate = await SubCate.find();
         if (main_cate.length == 0) {
             res.render('error');
             return;
@@ -27,12 +27,110 @@ const admin_Cate_View = async function (res) {
                 subCate: subcate
             });
         }
-        res.render('admin/category', { category: category ,subCategory:sub_cate});
+        res.render('admin/category', { category: category, subCategory: sub_cate });
     } catch (e) {
         res.render('error');
     }
 }
 
+const rename_MainCate = async function (req, res) {
+    const id = req.body.id;
+    const new_name = req.body.name;
+    var aCate = await Cate.findById(id);
+    aCate.name = new_name;
+    Cate.update({ _id: id }, { $set: aCate }).exec();
+    res.send({ success: true });
+};
+
+const add_MainCate = async function (req, res) {
+    var temp = await Cate.find({ name: req.body.name });
+    //var aCate = await cateModel.findById(req.body.id);
+    if (temp.length > 0) {
+        res.send({ success: false });
+        return;
+    }
+    else {
+        let cate = new Cate({ name: req.body.name, subCate: [] })
+        try {
+            await cate.save();
+        } catch (err) {
+
+            res.send({ success: false })
+            throw err;
+            //return;
+        }
+        res.send({ success: true, cateID: cate._id })
+    }
+}
+
+const add_SubCate = async function (req, res) {
+    var temp = await SubCate.find({ name: req.body.name });
+    //var aCate = await cateModel.findById(req.body.id);
+    if (temp.length > 0) {
+        res.send({ success: false });
+        return;
+    }
+    else {
+        let cate = new SubCate({ name: req.body.name })
+        try {
+            await cate.save();
+        } catch (err) {
+
+            res.send({ success: false })
+            throw err;
+            //return;
+        }
+        res.send({ success: true, cateID: cate._id })
+    }
+}
+
+const rename_SubCate = async function (req, res) {
+    const id = req.body.id;
+    const new_name = req.body.name;
+    var aCate = await SubCate.findById(id);
+    aCate.name = new_name;
+    SubCate.update({ _id: id }, { $set: aCate }).exec();
+    res.send({ success: true });
+};
+
+const del_Main_cate = async function (req, res) {
+    const id = req.body.id;
+    var aCate = await Cate.findById(id);
+    if (aCate.subCate.length > 0) {
+        res.send({ success: false });
+    }
+    try {
+        Cate.findByIdAndDelete(id).exec();
+        res.send({ success: true });
+    } catch (err) {
+        res.send({ success: false });
+        throw (err);
+    }
+};
+
+const add_Subcate_to_Maincate = async function (req, res) {
+    const main_id = req.body.idMain;
+    const sub_id = req.body.idSubCate;
+    var aCate = await Cate.findById(main_id);
+    for (var i = 0; i < aCate.subCate.length; i++) {
+        if (aCate.subCate[i] == sub_id) {
+            res.send({ success: false });
+            return;
+        }
+    }
+    aCate.subCate.push(sub_id);
+    Cate.update({ _id: main_id }, { $set: aCate }).exec();
+    res.send({ success: true });
+};
+
+
+
 module.exports = {
-    admin_Cate_View: admin_Cate_View
+    admin_Cate_View: admin_Cate_View,
+    admin_add_Main_cate: add_MainCate,
+    admin_rename_Main_cate: rename_MainCate,
+    admin_add_Sub_cate: add_SubCate,
+    admin_rename_Sub_cate: rename_SubCate,
+    admin_del_Main_cate: del_Main_cate,
+    admin_add_Subcate_to_Maincate: add_Subcate_to_Maincate
 }

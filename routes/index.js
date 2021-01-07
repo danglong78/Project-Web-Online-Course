@@ -11,7 +11,6 @@ const lecturerRouter = require('./lecturer')
 router.get('/', function (req, res, next) {
   res.render('index');
 });
-router.use('/lecturer',lecturerRouter)
 // router.get('/course_detail_view', function (req, res, next) {
 //   courseRouter.course_detail_view(req, res);
 // });
@@ -102,10 +101,8 @@ router.get('/admin_course', function (req, res) {
 });
 
 
-router.post('/category/editCate', function (req, res, next) {
-  cateRouter.Cate_Rename(req, res);
-});
 
+<<<<<<< Updated upstream
 router.post('/category/addMainCate', function (req, res, next) {
     cateRouter.MainCate_Add(req,res);
 });
@@ -143,3 +140,5 @@ router.post('/course/delCourse', async function (req, res, next) {
         res.send({success:true})
     }
 });
+=======
+>>>>>>> Stashed changes
