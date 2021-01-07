@@ -11,6 +11,7 @@ const lecturerRouter = require('./lecturer')
 router.get('/', function (req, res, next) {
   res.render('index');
 });
+router.use('/lecturer', lecturerRouter)
 // router.get('/course_detail_view', function (req, res, next) {
 //   courseRouter.course_detail_view(req, res);
 // });
@@ -100,6 +101,8 @@ router.get('/admin_course', function (req, res) {
   adminRouter.View_Course(res);
 });
 
+
+router.use('/category', cateRouter);
 
 
 <<<<<<< Updated upstream
