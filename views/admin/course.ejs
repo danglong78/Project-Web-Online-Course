@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<!-- Mirrored from gambolthemes.net/html-items/cursus_demo_f12/categories.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 20 Jun 2020 12:56:17 GMT -->
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, shrink-to-fit=9">
+    <meta name="description" content="Gambolthemes">
+    <meta name="author" content="Gambolthemes">
+    <title>Cursus - Categories</title>
+
+    <!-- Favicon Icon -->
+    <link rel="icon" type="image/png" href="images/fav.png">
+    <link href="/css/instructor-dashboard.css" rel="stylesheet" type="text/css">
+    <link href="/css/instructor-responsive.css" rel=rel="stylesheet" type="text/css">
+    <link href="/css/vertical-responsive-menu1.min.css" rel="stylesheet" type="text/css">
+    <link href="/css/jquery-steps.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.23/css/jquery.dataTables.css">
+    <%- include('../partials/head'); -%>
+
+
+</head>
+
+<body>
+<%- include('../partials/navbar'); -%>
+<!-- Header End -->
+<!-- Left Sidebar Start -->
+<%- include('../partials/left-menu'); -%>
+<!-- Left Sidebar End -->
+<!-- Body Start -->
+<div class="wrapper">
+    <div class="sa4d25">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="table-responsive mt-30">
+                        <table class="table ucp-table display" id="subCategoryTable">
+                            <thead class="thead-s" >
+                            <tr>
+                                <th class="cell-ta" >Name</th>
+                                <th class="cell-ta" >Category</th>
+                                <th class="cell-ta" >Sub Category</th>
+                                <th class="text-center" scope="col">Actions</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <% for(i =0;i<course.length;i++){%>
+                            <tr data-id="<%=course[i]._id%>">
+                                <td class="cell-ta" ><%=course[i].title%></td>
+                                <td class="cell-ta" ><%=course[i].mainCate%></td>
+                                <td class="cell-ta" ><%=course[i].subCate%></td>
+                                <td class="text-center">
+                                    <a href="#" title="Delete" class="gray-s"><i class="uil uil-trash-alt"></i></a>
+                                </td>
+                            </tr>
+
+                            <%}%>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <%- include('../partials/footer'); -%>
+    </div>
+</div>
+<!-- Body End -->
+
+<script src="js/vertical-responsive-menu.min.js"></script>
+<script src="js/jquery-3.3.1.min.js"></script>
+<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="vendor/OwlCarousel/owl.carousel.js"></script>
+<script src="vendor/semantic/semantic.min.js"></script>
+<script src="js/custom.js"></script>
+<script src="js/night-mode.js"></script>
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.js"></script>
+<!-- Hàm cho main cate-->
+<script>
+    $.extend({
+        el: function (el, props) {
+            var $el = $(document.createElement(el));
+            $el.attr(props);
+            return $el;
+        }
+    });
+</script>
+<!--Hàm cho sub cate-->
+<script>
+    $(document).ready(function () {
+        let table= $('#subCategoryTable').DataTable();
+        $('#subCategoryTable').on('click','a[title="Delete"]',function () {
+            let id = $(this).closest('tr').data('id');
+            $tr=$(this).closest('tr');
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        async: false,
+                        url: "/course/delCourse",
+                        type: 'POST',
+                        contentType: "application/json; charset=UTF-8",
+                        data: JSON.stringify({ id:id }),
+                        success: function (data) {
+                            if(data.success)
+                            {
+                                Swal.fire(
+                                    'Deleted!',
+                                    'Course has been deleted.',
+                                    'success'
+                                ).then( () =>{
+                                    table.row($tr).remove().draw();
+                                })
+                            }
+                            else{
+                                Swal.fire(
+                                    'Fail!',
+                                    'Delete course Fail !!!.',
+                                    'error'
+                                )
+                            }
+                        },
+                        error: function (result) {
+                            Swal.fire(
+                                'Error!',
+                                `${JSON.stringify(result)}`,
+                                'error'
+                            );
+                        }
+
+                    })
+
+
+                }
+            })
+        })
+        $('#addSubCateBtn').click(function () {
+            if($('input[name="subCate"]').val()==="")
+            {
+                Swal.fire(
+                    'Error!',
+                    'You did not input name of the new main category',
+                    'error'
+                );
+            }
+            else {
+                Swal.fire({
+                    title: 'Getting response from data',
+
+                    didOpen: () => {
+                        Swal.showLoading();
+                        $.ajax({
+                            async: false,
+                            url: "/category/addSubCate",
+                            type: 'POST',
+                            contentType: "application/json; charset=UTF-8",
+                            data: JSON.stringify({ name: $('input[name="subCate"]').val() }),
+                            success: function (data) {
+                                if(data.success)
+                                {
+                                    Swal.fire(
+                                        'Success!',
+                                        `Your new sub category has been added`,
+                                        'success'
+                                    ).then( () =>{
+                                        location.reload()
+                                    })
+
+                                }
+                                else{
+                                    Swal.fire(
+                                        'Error!',
+                                        `Duplicate name of new sub category`,
+                                        'error'
+                                    );
+                                }
+                            },
+                            error: function (result) {
+                                Swal.fire(
+                                    'Error!',
+                                    `${JSON.stringify(result)}`,
+                                    'error'
+                                );
+                            }
+
+                        })
+                    },
+                });
+            }
+        })
+
+    })
+
+</script>
+
+</body>
+
+<!-- Mirrored from gambolthemes.net/html-items/cursus_demo_f12/categories.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 20 Jun 2020 12:56:17 GMT -->
+
+</html>

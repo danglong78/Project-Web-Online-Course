@@ -97,6 +97,10 @@ router.get('/my_course', function (req, res) {
 router.get('/admin_cate', function (req, res) {
   adminRouter.View_Cate(res);
 });
+router.get('/admin_course', function (req, res) {
+  adminRouter.View_Course(res);
+});
+
 
 router.post('/category/editCate', function (req, res, next) {
   cateRouter.Cate_Rename(req, res);
@@ -127,4 +131,15 @@ router.post('/category/editSubCateName', function (req, res, next) {
 });router.post('/category/addSubCate', function (req, res, next) {
     console.log(req.body)
     res.send({success:false})
+});
+router.post('/course/delCourse', async function (req, res, next) {
+    try
+    {
+        await quizModel.deleteOne({ _id: id });
+        res.send({success:true})
+
+    }catch (e)
+    {
+        res.send({success:true})
+    }
 });
