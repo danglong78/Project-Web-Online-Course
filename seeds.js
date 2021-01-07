@@ -1,10 +1,16 @@
-const {
-  generate,
-  crawledCourses,
-  studentList,
-  lecturerList,
-  courseIDList,
-} = require("./seeder/generator");
+// const {
+//   generate,
+//   crawledCourses,
+//   studentList,
+//   lecturerList,
+//   courseIDList,
+// } = require("./seeder/generator");
+
+const { randDateAfter } = require("./seeder/helpers/index");
+
+console.log(
+  ...randDateAfter("2020-01-01", 5).map((date) => date.toDateString())
+);
 
 // const { randDateAfter } = require("./seeder/helpers/index");
 
@@ -106,3 +112,4 @@ generate().then(() => {
 
   console.log("End at seeds.js");
 });
+
