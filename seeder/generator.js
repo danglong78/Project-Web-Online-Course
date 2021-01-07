@@ -64,6 +64,10 @@ let mainCatList = [
   "Music",
   "Health",
   "Personal Development",
+  "Art",
+  "Sport",
+  "Mental",
+  "Manager",
 ];
 let subCatList = [
   "NodeJS",
@@ -76,6 +80,9 @@ let subCatList = [
   "Angular",
   "Go",
   "Cassandra",
+  "Badminton",
+  "Unagi",
+  "Leadership",
 ];
 const nEmail = 20;
 const nStudent = 15;
