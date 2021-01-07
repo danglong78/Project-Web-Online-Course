@@ -1,5 +1,6 @@
 const Cate = require('../../models/category').model;
-const SubCate = require('../../models/subCategory').model
+const SubCate = require('../../models/subCategory').model;
+const course = require('../../models/course').model;
 //const GetMainCate = require('../../models/category').GetMainCate;
 
 const admin_Cate_View = async function (res) {
@@ -123,7 +124,67 @@ const add_Subcate_to_Maincate = async function (req, res) {
     res.send({ success: true });
 };
 
+const del_subcate = async function (req, res) {
+    const id = req.body.id;
+    var coure_list = await course.find({ subCategory: id });
+    var Cate_list = await Cate.find({ subCate: id });
+    if (coure_list.length > 0) {
+        res.send({ success: false });
+        return;
+    }
+    for (var i = 0; i < Cate_list.length; i++) {
+        var temp = [];
+        for (var z = 0; z < Cate_list[i].subCate.length; z++) {
+            if (Cate_list[i].subCate[z] != id) {
+                temp.push(Cate_list[i].subCate[z]);
+            }
+        }
+        Cate_list[i].subCate = temp;
+        Cate.update({ _id: Cate_list[i]._id }, { $set: Cate_list[i] }).exec();
+    }
+    SubCate.findByIdAndDelete(id).exec();
+    res.send({ success: true });
+};
 
+const change_subcate = async function (req, res) {
+    const main_id = req.body.idMain;
+    const sub_id_pre = req.body.oldIDSubCate;
+    const sub_id_pos = req.body.newIDSubCate;
+    var course_list = await course.find({ category: main_id, subCategory: sub_id_pre });
+    if (course_list.length > 0) {
+        res.send({ success: false });
+        return;
+    }
+    var aCate = await Cate.findById(main_id);
+    for (var i = 0; i < aCate.subCate.length; i++) {
+        if (aCate.subCate[i] == sub_id_pre) {
+            aCate.subCate[i] = sub_id_pos;
+            break;
+        }
+    }
+    Cate.update({ _id: main_id }, { $set: aCate }).exec();
+    res.send({ success: true });
+};
+
+const dell_subcate_from_main = async function (req, res) {
+    const idsub = req.body.idSub;
+    const idmain = req.body.idMain;
+    var course_list = await course.find({ category: idmain, subCategory: idsub });
+    if (course_list.length > 0) {
+        res.send({ success: false });
+        return;
+    }
+    var aCate = await Cate.findById(idmain);
+    var temp = [];
+    for (var i = 0; i < aCate.subCate.length; i++) {
+        if (aCate.subCate[i] != idsub) {
+            temp.push(aCate.subCate[i]);
+        }
+    }
+    aCate.subCate = temp;
+    Cate.update({ _id: idmain }, { $set: aCate }).exec();
+    res.send({ success: true });
+};
 
 module.exports = {
     admin_Cate_View: admin_Cate_View,
@@ -132,5 +193,8 @@ module.exports = {
     admin_add_Sub_cate: add_SubCate,
     admin_rename_Sub_cate: rename_SubCate,
     admin_del_Main_cate: del_Main_cate,
-    admin_add_Subcate_to_Maincate: add_Subcate_to_Maincate
+    admin_add_Subcate_to_Maincate: add_Subcate_to_Maincate,
+    admin_del_Subcate: del_subcate,
+    admim_change_subcate: change_subcate,
+    admin_del_subcate_from_maincate: dell_subcate_from_main
 }

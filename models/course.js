@@ -93,7 +93,7 @@ const courseSchema = mongoose.Schema({
 });
 
 courseSchema.plugin(mongoosePaginate);
-Course = mongoose.model("Course", courseSchema);
+const Course = mongoose.model("Course", courseSchema);
 //Course.paginate().then({}); // Usage
 
 module.exports = {
