@@ -1,7 +1,6 @@
 const UdemyCrawler = require("./crawler");
 const faker = require("faker");
 const CONFIG = require("../config.json");
-const { randEmail, getWeekDateAfter } = require("./helpers/index");
 
 const courseUrls = [
   "https://www.udemy.com/course/startup-business-development-guide/",
@@ -109,7 +108,9 @@ const generate = async () => {
   console.log("End generating courses in generator");
 
   console.log("Start generating emails in generator");
-  emailList.push(...randEmail(nEmail));
+  for (let i = 0; i < nEmail; i++) {
+    emailList.push(faker.unique(faker.internet.email));
+  }
 
   // console.log("Email List: ");
   // console.log(emailList);
@@ -132,13 +133,13 @@ const generate = async () => {
   adminList.push(...emailList.slice(nStudent + nLecturer, emailList.length));
   console.log("End generating emails in generator");
 
-  console.log("Start generating weekly transaction in generator");
-  weeklyTransDateList.push(...getWeekDateAfter(CONFIG.seeder.weekStart));
-  console.log("End generating weekly transaction in generator");
+  // console.log("Start generating weekly transaction in generator");
+  // weeklyTransDateList.push(...getWeekDateAfter(CONFIG.seeder.weekStart));
+  // console.log("End generating weekly transaction in generator");
 
-  console.log("Start generating transaction in generator");
+  // console.log("Start generating transaction in generator");
 
-  console.log("End generating transaction in generator");
+  // console.log("End generating transaction in generator");
 };
 
 module.exports = {
