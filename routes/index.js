@@ -27,7 +27,6 @@ router.get("/test", async function (req, res, next) {
 
   res.json(courses);
 });
-
 router.use("/lecturer", lecturerRouter);
 // router.get('/course_detail_view', function (req, res, next) {
 //   courseRouter.course_detail_view(req, res);
@@ -131,35 +130,8 @@ router.get("/my_course", function (req, res) {
 router.get("/admin_cate", function (req, res) {
   adminRouter.View_Cate(res);
 });
-
-router.post("/category/editCate", function (req, res, next) {
-  cateRouter.Cate_Rename(req, res);
+router.get("/admin_course", function (req, res) {
+  adminRouter.View_Course(res);
 });
 
-router.post("/category/addMainCate", function (req, res, next) {
-  cateRouter.MainCate_Add(req, res);
-});
-router.post("/category/delSubCate", function (req, res, next) {
-  console.log(req.body);
-  res.send({ success: true });
-});
-router.post("/category/delMainCate", function (req, res, next) {
-  console.log(req.body);
-  res.send({ success: true });
-});
-router.post("/category/addSubCateToMainCate", function (req, res, next) {
-  console.log(req.body);
-  res.send({ success: true });
-});
-router.post("/category/changeSubCateToMainCate", function (req, res, next) {
-  console.log(req.body);
-  res.send({ success: true });
-});
-router.post("/category/editSubCateName", function (req, res, next) {
-  console.log(req.body);
-  res.send({ success: true });
-});
-router.post("/category/addSubCate", function (req, res, next) {
-  console.log(req.body);
-  res.send({ success: false });
-});
+router.use("/category", cateRouter);

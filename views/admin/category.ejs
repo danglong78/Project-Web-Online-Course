@@ -557,6 +557,7 @@
 
         $('.nestable').on('click', '.delSubBtn', function () {
             $button=$(this);
+            let mainCateID = $(this).closest('ul').data('id')
             Swal.fire({
                 title: 'Are you sure?',
                 text: "You won't be able to revert this!",
@@ -568,10 +569,10 @@
                     var x;
                     $.ajax({
                         async: false,
-                        url: "/category/delSubCate",
+                        url: "/category/delSubCateFromMainCate",
                         type: 'POST',
                         contentType: "application/json; charset=UTF-8",
-                        data: JSON.stringify({  idSub: $button.attr('data-id') }),
+                        data: JSON.stringify({  idSub: $button.attr('data-id'),idMain:mainCateID }),
                         success: function (data) {
                             if (data.success) {
                                 Swal.fire(

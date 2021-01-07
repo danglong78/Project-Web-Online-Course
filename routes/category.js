@@ -1,67 +1,53 @@
 var express = require('express');
 var mongoose = require('mongoose');
-var cateModel = require('../models/category').model;
-var subCateModel = require('../models/subCategory').model;
+var cat_controller = require("../controllers/category/admin_category_view");
+const router = express.Router();
 
-var courseModel = require('../models/course').model;
 
-const rename_Cate = async function (req, res) {
-    const id = req.body.id;
-    const new_name = req.body.name;
-    var aCate = await cateModel.findById(id);
-    aCate.name = new_name;
-    cateModel.update({ _id: id }, { $set: aCate }).exec();
+router.post('/editCate', function (req, res, next) {
+    cat_controller.admin_rename_Main_cate(req, res);
+});
+
+router.post('/addMainCate', function (req, res, next) {
+    cat_controller.admin_add_Main_cate(req, res);
+});
+
+
+router.post('/delSubCate', function (req, res, next) {
+    console.log("ahkjdfhadsf");
+    console.log(req.body)
     res.send({ success: true });
-};
+});
+router.post('/delSubCateFromMainCate', function (req, res, next) {
+    console.log("123");
+    console.log(req.body)
+    res.send({ success: true });
+});
 
 
-const add_Cate = async function (req, res) {
-    var temp = await cateModel.find({ name: req.body.name });
-    var aCate = await cateModel.findById(req.body.id);
-    if (temp.length > 0) {
-        res.send({ success: false });
-    }
-    else {
-        const new_cate = new cateModel({
-            _id: mongoose.Types.ObjectId(),
-            name: req.body.name,
-            subCate: []
-        });
-        new_cate.save();
-        var subid = new_cate._id;
-        aCate.subCate.push(subid);
-        cateModel.update({ _id: req.body.id }, { $set: aCate }).exec();
-        res.send({ success: true });
-    }
-
-}
+router.post('/delMainCate', function (req, res, next) {
+    cat_controller.admin_del_Main_cate(req, res);
+});
 
 
-const del_Cate = async function (req, res) {
-    var temp = await cateModel.find({ name: req.body.name });
-    var aCate = await cateModel.findById(req.body.id);
-}
-const add_MainCate = async function (req, res) {
-    var temp = await cateModel.find({ name: req.body.name });
-    var aCate = await cateModel.findById(req.body.id);
-    if (temp.length > 0) {
-        res.send({ success: false });
-        return;
-    }
-    else{
-    let cate = new cateModel({name:req.body.name,subCate:[]})
-    try{
-        await cate.save();
-    }catch (err){
-        throw err;
-        res.send({success: false})
-        return;
-    }
-    res.send({success:true,cateID:cate._id})
-    }
-}
-module.exports = {
-    Cate_Rename: rename_Cate,
-    Cate_Add: add_Cate,
-    MainCate_Add: add_MainCate
-}
+router.post('/addSubCateToMainCate', function (req, res, next) {
+    cat_controller.admin_add_Subcate_to_Maincate(req, res);
+});
+
+
+router.post('/changeSubCateToMainCate', function (req, res, next) {
+    console.log(req.body);
+    res.send({ success: true });
+});
+
+
+router.post('/editSubCateName', function (req, res, next) {
+    cat_controller.admin_rename_Sub_cate(req, res);
+});
+
+
+router.post('/addSubCate', function (req, res, next) {
+    cat_controller.admin_add_Sub_cate(req, res);
+});
+
+module.exports = router;
