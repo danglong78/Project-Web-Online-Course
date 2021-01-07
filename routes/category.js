@@ -14,14 +14,10 @@ router.post('/addMainCate', function (req, res, next) {
 
 
 router.post('/delSubCate', function (req, res, next) {
-    console.log("ahkjdfhadsf");
-    console.log(req.body)
-    res.send({ success: true });
+    cat_controller.admin_del_Subcate(req, res);
 });
 router.post('/delSubCateFromMainCate', function (req, res, next) {
-    console.log("123");
-    console.log(req.body)
-    res.send({ success: true });
+    cat_controller.admin_del_subcate_from_maincate(req, res);
 });
 
 
@@ -36,8 +32,7 @@ router.post('/addSubCateToMainCate', function (req, res, next) {
 
 
 router.post('/changeSubCateToMainCate', function (req, res, next) {
-    console.log(req.body);
-    res.send({ success: true });
+    cat_controller.admim_change_subcate(req, res);
 });
 
 
