@@ -1,5 +1,7 @@
 const UdemyCrawler = require("./crawler");
 const faker = require("faker");
+const CONFIG = require("../config.json");
+const { randEmail, getWeekDateAfter } = require("./helpers/index");
 
 const courseUrls = [
   "https://www.udemy.com/course/startup-business-development-guide/",
@@ -55,6 +57,7 @@ let crawledCourses = [];
 let emailList = [];
 let studentList = [];
 let lecturerList = [];
+let adminList = [];
 let courseIDList = [];
 let mainCatList = [
   "Web",
@@ -84,8 +87,14 @@ let subCatList = [
   "Unagi",
   "Leadership",
 ];
-const nEmail = 20;
-const nStudent = 15;
+
+const nStudent = CONFIG.seeder.nStudentEmail;
+const nLecturer = CONFIG.seeder.nLecturerEmail;
+const nAdmin = CONFIG.seeder.nAdminEmail;
+const nEmail = nStudent + nLecturer + nAdmin;
+
+let transDateList = [];
+let weeklyTransDateList = [];
 
 const generate = async () => {
   console.log("Start generating courses in generator");
@@ -100,9 +109,7 @@ const generate = async () => {
   console.log("End generating courses in generator");
 
   console.log("Start generating emails in generator");
-  for (let i = 0; i < nEmail; i++) {
-    emailList.push(faker.unique(faker.internet.email));
-  }
+  emailList.push(...randEmail(nEmail));
 
   // console.log("Email List: ");
   // console.log(emailList);
@@ -119,11 +126,19 @@ const generate = async () => {
   // for (let i = nStudent; i < emailList.length; i++) {
   //   lecturerList.push(emailList[i]);
   // }
-  lecturerList.push(...emailList.slice(nStudent, emailList.length)); // modify in place to keep reference
+  lecturerList.push(...emailList.slice(nStudent, nStudent + nLecturer)); // modify in place to keep reference
   // console.log("Lecturer List: ");
   // console.log(lecturerList);
-
+  adminList.push(...emailList.slice(nStudent + nLecturer, emailList.length));
   console.log("End generating emails in generator");
+
+  console.log("Start generating weekly transaction in generator");
+  weeklyTransDateList.push(...getWeekDateAfter(CONFIG.seeder.weekStart));
+  console.log("End generating weekly transaction in generator");
+
+  console.log("Start generating transaction in generator");
+
+  console.log("End generating transaction in generator");
 };
 
 module.exports = {
@@ -131,7 +146,10 @@ module.exports = {
   crawledCourses,
   studentList,
   lecturerList,
+  adminList,
   courseIDList,
   mainCatList,
   subCatList,
+  transDateList,
+  weeklyTransDateList,
 };

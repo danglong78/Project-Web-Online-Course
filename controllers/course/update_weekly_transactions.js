@@ -4,11 +4,13 @@ const WeeklyTransaction = require(__basedir + '/models/weekly_transaction').mode
 global.__lastWeekDate = new Date(2020, 12, 12);
 
 const updateWeeklyTransactions = () => {
-    await WeeklyTransaction.deleteMany({
-        date: {
-            $lte: __lastWeekDate
+    await WeeklyTransaction.deleteMany(
+        {
+            date: {
+                $lte: __lastWeekDate
+            }
         }
-    }).save();
+    ).save();
 }
 
 // setInterval(() => {
