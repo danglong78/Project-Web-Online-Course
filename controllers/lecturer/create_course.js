@@ -4,7 +4,6 @@ var courseModel= require('../../models/course').model;
 
 receive_infor = async function (req,res) {
     let c= req.body;
-    console.log(req.user.id);
     chapter=[]
     lecture=[]
     let course= new courseModel({
