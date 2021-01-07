@@ -1,4 +1,4 @@
-const { studentList, lecturerList } = require("../../generator");
+const { studentList, lecturerList, adminList } = require("../../generator");
 const { getObjectId } = require("../../helpers/index");
 const bcrypt = require("bcrypt");
 const saltRounds = 10;
@@ -26,6 +26,17 @@ for (let j = 0; j < lecturerList.length; j++) {
     password: defaultHash,
     role: "Lecturer",
     user: getObjectId(lecturerList[j]),
+  });
+}
+
+for (let k = 0; k < adminList.length; k++) {
+  credentials.push({
+    id: getObjectId(adminList[k] + "admin"),
+    name: faker.name.findName(),
+    email: adminList[k],
+    password: defaultHash,
+    role: "Admin",
+    user: getObjectId(adminList[k]),
   });
 }
 
