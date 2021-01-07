@@ -136,8 +136,29 @@ router.get("/admin_course", function (req, res) {
 router.get('/admin_user', function (req, res) {
     adminRouter.View_User(res);
 });
-router.post("/user/addStudent", function (req, res) {
+router.post("/admin/addStudent", function (req, res) {
+    console.log(req.body)
     res.send({success:true,_id:123})
+});
+router.post("/admin/delStudent", function (req, res) {
+    console.log(req.body)
+    res.send({success:true})
+});
+router.post("/admin/addLecturer", function (req, res) {
+    console.log(req.body)
+    res.send({success:true,_id:123})
+});
+router.post("/admin/delLecturer", function (req, res) {
+    console.log(req.body)
+    res.send({success:true})
+});
+router.post("/admin/changePassword", function (req, res) {
+    console.log(req.body)
+    res.send({success:true})
+});
+router.post("/admin/changeInfor", function (req, res) {
+    console.log(req.body)
+    res.send({success:true})
 });
 
 router.use("/category", cateRouter);

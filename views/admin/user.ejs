@@ -127,8 +127,8 @@
                                         <tr data-id="<%=user[i]._id%>">
                                             <td class="cell-ta" ><%=user[i].name%></td>
                                             <td class="cell-ta" ><%=user[i].email%></td>
-                                            <td class="text-center">
-                                                <a href="#" title="Edit"   class="gray-s"><i class="uil uil-edit-alt"></i></a>
+                                            <td class="text-center d-flex justify-content-center align-items-center">
+                                                <a href="#" title="Edit"  data-id="off" class="gray-s"><i class="uil uil-edit-alt"></i></a>
                                                 <a href="#" title="Delete" class="gray-s"><i class="uil uil-trash-alt"></i></a>
                                                 <a href="#" title="Password" class="gray-s"><i class="uil uil-keyhole-square"></i></a>
                                             </td>
@@ -176,7 +176,7 @@
                                                                     <div class="ui search focus mt-20 lbel25">
                                                                         <label>Password</label>
                                                                         <div class="ui left icon input swdh19">
-                                                                            <input class="prompt srch_explore " type="pass" name="lecturerPass"  data-language="en" placeholder="Password">
+                                                                            <input class="prompt srch_explore " type="password" name="lecturerPass"  data-language="en" placeholder="Password">
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -208,8 +208,8 @@
                                         <tr data-id="<%=user[i]._id%>">
                                             <td class="cell-ta" ><%=user[i].name%></td>
                                             <td class="cell-ta" ><%=user[i].email%></td>
-                                            <td class="text-center">
-                                                <a href="#" title="Edit"   class="gray-s"><i class="uil uil-edit-alt"></i></a>
+                                            <td class="text-center d-flex justify-content-center align-items-center">
+                                                <a href="#" title="Edit"  data-id="off" class="gray-s"><i class="uil uil-edit-alt"></i></a>
                                                 <a href="#" title="Delete" class="gray-s"><i class="uil uil-trash-alt"></i></a>
                                                 <a href="#" title="Password" class="gray-s"><i class="uil uil-keyhole-square"></i></a>
                                             </td>
@@ -241,7 +241,6 @@
 <script src="js/night-mode.js"></script>
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script>
 <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.js"></script>
-<!-- Hàm cho main cate-->
 <script>
     $.extend({
         el: function (el, props) {
@@ -256,20 +255,18 @@
         return regex.test(inputText);
     }
 </script>
-<!--Hàm cho lecturer-->
 <script>
     $(document).ready(function () {
         var studentTable=$('#studentTable').DataTable();
-        var lectureTable=$('#lecturerTable').DataTable();
+        var lecturerTable=$('#lecturerTable').DataTable();
 
-        $('#lecturerTable').on('click','a[title="Edit"]',function () {
-            let name= $(this).closest('tr').find('td').eq(0).text();
+        $('#lecturerTable').on('click','a[title="Password"]',function () {
             let id = $(this).closest('tr').data('id');
             Swal.fire({
-                title:"Edit sub category name",
-                text: `You want to change "${name}" into`,
+                title:"Change Password",
+                text: "Input new password",
                 width: 600,
-                input: 'text',
+                input: 'password',
                 showCancelButton: true,
                 inputValidator: (value) => {
                     if (!value) {
@@ -281,25 +278,23 @@
                     res.value;
                     $.ajax({
                         async: false,
-                        url: "/category/editSubCateName",
+                        url: "/admin/changePassword",
                         type: 'POST',
                         contentType: "application/json; charset=UTF-8",
-                        data: JSON.stringify({ id:id,name:res.value }),
+                        data: JSON.stringify({ id:id,password:res.value }),
                         success: function (data) {
                             if(data.success)
                             {
                                 Swal.fire(
                                     'Edited!',
-                                    'Your sub category has been change.',
+                                    'Password has been change.',
                                     'success'
-                                ).then( () =>{
-                                    location.reload();
-                                })
+                                )
                             }
                             else{
                                 Swal.fire(
-                                    'Duplicated!',
-                                    'Your new name is already existed !!!.',
+                                    'Fail!',
+                                    'Unable to change password !!!.',
                                     'error'
                                 )
                             }
@@ -329,7 +324,7 @@
                 if (result.isConfirmed) {
                     $.ajax({
                         async: false,
-                        url: "/user/delLecturer",
+                        url: "/admin/delLecturer",
                         type: 'POST',
                         contentType: "application/json; charset=UTF-8",
                         data: JSON.stringify({ id:id }),
@@ -341,7 +336,7 @@
                                     'Delete Successfully',
                                     'success'
                                 ).then( () =>{
-                                    studentTable.row($tr).remove().draw();
+                                    lecturerTable.row($tr).remove().draw();
                                 })
                             }
                             else{
@@ -366,59 +361,8 @@
                 }
             })
         })
-        $('#studentTable').on('click','a[title="Delete"]',function () {
-            let id = $(this).closest('tr').data('id');
-            $tr=$(this).closest('tr')
-            Swal.fire({
-                title: 'Are you sure?',
-                text: "You won't be able to revert this!",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonText: 'Yes, delete it!'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    $.ajax({
-                        async: false,
-                        url: "/user/delStudent",
-                        type: 'POST',
-                        contentType: "application/json; charset=UTF-8",
-                        data: JSON.stringify({ id:id }),
-                        success: function (data) {
-                            if(data.success)
-                            {
-                                Swal.fire(
-                                    'Deleted!',
-                                    'Delete Successfully',
-                                    'success'
-                                ).then( () =>{
-                                    studentTable.row($tr).remove().draw();
-                                })
-                            }
-                            else{
-                                Swal.fire(
-                                    'Fail!',
-                                    'Delete Fail !!!.',
-                                    'error'
-                                )
-                            }
-                        },
-                        error: function (result) {
-                            Swal.fire(
-                                'Error!',
-                                `${JSON.stringify(result)}`,
-                                'error'
-                            );
-                        }
-
-                    })
-
-
-                }
-            })
-        })
-
-        $('#addStudentBtn').click(function () {
-            if($('input[name="studentName"]').val()==="")
+        $('#addLecturerBtn').click(function () {
+            if($('input[name="lecturerName"]').val()==="")
             {
                 Swal.fire(
                     'Error!',
@@ -426,7 +370,7 @@
                     'error'
                 );
             }
-            else if($('input[name="studentEmail"]').val()==="")
+            else if($('input[name="lecturerEmail"]').val()==="")
             {
                 Swal.fire(
                     'Error!',
@@ -434,7 +378,7 @@
                     'error'
                 );
             }
-            else if(!ValidateEmail($('input[name="studentEmail"]').val()))
+            else if(!ValidateEmail($('input[name="lecturerEmail"]').val()))
             {
                 Swal.fire(
                     'Error!',
@@ -442,7 +386,7 @@
                     'error'
                 );
             }
-            else if($('input[name="studentPass"]').val()==="")
+            else if($('input[name="lecturerPass"]').val()==="")
             {
                 Swal.fire(
                     'Error!',
@@ -458,13 +402,13 @@
                         Swal.showLoading();
                         $.ajax({
                             async: false,
-                            url: "/user/addStudent",
+                            url: "/admin/addLecturer",
                             type: 'POST',
                             contentType: "application/json; charset=UTF-8",
                             data: JSON.stringify({
-                                name: $('input[name="studentName"]').val(),
-                                email:$('input[name="studentEmail"]').val(),
-                                password: $('input[name="studentPass"]').val()
+                                name: $('input[name="lecturerName"]').val(),
+                                email:$('input[name="lecturerEmail"]').val(),
+                                password: $('input[name="lecturerPass"]').val()
                             }),
                             success: function (data) {
                                 if(data.success)
@@ -475,14 +419,14 @@
                                         'success'
                                     ).then( () =>{
 
-                                        studentTable.row.add(
+                                        lecturerTable.row.add(
                                             $.el('tr',{'data-id':data._id}).append(
-                                                $.el('td',{'class':'cell-ta'}).text($('input[name="studentName"]').val())
+                                                $.el('td',{'class':'cell-ta'}).text($('input[name="lecturerName"]').val())
 
                                             ).append(
-                                                $.el('td',{'class':'cell-ta'}).text($('input[name="studentEmail"]').val())
+                                                $.el('td',{'class':'cell-ta'}).text($('input[name="lecturerEmail"]').val())
                                             ).append(
-                                                $.el('td',{'class':'text-center'}).append(
+                                                $.el('td',{'class':'text-center d-flex justify-content-center align-items-center'}).append(
                                                     $.el('a',{'href':'#','title':'Edit','class':'gray-s'}).append(
                                                         $.el('i',{'class':'uil uil-edit-alt'})
                                                     )
@@ -521,6 +465,437 @@
                 });
             }
         })
+        $('#lecturerTable').on('click','a[title="Edit"]',function () {
+            $name = $(this).closest('tr').find('td').eq(0);
+            $email = $(this).closest('tr').find('td').eq(1);
+            if($(this).data('id')==="off") {
+                $(this).data('id','on');
+                $(this).closest('td').prepend(
+                    $.el('a',{'title':'Save','href':'#','class':'gray-s btn btn-outline-danger'}).text("Save")
+                )
+                $name.data('val',$name.text());
+                $email.data('val',$email.text());
+                $name.empty().append(
+                    $.el('input',{'style':'width:100%'}).val($name.data('val'))
+                )
+                $email.empty().append(
+                    $.el('input',{'style':'width:100%'}).val($email.data('val'))
+                )
+            }
+            else{
+                $(this).data('id','off');
+                $(this).prev().remove();
+                let name = $name.data('val');
+                let email = $email.data('val');
+                $name.empty().text(name)
+                $email.empty().text(email)
+                $name.removeAttr('data-val')
+                $email.removeAttr('data-val')
+            }
+
+        })
+        $('#lecturerTable').on('click','a[title="Save"]',function (){
+            $name = $(this).closest('tr').find('td').eq(0);
+            $email = $(this).closest('tr').find('td').eq(1);
+            $btn= $(this).next();
+            let id = $(this).closest('tr').data('id')
+            if($name.find('input').val()==="")
+            {
+                Swal.fire(
+                    'Error!',
+                    'You did not input name ',
+                    'error'
+                );
+            }
+            else if($email.find('input').val()==="")
+            {
+                Swal.fire(
+                    'Error!',
+                    'You did not input email ',
+                    'error'
+                );
+            }
+            else if(!ValidateEmail($email.find('input').val()))
+            {
+                Swal.fire(
+                    'Error!',
+                    'invalid email address ',
+                    'error'
+                );
+            }
+            else{
+                $.ajax({
+                    async: false,
+                    url: "/admin/changeInfor",
+                    type: 'POST',
+                    contentType: "application/json; charset=UTF-8",
+                    data: JSON.stringify({ id:id,name:$name.find('input').val(),email:$email.find('input').val() }),
+                    success: function (data) {
+                        if(data.success)
+                        {
+                            Swal.fire(
+                                'Edited!',
+                                'User information has been change.',
+                                'success'
+                            )
+                            let name = $name.find('input').val();
+                            let email = $email.find('input').val();
+                            $name.empty().text(name)
+                            $email.empty().text(email)
+                            $name.removeAttr('data-val')
+                            $email.removeAttr('data-val')
+                            $btn.data('id','off')
+                            $btn.prev().remove()
+                        }
+                        else{
+                            Swal.fire(
+                                'Fail!',
+                                'Something is going wrong !!!.',
+                                'error'
+                            )
+                            let name = $name.data('val');
+                            let email = $email.data('val');
+                            $name.empty().text(name)
+                            $email.empty().text(email)
+                            $name.removeAttr('data-val')
+                            $email.removeAttr('data-val')
+                            $btn.data('id','off')
+                            $btn.prev().remove()
+                        }
+                    },
+                    error: function (result) {
+                        Swal.fire(
+                            'Error!',
+                            `${JSON.stringify(result)}`,
+                            'error'
+                        );
+                    }
+
+                })
+
+            }
+
+
+        })
+
+        $('#studentTable').on('click','a[title="Password"]',function () {
+            let id = $(this).closest('tr').data('id');
+            Swal.fire({
+                title:"Change Password",
+                text: "Input new password",
+                width: 600,
+                input: 'password',
+                showCancelButton: true,
+                inputValidator: (value) => {
+                    if (!value) {
+                        return 'You need to write something!'
+                    }
+                }
+            }).then( (res) =>{
+                if(res.isConfirmed){
+                    res.value;
+                    $.ajax({
+                        async: false,
+                        url: "/admin/changePassword",
+                        type: 'POST',
+                        contentType: "application/json; charset=UTF-8",
+                        data: JSON.stringify({ id:id,password:res.value }),
+                        success: function (data) {
+                            if(data.success)
+                            {
+                                Swal.fire(
+                                    'Edited!',
+                                    'Password has been change.',
+                                    'success'
+                                )
+                            }
+                            else{
+                                Swal.fire(
+                                    'Fail!',
+                                    'Unable to change password !!!.',
+                                    'error'
+                                )
+                            }
+                        },
+                        error: function (result) {
+                            Swal.fire(
+                                'Error!',
+                                `${JSON.stringify(result)}`,
+                                'error'
+                            );
+                        }
+
+                    })
+                }
+            })
+        })
+        $('#studentTable').on('click','a[title="Delete"]',function () {
+            let id = $(this).closest('tr').data('id');
+            $tr=$(this).closest('tr')
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        async: false,
+                        url: "/admin/delStudent",
+                        type: 'POST',
+                        contentType: "application/json; charset=UTF-8",
+                        data: JSON.stringify({ id:id }),
+                        success: function (data) {
+                            if(data.success)
+                            {
+                                Swal.fire(
+                                    'Deleted!',
+                                    'Delete Successfully',
+                                    'success'
+                                ).then( () =>{
+                                    studentTable.row($tr).remove().draw();
+                                })
+                            }
+                            else{
+                                Swal.fire(
+                                    'Fail!',
+                                    'Delete Fail !!!.',
+                                    'error'
+                                )
+                            }
+                        },
+                        error: function (result) {
+                            Swal.fire(
+                                'Error!',
+                                `${JSON.stringify(result)}`,
+                                'error'
+                            );
+                        }
+
+                    })
+
+
+                }
+            })
+        })
+        $('#addStudentBtn').click(function () {
+            if($('input[name="studentName"]').val()==="")
+            {
+                Swal.fire(
+                    'Error!',
+                    'You did not input name ',
+                    'error'
+                );
+            }
+            else if($('input[name="studentEmail"]').val()==="")
+            {
+                Swal.fire(
+                    'Error!',
+                    'You did not input mail ',
+                    'error'
+                );
+            }
+            else if(!ValidateEmail($('input[name="studentEmail"]').val()))
+            {
+                Swal.fire(
+                    'Error!',
+                    'invalid email address ',
+                    'error'
+                );
+            }
+            else if($('input[name="studentPass"]').val()==="")
+            {
+                Swal.fire(
+                    'Error!',
+                    'You did not input password ',
+                    'error'
+                );
+            }
+            else {
+                Swal.fire({
+                    title: 'Getting response from data',
+
+                    didOpen: () => {
+                        Swal.showLoading();
+                        $.ajax({
+                            async: false,
+                            url: "/admin/addStudent",
+                            type: 'POST',
+                            contentType: "application/json; charset=UTF-8",
+                            data: JSON.stringify({
+                                name: $('input[name="studentName"]').val(),
+                                email:$('input[name="studentEmail"]').val(),
+                                password: $('input[name="studentPass"]').val()
+                            }),
+                            success: function (data) {
+                                if(data.success)
+                                {
+                                    Swal.fire(
+                                        'Success!',
+                                        `Create account successfully`,
+                                        'success'
+                                    ).then( () =>{
+
+                                        studentTable.row.add(
+                                            $.el('tr',{'data-id':data._id}).append(
+                                                $.el('td',{'class':'cell-ta'}).text($('input[name="studentName"]').val())
+
+                                            ).append(
+                                                $.el('td',{'class':'cell-ta'}).text($('input[name="studentEmail"]').val())
+                                            ).append(
+                                                $.el('td',{'class':'text-center d-flex justify-content-center align-items-center'}).append(
+                                                    $.el('a',{'href':'#','title':'Edit','class':'gray-s'}).append(
+                                                        $.el('i',{'class':'uil uil-edit-alt'})
+                                                    )
+                                                ).append(
+                                                    $.el('a',{'href':'#','title':'Delete','class':'gray-s'}).append(
+                                                        $.el('i',{'class':'uil uil-trash-alt'})
+                                                    )
+                                                ).append(
+                                                    $.el('a',{'href':'#','title':'Password','class':'gray-s'}).append(
+                                                        $.el('i',{'class':'uil uil-keyhole-square'})
+                                                    )
+                                                )
+                                            )
+                                        ).draw();
+                                    })
+
+                                }
+                                else{
+                                    Swal.fire(
+                                        'Error!',
+                                        `Account Exist`,
+                                        'error'
+                                    );
+                                }
+                            },
+                            error: function (result) {
+                                Swal.fire(
+                                    'Error!',
+                                    `${JSON.stringify(result)}`,
+                                    'error'
+                                );
+                            }
+
+                        })
+                    },
+                });
+            }
+        })
+        $('#studentTable').on('click','a[title="Edit"]',function () {
+            $name = $(this).closest('tr').find('td').eq(0);
+            $email = $(this).closest('tr').find('td').eq(1);
+            if($(this).data('id')==="off") {
+                $(this).data('id','on');
+                $(this).closest('td').prepend(
+                    $.el('a',{'title':'Save','class':'gray-s btn btn-outline-danger'}).text("Save")
+                )
+                $name.data('val',$name.text());
+                $email.data('val',$email.text());
+                $name.empty().append(
+                    $.el('input',{'style':'width:100%'}).val($name.data('val'))
+                )
+                $email.empty().append(
+                    $.el('input',{'style':'width:100%'}).val($email.data('val'))
+                )
+            }
+            else{
+                $(this).data('id','off');
+                $(this).prev().remove();
+                let name = $name.data('val');
+                let email = $email.data('val');
+                $name.empty().text(name)
+                $email.empty().text(email)
+                $name.removeAttr('data-val')
+                $email.removeAttr('data-val')
+            }
+
+        })
+        $('#studentTable').on('click','a[title="Save"]',function (){
+            $name = $(this).closest('tr').find('td').eq(0);
+            $email = $(this).closest('tr').find('td').eq(1);
+            $btn= $(this).next();
+            let id = $(this).closest('tr').data('id')
+            if($name.find('input').val()==="")
+            {
+                Swal.fire(
+                    'Error!',
+                    'You did not input name ',
+                    'error'
+                );
+            }
+            else if($email.find('input').val()==="")
+            {
+                Swal.fire(
+                    'Error!',
+                    'You did not input email ',
+                    'error'
+                );
+            }
+            else if(!ValidateEmail($email.find('input').val()))
+            {
+                Swal.fire(
+                    'Error!',
+                    'invalid email address ',
+                    'error'
+                );
+            }
+            else{
+                $.ajax({
+                    async: false,
+                    url: "/admin/changeInfor",
+                    type: 'POST',
+                    contentType: "application/json; charset=UTF-8",
+                    data: JSON.stringify({ id:id,name:$name.find('input').val(),email:$email.find('input').val() }),
+                    success: function (data) {
+                        if(data.success)
+                        {
+                            Swal.fire(
+                                'Edited!',
+                                'User information has been change.',
+                                'success'
+                            )
+                            let name = $name.find('input').val();
+                            let email = $email.find('input').val();
+                            $name.empty().text(name)
+                            $email.empty().text(email)
+                            $name.removeAttr('data-val')
+                            $email.removeAttr('data-val')
+                            $btn.data('id','off')
+                            $btn.prev().remove()
+                        }
+                        else{
+                            Swal.fire(
+                                'Fail!',
+                                'Something is going wrong !!!.',
+                                'error'
+                            )
+                            let name = $name.data('val');
+                            let email = $email.data('val');
+                            $name.empty().text(name)
+                            $email.empty().text(email)
+                            $name.removeAttr('data-val')
+                            $email.removeAttr('data-val')
+                            $btn.data('id','off')
+                            $btn.prev().remove()
+                        }
+                    },
+                    error: function (result) {
+                        Swal.fire(
+                            'Error!',
+                            `${JSON.stringify(result)}`,
+                            'error'
+                        );
+                    }
+
+                })
+
+            }
+
+
+        })
+
 
     })
 
