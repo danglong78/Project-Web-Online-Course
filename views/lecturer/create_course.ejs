@@ -135,7 +135,7 @@
                                                             <label>Course Short Description*</label>
                                                             <div class="ui left icon input swdh19">
                                                                 <input class="prompt srch_explore " type="text" placeholder="Insert your course Short Description." name="shortDescription"
-                                                                       maxlength="60"  value="" trigger="manual"  data-toggle="tooltip" data-placement="right" title="Please input short description">
+                                                                       maxlength="120"  value="" trigger="manual"  data-toggle="tooltip" data-placement="right" title="Please input short description">
                                                                 <div  class="badge_num2" id="badge_shortDescription">120</div>
                                                             </div>
                                                         </div>
@@ -296,7 +296,7 @@
                                                                 <div class="ui search focus mt-30 lbel25">
                                                                     <label>Chapter Title*</label>
                                                                     <div class="ui left icon input swdh19">
-                                                                        <input class="prompt srch_explore" type="text" placeholder="Insert your chapter title." name="titleChapter"  maxlength="60" id="chapterTitle" value="" trigger="manual"  data-toggle="tooltip" data-placement="right" title="Please input chapter title">
+                                                                        <input class="prompt srch_explore" type="text" placeholder="Insert your chapter title." name="titleChapter"  maxlength="80" id="chapterTitle" value="" trigger="manual"  data-toggle="tooltip" data-placement="right" title="Please input chapter title">
                                                                         <div class="badge_num" id="badge_chapterTitle">80</div>
                                                                     </div>
                                                                 </div>
@@ -310,7 +310,7 @@
                                                                 <div class="ui search focus mt-30 lbel25">
                                                                     <label>Lecture Title*</label>
                                                                     <div class="ui left icon input swdh19">
-                                                                        <input class="prompt srch_explore" type="text" placeholder="Insert your lecture title." name="titleLecture"  maxlength="60" id="lecture_title" value="" trigger="manual"  data-toggle="tooltip" data-placement="right" title="Please input lecture title">
+                                                                        <input class="prompt srch_explore" type="text" placeholder="Insert your lecture title." name="titleLecture"  maxlength="80" id="lecture_title" value="" trigger="manual"  data-toggle="tooltip" data-placement="right" title="Please input lecture title">
                                                                         <div class="badge_num" id="badge_lectureTitle">80</div>
 
                                                                     </div>
@@ -558,7 +558,8 @@
                         price:$('select[name="price"]').val(),
                         chapter: chapter,
                         category:$('#category_select').dropdown('get value'),
-                        subCategory:$('#subCategory_select .item.selected').attr("value")
+                        subCategory:$('#subCategory_select .item.selected').attr("value"),
+                        updateDate: new Date(),
                     }
                     var id;
                     $.ajax({
