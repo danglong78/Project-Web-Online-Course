@@ -1,0 +1,853 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<!-- Mirrored from gambolthemes.net/html-items/cursus_demo_f12/categories.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 20 Jun 2020 12:56:17 GMT -->
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, shrink-to-fit=9">
+    <meta name="description" content="Gambolthemes">
+    <meta name="author" content="Gambolthemes">
+    <title>Cursus - Categories</title>
+
+    <!-- Favicon Icon -->
+    <link rel="icon" type="image/png" href="images/fav.png">
+    <link href="/css/instructor-dashboard.css" rel="stylesheet" type="text/css">
+    <link href="/css/instructor-responsive.css" rel=rel="stylesheet" type="text/css">
+    <link href="/css/vertical-responsive-menu1.min.css" rel="stylesheet" type="text/css">
+    <link href="/css/jquery-steps.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.23/css/jquery.dataTables.css">
+    <%- include('../partials/head'); -%>
+
+
+</head>
+
+<body>
+<%- include('../partials/navbar'); -%>
+<!-- Header End -->
+<!-- Left Sidebar Start -->
+<%- include('../partials/left-menu'); -%>
+<!-- Left Sidebar End -->
+<!-- Body Start -->
+<div class="wrapper">
+    <div class="sa4d25">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="my_courses_tabs">
+                        <ul class="nav nav-pills my_crse_nav" id="pills-tab" role="tablist">
+                            <li class="nav-item ">
+                                <a class="nav-link active " id="pills-main-category-tab" data-toggle="pill"
+                                   href="#pill-main-category" role="tab" aria-controls="pill-main-category"
+                                   aria-selected="true"><i class="uil uil-book-alt"></i>Main Category
+                                </a>
+                            </li>
+
+                            <li class="nav-item ">
+                                <a class="nav-link" id="pills-sub-category-tab" data-toggle="pill"
+                                   href="#pill-sub-category" role="tab" aria-controls="pill-sub-category"
+                                   aria-selected="false"><i class="uil uil-tag-alt"></i>Sub Category
+                                </a>
+                            </li>
+
+                        </ul>
+                        <div class="tab-content" id="pills-tabContent">
+                            <div class="tab-pane fade show active" id="pill-main-category" role="tabpanel">
+                                <div class="section3125 mt-20">
+                                    <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading" role="tab" id="headingOne">
+                                                <div class="panel-title adcrse1250">
+                                                    <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                                                        New Main Category
+                                                    </a>
+                                                </div>
+                                            </div>
+                                            <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+                                                <div class="panel-body adcrse_body">
+                                                    <div class="row">
+                                                        <div class="col-lg-8">
+                                                            <div class="discount_form">
+                                                                <div class="row">
+                                                                    <div class="col-lg-8 col-md-8">
+                                                                        <div class="ui search focus mt-20 lbel25">
+                                                                            <label>Name</label>
+                                                                            <div class="ui left icon input swdh19">
+                                                                                <input class="prompt srch_explore" type="text" name="mainCate" data-language="en" placeholder="Type name main category">
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div class="col-lg-6 col-md-12">
+                                                                        <button class="discount_btn " id="addMainCateBtn" type="submit">Save Changes</button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="la5lo1 cate_521">
+                                        <% for(i=0;i<category.length;i++) {%>
+
+                                        <div class="card" style="border-style: none">
+                                            <div class="card-header d-flex justify-content-between align-items-center"
+                                                 id="heading<%=i%>" data-toggle="collapse" data-target="#collapse<%=i%>" style="background-color:#ffecec ">
+
+                                                <b style="font-size: 120%" >
+                                                    <%- category[i].name%>
+                                                </b>
+                                                <div class="d-flex justify-content-between align-items-center">
+                                                    <a href="#"><i class="uil uil-plus-square addBtn"
+                                                                   data-id="<%=category[i]._id%>"
+                                                                   style="font-size: 150%;"></i></a>
+                                                    <a href="#"><i class="uil uil-edit-alt editBtn"
+                                                                   data-id="<%=category[i]._id%>"
+                                                                   style="font-size: 150%;"></i></a>
+                                                    <a href="#"><i class="uil uil-trash-alt delBtn"
+                                                                   data-id="<%=category[i]._id%>"
+                                                                   style="font-size: 150%;"></i></a>
+                                                </div>
+                                            </div>
+                                            <div id="collapse<%=i%>" class="collapse "
+                                                 aria-labelledby="heading<%=i%>">
+                                                <div class="nestable" id="nestable">
+                                                    <ul class="list-group list-group-fit nestable-list-plain mb-0"
+                                                        data-id="<%=category[i]._id%>">
+                                                        <%for(j=0;j<category[i].subCate.length;j++){%>
+                                                        <li class="list-group-item nestable-item">
+                                                            <div class="media">
+                                                                <div class="media-body media-middle ">
+                                                                    <%=category[i].subCate[j].name%>
+                                                                </div>
+                                                                <div class="media-right text-right">
+                                                                    <div style="width:50px" class="d-flex justify-content-between align-items-center">
+                                                                        <a href="#"
+                                                                           class=" text-danger editSubBtn"
+                                                                           data-id="<%=category[i].subCate[j]._id%>">
+                                                                            <i class="uil uil-edit-alt"
+                                                                               style="font-size: 150%;"></i>
+                                                                        </a>
+                                                                        <a href="#"
+                                                                           data-id="<%=category[i].subCate[j]._id%>"
+                                                                           class=" text-danger delSubBtn"><i
+                                                                                    class="uil uil-trash-alt"
+                                                                                    style="font-size: 150%;"></i>
+                                                                        </a>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </li>
+                                                        <%}%>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <%}%>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="tab-pane fade" id="pill-sub-category" role="tabpanel">
+                                <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading" role="tab" id="headingOne">
+                                            <div class="panel-title adcrse1250">
+                                                <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                                                    New Sub Category
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+                                            <div class="panel-body adcrse_body">
+                                                <div class="row">
+                                                    <div class="col-lg-8">
+                                                        <div class="discount_form">
+                                                            <div class="row">
+                                                                <div class="col-lg-8 col-md-12">
+                                                                    <div class="ui search focus mt-20 lbel25">
+                                                                        <label>Sub Category name</label>
+                                                                        <div class="ui left icon input swdh19">
+                                                                            <input class="prompt srch_explore datepicker-here" type="text" name="subCate"  data-language="en" placeholder="Name sub category">
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="col-lg-6 col-md-8">
+                                                                    <button class="discount_btn" id="addSubCateBtn" type="submit">Save Changes</button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="table-responsive mt-30">
+                                    <table class="table ucp-table display" id="subCategoryTable">
+                                        <thead class="thead-s" >
+                                        <tr>
+                                            <th class="cell-ta" >Name</th>
+                                            <th class="text-center" scope="col">Actions</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <% for(i =0;i<subCategory.length;i++){%>
+                                        <tr data-id="<%=subCategory[i]._id%>">
+                                            <td class="cell-ta" ><%=subCategory[i].name%></td>
+                                            <td class="text-center">
+                                                <a href="#" title="Edit"   class="gray-s"><i class="uil uil-edit-alt"></i></a>
+                                                <a href="#" title="Delete" class="gray-s"><i class="uil uil-trash-alt"></i></a>
+                                            </td>
+                                        </tr>
+
+                                        <%}%>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <%- include('../partials/footer'); -%>
+    </div>
+</div>
+<!-- Body End -->
+
+<script src="js/vertical-responsive-menu.min.js"></script>
+<script src="js/jquery-3.3.1.min.js"></script>
+<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="vendor/OwlCarousel/owl.carousel.js"></script>
+<script src="vendor/semantic/semantic.min.js"></script>
+<script src="js/custom.js"></script>
+<script src="js/night-mode.js"></script>
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.js"></script>
+<!-- Hàm cho main cate-->
+<script>
+    $.extend({
+        el: function (el, props) {
+            var $el = $(document.createElement(el));
+            $el.attr(props);
+            return $el;
+        }
+    });
+    $(document).ready(function () {
+        $('#addMainCateBtn').click(function () {
+            if($('input[name="mainCate"]').val()==="")
+            {
+                Swal.fire(
+                    'Error!',
+                    'You did not input name of the new main category',
+                    'error'
+                );
+            }
+            else {
+                Swal.fire({
+                    title: 'Getting response from data',
+
+                    didOpen: () => {
+                        Swal.showLoading();
+                        $.ajax({
+                            async: false,
+                            url: "/category/addMainCate",
+                            type: 'POST',
+                            contentType: "application/json; charset=UTF-8",
+                            data: JSON.stringify({ name: $('input[name="mainCate"]').val() }),
+                            success: function (data) {
+                                if(data.success)
+                                {
+                                    Swal.fire(
+                                        'Success!',
+                                        `Your new main category has been added`,
+                                        'success'
+                                    ).then( () =>{
+                                        $('.la5lo1').append(
+                                            $.el('div',{'class':'card','style':'border-style: none'}).append(
+                                                $.el('div',{'class':'card-header d-flex justify-content-between align-items-center','id':`heading${$('.la5lo1 .card').length}`,'data-toggle':'collapse',
+                                                    'data-target':`#collapse${$('.la5lo1 .card').length}`,'style':"background-color:#ffecec ;"}).append(
+                                                    $.el('b',{'style':'font-size: 120%'}).text($('input[name="mainCate"]').val())
+                                                ).append(
+                                                    $.el('div',{"class":'d-flex justify-content-between align-items-center'}).append(
+                                                        $.el('a',{'href':'#'}).append(
+                                                            $.el('i',{'class':'uil uil-plus-square addBtn','data-id':`${data.cateID}`,'style':'font-size:150%'})
+                                                        )
+                                                    ).append(
+                                                        $.el('a',{'href':'#'}).append(
+                                                            $.el('i',{'class':'uil uil-edit-alt editBtn','data-id':`${data.cateID}`,'style':'font-size:150%'})
+                                                        )
+                                                    ).append(
+                                                        $.el('a',{'href':'#'}).append(
+                                                            $.el('i',{'class':'uil uil-trash-alt delBtn','data-id':`${data.cateID}`,'style':'font-size:150%'})
+                                                        )
+                                                    )
+                                                )
+                                            ).append(
+                                                $.el('div',{'id':`collapse${$('.la5lo1 .card').length}`,'class':'collapse','aria-labelledby':`heading${$('.la5lo1 .card').length}`}).append(
+                                                    $.el('div',{'class':'nestable','id':'nestable'}).append(
+                                                        $.el('ul',{'class':'list-group list-group-fit nestable-list-plain mb-0','data-id':`${data.cateID}`})
+                                                    )
+                                                )
+                                            )
+                                        )
+                                    })
+
+                                }
+                                else{
+                                    Swal.fire(
+                                        'Error!',
+                                        `Duplicate name of new main category`,
+                                        'error'
+                                    );
+                                }
+                            },
+                            error: function (result) {
+                                Swal.fire(
+                                    'Error!',
+                                    `${JSON.stringify(result)}`,
+                                    'error'
+                                );
+                            }
+
+                        })
+                    },
+                });
+            }
+        })
+        $('.card-header').on('click', '.delBtn', function () {
+            $button= $(this)
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        async: false,
+                        url: "/category/delMainCate",
+                        type: 'POST',
+                        contentType: "application/json; charset=UTF-8",
+                        data: JSON.stringify({ id: $button.attr("data-id") }),
+                        success: function (data) {
+                            if(data.success)
+                            {
+                                Swal.fire(
+                                    'Deleted!',
+                                    'Your main category has been deleted.',
+                                    'success'
+                                ).then( () =>{
+                                    $button.closest('.card').remove();
+                                })
+                            }
+                            else{
+                                Swal.fire(
+                                    'Fail!',
+                                    'Your main category did not deleted successfully !!!.',
+                                    'error'
+                                )
+                            }
+                        },
+                        error: function (result) {
+                            Swal.fire(
+                                'Error!',
+                                `${JSON.stringify(result)}`,
+                                'error'
+                            );
+                        }
+
+                    })
+
+
+                }
+            })
+
+        });
+        $('.card-header').on('click', '.editBtn', function (e) {
+            e.stopPropagation();
+            $name = $(this).closest('.card-header').find('b');
+            $(this).closest('.card-header').prepend(
+                $.el('div', { 'class': 'input-group', "style": 'width:50%;' }).append(
+                    $.el('input', { 'type': 'text', 'class': 'form-control ', 'aria-describedby': "saveCateBtn" })
+                ).append(
+                    $.el('button', { 'id': 'saveCateBtn', 'class': 'btn btn-outline-danger', 'style': 'margin-left:20px','data-name':$name.text(), 'data-id': `${$(this).attr("data-id")}` }).text('Save')
+                )
+
+            )
+            $name.remove();
+            $(this).prop("disabled", true);
+
+        })
+        $('.card-header').on('click', '#saveCateBtn', function () {
+            let newName=$(this).prev().val();
+            $button=$(this)
+            if(newName==="")
+            {
+                Swal.fire(
+                    'Error!',
+                    'You did not input name of the new main category',
+                    'error'
+                );
+            }
+            else {
+                Swal.fire({
+                    title: 'Getting response from server',
+
+                    didOpen: () => {
+                        Swal.showLoading();
+                        $.ajax({
+                            async: false,
+                            url: "/category/editCate",
+                            type: 'POST',
+                            contentType: "application/json; charset=UTF-8",
+                            data: JSON.stringify({ id: $(this).attr("data-id"), name: newName }),
+                            success: function (data) {
+                                $button
+                                if (data.success)   {
+                                    Swal.fire(
+                                        'Edit Success!',
+                                        "Your Main Category rename successfully!!!",
+                                        'success'
+                                    ).then( () =>{
+                                        $button.closest('.card-header').find('.editBtn').prop('disabled',false)
+                                        let name = newName;
+                                        $button.closest('.card-header').prepend(
+                                            $.el('b', {
+                                                'style':'font-size:120%'
+                                            }).text(name)
+                                        )
+                                        $button.parent().remove();
+                                    })
+
+
+                                }
+                                else {
+                                    x = $button.data('name');
+                                    Swal.fire(
+                                        'Error!',
+                                        "Can not Rename This Category...",
+                                        'error'
+                                    ).then( () =>{
+                                        $button.closest('.card-header').find('.editBtn').prop('disabled',false)
+                                        $button.closest('.card-header').prepend(
+                                            $.el('b', {
+
+                                            }).text(x)
+                                        )
+                                        $button.parent().remove();
+                                    });
+
+                                }
+                            },
+                            error: function (result) {
+                                $button.closest('.card-header').find('.editBtn').prop('disabled',false)
+                                Swal.fire(
+                                    'Error!',
+                                    `${JSON.stringify(result)}`,
+                                    'error'
+                                );
+                            }
+
+                        })
+                    }
+
+                });
+            }
+        });
+        $('.card-header').on('click', '.addBtn', async function (e) {
+            $ul = $(`ul[data-id="${$(this).attr('data-id')}"]`)
+            let mainCateID = $(this).data('id')
+            let listSubCate= $(this).closest('.card').find('.editSubBtn').map(function () {
+                return $(this).data('id');
+            }).toArray();
+            let table =$('#subCategoryTable').DataTable();
+            inputOption={};
+            let allSubCate=[];
+            table.rows().every(function () {
+                allSubCate.push({id:$(this.node()).data('id'),name:$(this.node()).first().text()})
+            });
+            $.each(allSubCate,function (key,val) {
+                if (!listSubCate.includes(val.id)) {
+                    inputOption[val.id] = val.name;
+                }
+            })
+
+            Swal.fire({
+                title: 'Select sub category',
+                input: 'select',
+                inputOptions: inputOption,
+                inputPlaceholder: 'Select a subCategory',
+                showCancelButton: true,
+            }).then( (result) =>{
+                if (result.isConfirmed){
+                    let id= $(Swal.getInput()).find(":selected").val()
+                    let name =  $(Swal.getInput()).find(":selected").text()
+                    Swal.fire({
+                        title: 'Getting response from server',
+
+                        didOpen: () => {
+                            Swal.showLoading();
+                            $.ajax({
+                                async: false,
+                                url: "/category/addSubCateToMainCate",
+                                type: 'POST',
+                                contentType: "application/json; charset=UTF-8",
+                                data: JSON.stringify({ idMain: mainCateID, idSubCate: id }),
+                                success: function (data) {
+                                    if(data.success){
+                                        Swal.fire(
+                                            'Success',
+                                            'Add sub category successfully',
+                                            'success'
+                                        ).then( () =>{
+                                            $ul.append(
+                                                $.el('li', { 'class': 'list-group-item nestable-item' }).append(
+                                                    $.el('div', { 'class': 'media' }).append(
+                                                        $.el('div', { 'class': 'media-body media-middle ' }).text(name)
+                                                    ).append(
+                                                        $.el('div', { 'class': 'media-right text-right' }).append(
+                                                            $.el('div', { 'style': 'width:50px','class':'d-flex justify-content-between align-items-center' }).append(
+                                                                $.el('a', { 'class': 'text-danger editSubBtn' ,'data-id':id}).append(
+                                                                    $.el('i', { 'class': 'uil uil-edit-alt', 'style': 'font-size: 150%;' })
+                                                                )
+                                                            ).append(
+                                                                $.el('a', { 'class': 'text-danger delSubBtn' }).append(
+                                                                    $.el('i', { 'class': 'uil uil-trash-alt', 'style': 'font-size: 150%;' })
+                                                                )
+                                                            )
+                                                        )
+                                                    )
+                                                )
+                                            )
+                                        })
+
+                                    }
+                                    else{
+                                        Swal.fire(
+                                            'Failed',
+                                            'Can not add sub category to main category',
+                                            'error'
+                                        )
+                                    }
+
+                                },
+                                error: function (err) {
+                                    Swal.fire(
+                                        'Failed',
+                                        'Getting error',
+                                        'error'
+                                    )
+                                }
+                            });
+                        }
+                    });
+                }
+            })
+        });
+
+        $('.nestable').on('click', '.delSubBtn', function () {
+            $button=$(this);
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    var x;
+                    $.ajax({
+                        async: false,
+                        url: "/category/delSubCate",
+                        type: 'POST',
+                        contentType: "application/json; charset=UTF-8",
+                        data: JSON.stringify({  idSub: $button.attr('data-id') }),
+                        success: function (data) {
+                            if (data.success) {
+                                Swal.fire(
+                                    'Deleted!',
+                                    'Your lecture has been deleted.',
+                                    'success'
+                                ).then( ()=>{
+                                    $button.closest('.nestable-item').remove();
+                                })
+
+                            }
+                            else {
+                                Swal.fire(
+                                    'Error!',
+                                    "Can not Delete This Category...",
+                                    'error'
+                                );
+                            }
+                        },
+                        error: function (result) {
+                            Swal.fire(
+                                'Error!',
+                                `${JSON.stringify(result)}`,
+                                'error'
+                            );
+                        }
+
+                    })
+
+                }
+            })
+
+        });
+        $('.nestable').on('click', '.editSubBtn', function () {
+             $oldname = $(this).closest('.media').find('.media-body');
+            let oldSubCateID=$(this).data('id')
+            let mainCateID = $(this).closest('ul').data('id')
+            let listSubCate = $(this).closest('.card').find('.editSubBtn').map(function () {
+                return $(this).data('id');
+            }).toArray();
+            let table = $('#subCategoryTable').DataTable();
+            inputOption = {};
+            let allSubCate = [];
+            table.rows().every(function () {
+                allSubCate.push({id: $(this.node()).data('id'), name: $(this.node()).first().text()})
+            });
+            $.each(allSubCate, function (key, val) {
+                if (!listSubCate.includes(val.id)) {
+                    inputOption[val.id] = val.name;
+                }
+            })
+
+            Swal.fire({
+                title: `Change subcategory`,
+                text: `You want to change ${$oldname.text()} to ? `,
+                input: 'select',
+                inputOptions: inputOption,
+                inputPlaceholder: 'Select new subCategory',
+                showCancelButton: true,
+            }).then((result) => {
+                if(result.isConfirmed){
+                    let id = $(Swal.getInput()).find(":selected").val()
+                    let name = $(Swal.getInput()).find(":selected").text()
+                    Swal.fire({
+                        title: 'Getting response from server',
+
+                        didOpen: () => {
+                            Swal.showLoading();
+                            $.ajax({
+                                async: false,
+                                url: "/category/changeSubCateToMainCate",
+                                type: 'POST',
+                                contentType: "application/json; charset=UTF-8",
+                                data: JSON.stringify({idMain: mainCateID, oldIDSubCate:oldSubCateID,newIDSubCate: id}),
+                                success: function (data) {
+                                    if (data.success) {
+                                        Swal.fire(
+                                            'Success',
+                                            'Add sub category successfully',
+                                            'success'
+                                        ).then(() => {
+                                            $oldname.text(name)
+                                        })
+
+                                    } else {
+                                        Swal.fire(
+                                            'Failed',
+                                            'Can not add sub category to main category',
+                                            'error'
+                                        )
+                                    }
+
+                                },
+                                error: function (err) {
+                                    Swal.fire(
+                                        'Failed',
+                                        'Getting error',
+                                        'error'
+                                    )
+                                }
+                            });
+                        }
+                    });
+                }
+            })
+        })
+    })
+</script>
+<!--Hàm cho sub cate-->
+<script>
+    $(document).ready(function () {
+        $('#subCategoryTable').DataTable();
+        $('#subCategoryTable').on('click','a[title="Edit"]',function () {
+            let name= $(this).closest('tr').find('td').eq(0).text();
+            let id = $(this).closest('tr').data('id');
+            Swal.fire({
+                title:"Edit sub category name",
+                text: `You want to change "${name}" into`,
+                width: 600,
+                input: 'text',
+                showCancelButton: true,
+                inputValidator: (value) => {
+                    if (!value) {
+                        return 'You need to write something!'
+                    }
+                }
+            }).then( (res) =>{
+                if(res.isConfirmed){
+                    res.value;
+                    $.ajax({
+                        async: false,
+                        url: "/category/editSubCateName",
+                        type: 'POST',
+                        contentType: "application/json; charset=UTF-8",
+                        data: JSON.stringify({ id:id,name:res.value }),
+                        success: function (data) {
+                            if(data.success)
+                            {
+                                Swal.fire(
+                                    'Edited!',
+                                    'Your sub category has been change.',
+                                    'success'
+                                ).then( () =>{
+                                    location.reload();
+                                })
+                            }
+                            else{
+                                Swal.fire(
+                                    'Duplicated!',
+                                    'Your new name is already existed !!!.',
+                                    'error'
+                                )
+                            }
+                        },
+                        error: function (result) {
+                            Swal.fire(
+                                'Error!',
+                                `${JSON.stringify(result)}`,
+                                'error'
+                            );
+                        }
+
+                    })
+                }
+            })
+        })
+        $('#subCategoryTable').on('click','a[title="Delete"]',function () {
+            let id = $(this).closest('tr').data('id');
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        async: false,
+                        url: "/category/delSubCate",
+                        type: 'POST',
+                        contentType: "application/json; charset=UTF-8",
+                        data: JSON.stringify({ id:id }),
+                        success: function (data) {
+                            if(data.success)
+                            {
+                                Swal.fire(
+                                    'Deleted!',
+                                    'Your sub category has been deleted.',
+                                    'success'
+                                ).then( () =>{
+                                   location.reload();
+                                })
+                            }
+                            else{
+                                Swal.fire(
+                                    'Fail!',
+                                    'Your sub category did not deleted successfully !!!.',
+                                    'error'
+                                )
+                            }
+                        },
+                        error: function (result) {
+                            Swal.fire(
+                                'Error!',
+                                `${JSON.stringify(result)}`,
+                                'error'
+                            );
+                        }
+
+                    })
+
+
+                }
+            })
+        })
+        $('#addSubCateBtn').click(function () {
+            if($('input[name="subCate"]').val()==="")
+            {
+                Swal.fire(
+                    'Error!',
+                    'You did not input name of the new main category',
+                    'error'
+                );
+            }
+            else {
+                Swal.fire({
+                    title: 'Getting response from data',
+
+                    didOpen: () => {
+                        Swal.showLoading();
+                        $.ajax({
+                            async: false,
+                            url: "/category/addSubCate",
+                            type: 'POST',
+                            contentType: "application/json; charset=UTF-8",
+                            data: JSON.stringify({ name: $('input[name="subCate"]').val() }),
+                            success: function (data) {
+                                if(data.success)
+                                {
+                                    Swal.fire(
+                                        'Success!',
+                                        `Your new sub category has been added`,
+                                        'success'
+                                    ).then( () =>{
+                                        location.reload()
+                                    })
+
+                                }
+                                else{
+                                    Swal.fire(
+                                        'Error!',
+                                        `Duplicate name of new sub category`,
+                                        'error'
+                                    );
+                                }
+                            },
+                            error: function (result) {
+                                Swal.fire(
+                                    'Error!',
+                                    `${JSON.stringify(result)}`,
+                                    'error'
+                                );
+                            }
+
+                        })
+                    },
+                });
+            }
+        })
+
+    })
+
+</script>
+
+</body>
+
+<!-- Mirrored from gambolthemes.net/html-items/cursus_demo_f12/categories.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 20 Jun 2020 12:56:17 GMT -->
+
+</html>

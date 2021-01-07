@@ -9,8 +9,6 @@ const cateRouter = require('./category');
 const lecturerRouter = require('./lecturer')
 /* GET home page. */
 router.get('/', function (req, res, next) {
-  console.log(req.user.id);
-
   res.render('index');
 });
 router.use('/lecturer',lecturerRouter)
@@ -84,19 +82,6 @@ router.route('/auth/facebook/callback')
       res.redirect(redirectUrl);
     }
   });
-// router.post('/create_new_course', function (req, res, next) {
-//   courseRouter.receive_infor(req, res);
-// });
-// router.post('/create_new_course/img', function (req, res, next) {
-//   courseRouter.receive_img(req, res);
-// });
-// router.post('/create_new_course/vid', function (req, res, next) {
-//   courseRouter.receive_vid(req, res);
-// });
-// router.get('/instructor_courses', function (req, res, next) {
-//     res.render('lecturer/my_courses')
-// });
-
 
 module.exports = router;
 
@@ -117,11 +102,29 @@ router.post('/category/editCate', function (req, res, next) {
   cateRouter.Cate_Rename(req, res);
 });
 
-router.post('/category/addSubCate', function (req, res, next) {
-  cateRouter.Cate_Add(req, res);
+router.post('/category/addMainCate', function (req, res, next) {
+    cateRouter.MainCate_Add(req,res);
 });
-
 router.post('/category/delSubCate', function (req, res, next) {
-  cateRouter.Cate_Add(req, res);
+    console.log(req.body)
+    res.send({success:true})
 });
-
+router.post('/category/delMainCate', function (req, res, next) {
+    console.log(req.body)
+    res.send({success:true})
+});
+router.post('/category/addSubCateToMainCate', function (req, res, next) {
+    console.log(req.body)
+    res.send({success:true})
+});
+router.post('/category/changeSubCateToMainCate', function (req, res, next) {
+    console.log(req.body)
+    res.send({success:true})
+});
+router.post('/category/editSubCateName', function (req, res, next) {
+    console.log(req.body)
+    res.send({success:true})
+});router.post('/category/addSubCate', function (req, res, next) {
+    console.log(req.body)
+    res.send({success:false})
+});

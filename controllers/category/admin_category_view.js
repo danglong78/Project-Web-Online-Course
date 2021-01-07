@@ -27,7 +27,7 @@ const admin_Cate_View = async function (res) {
                 subCate: subcate
             });
         }
-        res.render('admin_category', { category: category ,subCategory:sub_cate});
+        res.render('admin/category', { category: category ,subCategory:sub_cate});
     } catch (e) {
         res.render('error');
     }
