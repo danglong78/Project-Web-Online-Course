@@ -18,6 +18,11 @@ router.post('/delSubCate', function (req, res, next) {
     console.log(req.body)
     res.send({ success: true });
 });
+router.post('/delSubCateFromMainCate', function (req, res, next) {
+    console.log("123");
+    console.log(req.body)
+    res.send({ success: true });
+});
 
 
 router.post('/delMainCate', function (req, res, next) {
