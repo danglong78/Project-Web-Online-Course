@@ -89,6 +89,25 @@ const randSubCats = (nSubCats) => {
   );
 };
 
+const randDateAfter = (stringDate, n) => {
+  let aDate = new Date(stringDate);
+
+  let diffDays = diffDaysBetween(aDate, new Date(Date.now()));
+  let dateIncrement = randNumArray(diffDays, n);
+  let dates = [];
+
+  for (let increment of dateIncrement) {
+    let date = new Date(aDate);
+    date.setDate(date.getDate() + increment);
+    dates.push(date);
+  }
+  return dates;
+};
+
+const diffDaysBetween = (date1, date2) => {
+  return Math.ceil(Math.abs(date2 - date1) / (1000 * 60 * 60 * 24));
+};
+
 module.exports = {
   mapToEntities,
   getObjectId,
@@ -100,4 +119,5 @@ module.exports = {
   randMainCat,
   randSubCat,
   randSubCats,
+  randDateAfter,
 };
