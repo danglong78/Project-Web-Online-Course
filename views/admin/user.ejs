@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<!-- Mirrored from gambolthemes.net/html-items/cursus_demo_f12/categories.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 20 Jun 2020 12:56:17 GMT -->
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, shrink-to-fit=9">
+    <meta name="description" content="Gambolthemes">
+    <meta name="author" content="Gambolthemes">
+    <title>Cursus - Manage Users</title>
+
+    <!-- Favicon Icon -->
+    <link rel="icon" type="image/png" href="images/fav.png">
+    <link href="/css/instructor-dashboard.css" rel="stylesheet" type="text/css">
+    <link href="/css/instructor-responsive.css" rel=rel="stylesheet" type="text/css">
+    <link href="/css/vertical-responsive-menu1.min.css" rel="stylesheet" type="text/css">
+    <link href="/css/jquery-steps.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.23/css/jquery.dataTables.css">
+    <%- include('../partials/head'); -%>
+
+
+</head>
+
+<body>
+<%- include('../partials/navbar'); -%>
+<!-- Header End -->
+<!-- Left Sidebar Start -->
+<%- include('../partials/left-menu'); -%>
+<!-- Left Sidebar End -->
+<!-- Body Start -->
+<div class="wrapper">
+    <div class="sa4d25">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h2 class="st_title"><i class="uil uil-analysis"></i> Manage User</h2>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="my_courses_tabs">
+                        <ul class="nav nav-pills my_crse_nav" id="pills-tab" role="tablist">
+                            <li class="nav-item ">
+                                <a class="nav-link active " id="pills-main-category-tab" data-toggle="pill"
+                                   href="#pill-main-category" role="tab" aria-controls="pill-main-category"
+                                   aria-selected="true"><i class="uil uil-book-alt"></i>Student
+                                </a>
+                            </li>
+
+                            <li class="nav-item ">
+                                <a class="nav-link" id="pills-sub-category-tab" data-toggle="pill"
+                                   href="#pill-sub-category" role="tab" aria-controls="pill-sub-category"
+                                   aria-selected="false"><i class="uil uil-users-alt"></i>Lecturer
+                                </a>
+                            </li>
+
+                        </ul>
+                        <div class="tab-content" id="pills-tabContent">
+                            <div class="tab-pane fade show active" id="pill-main-category" role="tabpanel">
+                                <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading" role="tab" id="headingOne">
+                                            <div class="panel-title adcrse1250">
+                                                <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                                                    New Student
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+                                            <div class="panel-body adcrse_body">
+                                                <div class="row">
+                                                    <div class="col-lg-8">
+                                                        <div class="discount_form">
+                                                            <div class="row">
+                                                                <div class="col-lg-8 col-md-12">
+                                                                    <div class="ui search focus mt-20 lbel25">
+                                                                        <label>Student name</label>
+                                                                        <div class="ui left icon input swdh19">
+                                                                            <input class="prompt srch_explore " type="text" name="studentName"  data-language="en" placeholder="name">
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-lg-6 col-md-12">
+                                                                    <div class="ui search focus mt-20 lbel25">
+                                                                        <label>Email</label>
+                                                                        <div class="ui left icon input swdh19">
+                                                                            <input class="prompt srch_explore " type="email" name="studentEmail"  data-language="en" placeholder="email">
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-lg-6 col-md-12">
+                                                                    <div class="ui search focus mt-20 lbel25">
+                                                                        <label>Password</label>
+                                                                        <div class="ui left icon input swdh19">
+                                                                            <input class="prompt srch_explore " type="password" name="studentPassword"  data-language="en" placeholder="password">
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="col-lg-6 col-md-8">
+                                                                    <button class="discount_btn" id="addStudentBtn" type="submit">Save Changes</button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="table-responsive mt-30">
+                                    <table class="table ucp-table row-border" id="studentTable">
+                                        <thead class="thead-s" >
+                                        <tr>
+                                            <th class="cell-ta" >Name</th>
+                                            <th class="cell-ta" >Name</th>
+                                            <th class="text-center" scope="col">Actions</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <% for(i =0;i<user.length;i++){%>
+                                        <%if(user[i].role==="Student"){%>
+                                        <tr data-id="<%=user[i]._id%>">
+                                            <td class="cell-ta" ><%=user[i].name%></td>
+                                            <td class="cell-ta" ><%=user[i].email%></td>
+                                            <td class="text-center">
+                                                <a href="#" title="Edit"   class="gray-s"><i class="uil uil-edit-alt"></i></a>
+                                                <a href="#" title="Delete" class="gray-s"><i class="uil uil-trash-alt"></i></a>
+                                                <a href="#" title="Password" class="gray-s"><i class="uil uil-keyhole-square"></i></a>
+                                            </td>
+                                        </tr>
+                                        <%}%>
+                                        <%}%>
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                            </div>
+                            <div class="tab-pane fade" id="pill-sub-category" role="tabpanel">
+                                <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading" role="tab" id="headingOne">
+                                            <div class="panel-title adcrse1250">
+                                                <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                                                    New Lecturer
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+                                            <div class="panel-body adcrse_body">
+                                                <div class="row">
+                                                    <div class="col-lg-8">
+                                                        <div class="discount_form">
+                                                            <div class="row">
+                                                                <div class="col-lg-8 col-md-12">
+                                                                    <div class="ui search focus mt-20 lbel25">
+                                                                        <label>Lecturer name</label>
+                                                                        <div class="ui left icon input swdh19">
+                                                                            <input class="prompt srch_explore " type="text" name="lecturerName"  data-language="en" placeholder="Name">
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-lg-6 col-md-12">
+                                                                    <div class="ui search focus mt-20 lbel25">
+                                                                        <label>Email</label>
+                                                                        <div class="ui left icon input swdh19">
+                                                                            <input class="prompt srch_explore " type="email" name="lecturerEmail"  data-language="en" placeholder="Email">
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-lg-6 col-md-12">
+                                                                    <div class="ui search focus mt-20 lbel25">
+                                                                        <label>Password</label>
+                                                                        <div class="ui left icon input swdh19">
+                                                                            <input class="prompt srch_explore " type="pass" name="lecturerPass"  data-language="en" placeholder="Password">
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="col-lg-6 col-md-8">
+                                                                    <button class="discount_btn" id="addLecturerBtn" type="submit">Save Changes</button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="table-responsive mt-30">
+                                    <table class="table ucp-table row-border" id="lecturerTable">
+                                        <thead class="thead-s" >
+                                        <tr>
+                                            <th class="cell-ta" >Name</th>
+                                            <th class="cell-ta" >Email</th>
+
+                                            <th class="text-center" scope="col">Actions</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <% for(i =0;i<user.length;i++){%>
+                                        <%if(user[i].role==="Lecturer"){%>
+                                        <tr data-id="<%=user[i]._id%>">
+                                            <td class="cell-ta" ><%=user[i].name%></td>
+                                            <td class="cell-ta" ><%=user[i].email%></td>
+                                            <td class="text-center">
+                                                <a href="#" title="Edit"   class="gray-s"><i class="uil uil-edit-alt"></i></a>
+                                                <a href="#" title="Delete" class="gray-s"><i class="uil uil-trash-alt"></i></a>
+                                                <a href="#" title="Password" class="gray-s"><i class="uil uil-keyhole-square"></i></a>
+                                            </td>
+                                        </tr>
+                                        <%}%>
+
+                                        <%}%>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <%- include('../partials/footer'); -%>
+    </div>
+</div>
+<!-- Body End -->
+
+<script src="js/vertical-responsive-menu.min.js"></script>
+<script src="js/jquery-3.3.1.min.js"></script>
+<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="vendor/OwlCarousel/owl.carousel.js"></script>
+<script src="vendor/semantic/semantic.min.js"></script>
+<script src="js/custom.js"></script>
+<script src="js/night-mode.js"></script>
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.js"></script>
+<!-- Hàm cho main cate-->
+<script>
+    $.extend({
+        el: function (el, props) {
+            var $el = $(document.createElement(el));
+            $el.attr(props);
+            return $el;
+        }
+    });
+    function ValidateEmail(inputText)
+    {
+        var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+        return regex.test(inputText);
+    }
+</script>
+<!--Hàm cho lecturer-->
+<script>
+    $(document).ready(function () {
+        var studentTable=$('#studentTable').DataTable();
+        var lectureTable=$('#lecturerTable').DataTable();
+
+        $('#lecturerTable').on('click','a[title="Edit"]',function () {
+            let name= $(this).closest('tr').find('td').eq(0).text();
+            let id = $(this).closest('tr').data('id');
+            Swal.fire({
+                title:"Edit sub category name",
+                text: `You want to change "${name}" into`,
+                width: 600,
+                input: 'text',
+                showCancelButton: true,
+                inputValidator: (value) => {
+                    if (!value) {
+                        return 'You need to write something!'
+                    }
+                }
+            }).then( (res) =>{
+                if(res.isConfirmed){
+                    res.value;
+                    $.ajax({
+                        async: false,
+                        url: "/category/editSubCateName",
+                        type: 'POST',
+                        contentType: "application/json; charset=UTF-8",
+                        data: JSON.stringify({ id:id,name:res.value }),
+                        success: function (data) {
+                            if(data.success)
+                            {
+                                Swal.fire(
+                                    'Edited!',
+                                    'Your sub category has been change.',
+                                    'success'
+                                ).then( () =>{
+                                    location.reload();
+                                })
+                            }
+                            else{
+                                Swal.fire(
+                                    'Duplicated!',
+                                    'Your new name is already existed !!!.',
+                                    'error'
+                                )
+                            }
+                        },
+                        error: function (result) {
+                            Swal.fire(
+                                'Error!',
+                                `${JSON.stringify(result)}`,
+                                'error'
+                            );
+                        }
+
+                    })
+                }
+            })
+        })
+        $('#lecturerTable').on('click','a[title="Delete"]',function () {
+            let id = $(this).closest('tr').data('id');
+            $tr=$(this).closest('tr')
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        async: false,
+                        url: "/user/delLecturer",
+                        type: 'POST',
+                        contentType: "application/json; charset=UTF-8",
+                        data: JSON.stringify({ id:id }),
+                        success: function (data) {
+                            if(data.success)
+                            {
+                                Swal.fire(
+                                    'Deleted!',
+                                    'Delete Successfully',
+                                    'success'
+                                ).then( () =>{
+                                    studentTable.row($tr).remove().draw();
+                                })
+                            }
+                            else{
+                                Swal.fire(
+                                    'Fail!',
+                                    'Delete Fail !!!.',
+                                    'error'
+                                )
+                            }
+                        },
+                        error: function (result) {
+                            Swal.fire(
+                                'Error!',
+                                `${JSON.stringify(result)}`,
+                                'error'
+                            );
+                        }
+
+                    })
+
+
+                }
+            })
+        })
+        $('#studentTable').on('click','a[title="Delete"]',function () {
+            let id = $(this).closest('tr').data('id');
+            $tr=$(this).closest('tr')
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        async: false,
+                        url: "/user/delStudent",
+                        type: 'POST',
+                        contentType: "application/json; charset=UTF-8",
+                        data: JSON.stringify({ id:id }),
+                        success: function (data) {
+                            if(data.success)
+                            {
+                                Swal.fire(
+                                    'Deleted!',
+                                    'Delete Successfully',
+                                    'success'
+                                ).then( () =>{
+                                    studentTable.row($tr).remove().draw();
+                                })
+                            }
+                            else{
+                                Swal.fire(
+                                    'Fail!',
+                                    'Delete Fail !!!.',
+                                    'error'
+                                )
+                            }
+                        },
+                        error: function (result) {
+                            Swal.fire(
+                                'Error!',
+                                `${JSON.stringify(result)}`,
+                                'error'
+                            );
+                        }
+
+                    })
+
+
+                }
+            })
+        })
+
+        $('#addStudentBtn').click(function () {
+            if($('input[name="studentName"]').val()==="")
+            {
+                Swal.fire(
+                    'Error!',
+                    'You did not input name ',
+                    'error'
+                );
+            }
+            else if($('input[name="studentEmail"]').val()==="")
+            {
+                Swal.fire(
+                    'Error!',
+                    'You did not input name ',
+                    'error'
+                );
+            }
+            else if(!ValidateEmail($('input[name="studentEmail"]').val()))
+            {
+                Swal.fire(
+                    'Error!',
+                    'invalid email address ',
+                    'error'
+                );
+            }
+            else if($('input[name="studentPass"]').val()==="")
+            {
+                Swal.fire(
+                    'Error!',
+                    'You did not input password ',
+                    'error'
+                );
+            }
+            else {
+                Swal.fire({
+                    title: 'Getting response from data',
+
+                    didOpen: () => {
+                        Swal.showLoading();
+                        $.ajax({
+                            async: false,
+                            url: "/user/addStudent",
+                            type: 'POST',
+                            contentType: "application/json; charset=UTF-8",
+                            data: JSON.stringify({
+                                name: $('input[name="studentName"]').val(),
+                                email:$('input[name="studentEmail"]').val(),
+                                password: $('input[name="studentPass"]').val()
+                            }),
+                            success: function (data) {
+                                if(data.success)
+                                {
+                                    Swal.fire(
+                                        'Success!',
+                                        `Create account successfully`,
+                                        'success'
+                                    ).then( () =>{
+
+                                        studentTable.row.add(
+                                            $.el('tr',{'data-id':data._id}).append(
+                                                $.el('td',{'class':'cell-ta'}).text($('input[name="studentName"]').val())
+
+                                            ).append(
+                                                $.el('td',{'class':'cell-ta'}).text($('input[name="studentEmail"]').val())
+                                            ).append(
+                                                $.el('td',{'class':'text-center'}).append(
+                                                    $.el('a',{'href':'#','title':'Edit','class':'gray-s'}).append(
+                                                        $.el('i',{'class':'uil uil-edit-alt'})
+                                                    )
+                                                ).append(
+                                                    $.el('a',{'href':'#','title':'Delete','class':'gray-s'}).append(
+                                                        $.el('i',{'class':'uil uil-trash-alt'})
+                                                    )
+                                                ).append(
+                                                    $.el('a',{'href':'#','title':'Password','class':'gray-s'}).append(
+                                                        $.el('i',{'class':'uil uil-keyhole-square'})
+                                                    )
+                                                )
+                                            )
+                                        ).draw();
+                                    })
+
+                                }
+                                else{
+                                    Swal.fire(
+                                        'Error!',
+                                        `Account Exist`,
+                                        'error'
+                                    );
+                                }
+                            },
+                            error: function (result) {
+                                Swal.fire(
+                                    'Error!',
+                                    `${JSON.stringify(result)}`,
+                                    'error'
+                                );
+                            }
+
+                        })
+                    },
+                });
+            }
+        })
+
+    })
+
+</script>
+
+</body>
+
+<!-- Mirrored from gambolthemes.net/html-items/cursus_demo_f12/categories.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 20 Jun 2020 12:56:17 GMT -->
+
+</html>

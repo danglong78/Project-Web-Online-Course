@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width, shrink-to-fit=9">
     <meta name="description" content="Gambolthemes">
     <meta name="author" content="Gambolthemes">
-    <title>Cursus - Categories</title>
+    <title>Cursus - Courses</title>
 
     <!-- Favicon Icon -->
     <link rel="icon" type="image/png" href="images/fav.png">
@@ -36,9 +36,14 @@
     <div class="sa4d25">
         <div class="container-fluid">
             <div class="row">
+                <div class="col-lg-12">
+                    <h2 class="st_title"><i class="uil uil-analysis"></i> Manage Course</h2>
+                </div>
+            </div>
+            <div class="row">
                 <div class="col-md-12">
-                    <div class="table-responsive mt-30">
-                        <table class="table ucp-table display" id="subCategoryTable">
+                    <div class="table-responsive mt-30" style="background-color: white">
+                        <table class="table ucp-table row-border" id="subCategoryTable">
                             <thead class="thead-s" >
                             <tr>
                                 <th class="cell-ta" >Name</th>
@@ -142,60 +147,6 @@
 
                 }
             })
-        })
-        $('#addSubCateBtn').click(function () {
-            if($('input[name="subCate"]').val()==="")
-            {
-                Swal.fire(
-                    'Error!',
-                    'You did not input name of the new main category',
-                    'error'
-                );
-            }
-            else {
-                Swal.fire({
-                    title: 'Getting response from data',
-
-                    didOpen: () => {
-                        Swal.showLoading();
-                        $.ajax({
-                            async: false,
-                            url: "/category/addSubCate",
-                            type: 'POST',
-                            contentType: "application/json; charset=UTF-8",
-                            data: JSON.stringify({ name: $('input[name="subCate"]').val() }),
-                            success: function (data) {
-                                if(data.success)
-                                {
-                                    Swal.fire(
-                                        'Success!',
-                                        `Your new sub category has been added`,
-                                        'success'
-                                    ).then( () =>{
-                                        location.reload()
-                                    })
-
-                                }
-                                else{
-                                    Swal.fire(
-                                        'Error!',
-                                        `Duplicate name of new sub category`,
-                                        'error'
-                                    );
-                                }
-                            },
-                            error: function (result) {
-                                Swal.fire(
-                                    'Error!',
-                                    `${JSON.stringify(result)}`,
-                                    'error'
-                                );
-                            }
-
-                        })
-                    },
-                });
-            }
         })
 
     })

@@ -36,6 +36,11 @@
     <div class="sa4d25">
         <div class="container-fluid">
             <div class="row">
+                <div class="col-lg-12">
+                    <h2 class="st_title"><i class="uil uil-analysis"></i> Manage Category</h2>
+                </div>
+            </div>
+            <div class="row">
                 <div class="col-md-12">
                     <div class="my_courses_tabs">
                         <ul class="nav nav-pills my_crse_nav" id="pills-tab" role="tablist">
@@ -322,6 +327,8 @@
                     },
                 });
             }
+            $('input[name="mainCate"]').val("")
+
         })
         $('.card-header').on('click', '.delBtn', function () {
             $button= $(this)
@@ -375,17 +382,34 @@
         });
         $('.card-header').on('click', '.editBtn', function (e) {
             e.stopPropagation();
-            $name = $(this).closest('.card-header').find('b');
-            $(this).closest('.card-header').prepend(
-                $.el('div', { 'class': 'input-group', "style": 'width:50%;' }).append(
-                    $.el('input', { 'type': 'text', 'class': 'form-control ', 'aria-describedby': "saveCateBtn" })
-                ).append(
-                    $.el('button', { 'id': 'saveCateBtn', 'class': 'btn btn-outline-danger', 'style': 'margin-left:20px','data-name':$name.text(), 'data-id': `${$(this).attr("data-id")}` }).text('Save')
+            if($(this).data('name')=== undefined) {
+                $name = $(this).closest('.card-header').find('b');
+                $(this).closest('.card-header').prepend(
+                    $.el('div', {'class': 'input-group', "style": 'width:50%;'}).append(
+                        $.el('input', {'type': 'text', 'class': 'form-control ', 'aria-describedby': "saveCateBtn"})
+                    ).append(
+                        $.el('button', {
+                            'id': 'saveCateBtn',
+                            'class': 'btn btn-outline-danger',
+                            'style': 'margin-left:20px',
+                            'data-name': $name.text(),
+                            'data-id': `${$(this).attr("data-id")}`
+                        }).text('Save')
+                    )
                 )
+                $name.remove();
+                $(this).attr('data-name', $name.text());
+            }
+            else{
+                $(this).closest('.card-header').first().remove();
+                $(this).closest('.card-header').prepend(
+                    $.el('b', {
+                        'style':'font-size:120%'
+                    }).text($(this).data('name'))
+                )
+                $(this).removeAttribute('data-name')
 
-            )
-            $name.remove();
-            $(this).prop("disabled", true);
+            }
 
         })
         $('.card-header').on('click', '#saveCateBtn', function () {
@@ -419,7 +443,6 @@
                                         "Your Main Category rename successfully!!!",
                                         'success'
                                     ).then( () =>{
-                                        $button.closest('.card-header').find('.editBtn').prop('disabled',false)
                                         let name = newName;
                                         $button.closest('.card-header').prepend(
                                             $.el('b', {
@@ -841,6 +864,7 @@
                     },
                 });
             }
+            $('input[name="subCate"]').val("")
         })
 
     })

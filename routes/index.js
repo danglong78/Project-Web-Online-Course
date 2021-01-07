@@ -133,5 +133,11 @@ router.get("/admin_cate", function (req, res) {
 router.get("/admin_course", function (req, res) {
   adminRouter.View_Course(res);
 });
+router.get('/admin_user', function (req, res) {
+    adminRouter.View_User(res);
+});
+router.post("/user/addStudent", function (req, res) {
+    res.send({success:true,_id:123})
+});
 
 router.use("/category", cateRouter);
