@@ -46,7 +46,6 @@ const crawlSync = (url) => {
       if (err) {
         reject(err);
       }
-      // console.log(JSON.stringify(course, null, 4));
       resolve(course);
     });
   });
@@ -105,7 +104,8 @@ const generate = async () => {
   for (url of courseUrls) {
     course = await crawlSync(url);
 
-    // console.log(course);
+    console.log(course);
+    // console.log(JSON.stringify(course, null, 4));
     crawledCourses.push(course);
     courseIDList.push({ id: course.id, lectureCount: 0 });
   }

@@ -23,6 +23,7 @@ const extractChapter = (crawl, k) => {
     let newChap = {
       title: chap.title,
       duration: chap.content_length,
+      durationText: chap.content_length_text,
       lecture: [],
     };
 
@@ -30,7 +31,9 @@ const extractChapter = (crawl, k) => {
       newChap.lecture.push({
         title: lec.title,
         preview: lec.can_be_preview,
-        content: lec.description,
+        description: lec.description,
+        durationText: lec.content_summary,
+        is_coding_exercise: lec.is_coding_exercise,
         file: lec.learn_url,
         index: k,
       });

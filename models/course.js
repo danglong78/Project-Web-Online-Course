@@ -47,14 +47,16 @@ const courseSchema = mongoose.Schema({
     {
       title: String,
       duration: Number, // in second
+      durationText: chap.content_length_text,
       lecture: [
         {
           index: Number,
           title: String,
-          duration: Number,
-          content: String,
+          description: String,
           file: String,
           preview: Boolean,
+          durationText: String,
+          is_coding_exercise: Boolean,
         },
       ],
     },
