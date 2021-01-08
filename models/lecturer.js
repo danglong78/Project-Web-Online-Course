@@ -9,12 +9,12 @@ const lecturerChema = Schema({
 
   shortDescbibe: {
     type: String,
-    required: true,
+    //required: true,
   },
 
   detailDescribe: {
     type: String,
-    required: true,
+    //required: true,
   },
 
   courses: [

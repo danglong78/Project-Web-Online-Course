@@ -21,18 +21,18 @@ const fullTextSearch = require(__basedir + "/controllers/course/search");
 const addAdditionalFields = require(__basedir + "/controllers/course/helpers");
 
 /* GET home page. */
-router.get("/", function (req, res, next) {
+router.get("/", async function (req, res, next) {
   let topEnrolls = await getTopWeeklyTrans(CONFIG.nTopTrending);
-  let topViews = await getTopViews(CONFIG.nTopView);   
-  let topFavorites = await getTopFavorites(CONFIG.nTopFavorite); 
+  let topViews = await getTopViews(CONFIG.nTopView);
+  let topFavorites = await getTopFavorites(CONFIG.nTopFavorite);
   let newests = await getNewests(CONFIG.nNewest);
-  
+
   addAdditionalFields(topEnrolls);
   addAdditionalFields(topViews);
   addAdditionalFields(topFavorites);
   addAdditionalFields(newests);
 
-  res.render("index", {topEnrolls, topViews, topFavorites, newests});
+  res.render("index", { topEnrolls, topViews, topFavorites, newests });
 });
 
 // router.get("/test", async function (req, res, next) {
@@ -156,29 +156,8 @@ router.get("/admin_course", function (req, res) {
 router.get("/admin_user", function (req, res) {
   adminRouter.View_User(res);
 });
-router.post("/admin/addStudent", function (req, res) {
-  console.log(req.body);
-  res.send({ success: true, _id: 123 });
-});
-router.post("/admin/delStudent", function (req, res) {
-  console.log(req.body);
-  res.send({ success: true });
-});
-router.post("/admin/addLecturer", function (req, res) {
-  console.log(req.body);
-  res.send({ success: true, _id: 123 });
-});
-router.post("/admin/delLecturer", function (req, res) {
-  console.log(req.body);
-  res.send({ success: true });
-});
-router.post("/admin/changePassword", function (req, res) {
-  console.log(req.body);
-  res.send({ success: true });
-});
-router.post("/admin/changeInfor", function (req, res) {
-  console.log(req.body);
-  res.send({ success: true });
-});
+
 
 router.use("/category", cateRouter);
+const admin_user_route = require('./admin_user');
+router.use("/admin", admin_user_route);
