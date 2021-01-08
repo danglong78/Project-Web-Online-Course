@@ -48,39 +48,41 @@
 						<div class="sign_form">
 							<h2>Welcome to Edututs+</h2>
 							<p>Sign Up and Start Learning!</p>
-							<form action="signup" method="POST">
-								<div class="ui search focus">
-									<div class="ui left icon input swdh11 swdh19">
-										<input class="prompt srch_explore" type="text" name="name" value=""
-											id="id_fullname" required="" maxlength="64" placeholder="Full Name">
-									</div>
-								</div>
-								<div class="ui search focus mt-15">
-									<div class="ui left icon input swdh11 swdh19">
-										<input class="prompt srch_explore" type="email" name="email" value=""
-											id="id_email" required="" maxlength="64" placeholder="Email Address">
-									</div>
-								</div>
-								<div class="ui search focus mt-15">
-									<div class="ui left icon input swdh11 swdh19">
-										<input class="prompt srch_explore" type="password" name="password" value=""
-											id="id_password" required="" maxlength="64" placeholder="Password">
-									</div>
-								</div>
-								<div class="ui form mt-30 checkbox_sign">
-									<div class="inline field">
-										<div class="ui checkbox mncheck">
-											<input type="checkbox" tabindex="0" class="hidden">
-											<label>I’m in for emails with exciting discounts and personalized
-												recommendations</label>
+							<%- include ('partials/flash.ejs') %>
+								<form action="signup" method="POST">
+									<div class="ui search focus">
+										<div class="ui left icon input swdh11 swdh19">
+											<input class="prompt srch_explore" type="text" name="name" value=""
+												id="id_fullname" required="" maxlength="64" placeholder="Full Name">
 										</div>
 									</div>
-								</div>
-								<button class="login-btn" type="submit">Sign Up</button>
-							</form>
-							<p class="sgntrm145">By signing up, you agree to our <a href="terms_of_use.html">Terms of
-									Use</a> and <a href="terms_of_use.html">Privacy Policy</a>.</p>
-							<p class="mb-0 mt-30">Already have an account? <a href="/signin">Log In</a></p>
+									<div class="ui search focus mt-15">
+										<div class="ui left icon input swdh11 swdh19">
+											<input class="prompt srch_explore" type="email" name="email" value=""
+												id="id_email" required="" maxlength="64" placeholder="Email Address">
+										</div>
+									</div>
+									<div class="ui search focus mt-15">
+										<div class="ui left icon input swdh11 swdh19">
+											<input class="prompt srch_explore" type="password" name="password" value=""
+												id="id_password" required="" maxlength="64" placeholder="Password">
+										</div>
+									</div>
+									<div class="ui form mt-30 checkbox_sign">
+										<div class="inline field">
+											<div class="ui checkbox mncheck">
+												<input type="checkbox" tabindex="0" class="hidden">
+												<label>I’m in for emails with exciting discounts and personalized
+													recommendations</label>
+											</div>
+										</div>
+									</div>
+									<button class="login-btn" type="submit">Sign Up</button>
+								</form>
+								<p class="sgntrm145">By signing up, you agree to our <a href="terms_of_use.html">Terms
+										of
+										Use</a> and <a href="terms_of_use.html">Privacy Policy</a>.</p>
+								<p class="mb-0 mt-30">Already have an account? <a href="/signin">Log In</a></p>
 						</div>
 						<div class="sign_footer"><img src="images/sign_logo.png" alt="">© 2020 <strong>Cursus</strong>.
 							All Rights Reserved.</div>
