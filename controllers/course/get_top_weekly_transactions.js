@@ -1,9 +1,13 @@
 const Student = require("../../models/student").model;
 const Course = require("../../models/course").model;
+const Lecturer = require("../../models/lecturer").model;
+const SubCategory = require("../../models/subCategory").model;
+const MainCategory = require("../../models/category").model;
 const WeeklyTransaction = require("../../models/weekly_transaction").model;
 
 const getTopWeeklyTrans = async (n) => {
   let topWeekTrans = [];
+
   try {
     topWeeklyTrans = await WeeklyTransaction.aggregate([
       {
@@ -24,11 +28,56 @@ const getTopWeeklyTrans = async (n) => {
       },
     ]);
 
-    await topWeeklyTrans.populate("course").lean();
+    // console.log(topWeeklyTrans);
+
+    topWeeklyTrans = await WeeklyTransaction.populate(topWeeklyTrans, {
+      path: "_id",
+      model: "Course",
+      populate: [
+        {
+          path: "lecturer",
+          model: "Lecturer",
+        },
+        {
+          path: "category",
+          model: "MainCategory",
+        },
+        {
+          path: "subCategory",
+          model: "SubCategory",
+        },
+      ],
+      // populate: {
+      //   path: "category",
+      //   model: "MainCategory",
+      // },
+      // populate: {
+      //   path: "subCategory",
+      //   model: "SubCategory",
+      // },
+    });
+
+    // const opts = [
+    //   { path: "_id", model: "Course" },
+    //   { path: "notes", options: { limit: 10 }, model: "override" },
+    // ];
+
+    let courses = [];
+    for (course of topWeeklyTrans) {
+      let courseObj = course._id.toObject();
+      // course._id.weekCount = course.count;
+      courseObj.weekCount = course.count;
+      // console.log(courseObj);
+      // console.log(course._id);
+      courses.push(courseObj);
+    }
+
+    topWeekTrans = courses;
+    // console.log(topweeklyTrans);
   } catch (err) {
     console.log(err);
   }
-  return topWeeklyTrans;
+  return topWeekTrans;
 };
 
 module.exports = getTopWeeklyTrans;

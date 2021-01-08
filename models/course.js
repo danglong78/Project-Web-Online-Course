@@ -47,7 +47,7 @@ const courseSchema = mongoose.Schema({
     {
       title: String,
       duration: Number, // in second
-      durationText: chap.content_length_text,
+      durationText: String,
       lecture: [
         {
           index: Number,

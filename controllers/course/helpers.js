@@ -7,7 +7,7 @@ const addAvgRate = (courses) => {
 const addDurationText = (courses) => {
   for (let course of courses) {
     let duration = 0;
-    for (let chap of courses.chapter) {
+    for (let chap of course.chapter) {
       duration += chap.duration;
     }
     course.durationText = secondToHour(duration);

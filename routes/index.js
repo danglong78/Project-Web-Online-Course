@@ -18,35 +18,37 @@ const getTopWeeklyTrans = require(__basedir +
   "/controllers/course/get_top_weekly_transactions");
 const getByCategory = require(__basedir + "/controllers/course/get_by_cat");
 const fullTextSearch = require(__basedir + "/controllers/course/search");
-const addAdditionalFields = require(__basedir + "/controllers/course/helpers");
+const { addAdditionalFields } = require(__basedir +
+  "/controllers/course/helpers");
 
 /* GET home page. */
-router.get("/", function (req, res, next) {
+router.get("/", async (req, res) => {
   let topEnrolls = await getTopWeeklyTrans(CONFIG.nTopTrending);
-  let topViews = await getTopViews(CONFIG.nTopView);   
-  let topFavorites = await getTopFavorites(CONFIG.nTopFavorite); 
+  let topViews = await getTopViews(CONFIG.nTopView);
+  let topFavorites = await getTopFavorites(CONFIG.nTopFavorite);
   let newests = await getNewests(CONFIG.nNewest);
-  
+
   addAdditionalFields(topEnrolls);
   addAdditionalFields(topViews);
   addAdditionalFields(topFavorites);
   addAdditionalFields(newests);
 
-  res.render("index", {topEnrolls, topViews, topFavorites, newests});
+  res.render("index", { topEnrolls, topViews, topFavorites, newests });
 });
 
-// router.get("/test", async function (req, res, next) {
-//   // let courses = await getTopViews(5);
-//   // let courses = await getByCategory("Cassandra", 4, 2);
-//   // let courses = await fullTextSearch("ultimate", "", 1, 5);
-//   // let courses = await getNewests(CONFIG.nNewest);
-//   // let courses = await getTopWeeklyTrans(CONFIG.nTopTrending);
+router.get("/test", async function (req, res, next) {
+  // let courses = await getTopViews(5);
+  // let courses = await getByCategory("Cassandra", 4, 2);
+  // let courses = await fullTextSearch("ultimate", "", 1, 5);
+  // let courses = await getNewests(CONFIG.nNewest);
+  let courses = await getTopWeeklyTrans(CONFIG.nTopTrending);
 
-//   console.log("before");
-//   console.log(courses);
-//   console.log("after");
-//   res.json(courses);
-// });
+  console.log("before");
+  console.log(courses);
+  console.log("after");
+  res.json(courses);
+});
+
 router.use("/lecturer", lecturerRouter);
 // router.get('/course_detail_view', function (req, res, next) {
 //   courseRouter.course_detail_view(req, res);

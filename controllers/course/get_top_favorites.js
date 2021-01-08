@@ -5,6 +5,20 @@ const getTopFavorites = async (n) => {
   let topFavorites;
   try {
     topFavorites = await Course.find()
+      .populate([
+        {
+          path: "lecturer",
+          model: "Lecturer",
+        },
+        {
+          path: "category",
+          model: "MainCategory",
+        },
+        {
+          path: "subCategory",
+          model: "SubCategory",
+        },
+      ])
       .lean()
       .sort({ favoriteCount: -1 })
       .limit(n);
