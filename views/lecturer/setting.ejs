@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<!-- Mirrored from gambolthemes.net/html-items/Learnic_demo_f12/create_new_course.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 20 Jun 2020 12:55:52 GMT -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, shrink-to-fit=9">
+    <meta name="description" content="Gambolthemes">
+    <meta name="author" content="Gambolthemes">
+    <title>Learnic - Create New Course</title>
+
+    <!-- Favicon Icon -->
+    <link rel="icon" type="image/png" href="/images/fav.png">
+
+    <!-- Stylesheets -->
+    <%- include('../partials/head'); -%>
+    <link href="/css/instructor-dashboard.css" rel="stylesheet" type="text/css">
+    <link href="/css/instructor-responsive.css" rel=rel="stylesheet" type="text/css">
+    <link href="/css/vertical-responsive-menu1.min.css" rel="stylesheet" type="text/css">
+    <link href="/css/jquery-steps.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
+
+
+</head>
+
+<body>
+<!-- Header Start -->
+<%- include('../partials/instructor-navbar'); -%>
+<!-- Header End -->
+<!-- Left Sidebar Start -->
+<%- include('../partials/instructor-left-menu'); -%>
+<!-- Left Sidebar End -->
+<!-- Body Start -->
+<div class="wrapper">
+    <div class="sa4d25">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h2 class="st_title"><i class='uil uil-cog'></i> Setting</h2>
+                    <div class="setting_tabs">
+                        <ul class="nav nav-pills mb-4" id="pills-tab" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link active" id="pills-account-tab" data-toggle="pill" href="#pills-account" role="tab" aria-selected="true">Account</a>
+                            </li>
+ 
+
+                            <li class="nav-item">
+                                <a class="nav-link" id="pills-changepassword-tab" data-toggle="pill" href="#pills-changepassword" role="tab" aria-selected="false">Change Password</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="tab-content" id="pills-tabContent">
+                        <div class="tab-pane fade show active" id="pills-account" role="tabpanel" aria-labelledby="pills-account-tab">
+                            <div class="account_setting">
+                                <h4>Your Learnic Account</h4>
+                                <p>This is your public presence on Learnic. You need a account to upload your paid courses, comment on courses, purchased by students, or earning.</p>
+                                <div class="basic_profile">
+                                    <div class="basic_ptitle">
+                                        <h4>Basic Profile</h4>
+                                        <p>Add information about yourself</p>
+                                    </div>
+                                    <div class="basic_form">
+                                        <div class="row">
+                                            <div class="col-lg-8">
+                                                <div class="row">
+                                                    <div class="col-lg-12">
+                                                        <div class="ui search focus mt-30 lbel25">
+                                                            <label>Fullname</label>
+                                                            <div class="ui left icon input swdh11 swdh19">
+                                                                <input class="prompt srch_explore" type="text" name="fullname" value="<%=credential.name%>"  maxlength="100" placeholder="Full Name">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-12">
+                                                        <div class="ui search focus mt-30 lbel25">
+                                                            <label>Email</label>
+                                                            <div class="ui left icon input swdh11 swdh19">
+                                                                <input class="prompt srch_explore" type="email" name="email" value="<%= credential.email%>"   maxlength="100" placeholder="Full Name">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-lg-12">
+                                                        <div class="ui search focus mt-30 lbel25">
+                                                            <label>Short Description</label>
+                                                            <div class="ui left icon input swdh11 swdh19">
+                                                                <input class="prompt srch_explore" type="text" name="shortDes" value="<%-lecturer.shortDescbibe%>"   maxlength="100" placeholder="Headline">
+                                                            </div>
+                                                            <div class="help-block">Add a professional headline like, "Engineer at Learnic" or "Architect."</div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-12">
+                                                        <div class="ui search focus mt-30 lbel25">
+                                                            <label>Detail Description</label>
+                                                            <div class="ui form swdh30">
+                                                                <div class="field">
+                                                                    <textarea rows="10" name="detailDes"  placeholder="Write a little description about you..."><%-lecturer.shortDescbibe%></textarea>
+                                                                </div>
+                                                            </div>
+                                                            <div class="help-block">Links and coupon codes are not permitted in this section.</div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-12">
+                                                        <div class="divider-1"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <button class="save_btn" type="button" id="accountBtn">Save Changes</button>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="pills-changepassword" role="tabpanel" aria-labelledby="pills-changepassword-tab">
+                            <div class="account_setting">
+                                <h4>Close account</h4>
+                                <p><strong>Warning:</strong> If you close your account, you will be unsubscribed from all your 5 courses, and will lose access forever.</p>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6">
+
+                                    <div class="ui search focus mt-30 lbel25">
+                                        <label>Old Password</label>
+                                        <div class="ui left icon input swdh11 swdh19">
+                                            <input class="prompt srch_explore" type="password" name="oldpassword" required="" maxlength="64" placeholder="Enter Old Password">
+                                        </div>
+                                    </div>
+                                    <div class="ui search focus mt-30 lbel25">
+                                        <label>New Password</label>
+                                        <div class="ui left icon input swdh11 swdh19">
+                                            <input class="prompt srch_explore" type="password" name="newpassword"  required="" maxlength="64" placeholder="Enter New Password">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <div class="divider-1"></div>
+                                    </div>
+                                    <button class="save_payout_btn mbs20" type="button" id="passwordBtn">Save Change</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <%- include('../partials/footer'); -%>
+
+</div>
+<!-- Body End -->
+
+<script src="/js/vertical-responsive-menu.min.js"></script>
+<script src="/js/jquery-3.3.1.min.js"></script>
+<script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="/vendor/OwlCarousel/owl.carousel.js"></script>
+<script src="/vendor/semantic/semantic.min.js"></script>
+<script src="/js/custom.js"></script>
+<script src="/js/night-mode.js"></script>
+<script src="/js/jquery-steps.min.js"></script>
+<!--Hàm chung-->
+<script>
+    $.extend({
+        el: function(el, props) {
+            let $el = $($("<"+el+" />"));
+            $el.attr(props);
+            return $el;
+        }
+    });
+    function ValidateEmail(inputText)
+    {
+        var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+        return regex.test(inputText);
+    }
+    $(document).ready(function () {
+        $('#passwordBtn').click(function () {
+            if($('input[name="oldpassword"]').val()===""){
+                Swal.fire(
+                    'Error',
+                    'Please input the old password',
+                    'error'
+                )
+            }
+            else if($('input[name="newpassword"]').val()===""){
+                Swal.fire(
+                    'Error',
+                    'Please input the new password',
+                    'error'
+                )
+            }
+            else{
+                $.ajax({
+                    url: "/lecturer/changePassword",
+                    type: 'POST',
+                    contentType: "application/json; charset=UTF-8",
+                    data: JSON.stringify({
+                        newPassword:$('input[name="newpassword"]').val(),
+                        oldPassword:$('input[name="oldpassword"]').val()
+                    }),
+                    success: function (data) {
+                        if(data.success)
+                        {
+                            Swal.fire(
+                                'Success!',
+                                'Change success.',
+                                'success'
+                            ).then( () =>{
+                                $('input[name="newpassword"]').val("")
+                                $('input[name="oldpassword"]').val("")
+                            })
+                        }
+                        else{
+                            Swal.fire(
+                                'Fail!',
+                                'Wrong password!!!.',
+                                'error'
+                            )
+                        }
+                    },
+                    error: function (result) {
+                        Swal.fire(
+                            'Error!',
+                            `${JSON.stringify(result)}`,
+                            'error'
+                        );
+                    }
+
+                })
+
+        }
+    })
+        $('#accountBtn').click(function () {
+            if($('input[name="fullname"]').val()===""){
+                Swal.fire(
+                    'Error',
+                    'Please input the fullname ',
+                    'error'
+                )
+            }
+            else if($('input[name="shortDes"]').val()===""){
+                Swal.fire(
+                    'Error',
+                    'Please input the short description',
+                    'error'
+                )
+            }
+            else if($('input[name="email"]').val()===""){
+                Swal.fire(
+                    'Error',
+                    'Please input the email',
+                    'error'
+                )
+            }
+            else if(!ValidateEmail($('input[name="email"]').val())){
+                Swal.fire(
+                    'Error',
+                    'Invalid email',
+                    'error'
+                )
+            }
+            else if($('textarea[name="detailDes"]').val()===""){
+                Swal.fire(
+                    'Error',
+                    'Please input the detail Description',
+                    'error'
+                )
+            }
+            else{
+                $.ajax({
+                    url: "/lecturer/changesetting",
+                    type: 'POST',
+                    contentType: "application/json; charset=UTF-8",
+                    data: JSON.stringify({
+                        name:$('input[name="fullname"]').val(),
+                        email:$('input[name="email"]').val(),
+                        shortDes:$('input[name="shortDes"]').val(),
+                        detailDes:$('textarea[name="detailDes"]').val()
+                    }),
+                    success: function (data) {
+                        if(data.success)
+                        {
+                            Swal.fire(
+                                'Success!',
+                                'Change success.',
+                                'success'
+                            ).then( () =>{
+
+                            })
+                        }
+                        else{
+                            Swal.fire(
+                                'Fail!',
+                                'Something is going wrong.',
+                                'error'
+                            )
+                        }
+                    },
+                    error: function (result) {
+                        Swal.fire(
+                            'Error!',
+                            `${JSON.stringify(result)}`,
+                            'error'
+                        );
+                    }
+
+                })
+
+        }
+    })
+    })
+
+</script>
+
+
+
+</body>
+
+<!-- Mirrored from gambolthemes.net/html-items/Learnic_demo_f12/create_new_course.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 20 Jun 2020 12:56:02 GMT -->
+</html>
