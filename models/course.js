@@ -16,20 +16,26 @@ const courseSchema = mongoose.Schema({
 
   price: Number,
 
+  fullPrice: Number,
+
   finished: Boolean,
 
-  updateDate: Date,
+  createdAt: Date,
 
-  avatar: { type: String, text: true },
+  updatedAt: Date,
+
+  avatar: String,
 
   lecturer: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Credential",
   },
+
   category: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "MainCategory",
   },
+
   subCategory: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "SubCategory",
@@ -38,7 +44,7 @@ const courseSchema = mongoose.Schema({
   chapter: [
     {
       title: String,
-      duration: Number,
+      duration: Number, // in second
       lecture: [
         {
           index: Number,
@@ -53,13 +59,6 @@ const courseSchema = mongoose.Schema({
   ],
 
   lectureCount: Number,
-
-  participant: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Student",
-    },
-  ],
 
   rates: [
     {
@@ -85,10 +84,6 @@ const courseSchema = mongoose.Schema({
   favoriteCount: {
     type: Number,
     index: true,
-  },
-
-  createdAt: {
-    type: Date,
   },
 });
 

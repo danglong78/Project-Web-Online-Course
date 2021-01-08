@@ -7,6 +7,7 @@ const {
 } = require("../../helpers/index");
 const CONFIG = require("../../../config.json");
 const transactions = require("../8_transactions/transactions");
+const faker = require("faker");
 
 const students = [];
 
@@ -27,6 +28,7 @@ for (let i = 0; i < studentList.length; i++) {
 
   students.push({
     id: getObjectId(studentList[i]),
+    name: faker.name.findName(),
     courses: joinCourses,
     favorites: randCourses(CONFIG.seeder.nFavorite),
   });

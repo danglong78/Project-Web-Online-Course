@@ -1,11 +1,18 @@
-const { crawledCourses, courseIDList } = require("../../generator");
+const {
+  crawledCourses,
+  courseIDList,
+  mainCatMap,
+  subCatList,
+  lecturerList,
+  lecturerCourseMap,
+} = require("../../generator");
 const {
   getObjectId,
   randRates,
-  randMainCat,
-  randSubCat,
+  getRndInteger,
 } = require("../../helpers/index");
 const faker = require("faker");
+const CONFIG = require("../../../config.json");
 
 const courses = [];
 
@@ -47,21 +54,47 @@ for (crawl of crawledCourses) {
   let lectureCount = countLecture(crawl);
   courseIDList.find((x) => crawl.id === x.id).lectureCount = lectureCount;
 
+  // add category
+  if (!mainCatMap.has(crawl.topics[0])) {
+    mainCatMap.set(crawl.topics[0], [crawl.topics[1]]);
+  } else {
+    if (mainCatMap.get(crawl.topics[0]).indexOf(crawl.topics[1]) === -1) {
+      mainCatMap.get(crawl.topics[0]).push(crawl.topics[1]);
+    }
+  }
+
+  if (subCatList.indexOf(crawl.topics[1]) === -1) {
+    subCatList.push(crawl.topics[1]);
+  }
+
+  // add course to lecturerCourseMap
+  //  rand lecturer
+  let randLecturer = lecturerList[getRndInteger(0, lecturerList.length - 1)];
+  lecturerCourseMap.get(randLecturer).push(getObjectId(crawl.id));
+  let createdAt = new Date(CONFIG.seeder.dateStart);
+  let updatedAt = new Date(createdAt);
+  updatedAt.setDate(updatedAt.getDate() + getRndInteger(7, 100));
+
+  // add course
   courses.push({
     id: getObjectId(crawl.id),
     title: crawl.title,
     short_description: crawl.headline,
     detail_description: crawl.description,
     price: crawl.price,
+    fullPrice: crawl.fullPrice,
     finished: true,
     avatar: crawl.image,
-    lecturer: getObjectId(crawl.authors),
+    createdAt,
+    updatedAt,
+    lecturer: getObjectId(randLecturer),
+    badges: "",
     lectureCount,
     viewCount: faker.random.number(),
     enrollCount: faker.random.number(),
     favoriteCount: faker.random.number(),
-    category: getObjectId(randMainCat()),
-    subCategory: getObjectId(randSubCat()),
+    category: getObjectId(crawl.topics[0]),
+    subCategory: getObjectId(crawl.topics[1]),
     rates: randRates(5),
     chapter: extractChapter(crawl, k),
   });

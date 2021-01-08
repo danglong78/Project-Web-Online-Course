@@ -1,46 +1,40 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const credentialSchema = mongoose.Schema({
-    name: {
-        type: String,
-        required: true
-    },
+  email: {
+    type: String,
+    required: true,
+    unique: true,
+  },
 
-    email: {
-        type: String,
-        required: true,
-        unique: true
-    },
+  password: {
+    type: String,
+  },
 
-    password: {
-        type: String,
-    },
+  googleID: {
+    type: String,
+  },
 
-    googleID: {
-        type: String
-    },
+  facebookID: {
+    type: String,
+  },
 
-    facebookID: {
-        type: String
-    },
+  role: {
+    type: String,
+    required: true,
+    enum: ["Student", "Lecturer", "Admin"],
+  },
 
-    role: {
-        type: String,
-        required: true,
-        enum: ['Student', 'Lecturer', "Admin"]
-    },
-
-    user: {
-        type: Schema.Types.ObjectId,
-        required: true,
-        refPath: 'role'
-    }
+  user: {
+    type: Schema.Types.ObjectId,
+    required: true,
+    refPath: "role",
+  },
 });
 
-const Credential = mongoose.model('Credential', credentialSchema);
+const Credential = mongoose.model("Credential", credentialSchema);
 
 module.exports = {
-    model: Credential
-}
-
+  model: Credential,
+};

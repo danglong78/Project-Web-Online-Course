@@ -10,7 +10,6 @@ const credentials = [];
 for (let i = 0; i < studentList.length; i++) {
   credentials.push({
     id: getObjectId(studentList[i] + "student"),
-    name: faker.name.findName(),
     email: studentList[i],
     password: defaultHash,
     role: "Student",
@@ -21,7 +20,6 @@ for (let i = 0; i < studentList.length; i++) {
 for (let j = 0; j < lecturerList.length; j++) {
   credentials.push({
     id: getObjectId(lecturerList[j] + "lecturer"),
-    name: faker.name.findName(),
     email: lecturerList[j],
     password: defaultHash,
     role: "Lecturer",
@@ -32,7 +30,6 @@ for (let j = 0; j < lecturerList.length; j++) {
 for (let k = 0; k < adminList.length; k++) {
   credentials.push({
     id: getObjectId(adminList[k] + "admin"),
-    name: faker.name.findName(),
     email: adminList[k],
     password: defaultHash,
     role: "Admin",

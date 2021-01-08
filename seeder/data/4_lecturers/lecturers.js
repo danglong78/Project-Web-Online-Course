@@ -1,16 +1,16 @@
-const { lecturerList } = require("../../generator");
-const { getObjectId, randCourses } = require("../../helpers/index");
+const { lecturerList, lecturerCourseMap } = require("../../generator");
+const { getObjectId } = require("../../helpers/index");
 const faker = require("faker");
-const CONFIG = require("../../../config.json");
 
 const lecturers = [];
 
 for (let j = 0; j < lecturerList.length; j++) {
   lecturers.push({
     id: getObjectId(lecturerList[j]),
+    name: faker.name.findName(),
     shortDescbibe: faker.lorem.text(),
     detailDescribe: faker.lorem.sentences(),
-    courses: randCourses(CONFIG.seeder.nLecturerCourse),
+    courses: lecturerCourseMap.get(lecturerList[j]),
   });
 }
 
