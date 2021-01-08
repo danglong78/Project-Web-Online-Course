@@ -21,7 +21,7 @@ for (let i = 0; i < studentList.length; i++) {
   for (let j = 0; j < joinCourses.length; j++) {
     transactions.push({
       date: randDates[j],
-      courses: joinCourses[j].course,
+      course: joinCourses[j].course,
       student: getObjectId(studentList[i]),
     });
   }

@@ -72,6 +72,7 @@ for (crawl of crawledCourses) {
   let randLecturer = lecturerList[getRndInteger(0, lecturerList.length - 1)];
   lecturerCourseMap.get(randLecturer).push(getObjectId(crawl.id));
   let createdAt = new Date(CONFIG.seeder.dateStart);
+  createdAt.setDate(createdAt.getDate() + getRndInteger(1, 60));
   let updatedAt = new Date(createdAt);
   updatedAt.setDate(updatedAt.getDate() + getRndInteger(7, 100));
 
@@ -88,7 +89,7 @@ for (crawl of crawledCourses) {
     createdAt,
     updatedAt,
     lecturer: getObjectId(randLecturer),
-    badges: "",
+    badge: "",
     lectureCount,
     viewCount: faker.random.number(),
     enrollCount: faker.random.number(),

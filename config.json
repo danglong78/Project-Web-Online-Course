@@ -8,6 +8,10 @@
         "nAdminEmail": 1,
         "weekStart": "2021-1-1",
         "nRandDate": 50,
-        "dateStart": "2020-12-1"        
-    }   
+        "dateStart": "2020-12-1"             
+    },
+    "nNewest": 10,
+    "nTopView": 10,
+    "nTopFavorite": 10,
+    "nTopTrending": 4  
 }

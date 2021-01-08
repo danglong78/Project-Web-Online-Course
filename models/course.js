@@ -26,6 +26,8 @@ const courseSchema = mongoose.Schema({
 
   avatar: String,
 
+  badge: String,
+
   lecturer: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Credential",
