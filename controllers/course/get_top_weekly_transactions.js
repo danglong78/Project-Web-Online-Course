@@ -1,6 +1,6 @@
-const Student = require(__basedir + '/models/student').model;
-const Course = require(__basedir + '/models/course').model;
-const WeeklyTransaction = require(__basedir + '/models/weekly_transaction').model;
+const Student = require('../../models/student').model;
+const Course = require('../../models/course').model;
+const WeeklyTransaction = require('../../models/weekly_transaction').model;
 
 const getTopWeeklyTrans = async (n) => {
     let topWeekTrans;

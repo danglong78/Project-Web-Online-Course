@@ -15,6 +15,8 @@ const getTopFavorites = require(__basedir +
 const getTopViews = require(__basedir + "/controllers/course/get_top_views");
 const getTopWeeklyTrans = require(__basedir +
   "/controllers/course/get_top_weekly_transactions");
+const getByCategory = require(__basedir + "/controllers/course/get_by_cat");
+const fullTextSearch = require(__basedir + "/controllers/course/search");
 
 /* GET home page. */
 router.get("/", function (req, res, next) {
@@ -22,9 +24,13 @@ router.get("/", function (req, res, next) {
 });
 
 router.get("/test", async function (req, res, next) {
-  let courses = await getTopViews(5);
-  console.log(courses);
+  // let courses = await getTopViews(5);
+  // let courses = await getByCategory("Cassandra", 4, 2);
+  // let courses = await fullTextSearch("ultimate", "", 1, 5);
 
+  console.log("before");
+  console.log(courses);
+  console.log("after");
   res.json(courses);
 });
 router.use("/lecturer", lecturerRouter);
@@ -133,32 +139,32 @@ router.get("/admin_cate", function (req, res) {
 router.get("/admin_course", function (req, res) {
   adminRouter.View_Course(res);
 });
-router.get('/admin_user', function (req, res) {
-    adminRouter.View_User(res);
+router.get("/admin_user", function (req, res) {
+  adminRouter.View_User(res);
 });
 router.post("/admin/addStudent", function (req, res) {
-    console.log(req.body)
-    res.send({success:true,_id:123})
+  console.log(req.body);
+  res.send({ success: true, _id: 123 });
 });
 router.post("/admin/delStudent", function (req, res) {
-    console.log(req.body)
-    res.send({success:true})
+  console.log(req.body);
+  res.send({ success: true });
 });
 router.post("/admin/addLecturer", function (req, res) {
-    console.log(req.body)
-    res.send({success:true,_id:123})
+  console.log(req.body);
+  res.send({ success: true, _id: 123 });
 });
 router.post("/admin/delLecturer", function (req, res) {
-    console.log(req.body)
-    res.send({success:true})
+  console.log(req.body);
+  res.send({ success: true });
 });
 router.post("/admin/changePassword", function (req, res) {
-    console.log(req.body)
-    res.send({success:true})
+  console.log(req.body);
+  res.send({ success: true });
 });
 router.post("/admin/changeInfor", function (req, res) {
-    console.log(req.body)
-    res.send({success:true})
+  console.log(req.body);
+  res.send({ success: true });
 });
 
 router.use("/category", cateRouter);

@@ -1,9 +1,9 @@
-const WeeklyTransaction = require(__basedir + '/models/weekly_transaction').model;
+const WeeklyTransaction = require('../../models/weekly_transaction').model;
 
 
 global.__lastWeekDate = new Date(2020, 12, 12);
 
-const updateWeeklyTransactions = () => {
+const updateWeeklyTransactions = async() => {
     await WeeklyTransaction.deleteMany(
         {
             date: {
