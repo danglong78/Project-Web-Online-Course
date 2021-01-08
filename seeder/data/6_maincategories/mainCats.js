@@ -1,14 +1,13 @@
-const { mainCatList, subCatList } = require("../../generator");
-const { getObjectId, randSubCats } = require("../../helpers/index");
-const CONFIG = require("../../../config.json");
+const { mainCatMap } = require("../../generator");
+const { getObjectId, getObjectIds } = require("../../helpers/index");
 
 const mainCats = [];
 
-for (let i = 0; i < mainCatList.length; i++) {
+for (let cat of mainCatMap.keys()) {
   mainCats.push({
-    id: getObjectId(mainCatList[i]),
-    name: mainCatList[i],
-    subCate: randSubCats(CONFIG.seeder.nSubCat),
+    id: getObjectId(cat),
+    name: cat,
+    subCate: getObjectIds(mainCatMap.get(cat)),
   });
 }
 

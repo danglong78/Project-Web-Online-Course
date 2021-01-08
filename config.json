@@ -2,14 +2,12 @@
     "seeder": {
         "nProgress": 5,
         "nStudentCourse": 5,
-        "nFavorite": 5,
-        "nLecturerCourse": 2,
-        "nSubCat": 2,    
+        "nFavorite": 5,                 
         "nStudentEmail": 15,
         "nLecturerEmail": 5,
         "nAdminEmail": 1,
         "weekStart": "2021-1-1",
         "nRandDate": 50,
-        "dateStart": "2015-1-1"        
+        "dateStart": "2020-12-1"        
     }   
 }

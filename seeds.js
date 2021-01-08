@@ -14,73 +14,67 @@ const {
 
 // generate needs to run first
 generate().then(() => {
-  // console.log("Start at seeds.js");
-
-  // // console.log(JSON.stringify(crawledCourses, null, 4));
-
-  // // console.log(
-  // //   "\t\t======================= CourseID List ======================="
-  // // );
-  // // console.log(JSON.stringify(courseIDList, null, 4));
-  // // console.log(courseIDList);
-
-  // // console.log(
-  // //   "\t\t======================= Student List ======================="
-  // // );
-  // // console.log(JSON.stringify(studentList, null, 4));
-  // // console.log(studentList);
-
-  // // console.log(
-  // //   "\t\t======================= Lecturer List ======================="
-  // // );
-  // // console.log(JSON.stringify(lecturerList, null, 4));
-  // // console.log(lecturerList);
-
+  console.log("Start at seeds.js");
+  // console.log(JSON.stringify(crawledCourses, null, 4));
+  // console.log(crawledCourses);
+  // console.log("\t\t======================= TEST =======================");
+  // console.log(
+  //   "\t\t======================= CourseID List ======================="
+  // );
+  // console.log(JSON.stringify(courseIDList, null, 4));
+  // console.log(courseIDList);
+  // console.log(
+  //   "\t\t======================= Student List ======================="
+  // );
+  // console.log(JSON.stringify(studentList, null, 4));
+  // console.log(studentList);
+  // console.log(
+  //   "\t\t======================= Lecturer List ======================="
+  // );
+  // console.log(JSON.stringify(lecturerList, null, 4));
+  // console.log(lecturerList);
   // console.log(
   //   "\t\t======================= Credentials ======================="
   // );
   // let credentials = require("./seeder/data/1_credentials/credentials");
-  // console.log(credentials);
-
-  // console.log("\t\t======================= Lecturers =======================");
-  // let lecturers = require("./seeder/data/2_lecturers/lecturers");
-  // console.log(JSON.stringify(lecturers, null, 4));
-
+  // // console.log(credentials);
+  // console.log("\t\t======================= Courses =======================");
+  // let courses = require("./seeder/data/2_courses/courses");
+  // // console.log(JSON.stringify(courses, null, 4));
+  // console.log(courses, null, 4);
   // console.log("\t\t======================= Admins =======================");
   // let admins = require("./seeder/data/3_admins/admins");
-  // console.log(JSON.stringify(admins, null, 4));
-
-  // // console.log("\t\t======================= Courses =======================");
-  // // let courses = require("./seeder/data/4_courses/courses");
-  // // console.log(JSON.stringify(courses, null, 4));
-
+  // // console.log(JSON.stringify(admins, null, 4));
+  // console.log("\t\t======================= Lecturers =======================");
+  // let lecturers = require("./seeder/data/4_lecturers/lecturers");
+  // // console.log(JSON.stringify(lecturers, null, 4));
   // console.log("\t\t======================= Students =======================");
   // let students = require("./seeder/data/5_students/students");
-  // console.log(JSON.stringify(students, null, 4));
-
-  // // console.log(
-  // //   "\t\t======================= Main categories ======================="
-  // // );
-  // // let mainCats = require("./seeder/data/6_mainCats/mainCats");
+  // // console.log(JSON.stringify(students, null, 4));
+  // console.log(
+  //   "\t\t======================= Main categories ======================="
+  // );
+  // let mainCats = require("./seeder/data/6_maincategories/mainCats");
   // // console.log(mainCats);
-
-  // // console.log(
-  // //   "\t\t======================= Sub categories ======================="
-  // // );
-  // // let subCats = require("./seeder/data/7_subCats/subCats");
+  // console.log(
+  //   "\t\t======================= Sub categories ======================="
+  // );
+  // let subCats = require("./seeder/data/7_subcategories/subCats");
   // // console.log(subCats);
-
   // console.log(
   //   "\t\t======================= Transaction ======================="
   // );
   // let transactions = require("./seeder/data/8_transactions/transactions");
   // console.log(transactions);
+  // console.log(
+  //   "\t\t======================= Weekly Transaction ======================="
+  // );
+  // let weeklytransactions = require("./seeder/data/9_weeklytransactions/weeklytransactions");
+  // console.log(weeklytransactions);
 
-  // ****************************************************************************************
-  // import to db
+  // *************************************** IMPORT TO DATABASE ******************************************
   const path = require("path");
   const { Seeder } = require("mongo-seeding");
-
   const config = {
     database: {
       name: "udemyclone",
@@ -94,7 +88,6 @@ generate().then(() => {
       transformers: [Seeder.Transformers.replaceDocumentIdWithUnderscoreId],
     }
   );
-
   seeder
     .import(collections)
     .then(() => {

@@ -56,36 +56,40 @@ let crawledCourses = [];
 let emailList = [];
 let studentList = [];
 let lecturerList = [];
+let lecturerCourseMap = new Map();
 let adminList = [];
 let courseIDList = [];
-let mainCatList = [
-  "Web",
-  "Mobile",
-  "Game",
-  "Bussiness",
-  "Music",
-  "Health",
-  "Personal Development",
-  "Art",
-  "Sport",
-  "Mental",
-  "Manager",
-];
-let subCatList = [
-  "NodeJS",
-  "MongoDB",
-  "English",
-  "SQL",
-  "JavaScript",
-  "Express",
-  "React",
-  "Angular",
-  "Go",
-  "Cassandra",
-  "Badminton",
-  "Unagi",
-  "Leadership",
-];
+// let mainCatList = [
+//   "Web",
+//   "Mobile",
+//   "Game",
+//   "Bussiness",
+//   "Music",
+//   "Health",
+//   "Personal Development",
+//   "Art",
+//   "Sport",
+//   "Mental",
+//   "Manager",
+// ];
+// let subCatList = [
+//   "NodeJS",
+//   "MongoDB",
+//   "English",
+//   "SQL",
+//   "JavaScript",
+//   "Express",
+//   "React",
+//   "Angular",
+//   "Go",
+//   "Cassandra",
+//   "Badminton",
+//   "Unagi",
+//   "Leadership",
+// ];
+
+let mainCatMap = new Map();
+let subCatList = [];
 
 const nStudent = CONFIG.seeder.nStudentEmail;
 const nLecturer = CONFIG.seeder.nLecturerEmail;
@@ -128,6 +132,10 @@ const generate = async () => {
   //   lecturerList.push(emailList[i]);
   // }
   lecturerList.push(...emailList.slice(nStudent, nStudent + nLecturer)); // modify in place to keep reference
+  for (let email of lecturerList) {
+    lecturerCourseMap.set(email, []);
+  }
+
   // console.log("Lecturer List: ");
   // console.log(lecturerList);
   adminList.push(...emailList.slice(nStudent + nLecturer, emailList.length));
@@ -147,10 +155,11 @@ module.exports = {
   crawledCourses,
   studentList,
   lecturerList,
+  lecturerCourseMap,
   adminList,
   courseIDList,
-  mainCatList,
-  subCatList,
   transDateList,
   weeklyTransDateList,
+  mainCatMap,
+  subCatList,
 };
