@@ -34,12 +34,14 @@ router.get("/", async (req, res) => {
   let newests = await getNewests(CONFIG.nNewest);
   let topWeeklySubCats = await getTopWeeklyCats(CONFIG.nTopWeeklySubCat);
   let topSubCats = await getTopCats(CONFIG.nTopSubCat);
-  let cats = await getPopulatedCats();
+  // let cats = await getPopulatedCats();
 
   addAdditionalFields(topEnrolls);
   addAdditionalFields(topViews);
   addAdditionalFields(topFavorites);
   addAdditionalFields(newests);
+
+  // console.log(__categories);
 
   res.render("index", {
     topEnrolls,
@@ -48,7 +50,7 @@ router.get("/", async (req, res) => {
     newests,
     topWeeklySubCats,
     topSubCats,
-    cats,
+    cats: __categories,
   });
 });
 
