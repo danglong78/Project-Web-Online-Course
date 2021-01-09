@@ -9,7 +9,6 @@ const getTopCats = async (n) => {
   let topCats = [];
 
   try {
-    topCats = await WeeklyTransaction.find();
     // .populate({
     //   path: "course",
     //   model: "Course",
@@ -19,7 +18,7 @@ const getTopCats = async (n) => {
     //   count: { $sum: 1 },
     // });
 
-    topCats = await WeeklyTransaction.aggregate([
+    topCats = await Transaction.aggregate([
       {
         $lookup: {
           from: "courses",

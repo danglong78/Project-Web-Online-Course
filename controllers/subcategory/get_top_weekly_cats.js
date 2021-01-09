@@ -9,7 +9,6 @@ const getTopWeeklyCats = async (n) => {
   let topWeeklyCats = [];
 
   try {
-    topWeeklyCats = await WeeklyTransaction.find();
     // .populate({
     //   path: "course",
     //   model: "Course",
