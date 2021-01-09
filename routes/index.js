@@ -1,12 +1,13 @@
 const express = require("express");
 const router = express.Router();
-const courseRouter = require("../routes/course");
 const passport = require("passport");
 const signUp = require(__basedir + "/controllers/credential/signup");
 const to = require("await-to-js").default;
 const adminRouter = require("./admin");
 const cateRouter = require("./category");
 const lecturerRouter = require("./lecturer");
+const coursesRouter = require("./courses");
+const courseRouter = require("./course");
 const CONFIG = require("../config.json");
 
 // test
@@ -16,13 +17,9 @@ const getTopFavorites = require(__basedir +
 const getTopViews = require(__basedir + "/controllers/course/get_top_views");
 const getTopWeeklyTrans = require(__basedir +
   "/controllers/course/get_top_weekly_transactions");
-const getByCategory = require(__basedir + "/controllers/course/get_by_cat");
 const getTopWeeklyCats = require(__basedir +
   "/controllers/subcategory/get_top_weekly_cats");
 const getTopCats = require(__basedir + "/controllers/subcategory/get_top_cats");
-const getPopulatedCats = require(__basedir +
-  "/controllers/category/get_populated_cats");
-const fullTextSearch = require(__basedir + "/controllers/course/search");
 const { addAdditionalFields } = require(__basedir +
   "/controllers/course/helpers");
 
@@ -34,7 +31,6 @@ router.get("/", async (req, res) => {
   let newests = await getNewests(CONFIG.nNewest);
   let topWeeklySubCats = await getTopWeeklyCats(CONFIG.nTopWeeklySubCat);
   let topSubCats = await getTopCats(CONFIG.nTopSubCat);
-  // let cats = await getPopulatedCats();
 
   addAdditionalFields(topEnrolls);
   addAdditionalFields(topViews);
@@ -66,6 +62,10 @@ router.get("/test", async function (req, res, next) {
   console.log("after");
   res.json(courses);
 });
+
+router.use("/courses", coursesRouter); // for search result
+
+router.use("/course", courseRouter); // for one single detail course
 
 router.use("/lecturer", lecturerRouter);
 // router.get('/course_detail_view', function (req, res, next) {

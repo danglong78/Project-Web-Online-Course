@@ -1,15 +1,23 @@
 const Course = require(__basedir + "/models/course").model;
 const SubCategory = require(__basedir + "/models/subCategory").model;
+const MainCategory = require("../../models/category").model;
 
 const fullTextSearch = async (key, catName, page, limit) => {
-  let courses = [];
+  let paginates = [];
+  if (!key) {
+    key = "";
+  }
+
+  if (!catName) {
+    catName = "";
+  }
+
   try {
     const options = {
       page,
-      limit,
-      lean: true,
-      projection: { score: { $meta: "textScore" } },
-      sort: { score: { $meta: "textScore" } },
+      limit,      
+      // projection: { score: { $meta: "textScore" } },
+      // sort: { score: { $meta: "textScore" } },
     };
 
     if (catName) {
@@ -20,7 +28,7 @@ const fullTextSearch = async (key, catName, page, limit) => {
           $and: [{ $text: { $search: key } }, { subCategory: foundCat._id }],
         };
 
-        courses = await new Promise((resolve, reject) => {
+        paginates = await new Promise((resolve, reject) => {
           Course.paginate(query, options, (err, result) => {
             if (err) {
               reject(err);
@@ -31,23 +39,36 @@ const fullTextSearch = async (key, catName, page, limit) => {
       }
     } else {
       // find with only keyword
-      console.log("DEBUG");
+      // console.log("DEBUG");
       const query = { $text: { $search: key } };
-      courses = await new Promise((resolve, reject) => {
+      paginates = await new Promise((resolve, reject) => {
         Course.paginate(query, options, (err, result) => {
           if (err) {
             reject(err);
           }
           resolve(result);
         });
-      });
-
-      //   console.log(courses);
+      });                
     }
+
+    paginates.docs = await Course.populate(paginates.docs, [
+      {
+        path: "lecturer",
+        model: "Lecturer",
+      },
+      {
+        path: "category",
+        model: "MainCategory",
+      },
+      {
+        path: "subCategory",
+        model: "SubCategory",
+      },
+    ]); 
   } catch (err) {
     console.log(err);
   } finally {
-    return courses;
+    return paginates;
   }
 };
 

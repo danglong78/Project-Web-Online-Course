@@ -29,6 +29,7 @@ const app = express();
 require("./controllers/category/get_populated_cats")().then((result) => {
   global.__categories = result;
 });
+global.__CONFIG = require("./config.json");
 
 // view engine setup
 app.set("views", path.join(__dirname, "views"));

@@ -36,3 +36,12 @@ const getPopulatedCats = async () => {
 };
 
 module.exports = getPopulatedCats;
+
+// return {
+//   _id,
+//   name,
+//   subDetail: [{ 
+//     _id,
+//     name
+//   }]
+// }
