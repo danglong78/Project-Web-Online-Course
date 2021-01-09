@@ -16,7 +16,6 @@ const courseUrls = [
   "https://www.udemy.com/course/linux-mastery/",
   "https://www.udemy.com/course/systems-administration-101-active-directory/",
   "https://www.udemy.com/course/windows-server-2016-administration-and-deployment/",
-  "https://www.udemy.com/course/blockchain-and-bitcoin-fundamentals/",
   "https://www.udemy.com/course/solidworks-sheet-metal/",
   "https://www.udemy.com/course/70534-azure/",
   "https://www.udemy.com/course/thecompletejobinterviewresumenetworknewcareerguide/",
@@ -211,7 +210,9 @@ const generate = async () => {
     // console.log(JSON.stringify(course, null, 4));
     crawledCourses.push(course);
     courseIDList.push({ id: course.id, lectureCount: 0 });
-    objectIDs.push(getObjectId(course.id));
+    let objID = getObjectId(course.id);
+    objectIDs.push(objID);
+    console.log(objID);
   }
 
   ((objectIDs) => {
@@ -225,6 +226,7 @@ const generate = async () => {
       }
     }
     console.log("after length: " + objectIDs.length);
+    console.log(JSON.stringify(objectIDs));
   })(objectIDs);
 
   console.log("End generating courses in generator");
