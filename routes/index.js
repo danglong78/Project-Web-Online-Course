@@ -17,6 +17,8 @@ const getTopViews = require(__basedir + "/controllers/course/get_top_views");
 const getTopWeeklyTrans = require(__basedir +
   "/controllers/course/get_top_weekly_transactions");
 const getByCategory = require(__basedir + "/controllers/course/get_by_cat");
+const getTopWeeklyCats = require(__basedir +
+  "/controllers/subcategory/get_top_weekly_cats");
 const fullTextSearch = require(__basedir + "/controllers/course/search");
 const { addAdditionalFields } = require(__basedir +
   "/controllers/course/helpers");
@@ -27,13 +29,22 @@ router.get("/", async (req, res) => {
   let topViews = await getTopViews(CONFIG.nTopView);
   let topFavorites = await getTopFavorites(CONFIG.nTopFavorite);
   let newests = await getNewests(CONFIG.nNewest);
+  let topWeeklySubCats = await getTopWeeklyCats(CONFIG.nTopWeeklySubCat);
+  let topSubCats = await getTopCats(CONFIG.nTopSubCat);
 
   addAdditionalFields(topEnrolls);
   addAdditionalFields(topViews);
   addAdditionalFields(topFavorites);
   addAdditionalFields(newests);
 
-  res.render("index", { topEnrolls, topViews, topFavorites, newests });
+  res.render("index", {
+    topEnrolls,
+    topViews,
+    topFavorites,
+    newests,
+    topSubCats,
+    topWeeklySubCats,
+  });
 });
 
 router.get("/test", async function (req, res, next) {
@@ -41,7 +52,7 @@ router.get("/test", async function (req, res, next) {
   // let courses = await getByCategory("Cassandra", 4, 2);
   // let courses = await fullTextSearch("ultimate", "", 1, 5);
   // let courses = await getNewests(CONFIG.nNewest);
-  let courses = await getTopWeeklyTrans(CONFIG.nTopTrending);
+  let courses = await getTopWeeklyCats(CONFIG.nTopTrending);
 
   console.log("before");
   console.log(courses);

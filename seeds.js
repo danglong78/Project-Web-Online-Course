@@ -73,29 +73,29 @@ generate().then(() => {
   // console.log(weeklytransactions);
 
   // *************************************** IMPORT TO DATABASE ******************************************
-  const path = require("path");
-  const { Seeder } = require("mongo-seeding");
-  const config = {
-    database: {
-      name: "udemyclone",
-    },
-    dropDatabase: true,
-  };
-  const seeder = new Seeder(config);
-  const collections = seeder.readCollectionsFromPath(
-    path.resolve("./seeder/data"),
-    {
-      transformers: [Seeder.Transformers.replaceDocumentIdWithUnderscoreId],
-    }
-  );
-  seeder
-    .import(collections)
-    .then(() => {
-      console.log("Success");
-    })
-    .catch((err) => {
-      console.log("Error", err);
-    });
+  // const path = require("path");
+  // const { Seeder } = require("mongo-seeding");
+  // const config = {
+  //   database: {
+  //     name: "udemyclone",
+  //   },
+  //   dropDatabase: true,
+  // };
+  // const seeder = new Seeder(config);
+  // const collections = seeder.readCollectionsFromPath(
+  //   path.resolve("./seeder/data"),
+  //   {
+  //     transformers: [Seeder.Transformers.replaceDocumentIdWithUnderscoreId],
+  //   }
+  // );
+  // seeder
+  //   .import(collections)
+  //   .then(() => {
+  //     console.log("Success");
+  //   })
+  //   .catch((err) => {
+  //     console.log("Error", err);
+  //   });
 
   console.log("End at seeds.js");
 });
