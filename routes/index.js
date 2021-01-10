@@ -180,3 +180,18 @@ router.get("/admin_user", function (req, res) {
 router.use("/category", cateRouter);
 const admin_user_route = require("./admin_user");
 router.use("/admin", admin_user_route);
+
+router.get("/upload/:storage/:file",(req,res)=>{
+
+
+  var fileName = req.params.file;
+  var store = req.params.storage;
+  res.sendFile(__basedir+'/upload/'+store+'/'+fileName, function (err) {
+    if (err) {
+      res.send(err)
+    } else {
+      console.log('Sent:', fileName)
+    }
+  })
+
+})
