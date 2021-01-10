@@ -1,0 +1,313 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+	
+<!-- Mirrored from gambolthemes.net/html-items/cursus_demo_f12/search_result.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 20 Jun 2020 12:57:19 GMT -->
+<head>
+		<meta charset="utf-8">		
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, shrink-to-fit=9">
+		<meta name="description" content="Gambolthemes">
+		<meta name="author" content="Gambolthemes">
+		<title>Cursus - Search Result</title>
+		
+
+		<%- include('../partials/head', {cats});-%>
+
+		<!-- Favicon Icon -->
+		<link rel="icon" type="image/png" href="/images/fav.png">
+		
+		<style>
+			.btn1542 {
+				width: 100%;
+			}
+
+			.tb_145 {				
+				margin-bottom: 5px;
+			}
+
+			.descrpt {
+				margin-top: 50px;
+				/* overflow: hidden; */
+				/* text-overflow: ellipsis; */
+				/* display: -webkit-box; */
+				/* -webkit-line-clamp: 2; */
+				/* number of lines to show */
+				/* -webkit-box-orient: vertical; */
+			}
+
+		</style>
+		
+	</head> 
+
+<body>
+	<!-- Header Start -->
+	<header class="header clearfix">
+		<div class="container">
+			<div class="row">
+				<div class="col-12">
+					<div class="back_link">
+						<a href="/" class="hde151">Back To UdemyClone</a>
+						<a href="/" class="hde152">Back</a>
+					</div>
+					<div class="ml_item">
+						<div class="main_logo main_logo15" id="logo">
+							<a href="/"><img src="/images/logo.svg" alt=""></a>
+							<a href="/"><img class="logo-inverse" src="/images/ct_logo.svg" alt=""></a>
+						</div>				
+					</div>				
+					<div class="header_right pr-0">
+						<ul>				
+							<li class="ui top right pointing dropdown">
+								<a href="#" class="opts_account">
+									<img src="/images/hd_dp.jpg" alt="">
+								</a>
+								<div class="menu dropdown_account">
+									<div class="channel_my">
+										<div class="profile_link">
+											<img src="/images/hd_dp.jpg" alt="">
+											<div class="pd_content">
+												<div class="rhte85">
+													<h6>Joginder Singh</h6>
+													<div class="mef78" title="Verify">
+														<i class='uil uil-check-circle'></i>
+													</div>
+												</div>
+												<span>gambol943@gmail.com</span>
+											</div>							
+										</div>
+										<a href="my_instructor_profile_view.html" class="dp_link_12">View Instructor Profile</a>
+									</div>
+									<div class="night_mode_switch__btn">
+										<a href="#" id="night-mode" class="btn-night-mode">
+											<i class="uil uil-moon"></i> Night mode
+											<span class="btn-night-mode-switch">
+												<span class="uk-switch-button"></span>
+											</span>
+										</a>
+									</div>
+									<a href="instructor_dashboard.html" class="item channel_item">Cursus Dashboard</a>						
+									<a href="sign_in.html" class="item channel_item">Sign Out</a>
+								</div>
+							</li>
+						</ul>
+					</div>		
+				</div>		
+			</div>
+		</div>
+	</header>
+	<!-- Header End -->
+	<!-- Body Start -->
+	<div class="wrapper _bg4586 _new89">		
+		<div class="_215b15">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-12">						
+						<div class="title125">						
+							<div class="titleleft">					
+								<div class="ttl121">
+									<nav aria-label="breadcrumb">
+										<ol class="breadcrumb">
+											<li class="breadcrumb-item"><a href="/">Home</a></li>
+											<li class="breadcrumb-item active" aria-current="page">Search Results </li>
+										</ol>
+									</nav>
+								</div>
+							</div>
+							<div class="titleright">						
+								<form action="/courses/search" method="get">
+									<div class="explore_search">
+										<div class="ui search focus">
+											<div class="ui left icon input swdh11 swdh15">
+												
+												<input class="prompt srch_explore" type="text" placeholder="Search" name ="q">											
+												
+												<i class="uil uil-search-alt icon icon2"></i>
+											</div>
+										</div>
+									</div>
+								</form>
+							</div>
+						</div>
+						<div class="title126">	
+							<h2>Search Results for: <%= key.split("+").join(" ")%></h2>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="sa4d25 mb4d25">
+			<div class="container">			
+				<div class="row justify-content-between">
+					<div class="col-lg-3 col-md-4">
+						<form action="/courses/search" method="get">
+							<input type="hidden" value=<%=key.split("+").join(" ")%> name = "q">
+							<div class="section3125 hstry142">							
+								<div class="result_stitles">
+									<div class="rs6t_title">Filter by Category</div>								
+								</div>														
+								<div class="tb_145">
+									<div class="panel-group accordion" id="accordionfilter">
+										<div class="panel panel-default">
+											<div class="panel-heading" id="headingOne">
+												<div class="panel-title10">
+													<a class="collapsed" data-toggle="collapse" data-target="#collapseOne" href="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+														All Categories
+													</a>
+												</div>
+											</div>
+											<div id="collapseOne" class="panel-collapse collapse" aria-labelledby="headingOne" data-parent="#accordionfilter">
+												<div class="panel-body">
+													<div class="ui form">
+														<div class="grouped fields">	
+															<% for (let cat of cats) {%>
+																<% for (let subCat of cat.subDetail) {%>
+																	<div class="ui form checkbox_sign">
+																		<div class="inline field">
+																			<div class="ui checkbox mncheck">
+																				<input type="radio" tabindex="0" class="hidden radio" <%-`value="${subCat.name}" `%> name="cat">
+																				<label><%= subCat.name %> </label>
+																			</div>
+																		</div>
+																	</div>
+																<% } %> 															
+															<% } %> 
+																													
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>																		
+									</div>				
+								</div>	
+								<button class="btn1542">
+									Search
+								</button>					
+							</div>	
+						</form>
+												
+					</div>					
+					<div class="col-lg-9 col-md-8">
+						<div class="_14d25 mb-20">						
+							<div class="row">
+								<div class="col-md-12">
+									<h4 class="mhs_title"><%= paginates.totalDocs %>  Results</h4>
+									<% for (let course of paginates.docs) { %> 
+										<div class="fcrse_1 mt-30">
+											<a href=<%= "/course/" + course._id %> class="hf_img">
+												<img src=<%= course.avatar %>  alt="">
+												<div class="course-overlay">
+													<% if (course.badge) {%> 
+													<div class="badge_seller"><%=course.badge %> </div>
+													<% } %> 
+													<div class="crse_reviews">
+														<i class="uil uil-star"></i><%=course.avgRate %> 
+													</div>
+													<span class="play_btn1"><i class="uil uil-play"></i></span>
+													<div class="crse_timer">
+														<%=course.durationText %> 
+													</div>
+												</div>
+											</a>
+											<div class="hs_content">												
+												<div class="vdtodt">
+													<span class="vdt14"><%=course.viewCount%> views</span>
+													<span class="vdt14">
+														Updated: <%=course.updatedAt.toLocaleDateString()%>
+													</span>
+													<span class="vdt14">
+														<%=course.rates.length%> ratings
+													</span>
+												</div>
+												<a href=<%- `/course/${course._id}` %> class="crse14s title900"><%=course.title%></a>
+												<a href=<%- `/courses/category/${course.subCategory._id}` %> class="crse-cate"><%= course.category.name %> | <%= course.subCategory.name %></a>
+												<div class="auth1lnkprce">
+													<p class="cr1fot">By <a href=<%- `/lecturer/${course.lecturer._id}}` %>><%= course.lecturer.name %></a></p>
+													<div class="prce142">
+														<% if (course.price !==0) {%>
+															$<%=course.price %>
+															<span style="text-decoration: line-through; margin-left:0.5rem">
+																$<%= course.fullPrice %> 
+															</span>
+														<%} else {%>
+															FREE
+														<% } %>
+													</div>
+												</div>
+												
+												<div class="descrpt">
+													<p><%= course.short_description %> </p>
+												</div>
+											</div>
+										</div>						
+										<% } %>
+									
+										<div class="main-p-pagination">
+											<nav aria-label="Page navigation example">
+												<ul class="pagination">
+													<li <% if(paginates.hasPrevPage) {%> class='page-item' <% } else { %> class='page-item disabled'<% } %> >
+														<a class="page-link" href=<%=`/courses/search?q=${key}&p=${paginates.page-1}${cat?"&cat="+cat:""}`%> aria-label="Previous">
+															PREV
+														</a>
+													</li>
+
+													<% for (let i = 1; i <= paginates.totalPages; i++ ) {%>
+														<% if (i == paginates.page) {%>
+															<li class="page-item"><a class="page-link active" href="#"><%=i%> </a></li>															
+														<% } else {%> 
+															<li class="page-item">
+																<a class="page-link" href=<%=`/courses/search?q=${key}&p=${i}`%> ><%=i%></a>
+															</li>
+														<% } %> 
+														
+													<% } %> 													
+													<li <% if(paginates.hasNextPage) {%> class='page-item' <% } else { %> class='page-item disabled'<% } %>>
+														<a class="page-link" href=<%=`/courses/search?q=${key}&p=${paginates.page+1}${cat?"&cat="+cat:""}`%> aria-label="Next">
+															NEXT
+														</a>
+													</li>
+												</ul>
+											</nav>
+										</div>
+								</div>									
+							</div>																		
+						</div>							
+					</div>				
+				</div>
+			</div>
+		</div>
+		
+		<%- include('../partials/footer'); -%>
+	</div>
+	<!-- Body End -->
+
+	<script src="/js/jquery-3.3.1.min.js"></script>
+	<script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+	<script src="/vendor/OwlCarousel/owl.carousel.js"></script>
+	<script src="/vendor/semantic/semantic.min.js"></script>
+	<script src="/js/custom.js"></script>	
+	<script src="/js/night-mode.js"></script>	
+
+	<script>
+	var grd = function () {
+			$("input[type='radio']").click(function () {				
+				var previousValue = $(this).attr('previousValue');
+				var name = $(this).attr('name');
+
+				if (previousValue == 'checked') {
+					$(this).removeAttr('checked');
+					$(this).attr('previousValue', false);
+				} else {
+					$("input[name=" + name + "]:radio").attr('previousValue', false);
+					$(this).attr('previousValue', 'checked');
+				}
+			});
+		};
+
+		$( document ).ready(grd());	
+	</script>
+	
+</body>
+
+<!-- Mirrored from gambolthemes.net/html-items/cursus_demo_f12/search_result.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 20 Jun 2020 12:57:19 GMT -->
+</html>

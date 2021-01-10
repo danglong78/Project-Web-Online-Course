@@ -2,8 +2,8 @@ const mongoosePaginate = require("mongoose-paginate-v2");
 const Course = require(__basedir + "/models/course").model;
 const SubCategory = require(__basedir + "/models/subCategory").model;
 
-const getByCategory = async (catName, page, limit) => {
-  // console.log(catName);
+const getByCatID = async (catID, page, limit) => {
+  // console.log(catID);
   const options = {
     page,
     limit,
@@ -13,7 +13,11 @@ const getByCategory = async (catName, page, limit) => {
 
   let paginates;
   try {
-    const foundCat = await SubCategory.findOne({ name: catName }).lean();
+    if (catID.length != 24) {
+      return;
+    }
+
+    const foundCat = await SubCategory.findOne({ _id: catID }).lean();
     if (foundCat) {
       // console.log("found cat");
       const query = { subCategory: foundCat._id };
@@ -44,12 +48,17 @@ const getByCategory = async (catName, page, limit) => {
 
       if (paginates.totalDocs > 0) {
         paginates.catName = paginates.docs[0].subCategory.name;
+        paginates.catID = paginates.docs[0].subCategory._id;        
       }
-    }
+    } 
+
+    // console.log(paginates);
   } catch (e) {
     console.log(e);
   }
-  return paginates;
+  finally {
+    return paginates;
+  }
 };
 
-module.exports = getByCategory;
+module.exports = getByCatID;

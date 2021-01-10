@@ -2,131 +2,55 @@
     <button type="button" id="toggleMenu" class="toggle_menu">
         <i class='uil uil-bars'></i>
     </button>
-    <button id="collapse_menu" class="collapse_menu">
-        <i class="uil uil-bars collapse_menu--icon "></i>
-        <span class="collapse_menu--label"></span>
-    </button>
+
     <div class="main_logo" id="logo">
         <a href="index"><img src="/images/logo.svg" alt=""></a>
         <a href="index"><img class="logo-inverse" src="/images/ct_logo.svg" alt=""></a>
     </div>
     <div class=" dropdown">
         <a class="btn btn-outline-danger" href="#" data-toggle="dropdown">
-					<span class="material-icons">category
-					</span>
+            <span class="material-icons">category
+            </span>
         </a>
         <ul class="dropdown-menu">
-            <li class="has-submenu">
-                <a class="dropdown-item" href="#"> Web Development <span class="dropright dropdown-toggle float-right mt-1"></span></a>
-                <div class="megasubmenu dropdown-menu">
-                    <div class="row">
-                        <div class="col-12">
-                            <ul class="list-unstyled">
-                                <li><a class="dropdown-item" href="#">JavaScript</a></li>
-                                <li><a class="dropdown-item" href="#">Angular</a></li>
-                                <li><a class="dropdown-item" href="#">Java</a></li>
-                                <li><a class="dropdown-item" href="#">JavaScript</a></li>
-                                <li><a class="dropdown-item" href="#">C#</a></li>
-                            </ul>
-                        </div><!-- end col-3 -->
+            <% for (let cat of cats) {%>
+                <li class="has-submenu">
+                    <a class="dropdown-item" href="#">
+                        <%=cat.name %> <span class="dropright dropdown-toggle float-right mt-1"></span>
+                    </a>
+                    <div class="megasubmenu dropdown-menu">
+                        <div class="row">
+                            <div class="col-12">
+                                <ul class="list-unstyled">
+                                    <% for (let subCat of cat.subDetail) { %>
+                                        <li><a class="dropdown-item" href=<%="courses/category/" + subCat._id %> >
+                                                <%=subCat.name %>
+                                            </a></li>
+                                        <% } %>
 
-                    </div><!-- end row -->
-                </div>
-            </li>
-            <li class="has-submenu">
-                <a class="dropdown-item" href="#"> Data Science <span class="dropright dropdown-toggle float-right mt-1"></span></a>
-                <div class="megasubmenu dropdown-menu">
-                    <div class="row">
-                        <div class="col-12">
-                            <ul class="list-unstyled">
-                                <li><a class="dropdown-item" href="#">Python</a></li>
-                                <li><a class="dropdown-item" href="#">C++</a></li>
-                                <li><a class="dropdown-item" href="#">Java</a></li>
-                                <li><a class="dropdown-item" href="#">JavaScript</a></li>
-                                <li><a class="dropdown-item" href="#">C#</a></li>
-                            </ul>
-                        </div><!-- end col-3 -->
 
-                    </div><!-- end row -->
-                </div>
-            </li>
-            <li class="has-submenu">
-                <a class="dropdown-item" href="#"> Software Engine <span class="dropright dropdown-toggle float-right mt-1"></span></a>
-                <div class="megasubmenu dropdown-menu">
-                    <div class="row">
-                        <div class="col-12">
-                            <ul class="list-unstyled">
-                                <li><a class="dropdown-item" href="#">Python</a></li>
-                                <li><a class="dropdown-item" href="#">C++</a></li>
-                                <li><a class="dropdown-item" href="#">Java</a></li>
-                                <li><a class="dropdown-item" href="#">JavaScript</a></li>
-                                <li><a class="dropdown-item" href="#">C#</a></li>
-                            </ul>
-                        </div><!-- end col-3 -->
+                                </ul>
+                            </div><!-- end col-3 -->
 
-                    </div><!-- end row -->
-                </div>
-            </li>
-            <li class="has-submenu">
-                <a class="dropdown-item" href="#"> Mobile Apps <span class="dropright dropdown-toggle float-right mt-1"></span></a>
-                <div class="megasubmenu dropdown-menu">
-                    <div class="row">
-                        <div class="col-12">
-                            <ul class="list-unstyled">
-                                <li><a class="dropdown-item" href="#">Python</a></li>
-                                <li><a class="dropdown-item" href="#">C++</a></li>
-                                <li><a class="dropdown-item" href="#">Java</a></li>
-                                <li><a class="dropdown-item" href="#">JavaScript</a></li>
-                                <li><a class="dropdown-item" href="#">C#</a></li>
-                            </ul>
-                        </div><!-- end col-3 -->
+                        </div><!-- end row -->
+                    </div>
+                </li>
+                <% } %>
 
-                    </div><!-- end row -->
-                </div>
-            </li>
-            <li class="has-submenu">
-                <a class="dropdown-item" href="#"> Programming Languages <span class="dropright dropdown-toggle float-right mt-1"></span></a>
-                <div class="megasubmenu dropdown-menu">
-                    <div class="row">
-                        <div class="col-12">
-                            <ul class="list-unstyled">
-                                <li><a class="dropdown-item" href="#">Python</a></li>
-                                <li><a class="dropdown-item" href="#">C++</a></li>
-                                <li><a class="dropdown-item" href="#">Java</a></li>
-                                <li><a class="dropdown-item" href="#">JavaScript</a></li>
-                                <li><a class="dropdown-item" href="#">C#</a></li>
-                            </ul>
-                        </div><!-- end col-3 -->
 
-                    </div><!-- end row -->
-                </div>
-            </li>
-            <li class="has-submenu">
-                <a class="dropdown-item" href="#"> Databases <span class="dropright dropdown-toggle float-right mt-1"></span></a>
-                <div class="megasubmenu dropdown-menu">
-                    <div class="row">
-                        <div class="col-12">
-                            <ul class="list-unstyled">
-                                <li><a class="dropdown-item" href="#">SQL Server</a></li>
-                                <li><a class="dropdown-item" href="#">MySQL</a></li>
-                                <li><a class="dropdown-item" href="#">Oracle SQL</a></li>
-                                <li><a class="dropdown-item" href="#">MongoDB</a></li>
-                                <li><a class="dropdown-item" href="#">PostgreSQL</a></li>
-                            </ul>
-                        </div><!-- end col-3 -->
 
-                    </div><!-- end row -->
-                </div>
-            </li>
         </ul>
     </div>
     <div class="search120">
-        <div class="ui search">
-            <div class="ui left icon input swdh10">
-                <input class="prompt srch10" type="text" placeholder="Search for Tuts Videos, Tutors, Tests and more..">
-                <i class='uil uil-search-alt icon icon1'></i>
+        <form action="/courses/search" method="get">
+            <div class="ui search">
+                <div class="ui left icon input swdh10">
+                    <input class="prompt srch10" type="text" placeholder="Search for anything" name="q">
+                    <i class="uil uil-search-alt icon icon1"></i>
+                </div>
             </div>
-        </div>
+        </form>
+
     </div>
     <div class="header_right">
         <ul>
@@ -134,7 +58,8 @@
                 <a href="create_new_course" class="upload_btn">Create New Course</a>
             </li>
             <li>
-                <a href="index" class="option_links"><i class='uil uil-home-alt'></i><span class="noti_count">9+</span></a>
+                <a href="index" class="option_links"><i class='uil uil-home-alt'></i><span
+                        class="noti_count">9+</span></a>
             </li>
             <li class="ui dropdown">
                 <a href="#" class="option_links"><i class='uil uil-bell'></i><span class="noti_count">3</span></a>
@@ -195,8 +120,8 @@
                         <a href="#" id="night-mode" class="btn-night-mode">
                             <i class="uil uil-moon"></i> Night mode
                             <span class="btn-night-mode-switch">
-									<span class="uk-switch-button"></span>
-								</span>
+                                <span class="uk-switch-button"></span>
+                            </span>
                         </a>
                     </div>
                     <a href="instructor_dashboard" class="item channel_item">Learnic dashboard</a>

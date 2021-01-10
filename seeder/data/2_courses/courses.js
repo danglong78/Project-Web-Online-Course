@@ -99,7 +99,7 @@ for (crawl of crawledCourses) {
     favoriteCount: faker.random.number(),
     category: getObjectId(crawl.topics[0]),
     subCategory: getObjectId(crawl.topics[1]),
-    rates: randRates(5),
+    rates: randRates(),
     chapter: extractChapter(crawl, k),
   });
 }

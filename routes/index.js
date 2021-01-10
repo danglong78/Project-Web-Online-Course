@@ -1,12 +1,13 @@
 const express = require("express");
 const router = express.Router();
-const courseRouter = require("../routes/course");
 const passport = require("passport");
 const signUp = require(__basedir + "/controllers/credential/signup");
 const to = require("await-to-js").default;
 const adminRouter = require("./admin");
 const cateRouter = require("./category");
 const lecturerRouter = require("./lecturer");
+const coursesRouter = require("./courses");
+const courseRouter = require("./course");
 const CONFIG = require("../config.json");
 
 // test
@@ -16,8 +17,9 @@ const getTopFavorites = require(__basedir +
 const getTopViews = require(__basedir + "/controllers/course/get_top_views");
 const getTopWeeklyTrans = require(__basedir +
   "/controllers/course/get_top_weekly_transactions");
-const getByCategory = require(__basedir + "/controllers/course/get_by_cat");
-const fullTextSearch = require(__basedir + "/controllers/course/search");
+const getTopWeeklyCats = require(__basedir +
+  "/controllers/subcategory/get_top_weekly_cats");
+const getTopCats = require(__basedir + "/controllers/subcategory/get_top_cats");
 const { addAdditionalFields } = require(__basedir +
   "/controllers/course/helpers");
 
@@ -27,13 +29,25 @@ router.get("/", async (req, res) => {
   let topViews = await getTopViews(CONFIG.nTopView);
   let topFavorites = await getTopFavorites(CONFIG.nTopFavorite);
   let newests = await getNewests(CONFIG.nNewest);
+  let topWeeklySubCats = await getTopWeeklyCats(CONFIG.nTopWeeklySubCat);
+  let topSubCats = await getTopCats(CONFIG.nTopSubCat);
 
   addAdditionalFields(topEnrolls);
   addAdditionalFields(topViews);
   addAdditionalFields(topFavorites);
   addAdditionalFields(newests);
 
-  res.render("index", { topEnrolls, topViews, topFavorites, newests });
+  // console.log(__categories);
+
+  res.render("index", {
+    topEnrolls,
+    topViews,
+    topFavorites,
+    newests,
+    topWeeklySubCats,
+    topSubCats,
+    cats: __categories,
+  });
 });
 
 router.get("/test", async function (req, res, next) {
@@ -41,13 +55,17 @@ router.get("/test", async function (req, res, next) {
   // let courses = await getByCategory("Cassandra", 4, 2);
   // let courses = await fullTextSearch("ultimate", "", 1, 5);
   // let courses = await getNewests(CONFIG.nNewest);
-  let courses = await getTopWeeklyTrans(CONFIG.nTopTrending);
+  let courses = await getTopWeeklyCats(CONFIG.nTopTrending);
 
   console.log("before");
   console.log(courses);
   console.log("after");
   res.json(courses);
 });
+
+router.use("/courses", coursesRouter); // for search result
+
+router.use("/course", courseRouter); // for one single detail course
 
 router.use("/lecturer", lecturerRouter);
 // router.get('/course_detail_view', function (req, res, next) {

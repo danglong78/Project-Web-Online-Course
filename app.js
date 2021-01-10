@@ -18,7 +18,18 @@ const bodyParser = require("body-parser");
 const indexRouter = require("./routes/index");
 const studentRouter = require("./routes/student");
 
+// require models
+require("./models/course");
+require("./models/category");
+require("./models/subCategory");
+
 const app = express();
+
+// global var
+require("./controllers/category/get_populated_cats")().then((result) => {
+  global.__categories = result;
+});
+global.__CONFIG = require("./config.json");
 
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
