@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width, shrink-to-fit=9">
     <meta name="description" content="Gambolthemes">
     <meta name="author" content="Gambolthemes">
-    <title>Cursus - Manage Users</title>
+    <title>Learnic - Manage Users</title>
 
     <!-- Favicon Icon -->
     <link rel="icon" type="image/png" href="images/fav.png">
@@ -117,7 +117,7 @@
                                         <thead class="thead-s" >
                                         <tr>
                                             <th class="cell-ta" >Name</th>
-                                            <th class="cell-ta" >Name</th>
+                                            <th class="cell-ta" >Email</th>
                                             <th class="text-center" scope="col">Actions</th>
                                         </tr>
                                         </thead>
@@ -726,7 +726,7 @@
                             data: JSON.stringify({
                                 name: $('input[name="studentName"]').val(),
                                 email:$('input[name="studentEmail"]').val(),
-                                password: $('input[name="studentPass"]').val()
+                                password: $('input[name="studentPassword"]').val()
                             }),
                             success: function (data) {
                                 if(data.success)

@@ -183,56 +183,16 @@
                                                             <h4><i class="uil uil-dollar-sign-alt"></i>Pricing</h4>
                                                         </div>
                                                     </div>
-                                                    <div class="col-lg-2 col-md-3 col-sm-6">
-                                                        <div class="mt-30 lbel25">
-                                                            <label>Currency*</label>
-                                                        </div>
-                                                        <select class="ui hj145 dropdown cntry152 prompt srch_explore">
-                                                            <option value="1">USD</option>
-                                                            <option value="2">CAD</option>
-                                                            <option value="3">BRL</option>
-                                                            <option value="4">EUR</option>
-                                                            <option value="5">GBP</option>
-                                                            <option value="6">INR</option>
-                                                        </select>
-                                                    </div>
                                                     <div class="col-lg-3 col-md-4 col-sm-6">
-                                                        <div class="mt-30 lbel25">
-                                                            <label>Select*</label>
+                                                        <div class="ui search focus mt-30 lbel25">
+                                                            <label>Price</label>
+                                                            <div class="ui left icon input swdh19">
+                                                                <input class="prompt srch_explore " type="number"  name="price"  min="0" max="1000000"  value="0" trigger="manual"  data-toggle="tooltip" data-placement="right">
+                                                            </div>
+
+
                                                         </div>
-                                                        <select class="ui hj145 dropdown cntry152 prompt srch_explore" name="price">
-                                                            <option value="0" selected>Free</option>
-                                                            <option value="24.99">24.99 (tier 1)</option>
-                                                            <option value="29.99">29.99 (tier 2)</option>
-                                                            <option value="34.99">34.99 (tier 3)</option>
-                                                            <option value="39.99">39.99 (tier 4)</option>
-                                                            <option value="44.99">44.99 (tier 5)</option>
-                                                            <option value="49.99">49.99 (tier 6)</option>
-                                                            <option value="54.99">54.99 (tier 7)</option>
-                                                            <option value="59.99">59.99 (tier 8)</option>
-                                                            <option value="64.99">64.99 (tier 9)</option>
-                                                            <option value="69.99">69.99 (tier 10)</option>
-                                                            <option value="74.99">74.99 (tier 11)</option>
-                                                            <option value="79.99">79.99 (tier 12)</option>
-                                                            <option value="84.99">84.99 (tier 13)</option>
-                                                            <option value="89.99">89.99 (tier 14)</option>
-                                                            <option value="94.99">94.99 (tier 15)</option>
-                                                            <option value="99.99">99.99 (tier 16)</option>
-                                                            <option value="104.99">104.99 (tier 17)</option>
-                                                            <option value="109.99 ">109.99 (tier 18)</option>
-                                                            <option value="114.99">114.99 (tier 19)</option>
-                                                            <option value="119.99">119.99 (tier 20)</option>
-                                                            <option value="124.99">124.99 (tier 21)</option>
-                                                            <option value="129.99">129.99 (tier 22)</option>
-                                                            <option value="134.99">134.99 (tier 23)</option>
-                                                            <option value="139.99">139.99 (tier 24)</option>
-                                                            <option value="144.99">144.99 (tier 25)</option>
-                                                            <option value="149.99">149.99 (tier 26)</option>
-                                                            <option value="154.99">154.99 (tier 27)</option>
-                                                            <option value="159.99">159.99 (tier 28)</option>
-                                                            <option value="164.99">164.99 (tier 29)</option>
-                                                            <option value="169.99">169.99 (tier 30)</option>
-                                                        </select>
+
                                                     </div>
                                                 </div>
                                             </div>
@@ -339,8 +299,7 @@
                                                                 <div class="ui search focus mt-30 lbel25">
                                                                     <label>Duration*</label>
                                                                     <div class="ui left icon input swdh19 swdh55">
-                                                                        <input class="prompt srch_explore" type="number" min="1" name="duration"  placeholder="0">
-                                                                        <div class="badge_min">Minutes</div>
+                                                                        <input class="prompt srch_explore html-duration-picker" data-hide-seconds name="duration"  style="height: 40px" placeholder="0">
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -454,8 +413,51 @@
 <script src="/js/custom.js"></script>
 <script src="/js/night-mode.js"></script>
 <script src="/js/jquery-steps.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/html-duration-picker/dist/html-duration-picker.min.js"></script>
+
 <!--Hàm chung-->
 <script>
+    const min2int = function (s) {
+        var temp = s.split(':');
+        var re = 0;
+        for (var i = 0; i < temp.length; i++) {
+            re = re * 60;
+            re += parseInt(temp[i]);
+        }
+        return re;
+    }
+
+    const int2min = function (n) {
+        var sec = n % 60;
+        n = (n - sec) / 60;
+        var min = n % 60;
+        n = (n - min) / 60;
+        var hour = n;
+        var re = "";
+        if (hour > 0) {
+            re += hour.toString();
+            re += ":";
+        }
+        min = min.toString();
+        if (min.length < 2) {
+            min = "0" + min;
+        }
+        re += min;
+        re += ":";
+        sec = sec.toString();
+        if (sec.length < 2) {
+            sec = "0" + sec;
+        }
+        re += sec;
+        return re;
+    }
+
+    const add = function (s1, s2) {
+        var n1 = min2int(s1);
+        var n2 = min2int(s2);
+        var sum = n1 + n2;
+        return int2min(sum);
+    }
     $('#add-course-tab').steps({
         enableAllSteps: false,
         onChange: function (currentIndex, newIndex, stepDirection) {
@@ -555,13 +557,14 @@
                         finished:$('input[name="finishedTag"]:checked').length===1,
                         short_description: $('input[name="shortDescription"]').val(),
                         detail_description: courseEditor.getContent(),
-                        price:$('select[name="price"]').val(),
+                        price:$('input[name="price"]').val(),
                         chapter: chapter,
                         category:$('#category_select').dropdown('get value'),
                         subCategory:$('#subCategory_select .item.selected').attr("value"),
                         updateDate: new Date(),
                     }
                     var id;
+                    var ChapterID;
                     $.ajax({
                         async:false,
                         url: "/lecturer/create",
@@ -570,8 +573,8 @@
                         data:JSON.stringify(rs),
                         success: function(e) {
                             // alert("send success  "+e);
-                            id=e;
-
+                            id=e.id;
+                            chapterID=e.chapter;
                         },
                         error: function(result) {
                             Swal.fire(
@@ -589,6 +592,7 @@
                     let extension= imgname.substr( (imgname.lastIndexOf('.') +1) );
                     img.append('image',$('#inputImage').prop('files')[0],`${id}.${extension}`)
                     img.append('id',id)
+                    img.append('name',`/upload/img/${id}.${extension}`)
 
                     $.ajax({
                         url:'/lecturer/upload_img',
@@ -619,8 +623,8 @@
                         {
                             let filename=chapter[i].lecture[j].file.name;
                             let extension= filename.substr( (filename.lastIndexOf('.') +1) );
-                            lectureArray.push(`upload/video/${id}c${i}l${j}.${extension}`);
-                            vid.append(`c${i}l${j}`,chapter[i].lecture[j].file,`${id}c${i}l${j}.${extension}`)
+                            lectureArray.push(`/upload/video/${id}_${chapterID[i].lecture[j]._id}.${extension}`);
+                            vid.append(`c${i}l${j}`,chapter[i].lecture[j].file,`${id}_${chapterID[i].lecture[j]._id}.${extension}`)
                         }
                         FileName.push([...lectureArray])
                     }
@@ -634,7 +638,7 @@
                         cache: false,
                         data: vid,
                         success: function(res){
-                            location.reload();
+                            location.href("/courses")
                         },
                         error: function(){
                             Swal.fire(
@@ -679,6 +683,8 @@
 
 <script>
     $(document).ready(function () {
+        $('input[name="duration"]').next().remove()
+
         $('input[name="title"]').on('keyup',function () {
             $('#badge_title').text( 60-$('input[name="title"]').val().length)
         });
@@ -689,7 +695,9 @@
 
         $('#category_select').on('change',function () {
             let id=$('#category_select').val();
-            $('#subCategory_select .menu').empty()
+            $('#subCategory_select .menu').empty();
+            $('#subCategory_select').dropdown('restore defaults')
+
             $(`#subcateOption div[data-id=${id}]`).clone().appendTo($('#subCategory_select .menu'))
         });
     })
@@ -750,7 +758,7 @@
             if(chapterEditor.getContent() ===""){
                 $('#ChapterDescribe1').tooltip('show');
             }
-            if($('#inputGroupFile06').val()==="")
+            if($('#inputGroupFile06').next().text()==="No Choose file - (Video)")
             {
                 Swal.fire(
                     'Error!',
@@ -758,7 +766,7 @@
                     'error'
                 );
             }
-            if(($('#lecture_title').val()!=="") && ($('input[name="duration"]').val() !=="")  &&(chapterEditor.getContent() !=="")&&($('#inputGroupFile06').val()!=="")) {
+            if(($('#lecture_title').val()!=="") && ($('input[name="duration"]').val() !=="")  &&(chapterEditor.getContent() !=="")&&($('#inputGroupFile06').next().text()!=="No Choose file - (Video)")) {
                 if ($(this).attr('data-id') === 'add') {
                     $('#lecture_table').append(
                         $.el('tr', {}).append(
@@ -786,8 +794,8 @@
 
                     lectures.push({
                         title: $('#lecture_title').val(),
-                        duration: $('input[name="duration"]').val(),
-                        content: chapterEditor.getContent(),
+                        durationText: $('input[name="duration"]').val(),
+                        description: chapterEditor.getContent(),
                         file: $('#inputGroupFile06').prop('files')[0],
                         preview:$('input[name="previewTag"]:checked').length===1
                     })
@@ -796,16 +804,17 @@
                     let fn = lectures[idlecture].file;
                     temp = {
                         title: $('#lecture_title').val(),
-                        duration: $('input[name="duration"]').val(),
-                        content: chapterEditor.getContent(),
+                        durationText: $('input[name="duration"]').val(),
+                        description: chapterEditor.getContent(),
                         file: $('#inputGroupFile06').prop('files')[0],
                         preview:$('input[name="previewTag"]:checked').length===1
                     }
                     if (temp.file === undefined)
                         temp.file = fn;
                     $(`#lecture_table tr:eq(${idlecture}) td:eq(1)`).text(temp.title)
-                    $(`#lecture_table tr:eq(${idlecture}) td:eq(2)`).text(temp.duration)
-                    $(`#lecture_table tr:eq(${idlecture}) td:eq(3)`).text(temp.file.name)
+                    $(`#lecture_table tr:eq(${idlecture}) td:eq(2)`).html(($('input[name="previewTag"]:checked').length===1)? "<i class='uil uil-check text-success' style='font-size: 150%'></i>" :"")
+                    $(`#lecture_table tr:eq(${idlecture}) td:eq(3)`).text(temp.durationText)
+                    $(`#lecture_table tr:eq(${idlecture}) td:eq(4)`).text(temp.file.name)
 
                     lectures[idlecture] = temp;
                     $(this).attr('data-id', 'add');
@@ -850,8 +859,10 @@
             $('#SaveLectureBtn').text('Save Lecture')
             $('#inputGroupFile06').next('.custom-file-label').html(lectures[id].file.name);
             $('#lecture_title').val(lectures[id].title)
-            $('input[name="duration"]').val(lectures[id].duration)
+            $('input[name="duration"]').val(lectures[id].durationText)
             chapterEditor.setContent(lectures[id].description)
+            $("input[name='previewTag']").prop("checked", lectures[id].preview);
+
         })
 
         $('#saveChapterBtn').click(function () {
@@ -864,8 +875,8 @@
             }
             if($('#chapterTitle').val()!=="" && lectures.length !==0)
             {
-                let totalDur=0;
-                lectures.forEach(element => totalDur += parseInt(element.duration));
+                let totalDur="00:00";
+                lectures.forEach(element => totalDur = add(totalDur,(element.durationText)));
                 if ($(this).attr('data-id') === 'add') {
                     $('#chapter_table').append(
                         $.el('tr', {}).append(
@@ -890,7 +901,7 @@
                     )
                     chapter.push({
                         title: $('#chapterTitle').val(),
-                        duration: totalDur,
+                        durationText: totalDur,
                         lecture: [...lectures],
                     })
 
@@ -900,11 +911,11 @@
                     temp = {
                         title: $('#chapterTitle').val(),
                         lecture: [...lectures],
-                        duration: totalDur,
+                        durationText: totalDur,
                     }
-                    $(`#lecture_table tr:eq(${id}) td:eq(1)`).text(temp.title)
-                    $(`#lecture_table tr:eq(${id}) td:eq(2)`).text(temp.lecture.length)
-                    $(`#lecture_table tr:eq(${id}) td:eq(3)`).text(temp.duration)
+                    $(`#chapter_table tr:eq(${id}) td:eq(1)`).text(temp.title)
+                    $(`#chapter_table tr:eq(${id}) td:eq(2)`).text(temp.lecture.length)
+                    $(`#chapter_table tr:eq(${id}) td:eq(3)`).text(temp.durationText)
                     chapter[id] = temp;
                     $(this).attr('data-id', 'add');
                     $('#saveChapterBtn').text('Add Chapter')
@@ -954,7 +965,9 @@
                     ).append(
                         $.el('td',{'class':'cell-ta'}).text(c.title)
                     ).append(
-                        $.el('td',{'class':'text-center'}).text(c.duration)
+                        $.el('td',{'class':'text-center'}).html((c.preview)?"<i class='uil uil-check text-success' style='font-size: 150%'></i>" :"" )
+                    ).append(
+                        $.el('td',{'class':'text-center'}).text(c.durationText)
                     ).append(
                         $.el('td',{'class':'text-center'}).text(c.file.name)
 
