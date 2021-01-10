@@ -116,21 +116,17 @@
                                 </div>
                               </a>
 
-                              <div class="fcrse_content">
-                                <div class="eps_dots more_dropdown">
-                                  <a href="#"><i class='uil uil-ellipsis-v'></i></a>
-                                  <div class="dropdown-content">
-                                    <span><i class='uil uil-share-alt'></i>Share</span>
-                                    <span><i class="uil uil-clock-three"></i>Save</span>
-                                    <span><i class='uil uil-ban'></i>Not Interested</span>
-                                    <span><i class="uil uil-windsock"></i>Report</span>
-                                  </div>
-                                </div>
+                              <div class="fcrse_content">                                
                                 <div class="vdtodt">
                                   <span class="vdt14">
                                     <%=enroll.weekCount%> new students
                                   </span>
-                                  <span class="vdt14">Updated: <%=enroll.updatedAt.toLocaleDateString()%></span>
+                                  <span class="vdt14">
+                                    Updated: <%=enroll.updatedAt.toLocaleDateString()%>
+                                  </span>
+                                  <span class="vdt14">
+                                    <%=enroll.rates.length%> ratings
+                                  </span>
                                 </div>
                                 <a href=<%- `/course/${enroll._id}` %> class="crse14s text">
                                   <%=enroll.title%>
@@ -139,15 +135,18 @@
                                   <%= enroll.category.name %> | <%= enroll.subCategory.name %>
                                 </a>
                                 <div class="auth1lnkprce">
-                                  <p class="cr1fot">By <a href="#">
+                                  <p class="cr1fot">By <a href=<%- `/lecturer/${enroll.lecturer._id}}` %>>
                                       <%= enroll.lecturer.name %>
                                     </a></p>
                                   <div class="prce142">
                                     <% if (enroll.price !==0) {%>
                                       $<%=enroll.price %>
-                                        <%} else {%>
-                                          FREE
-                                          <% } %>
+                                      <span style="text-decoration: line-through; margin-left:0.5rem">
+                                        $<%= enroll.fullPrice %> 
+                                      </span>
+                                      <%} else {%>
+                                        FREE
+                                      <% } %>
                                   </div>
                                 </div>
                               </div>
@@ -188,21 +187,17 @@
                                 </div>
                               </a>
 
-                              <div class="fcrse_content">
-                                <div class="eps_dots more_dropdown">
-                                  <a href="#"><i class='uil uil-ellipsis-v'></i></a>
-                                  <div class="dropdown-content">
-                                    <span><i class='uil uil-share-alt'></i>Share</span>
-                                    <span><i class="uil uil-clock-three"></i>Save</span>
-                                    <span><i class='uil uil-ban'></i>Not Interested</span>
-                                    <span><i class="uil uil-windsock"></i>Report</span>
-                                  </div>
-                                </div>
+                              <div class="fcrse_content">                                
                                 <div class="vdtodt">
                                   <span class="vdt14">
                                     <%=view.viewCount%> views
                                   </span>
-                                  <span class="vdt14">Updated: <%=view.updatedAt.toLocaleDateString()%></span>
+                                  <span class="vdt14">
+                                    Updated: <%=view.updatedAt.toLocaleDateString()%>
+                                  </span>
+                                  <span class="vdt14">
+                                    <%=view.rates.length%> ratings
+                                  </span>
                                 </div>
                                 <a href=<%- `/course/${view._id}` %> class="crse14s text">
                                   <%=view.title%>
@@ -211,15 +206,18 @@
                                   <%= view.category.name %> | <%= view.subCategory.name %>
                                 </a>
                                 <div class="auth1lnkprce">
-                                  <p class="cr1fot">By <a href="#">
+                                  <p class="cr1fot">By <a href=<%- `/lecturer/${view.lecturer._id}}` %>>
                                       <%= view.lecturer.name %>
                                     </a></p>
                                   <div class="prce142">
                                     <% if (view.price !==0) {%>
                                       $<%=view.price %>
-                                        <%} else {%>
-                                          FREE
-                                          <% } %>
+                                      <span style="text-decoration: line-through; margin-left:0.5rem">
+                                        $<%= view.fullPrice %> 
+                                      </span>
+                                      <%} else {%>
+                                        FREE
+                                      <% } %>
                                   </div>
                                 </div>
                               </div>
@@ -259,21 +257,17 @@
                                 </div>
                               </a>
 
-                              <div class="fcrse_content">
-                                <div class="eps_dots more_dropdown">
-                                  <a href="#"><i class='uil uil-ellipsis-v'></i></a>
-                                  <div class="dropdown-content">
-                                    <span><i class='uil uil-share-alt'></i>Share</span>
-                                    <span><i class="uil uil-clock-three"></i>Save</span>
-                                    <span><i class='uil uil-ban'></i>Not Interested</span>
-                                    <span><i class="uil uil-windsock"></i>Report</span>
-                                  </div>
-                                </div>
+                              <div class="fcrse_content">                                
                                 <div class="vdtodt">
                                   <span class="vdt14">
                                     <%=fav.favoriteCount%> favorites
                                   </span>
-                                  <span class="vdt14">Updated: <%=fav.updatedAt.toLocaleDateString()%></span>
+                                  <span class="vdt14">
+                                    Updated: <%=fav.updatedAt.toLocaleDateString()%>
+                                  </span>
+                                  <span class="vdt14">
+                                    <%=fav.rates.length%> ratings
+                                  </span>
                                 </div>
                                 <a href=<%- `/course/${fav._id}` %> class="crse14s text">
                                   <%=fav.title%>
@@ -282,15 +276,18 @@
                                   <%= fav.category.name %> | <%= fav.subCategory.name %>
                                 </a>
                                 <div class="auth1lnkprce">
-                                  <p class="cr1fot">By <a href="#">
+                                  <p class="cr1fot">By <a href=<%- `/lecturer/${fav.lecturer._id}}` %>>
                                       <%= fav.lecturer.name %>
                                     </a></p>
                                   <div class="prce142">
                                     <% if (fav.price !==0) {%>
                                       $<%=fav.price %>
-                                        <%} else {%>
-                                          FREE
-                                          <% } %>
+                                      <span style="text-decoration: line-through; margin-left:0.5rem">
+                                        $<%= fav.fullPrice %> 
+                                      </span>
+                                    <%} else {%>
+                                      FREE
+                                    <% } %>
                                   </div>
                                 </div>
                               </div>
@@ -331,21 +328,16 @@
                                 </div>
                               </a>
 
-                              <div class="fcrse_content">
-                                <div class="eps_dots more_dropdown">
-                                  <a href="#"><i class='uil uil-ellipsis-v'></i></a>
-                                  <div class="dropdown-content">
-                                    <span><i class='uil uil-share-alt'></i>Share</span>
-                                    <span><i class="uil uil-clock-three"></i>Save</span>
-                                    <span><i class='uil uil-ban'></i>Not Interested</span>
-                                    <span><i class="uil uil-windsock"></i>Report</span>
-                                  </div>
-                                </div>
+                              <div class="fcrse_content">                                
                                 <div class="vdtodt">
                                   <span class="vdt14">
                                     <%=newcourse.viewCount%> views
                                   </span>
-                                  <span class="vdt14">Created: <%=newcourse.createdAt.toLocaleDateString()%>
+                                  <span class="vdt14">
+                                    Created: <%=newcourse.createdAt.toLocaleDateString()%>
+                                  </span>
+                                  <span class="vdt14">
+                                    <%=newcourse.rates.length%> ratings
                                   </span>
                                 </div>
                                 <a href=<%- `/course/${newcourse._id}` %> class="crse14s text">
@@ -355,15 +347,18 @@
                                   <%= newcourse.category.name %> | <%= newcourse.subCategory.name %>
                                 </a>
                                 <div class="auth1lnkprce">
-                                  <p class="cr1fot">By <a href="#">
+                                  <p class="cr1fot">By <a href=<%- `/lecturer/${newcourse.lecturer._id}}` %>>
                                       <%= newcourse.lecturer.name %>
                                     </a></p>
                                   <div class="prce142">
                                     <% if (newcourse.price !==0) {%>
                                       $<%=newcourse.price %>
-                                        <%} else {%>
-                                          FREE
-                                          <% } %>
+                                      <span style="text-decoration: line-through; margin-left:0.5rem">
+                                        $<%= newcourse.fullPrice %> 
+                                      </span>
+                                    <%} else {%>
+                                      FREE
+                                    <% } %>
                                   </div>
                                 </div>
                               </div>

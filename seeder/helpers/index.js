@@ -61,8 +61,9 @@ const getRndInteger = (min, max) => {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 };
 
-const randRates = (nRates) => {
+const randRates = () => {
   let rates = [];
+  let nRates = getRndInteger(0, studentList.length-1);
   let randStudents = randNumArray(studentList.length, nRates);
 
   for (let i = 0; i < randStudents.length; i++) {

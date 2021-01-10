@@ -1,7 +1,7 @@
 {
     "seeder": {
         "nProgress": 10,
-        "nStudentCourse": 5,
+        "nStudentCourse": 5,        
         "nFavorite": 5,                 
         "nStudentEmail": 50,
         "nLecturerEmail": 20,

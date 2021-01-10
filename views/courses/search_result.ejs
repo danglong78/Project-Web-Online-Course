@@ -209,27 +209,26 @@
 													</div>
 												</div>
 											</a>
-											<div class="hs_content">
-												<div class="eps_dots eps_dots10 more_dropdown">
-													<a href="#"><i class="uil uil-ellipsis-v"></i></a>
-													<div class="dropdown-content">
-														<span><i class="uil uil-share-alt"></i>Share</span>
-														<span><i class="uil uil-clock-three"></i>Watch Later</span>
-														<span><i class="uil uil-ban"></i>Not Interested</span>
-														<span><i class="uil uil-windsock"></i>Report</span>
-													</div>																											
-												</div>
+											<div class="hs_content">												
 												<div class="vdtodt">
 													<span class="vdt14"><%=course.viewCount%> views</span>
-													<span class="vdt14">Updated: <%=course.updatedAt.toLocaleDateString()%></span>
+													<span class="vdt14">
+														Updated: <%=course.updatedAt.toLocaleDateString()%>
+													</span>
+													<span class="vdt14">
+														<%=course.rates.length%> ratings
+													</span>
 												</div>
 												<a href=<%- `/course/${course._id}` %> class="crse14s title900"><%=course.title%></a>
 												<a href=<%- `/courses/category/${course.subCategory._id}` %> class="crse-cate"><%= course.category.name %> | <%= course.subCategory.name %></a>
 												<div class="auth1lnkprce">
-													<p class="cr1fot">By <a href="#"><%= course.lecturer.name %></a></p>
+													<p class="cr1fot">By <a href=<%- `/lecturer/${course.lecturer._id}}` %>><%= course.lecturer.name %></a></p>
 													<div class="prce142">
 														<% if (course.price !==0) {%>
 															$<%=course.price %>
+															<span style="text-decoration: line-through; margin-left:0.5rem">
+																$<%= course.fullPrice %> 
+															</span>
 														<%} else {%>
 															FREE
 														<% } %>
