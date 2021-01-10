@@ -30,7 +30,7 @@ const secondToHour = (s) => {
 };
 
 const addAdditionalFields = (courses) => {
-  addAvgRate(courses);
+  // addAvgRate(courses);
   addDurationText(courses);
 };
 

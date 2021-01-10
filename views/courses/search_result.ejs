@@ -140,11 +140,24 @@
 			<div class="container">			
 				<div class="row justify-content-between">
 					<div class="col-lg-3 col-md-4">
-						<form action="/courses/search" method="get">
-							<input type="hidden" value=<%=key.split("+").join(" ")%> name = "q">
+						<form action="/courses/search" method="get" id="filter_form">
+							<input type="hidden" <%-`value="${key.split("+").join(" ")}"`%> name = "q">			
+							<!-- <input type="radio hidden" <%-`value="${cat?cat.split("+").join(" "):""}"`%> name = "cat">																														 -->
 							<div class="section3125 hstry142">							
 								<div class="result_stitles">
-									<div class="rs6t_title">Filter by Category</div>								
+									<div class="rs6t_title">Filters</div>	
+									<div class="filter_selector">
+										<div class="ui inline dropdown flt145" tabindex="0">
+											<div class="text" id ="sortBy">Sort</div>
+											<input type="hidden" name = "sortBy" id="sortInput">
+											<i class="dropdown icon"></i>
+											<div class="menu transition hidden" tabindex="-1">																								
+												<div class="item">Highest Rated</div>												
+												<div class="item">Lowest Price</div>												
+											</div>
+										</div>
+									</div>
+														
 								</div>														
 								<div class="tb_145">
 									<div class="panel-group accordion" id="accordionfilter">
@@ -180,7 +193,7 @@
 										</div>																		
 									</div>				
 								</div>	
-								<button class="btn1542">
+								<button class="btn1542" id ="filter_btn">
 									Search
 								</button>					
 							</div>	
@@ -246,7 +259,7 @@
 											<nav aria-label="Page navigation example">
 												<ul class="pagination">
 													<li <% if(paginates.hasPrevPage) {%> class='page-item' <% } else { %> class='page-item disabled'<% } %> >
-														<a class="page-link" href=<%=`/courses/search?q=${key}&p=${paginates.page-1}${cat?"&cat="+cat:""}`%> aria-label="Previous">
+														<a class="page-link" href=<%-`/courses/search?q=${key}&p=${paginates.page-1}${cat?"&cat="+cat:""}${sortBy?"&sortBy="+sortBy:""}`%> aria-label="Previous">
 															PREV
 														</a>
 													</li>
@@ -256,13 +269,13 @@
 															<li class="page-item"><a class="page-link active" href="#"><%=i%> </a></li>															
 														<% } else {%> 
 															<li class="page-item">
-																<a class="page-link" href=<%=`/courses/search?q=${key}&p=${i}`%> ><%=i%></a>
+																<a class="page-link" href=<%-`/courses/search?q=${key}&p=${i}${cat?"&cat="+cat:""}${sortBy?"&sortBy="+sortBy:""}`%> ><%=i%></a>
 															</li>
 														<% } %> 
 														
 													<% } %> 													
 													<li <% if(paginates.hasNextPage) {%> class='page-item' <% } else { %> class='page-item disabled'<% } %>>
-														<a class="page-link" href=<%=`/courses/search?q=${key}&p=${paginates.page+1}${cat?"&cat="+cat:""}`%> aria-label="Next">
+														<a class="page-link" href=<%-`/courses/search?q=${key}&p=${paginates.page+1}${cat?"&cat="+cat:""}${sortBy?"&sortBy="+sortBy:""}`%> aria-label="Next">
 															NEXT
 														</a>
 													</li>
@@ -289,22 +302,37 @@
 	<script src="/js/night-mode.js"></script>	
 
 	<script>
-	var grd = function () {
-			$("input[type='radio']").click(function () {				
-				var previousValue = $(this).attr('previousValue');
-				var name = $(this).attr('name');
-
-				if (previousValue == 'checked') {
-					$(this).removeAttr('checked');
-					$(this).attr('previousValue', false);
-				} else {
-					$("input[name=" + name + "]:radio").attr('previousValue', false);
-					$(this).attr('previousValue', 'checked');
+		function getUrlVars() {
+				var vars = [], hash;
+				var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+				for (var i = 0; i < hashes.length; i++) {
+					hash = hashes[i].split('=');
+					vars.push(hash[0]);
+					vars[hash[0]] = hash[1];
 				}
-			});
-		};
+				return vars;
+			}
 
-		$( document ).ready(grd());	
+
+		$("#filter_form").submit(function (e) {
+			let sortByText = $("#sortBy").text();
+			
+			if (sortByText === "Sort") {
+				return true;
+			}
+
+			let sortBy;
+			if (sortByText === "Highest Rated") {
+				sortBy = "rate";
+			} else if (sortByText === "Lowest Price"){
+				sortBy = "price";
+			} else {
+				sortBy = "";
+			}
+
+			$("#sortInput").attr("value", sortBy);
+			return true;
+		})
 	</script>
 	
 </body>
