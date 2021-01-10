@@ -132,10 +132,10 @@
                                   </span>
                                   <span class="vdt14">Updated: <%=enroll.updatedAt.toLocaleDateString()%></span>
                                 </div>
-                                <a href="course_detail_view" class="crse14s text">
+                                <a href=<%- `/course/${enroll._id}` %> class="crse14s text">
                                   <%=enroll.title%>
                                 </a>
-                                <a href="#" class="crse-cate">
+                                <a href=<%- `/courses/category/${enroll.subCategory._id}` %> class="crse-cate">
                                   <%= enroll.category.name %> | <%= enroll.subCategory.name %>
                                 </a>
                                 <div class="auth1lnkprce">
@@ -204,10 +204,10 @@
                                   </span>
                                   <span class="vdt14">Updated: <%=view.updatedAt.toLocaleDateString()%></span>
                                 </div>
-                                <a href="course_detail_view" class="crse14s text">
+                                <a href=<%- `/course/${view._id}` %> class="crse14s text">
                                   <%=view.title%>
                                 </a>
-                                <a href="#" class="crse-cate">
+                                <a href=<%- `/courses/category/${view.subCategory._id}` %> class="crse-cate">
                                   <%= view.category.name %> | <%= view.subCategory.name %>
                                 </a>
                                 <div class="auth1lnkprce">
@@ -275,10 +275,10 @@
                                   </span>
                                   <span class="vdt14">Updated: <%=fav.updatedAt.toLocaleDateString()%></span>
                                 </div>
-                                <a href="course_detail_view" class="crse14s text">
+                                <a href=<%- `/course/${fav._id}` %> class="crse14s text">
                                   <%=fav.title%>
                                 </a>
-                                <a href="#" class="crse-cate">
+                                <a href=<%- `/courses/category/${fav.subCategory._id}` %> class="crse-cate">
                                   <%= fav.category.name %> | <%= fav.subCategory.name %>
                                 </a>
                                 <div class="auth1lnkprce">
@@ -348,10 +348,10 @@
                                   <span class="vdt14">Created: <%=newcourse.createdAt.toLocaleDateString()%>
                                   </span>
                                 </div>
-                                <a href="course_detail_view" class="crse14s text">
+                                <a href=<%- `/course/${newcourse._id}` %> class="crse14s text">
                                   <%=newcourse.title%>
                                 </a>
-                                <a href="#" class="crse-cate">
+                                <a href=<%- `/courses/category/${newcourse.subCategory._id}` %> class="crse-cate">
                                   <%= newcourse.category.name %> | <%= newcourse.subCategory.name %>
                                 </a>
                                 <div class="auth1lnkprce">
@@ -383,7 +383,7 @@
                       <div class="row">
                         <% for (let wcat of topWeeklySubCats) { %>
                           <div class="col-md-4 col-sm-6">
-                            <a href=<%="/category/" + wcat._id%> class="certilink__152">
+                            <a href=<%="courses/category/" + wcat._id%> class="certilink__152">
                               <%=wcat.name %>
                             </a>
                           </div>
@@ -452,7 +452,7 @@
                     <ul class="allcate15">
                       <% for (let cat of topSubCats) {%>
 
-                        <li><a href=<%="/category/" + cat._id%> class="ct_item"><i class='uil uil-arrow'></i>
+                        <li><a href=<%="courses/category/" + cat._id%> class="ct_item"><i class='uil uil-arrow'></i>
                             <%=cat.name %>
                           </a></li>
                         <%}%>

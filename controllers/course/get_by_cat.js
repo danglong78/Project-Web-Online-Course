@@ -3,7 +3,7 @@ const Course = require(__basedir + "/models/course").model;
 const SubCategory = require(__basedir + "/models/subCategory").model;
 
 const getByCategory = async (catName, page, limit) => {
-  console.log(catName);
+  // console.log(catName);
   const options = {
     page,
     limit,
@@ -11,14 +11,14 @@ const getByCategory = async (catName, page, limit) => {
     lean: true,
   };
 
-  let courses = [];
+  let paginates;
   try {
     const foundCat = await SubCategory.findOne({ name: catName }).lean();
     if (foundCat) {
-      console.log("found cat");
+      // console.log("found cat");
       const query = { subCategory: foundCat._id };
 
-      courses = await new Promise((resolve, reject) => {
+      paginates = await new Promise((resolve, reject) => {
         Course.paginate(query, options, (err, result) => {
           if (err) {
             reject(err);
@@ -27,12 +27,29 @@ const getByCategory = async (catName, page, limit) => {
         });
       });
 
-      console.log(courses);
+      paginates.docs = await Course.populate(paginates.docs, [
+        {
+          path: "lecturer",
+          model: "Lecturer",
+        },
+        {
+          path: "category",
+          model: "MainCategory",
+        },
+        {
+          path: "subCategory",
+          model: "SubCategory",
+        },
+      ]);
+
+      if (paginates.totalDocs > 0) {
+        paginates.catName = paginates.docs[0].subCategory.name;
+      }
     }
   } catch (e) {
-    console.log(err);
+    console.log(e);
   }
-  return courses;
+  return paginates;
 };
 
 module.exports = getByCategory;
