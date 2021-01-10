@@ -21,7 +21,7 @@ const add_student = async (req, res) => {
 
     const name = req.body.name;
     const email = req.body.email;
-    const password = "tritritri";
+    const password = req.body.password;
 
     if (!(await isUniqueEmail(email))) {
         let err = new Error();

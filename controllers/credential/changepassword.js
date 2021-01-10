@@ -6,8 +6,7 @@ const changePassword = async (req, res) => {
         if (user.password) {
             if ( await bcrypt.compare(req.body.oldPassword, user.password)) {
                 user.password = req.body.newPassword;
-                console.log(req.body.newPassword)
-                console.log(req.body.oldPassword)
+
                 const hash = await new Promise((resolve, reject) => {
                     bcrypt.hash(user.password, saltRounds, function (err, hash) {
                         if (err)
