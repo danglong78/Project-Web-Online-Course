@@ -68,7 +68,7 @@ const randRates = () => {
 
   for (let i = 0; i < randStudents.length; i++) {
     rates.push({
-      student: getObjectId(studentList[randStudents[i]] + "student"),
+      student: getObjectId(studentList[randStudents[i]]),
       score: getRndInteger(0, 5),
       review: faker.lorem.text(),
     });
