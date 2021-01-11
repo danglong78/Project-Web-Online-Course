@@ -16,6 +16,7 @@
 
     <%- include('partials/head', {cats});-%>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <link href="https://vjs.zencdn.net/7.10.2/video-js.css" rel="stylesheet" />
 
     <style>
         .text {
@@ -232,7 +233,7 @@
                                                 </div>
                                                 <div class="details">
                                                     <%if(course.chapter[i].lecture[j].preview) {%>
-                                                    <a href="#" class="preview-text">Preview</a>
+                                                    <a href="#" class="preview-text" data-source="<%=course.chapter[i].lecture[j].file%>" data-toggle="modal" data-target="#exampleModalCenter">Preview</a>
                                                     <%}%>
                                                     <span class="content-summary"><%=course.chapter[i].lecture[j].durationText%></span>
                                                 </div>
@@ -242,7 +243,6 @@
                                         </div>
                                         <%}%>
                                     </div>
-                                    <a class="btn1458" href="#">20 More Sections</a>
                                 </div>
                             </div>
                             <div class="tab-pane fade" id="nav-reviews" role="tabpanel">
@@ -384,9 +384,7 @@
                                                     </div>
 
                                                 <%}%>
-                                                <div class="review_item">
-                                                    <a href="#" class="more_reviews">See More Reviews</a>
-                                                </div>
+
                                             </div>
                                         </div>
                                     </div>
@@ -524,6 +522,8 @@
 <script src="/vendor/semantic/semantic.min.js"></script>
 <script src="/js/custom.js"></script>
 <script src="/js/night-mode.js"></script>
+<script src="https://vjs.zencdn.net/7.10.2/video.min.js"></script>
+
 <script>
     $.extend({
         el: function(el, props) {
@@ -604,6 +604,9 @@
                             `You have buy success`,
                             'success'
                         );
+                        $ul=$('#buyBtn').closest('ul')
+                        $ul.empty().html('<li><button id="" class="btn_adcart" style="background-color: #0ea432;border-color: #0ea432 ">Buyed</button></li>')
+
 
                     }
                     else{
@@ -627,9 +630,37 @@
 
             })
         })
+        $('a.preview-text').click(function () {
+            var myVideo = videojs('my-video');
+            myVideo.src([
+                {type: "video/mp4", src: `${$(this).data('source')}`}
+            ]);
+        })
     })
 </script>
+<div class="modal  fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalCenterTitle">Preview view</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <video id="my-video" class="video-js" controls preload="auto" width="775" height="300"
+                       data-setup="{}">
+                    <source src="/upload/video/5ffa725c3edfd85610eae295_5ffa725c3edfd85610eae297.mp4" type="video/mp4" />
 
+                </video>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
 </body>
 
 <!-- Mirrored from gambolthemes.net/html-items/Learnic_demo_f12/course_detail_view.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 20 Jun 2020 12:56:25 GMT -->
