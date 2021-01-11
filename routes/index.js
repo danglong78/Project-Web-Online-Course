@@ -54,7 +54,6 @@ router.get("/", async (req, res) => {
   });
 });
 
-const test = require('../controllers/student/isOwnedCourse');
 const test = require('../controllers/student/rate_course');
 router.get("/test", async function (req, res, next) {
   // let courses = await getTopViews(5);

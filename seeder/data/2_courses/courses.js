@@ -13,7 +13,7 @@ const {
 } = require("../../helpers/index");
 const faker = require("faker");
 const CONFIG = require("../../../config.json");
-const {courseIDList} = require("../../generator")
+
 
 const courses = [];
 
@@ -36,7 +36,7 @@ const extractChapter = (crawl) => {
 
     let l = 0;
     for (lec of chap.items) {
-      let newLecID = craw.id + c + l;
+      let newLecID = getObjectId(crawl.id + c + l);
       
       courseIDList[foundIdx].lecIDs.push(newLecID);
 
@@ -50,7 +50,7 @@ const extractChapter = (crawl) => {
         file: "/upload/video/nhac1.mp4",        
       }
 
-      newChap.lecture.push();
+      newChap.lecture.push(newLec);
       l++;
     }
     chapters.push(newChap);

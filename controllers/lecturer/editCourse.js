@@ -69,6 +69,7 @@ const editLecture = async (req, res) => {
     // id,chapterID,lecureID ,lecture: { title,durationText,description,preview },
     // cập nhạt từng cái giá trị trong lecture chứ đừng đè biến nha tại trong lecture còn file
     // biến file sẽ được xử lý sau
+    // id lecture vua sua
     console.log("edit lecture");
     console.log(req.body);
     const id = req.body.id;
@@ -91,6 +92,7 @@ const editLecture = async (req, res) => {
     res.send({ success: true});
 }
 const addChapter = (req, res) => {
+
     // id,chapter: { title,durationText, lecture, }
     //lecture chỉ lưu title,durationText,description,preview còn video thì để hàm receiveMultiVideo xử lí rồi
     console.log("add chapter");
