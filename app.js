@@ -27,7 +27,8 @@ const app = express();
 
 // global var
 require("./controllers/category/get_populated_cats")().then((result) => {
-  global.__categories = result;
+  global.__statics = {}
+  global.__statics.categories = result;
 });
 global.__CONFIG = require("./config.json");
 

@@ -2,7 +2,7 @@ const Student = require(__basedir + '/models/student').model;
 const Course = require(__basedir + '/models/course').model;
 
 
-module.exports.isAuthenticated = (req, res, next) => {
+const isAuthenticated = (req, res, next) => {
     if (req.isAuthenticated()) {
         next();
     } else {
@@ -10,13 +10,13 @@ module.exports.isAuthenticated = (req, res, next) => {
         req.session.redirectUrl = req.originalUrl;
         console.log("In authenticated");
         console.log(req.originalUrl);
-        res.redirect("http://localhost:3000/signin");
+        res.redirect(__host + "/signin");
         console.log("end authenticated")
     }
 }
 
 // Need to check isAuthenticated first so that req.user exists
-module.exports.isJoinedIn = async (req, res, next) => {
+const isJoinedIn = async (req, res, next) => {
     const studentID = req.user.id;
     const courseID = req.body.courseID || req.params.courseID || "0";
 
@@ -25,7 +25,7 @@ module.exports.isJoinedIn = async (req, res, next) => {
 
         if (student) {
             if (student.courses.length > 0) {
-                if (student.courses.some(f => f.course === courseID)) {
+                if (student.courses.some(f => f.course == courseID)) {
                     next();
                 }
                 else {
@@ -45,4 +45,27 @@ module.exports.isJoinedIn = async (req, res, next) => {
         console.log(err);
         next(err);
     }
+}
+
+const isAdmin = async (req, res, next) => {
+    if (req.user.role === 'Admin') {
+        next();
+    }
+    req.flash('error', 'You do not have permission.');
+    res.redirect(__host);
+}
+
+const isLecturer = async (req, res, next) => {
+    if (req.user.role === 'Lecturer') {
+        next();
+    }
+    req.flash('error', 'You do not have permission.');
+    res.redirect(__host);
+}
+
+module.exports = {
+    isAuthenticated,
+    isJoinedIn,
+    isAdmin,
+    isLecturer
 }

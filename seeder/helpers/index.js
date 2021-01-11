@@ -46,11 +46,14 @@ const joinRandCourses = (nCourses, nProgress) => {
   let randCourses = randNumArray(courseIDList.length, nCourses);
 
   for (let i = 0; i < nCourses; i++) {
+    let randProgressArr = randNumArray(courseIDList[randCourses[i]].lecIDs.length, nProgress);
+    let progress = []
+    randProgressArr.map((j) => {
+      progress.push(courseIDList[randCourses[i]].lecIDs[j]);
+    });
+
     courses.push({
-      progress: randNumArray(
-        courseIDList[randCourses[i]].lectureCount,
-        nProgress
-      ),
+      progress,
       course: getObjectId(courseIDList[randCourses[i]].id),
     });
   }

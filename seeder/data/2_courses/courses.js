@@ -13,33 +13,48 @@ const {
 } = require("../../helpers/index");
 const faker = require("faker");
 const CONFIG = require("../../../config.json");
+const {courseIDList} = require("../../generator")
 
 const courses = [];
 
-const extractChapter = (crawl, k) => {
+const extractChapter = (crawl) => {
   let chapters = [];
+  let c = 0;
 
-  for (chap of crawl.curriculum.contents) {
+  for (chap of crawl.curriculum.contents) {      
     let newChap = {
+      _id: getObjectId(crawl.id + c),
       title: chap.title,
       duration: chap.content_length,
       durationText: chap.content_length_text,
       lecture: [],
     };
 
+    let foundIdx = courseIDList.findIndex((course) => {
+      return course.id == crawl.id
+    })
+
+    let l = 0;
     for (lec of chap.items) {
-      newChap.lecture.push({
+      let newLecID = craw.id + c + l;
+      
+      courseIDList[foundIdx].lecIDs.push(newLecID);
+
+      let newLec = {
+        _id: newLecID,
         title: lec.title,
         preview: lec.can_be_preview,
         description: lec.description,
         durationText: lec.content_summary,
         is_coding_exercise: lec.is_coding_exercise,
-        file: lec.learn_url,
-        index: k,
-      });
-      k++;
+        file: "/upload/video/nhac1.mp4",        
+      }
+
+      newChap.lecture.push();
+      l++;
     }
     chapters.push(newChap);
+    c++;
   }
   return chapters;
 };
@@ -100,7 +115,7 @@ for (crawl of crawledCourses) {
     category: getObjectId(crawl.topics[0]),
     subCategory: getObjectId(crawl.topics[1]),
     rates: randRates(),
-    chapter: extractChapter(crawl, k),
+    chapter: extractChapter(crawl),
   });
 }
 

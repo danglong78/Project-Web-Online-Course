@@ -46,7 +46,7 @@ module.exports = async (req, res) => {
   try {
     await newStudent.save();
     await newCredential.save();
-    await req.login({ id: newStudent._id, role: newCredential.role }, (err) => {
+    await req.login({ id: newStudent._id, role: newCredential.role, name: newStudent.name}, (err) => {
       err.debugMessage = "Something wrong when logging in user";
       err.userMessage = "Something wrong happened. Please try again!";
     });
