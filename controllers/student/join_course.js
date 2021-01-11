@@ -10,7 +10,7 @@ const joinCourse = async (studentID, courseID) => {
         if (foundStudent) {
             let foundCourse = await Course.findOne({ _id: courseID });
             if (foundCourse) {
-                if (!foundStudent.courses.some(f => f.course === courseID)) {
+                if (!foundStudent.courses.some(f => f.course == courseID)) {
                     await Transaction.create({
                         date: new Date(Date.now()),
                         student: foundStudent._id,

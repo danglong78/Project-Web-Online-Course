@@ -4,6 +4,9 @@ var courseModel = require('../models/course').model;
 var Cate = require('../models/category').model;
 var SubCate = require('../models/subCategory').model;
 var userModel = require('../models/credential').model;
+var Stu_user = require('../models/student').model;
+var lec_User = require('../models/lecturer').model;
+var ad_User = require('../models/admin').model;
 const admin_view_Cate = function (res) {
     cateController.admin_Cate_View(res);
 };
@@ -26,8 +29,21 @@ const admin_view_Course = async function (res) {
 const admin_view_User = async function (res) {
     try {
         let user = await userModel.find();
-        res.render('admin/user', { user: user });
-
+        for (var i = 0; i < user.length; i++) {
+            var aUser;
+            if (user[i].role == "Student") {
+                aUser = await Stu_user.findById(user[i].user);
+                user[i]["name"] = aUser.name;
+            }
+            else if (user[i].role == "Lecturer") {
+                aUser = await lec_User.findById(user[i].user);
+                user[i]["name"] = aUser.name;
+            } else {
+                aUser = await ad_User.findById(user[i].user);
+                user[i]["name"] = aUser.name;
+            }
+        }
+        res.render('admin/user', { user: user, cats: __categories });
     } catch (e) {
         res.render('error');
     }

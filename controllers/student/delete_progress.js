@@ -7,9 +7,9 @@ const deleteProgress = async (studentID, courseID, section) => {
 
         if (student) {
             if (student.courses.length > 0) {
-                let foundIdx = student.courses.findIndex(f => f.course === courseID);
+                let foundIdx = student.courses.findIndex(f => f.course == courseID);
                 if (foundIdx > -1) {
-                    let foundSectionIdx = student.courses[foundIdx].progress.findIndex(p => p === section)
+                    let foundSectionIdx = student.courses[foundIdx].progress.findIndex(p => p == section)
                     if (foundSectionIdx > -1) {
                         student.courses[foundIdx].progress.splice(foundSectionIdx, 1);
                         await student.save();
