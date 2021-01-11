@@ -12,6 +12,7 @@ receive_infor = async function (req,res) {
         short_description: c.short_description,
         detail_description: c.detail_description,
         price: c.price,
+        fullPrice: c.price,
         finished:c.finished,
         createdAt: c.updateDate,
         updatedAt: c.updateDate,

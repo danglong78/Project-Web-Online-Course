@@ -87,7 +87,7 @@
                                         <% for(var i=0;i<course.length;i++){%>
                                         <tr data-id="<%=course[i]._id%>">
                                             <td class="text-center"><%=i+1%></td>
-                                            <td><%=course[i].title%></td>
+                                            <td><a href="/course/<%=course[i]._id%>"><%=course[i].title%></a></td>
 
                                             <td class="text-center"><%=course[i].createdAt.toLocaleDateString("en-US")%></td>
                                             <td class="text-center"><%=course[i].enrollCount%></td>

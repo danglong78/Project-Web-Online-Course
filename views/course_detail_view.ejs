@@ -14,7 +14,7 @@
     <!-- Favicon Icon -->
     <link rel="icon" type="image/png" href="/images/fav.png">
 
-    <%- include('partials/head', {cats});-%>
+    <%- include('partials/head');-%>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <link href="https://vjs.zencdn.net/7.10.2/video-js.css" rel="stylesheet" />
 
@@ -133,12 +133,12 @@
 
                                     <div class="_215b08">
                                         <% if (course.price !==0) {%>
-                                        $<%=course.price %>
+                                        <h2>$<%=course.price %></h2>
                                         <%if(course.price !== course.fullPrice){%>
-                                        <h3 style="text-decoration: line-through; margin-left:0.5rem">
+                                        <h4 style="text-decoration: line-through; margin-left:0.5rem">
                                         $<%= course.fullPrice %>
                                             <%}%>
-                                      </h3>
+                                      </h4>
                                         <%} else {%>
                                             <h3 style="">
                                                FREE
@@ -153,7 +153,9 @@
                                     <%if(isJoined===false){%>
                                     <li><button id="buyBtn" class="btn_adcart">Buy Now</button></li>
                                     <%}else {%>
-                                            <li><button id="" class="btn_adcart" style="background-color: #0ea432;border-color: #0ea432 ">Buyed</button></li>
+                                            <li><button  class="btn_adcart" style="background-color: #0ea432;border-color: #0ea432 ">Buyed</button></li>
+                                            <li><button id="study"  class="btn_adcart">Study</button></li>
+
                                         <%}%>
                                 </ul>
                                 <div class="_215fgt1">
@@ -605,7 +607,8 @@
                             'success'
                         );
                         $ul=$('#buyBtn').closest('ul')
-                        $ul.empty().html('<li><button id="" class="btn_adcart" style="background-color: #0ea432;border-color: #0ea432 ">Buyed</button></li>')
+                        $ul.empty().html('<li><button  class="btn_adcart" style="background-color: #0ea432;border-color: #0ea432 ">Buyed</button></li>\n' +
+                            '                                            <li><button id="study" class="btn_adcart">Study</button></li>')
 
 
                     }
@@ -629,6 +632,9 @@
                 },
 
             })
+        })
+        $('._215b31').on('click','#study' , function () {
+            window.location.href="/learn/<%=course._id%>"
         })
         $('a.preview-text').click(function () {
             var myVideo = videojs('my-video');

@@ -6,7 +6,7 @@
 .step-app > .step-steps > li {
     display: inline-block;
     text-align: center;
-    width: 24%;
+    width: 25%;
     position: relative;
     z-index: 1;
 }

@@ -42,7 +42,7 @@ router.get('/:id',  async (req,res)=>{
 
     console.log(isJoined);
     console.log(isAddWishList)
-    res.render('course_detail_view',{course:course,lecturer:lecture,cats: __categories,averageRate,ratesPercent,studentReviewName,otherCourse,isAddWishList,isJoined})
+    res.render('course_detail_view',{course:course,lecturer:lecture,statics: __statics,averageRate,ratesPercent,studentReviewName,otherCourse,isAddWishList,isJoined})
 
 })
 router.post('/buy/:id',isAuthenticated,async function (req,res) {

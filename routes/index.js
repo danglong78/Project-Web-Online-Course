@@ -9,7 +9,7 @@ const lecturerRouter = require("./lecturer");
 const coursesRouter = require("./courses");
 const courseRouter = require("./course");
 const CONFIG = require("../config.json");
-
+const fs =require('fs');
 // test
 const getNewests = require(__basedir + "/controllers/course/get_newests");
 const getTopFavorites = require(__basedir +
@@ -23,7 +23,7 @@ const getTopCats = require(__basedir + "/controllers/subcategory/get_top_cats");
 const getRelatedCourses = require(__basedir + "/controllers/course/get_related_courses_by_catID");
 const { addAdditionalFields } = require(__basedir +
   "/controllers/course/helpers");
-
+const study = require('../controllers/student/study');
 // static data
 
 
@@ -184,8 +184,9 @@ router.route("/auth/facebook/callback").get(
 
 module.exports = router;
 
-router.get("/lecture_detail", function (req, res) {
-  res.render("lecture_detail",{cats: __categories});
+router.get("/learn/:id", function (req, res) {
+
+  study.getCourse(req,res)
 });
 
 router.get("/my_course", function (req, res) {
@@ -206,12 +207,12 @@ router.use("/category", cateRouter);
 const admin_user_route = require("./admin_user");
 router.use("/admin", admin_user_route);
 
-router.get("/upload/:storage/:file",(req,res)=>{
+router.get("/upload/img/:file",(req,res)=>{
 
 
   var fileName = req.params.file;
   var store = req.params.storage;
-  res.sendFile(__basedir+'/upload/'+store+'/'+fileName, function (err) {
+  res.sendFile(__basedir+'/upload/img/'+fileName, function (err) {
     if (err) {
       res.send(err)
     } else {
@@ -220,4 +221,44 @@ router.get("/upload/:storage/:file",(req,res)=>{
   })
 
 })
+router.get("/upload/video/:file",(req,res)=>{
+
+  var fileName = req.params.file;
+  fileName=__basedir+'/upload/video/'+fileName
+
+    const range = req.headers.range;
+    if (!range) {
+      res.status(400).send("Requires Range header");
+    }
+
+    // get video stats (about 61MB)
+    const videoPath = fileName;
+    const videoSize = fs.statSync(fileName).size;
+
+    // Parse Range
+    // Example: "bytes=32324-"
+    const CHUNK_SIZE = 10 ** 6; // 1MB
+    const start = Number(range.replace(/\D/g, ""));
+    const end = Math.min(start + CHUNK_SIZE, videoSize - 1);
+
+    // Create headers
+    const contentLength = end - start + 1;
+    const headers = {
+      "Content-Range": `bytes ${start}-${end}/${videoSize}`,
+      "Accept-Ranges": "bytes",
+      "Content-Length": contentLength,
+      "Content-Type": "video/mp4",
+    };
+
+    // HTTP Status 206 for Partial Content
+    res.writeHead(206, headers);
+
+    // create video read stream for this particular chunk
+    const videoStream = fs.createReadStream(videoPath, { start, end });
+
+    // Stream the video chunk to the client
+    videoStream.pipe(res);
+  })
+
+
 
