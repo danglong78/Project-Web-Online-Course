@@ -17,7 +17,7 @@ router.route("/search").get( async function (req, res) {
   if (sortBy === "rate") paginates.sortBy = "rate";
   else if (sortBy === "price") paginates.sortBy = "price";    
 
-  res.render("courses/search_result", { paginates, key:(q && q.split(" ").join("+")) || "", p:paginates.page, cat, sortBy, cats: __categories });
+  res.render("courses/search_result", { paginates, key:(q && q.split(" ").join("+")) || "", p:paginates.page, cat, sortBy, statics:__statics });
 });
 
 router.route("/category/:catID").get(async function(req, res) {
@@ -35,7 +35,7 @@ router.route("/category/:catID").get(async function(req, res) {
 
   // console.log(paginates);
 
-  res.render("courses/category", { paginates, sortBy, cats: __categories });
+  res.render("courses/category", { paginates, sortBy, statics:__statics });
   // res.render("courses/category");
 })
 

@@ -209,7 +209,7 @@ const generate = async () => {
     console.log(course);
     // console.log(JSON.stringify(course, null, 4));
     crawledCourses.push(course);
-    courseIDList.push({ id: course.id, lectureCount: 0 });
+    courseIDList.push({ id: course.id, lectureCount: 0, lecIDs: [] });
     let objID = getObjectId(course.id);
     objectIDs.push(objID);
     console.log(objID);

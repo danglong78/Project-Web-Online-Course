@@ -15,7 +15,7 @@ passport.serializeUser(function (user, done) {
   console.log(user);
 
   // role = "Student" || "Admin" || "Lecturer"
-  done(null, { role: user.role, id: user.id });
+  done(null, { role: user.role, id: user.id, name: user.name });
   console.log("end serialize");
 });
 
@@ -25,6 +25,7 @@ passport.deserializeUser(async (payload, done) => {
   let user = {
     id: payload.id,
     role: payload.role,
+    name: payload.name,
   };
   done(null, user);
   console.log(user);
@@ -35,7 +36,7 @@ const localVerifyCb = async (req, email, password, done) => {
   console.log("In local strategy");
   let err, credential;
 
-  [err, credential] = await to(Credential.findOne({ email: email }));
+  [err, credential] = await to(Credential.findOne({ email: email }).populate("user"));
 
   if (err) {
     return done(
@@ -58,8 +59,9 @@ const localVerifyCb = async (req, email, password, done) => {
   }
 
   user = {
-    id: credential.user,
+    id: credential.user._id,
     role: credential.role,
+    name: credential.user.name
   };
   return done(null, user, req.flash("success", "WELCOME TO UDEMY CLONE"));
 };
@@ -74,7 +76,7 @@ const googleVerifyCb = async (
   // console.log(profile);
   let err, credential;
 
-  [err, credential] = await to(Credential.findOne({ googleID: profile.id }));
+  [err, credential] = await to(Credential.findOne({ googleID: profile.id }).populate("user"));
 
   if (err) {
     return done(
@@ -87,13 +89,13 @@ const googleVerifyCb = async (
   if (credential)
     return done(
       null,
-      { id: credential.user, role: credential.role },
+      { id: credential.user._id, role: credential.role, name: credential.user.name},
       req.flash("success", "WELCOME TO UDEMY CLONE")
     );
   else {
     // Try to find account having the same email as this google account
     [err, credential] = await to(
-      Credential.findOne({ email: profile.emails[0].value })
+      Credential.findOne({ email: profile.emails[0].value }).populate("user")
     );
 
     if (err) {
@@ -107,7 +109,7 @@ const googleVerifyCb = async (
     if (credential) {
       return done(
         null,
-        { id: credential.user, role: credential.role },
+        { id: credential.user._id, role: credential.role, name: credential.user.name},
         req.flash("success", "WELCOME TO UDEMY CLONE")
       );
     } else {
@@ -127,6 +129,7 @@ const googleVerifyCb = async (
         let user = {
           id: newStudent._id,
           role: newCredential.role,
+          name: newStudent.name,
         };
 
         return done(null, user, req.flash("success", "WELCOME TO UDEMY CLONE"));
@@ -151,7 +154,7 @@ const facebookVerifyCb = async (
   // console.log(profile);
   let err, credential;
 
-  [err, credential] = await to(Credential.findOne({ googleID: profile.id }));
+  [err, credential] = await to(Credential.findOne({ googleID: profile.id }).populate("user"));
 
   if (err) {
     return done(
@@ -164,13 +167,13 @@ const facebookVerifyCb = async (
   if (credential)
     return done(
       null,
-      { id: credential.user, role: credential.role },
+      { id: credential.user._id, role: credential.role, name: credential.name},
       req.flash("success", "WELCOME TO UDEMY CLONE")
     );
   else {
     // Try to find account having the same email as this google account
     [err, credential] = await to(
-      Credential.findOne({ email: profile.emails[0].value })
+      Credential.findOne({ email: profile.emails[0].value }).populate("user")
     );
 
     if (err) {
@@ -184,7 +187,7 @@ const facebookVerifyCb = async (
     if (credential) {
       return done(
         null,
-        { id: credential.user, role: credential.role },
+        { id: credential.user._id, role: credential.role },
         req.flash("success", "WELCOME TO UDEMY CLONE")
       );
     } else {
@@ -204,6 +207,7 @@ const facebookVerifyCb = async (
         let user = {
           id: newStudent._id,
           role: newCredential.role,
+          name: newStudent.name
         };
 
         return done(null, user, req.flash("success", "WELCOME TO UDEMY CLONE"));

@@ -24,6 +24,9 @@ const getRelatedCourses = require(__basedir + "/controllers/course/get_related_c
 const { addAdditionalFields } = require(__basedir +
   "/controllers/course/helpers");
 
+// static data
+
+
 /* GET home page. */
 router.get("/", async (req, res) => {
   let topEnrolls = await getTopWeeklyTrans(CONFIG.nTopTrending);
@@ -47,23 +50,36 @@ router.get("/", async (req, res) => {
     newests,
     topWeeklySubCats,
     topSubCats,
-    cats: __categories,
+    statics:__statics,
   });
 });
 
-const test = require('../controllers/student/isOwnedCourse');
+const test = require('../controllers/student/rate_course');
 router.get("/test", async function (req, res, next) {
   // let courses = await getTopViews(5);
   // let courses = await getByCategory("Cassandra", 4, 2);
   // let courses = await fullTextSearch("ultimate", "", 1, 5);
   // let courses = await getNewests(CONFIG.nNewest);
   // let courses = await getTopWeeklyCats(CONFIG.nTopTrending);
+  // let courses = await getRelatedCourses("9adbbf981a608a69c175cd25", 5);
+
+  
+  // let result = require(__basedir + "/controllers/student/join_course")();
+
+  // console.log("before");
+  // console.log(courses);
+  // console.log("after");
+  // res.json(courses);
   //let courses = await getRelatedCourses("9adbbf981a608a69c175cd25", 5);
 
-  console.log("before");
-  console.log(await test.Owned_check(req.body.stu,req.body.course));
-  console.log("after");
-  res.send({success: true});
+  // console.log("before");
+  // console.log(await test.Owned_check(req.body.stu,req.body.course));
+  // console.log("after");
+  // res.send({success: true});
+  // console.log("before");
+  // console.log(await test(req.body.stu, req.body.course,5,"Good"));
+  // console.log("after");
+  // res.send({success: true});/
 });
 
 router.use("/courses", coursesRouter); // for search result
@@ -119,6 +135,12 @@ router
       res.redirect("/signup");
     }
   });
+
+router.route("/signout")
+.get((req, res) => {
+  req.logout();
+  res.redirect('/');
+})
 
 router
   .route("/auth/google")
