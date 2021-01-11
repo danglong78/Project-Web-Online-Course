@@ -1,29 +1,60 @@
-const mongoosePaginate = require("mongoose-paginate-v2");
+// const mongoosePaginate = require("mongoose-paginate-v2");
 const Course = require(__basedir + "/models/course").model;
 const SubCategory = require(__basedir + "/models/subCategory").model;
 
-const getByCatID = async (catID, page, limit) => {
+const getByCatID = async (catID, page, limit, sortBy) => {
   // console.log(catID);
-  const options = {
-    page,
-    limit,
-    sort: { enrollCount: -1 },
-    lean: true,
-  };
-
+    
   let paginates;
+  // let aggregate;
+
   try {
     if (catID.length != 24) {
       return;
     }
 
     const foundCat = await SubCategory.findOne({ _id: catID }).lean();
-    if (foundCat) {
+    if (!foundCat._id) {
+      return;
+    }
+    else {
       // console.log("found cat");
-      const query = { subCategory: foundCat._id };
+
+      const options = {
+        page,
+        limit,    
+        lean: true,
+      };
+
+      let agg = [
+        {
+          $match: {
+            subCategory: foundCat._id,
+          },
+        },
+        {
+          $addFields: {
+            avgRate: {
+              $avg: "$rates.score",
+            },
+          },
+        },      
+      ];
+
+      if (sortBy === "rate") {
+        agg.push({ $sort: {avgRate: -1, _id: 1 }});
+      }
+      else if (sortBy === "price") {
+        agg.push({ $sort: {price: 1, _id: 1 }});
+      }
+      else {
+        agg.push({ $sort: {enrollCount: -1, _id: 1 }});
+      }
+
+      let aggregate = Course.aggregate(agg);
 
       paginates = await new Promise((resolve, reject) => {
-        Course.paginate(query, options, (err, result) => {
+        Course.aggregatePaginate(aggregate, options, (err, result) => {
           if (err) {
             reject(err);
           }

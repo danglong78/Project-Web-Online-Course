@@ -139,6 +139,26 @@
 							<div class="row">
 								<div class="col-md-12">
 									<h4 class="mhs_title"><%= paginates.totalDocs %>  Courses</h4>
+									<form action="" method="get" id="filter_form">										
+										<div class="result_stitles col-md-3">
+											<div class="rs6t_title">Filters</div>	
+											<div class="filter_selector">
+												<div class="ui inline dropdown flt145" tabindex="0">
+													<div class="text" id="sortBy">Sort</div>
+													<input type="hidden" name="sortBy" id="sortInput">
+													<i class="dropdown icon"></i>
+													<div class="menu transition hidden" tabindex="-1">																								
+														<div class="item">Highest Rated</div>												
+														<div class="item">Lowest Price</div>												
+													</div>
+												</div>
+											</div>
+											<button class="btn1542" type = "submit" id ="filter_btn">
+												Search
+											</button>																	
+										</div>
+									</form>
+									
 									<% for (let course of paginates.docs) { %> 
 										<div class="fcrse_1 mt-30">
 											<a href=<%= "/course/" + course._id %> class="hf_img">
@@ -192,7 +212,7 @@
 											<nav aria-label="Page navigation example">
 												<ul class="pagination">
 													<li <% if(paginates.hasPrevPage) {%> class='page-item' <% } else { %> class='page-item disabled'<% } %> >
-														<a class="page-link" href=<%-`/courses/category/${paginates.catID}?p=${paginates.page-1}`%> aria-label="Previous">
+														<a class="page-link" href=<%-`"/courses/category/${paginates.catID}?p=${paginates.page-1}${sortBy?"&sortBy="+sortBy:""}"`%> aria-label="Previous">
 															PREV
 														</a>
 													</li>
@@ -202,13 +222,13 @@
 															<li class="page-item"><a class="page-link active" href="#"><%=i%> </a></li>															
 														<% } else {%> 
 															<li class="page-item">
-																<a class="page-link" href=<%=`/courses/category/${paginates.catID}?p=${i}`%> ><%=i%></a>
+																<a class="page-link" href=<%-`"/courses/category/${paginates.catID}?p=${i}${sortBy?"&sortBy="+sortBy:""}"`%> ><%=i%></a>
 															</li>
 														<% } %> 
 														
 													<% } %> 													
 													<li <% if(paginates.hasNextPage) {%> class='page-item' <% } else { %> class='page-item disabled'<% } %>>
-														<a class="page-link" href=<%=`/courses/category/${paginates.catID}?p=${paginates.page+1}`%> aria-label="Next">
+														<a class="page-link" href=<%-`"/courses/category/${paginates.catID}?p=${paginates.page+1}${sortBy?"&sortBy="+sortBy:""}"`%> aria-label="Next">
 															NEXT
 														</a>
 													</li>
@@ -235,22 +255,32 @@
 	<script src="/js/night-mode.js"></script>	
 
 	<script>
-	var grd = function () {
-			$("input[type='radio']").click(function () {				
-				var previousValue = $(this).attr('previousValue');
-				var name = $(this).attr('name');
+	
+	$("#filter_form").submit(function (e) {
+			let sortByText = $("#sortBy").text();
+			console.log(sortByText);
 
-				if (previousValue == 'checked') {
-					$(this).removeAttr('checked');
-					$(this).attr('previousValue', false);
-				} else {
-					$("input[name=" + name + "]:radio").attr('previousValue', false);
-					$(this).attr('previousValue', 'checked');
-				}
-			});
-		};
+			if (sortByText === "Sort") {
+				return true;
+			}
 
-		$( document ).ready(grd());	
+			console.log(sortByText);
+			let sortBy;
+			if (sortByText === "Highest Rated") {
+				sortBy = "rate";
+			} else if (sortByText === "Lowest Price") {
+				sortBy = "price";
+			} else {
+				sortBy = "";
+			}
+			
+
+			$("#sortInput").attr("value", sortBy);
+			$("#filter_form").attr("action", location.href);
+
+			return true;
+		})
+
 	</script>
 	
 </body>

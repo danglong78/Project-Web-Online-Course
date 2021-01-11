@@ -23,8 +23,8 @@ router.route("/search").get( async function (req, res) {
 router.route("/category/:catID").get(async function(req, res) {
 
   const catID = req.params.catID;
-  const { p } = req.query;
-  const paginates = await getByCatID(catID, p?p:1, __CONFIG.paginateLimit);
+  const { p, sortBy } = req.query;
+  const paginates = await getByCatID(catID, p?p:1, __CONFIG.paginateLimit, sortBy);
   
   // console.log(paginates);
   if (typeof paginates === "undefined") {
@@ -35,7 +35,7 @@ router.route("/category/:catID").get(async function(req, res) {
 
   // console.log(paginates);
 
-  res.render("courses/category", { paginates, cats: __categories });
+  res.render("courses/category", { paginates, sortBy, cats: __categories });
   // res.render("courses/category");
 })
 
