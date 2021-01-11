@@ -20,6 +20,7 @@ const getTopWeeklyTrans = require(__basedir +
 const getTopWeeklyCats = require(__basedir +
   "/controllers/subcategory/get_top_weekly_cats");
 const getTopCats = require(__basedir + "/controllers/subcategory/get_top_cats");
+const getRelatedCourses = require(__basedir + "/controllers/course/get_related_courses_by_catID");
 const { addAdditionalFields } = require(__basedir +
   "/controllers/course/helpers");
 
@@ -55,7 +56,8 @@ router.get("/test", async function (req, res, next) {
   // let courses = await getByCategory("Cassandra", 4, 2);
   // let courses = await fullTextSearch("ultimate", "", 1, 5);
   // let courses = await getNewests(CONFIG.nNewest);
-  let courses = await getTopWeeklyCats(CONFIG.nTopTrending);
+  // let courses = await getTopWeeklyCats(CONFIG.nTopTrending);
+  let courses = await getRelatedCourses("9adbbf981a608a69c175cd25", 5);
 
   console.log("before");
   console.log(courses);
