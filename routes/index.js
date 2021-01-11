@@ -55,6 +55,7 @@ router.get("/", async (req, res) => {
 });
 
 const test = require('../controllers/student/isOwnedCourse');
+const test = require('../controllers/student/rate_course');
 router.get("/test", async function (req, res, next) {
   // let courses = await getTopViews(5);
   // let courses = await getByCategory("Cassandra", 4, 2);
@@ -76,6 +77,10 @@ router.get("/test", async function (req, res, next) {
   // console.log(await test.Owned_check(req.body.stu,req.body.course));
   // console.log("after");
   // res.send({success: true});
+  // console.log("before");
+  // console.log(await test(req.body.stu, req.body.course,5,"Good"));
+  // console.log("after");
+  // res.send({success: true});/
 });
 
 router.use("/courses", coursesRouter); // for search result

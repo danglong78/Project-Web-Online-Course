@@ -96,7 +96,7 @@ const addChapter = (req, res) => {
     console.log("add chapter");
     console.log(req.body);
     console.log(req.body.chapter.lecture[0]);
-    res.send({ success: true, lectureID: [] })
+    res.send({ success: true, lectureID: [] });
     //lectureID là list danh sách objectid của lecture
 }
 const addLecture = (req, res) => {
