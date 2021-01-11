@@ -51,18 +51,19 @@ router.get("/", async (req, res) => {
   });
 });
 
+const test = require('../controllers/student/isOwnedCourse');
 router.get("/test", async function (req, res, next) {
   // let courses = await getTopViews(5);
   // let courses = await getByCategory("Cassandra", 4, 2);
   // let courses = await fullTextSearch("ultimate", "", 1, 5);
   // let courses = await getNewests(CONFIG.nNewest);
   // let courses = await getTopWeeklyCats(CONFIG.nTopTrending);
-  let courses = await getRelatedCourses("9adbbf981a608a69c175cd25", 5);
+  //let courses = await getRelatedCourses("9adbbf981a608a69c175cd25", 5);
 
   console.log("before");
-  console.log(courses);
+  console.log(await test.Owned_check(req.body.stu,req.body.course));
   console.log("after");
-  res.json(courses);
+  res.send({success: true});
 });
 
 router.use("/courses", coursesRouter); // for search result
