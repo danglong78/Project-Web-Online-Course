@@ -1,14 +1,17 @@
+const Student = require("../../models/student");
+
+
 const Owned_Check = async (stu_id,course_id)=>{
     try {
         let student = await Student.findOne({ _id: stu_id });
 
         if (student) {
             if (student.courses.length > 0) {
-                if (student.courses.some(f => f.course == course_id)) {
-                    return true;
+                if (!student.courses.some(f => f == course_id)) {
+                    return fasle;
                 }
                 else {
-                    return false;
+                    return true;
                 }
             }
         }
@@ -29,11 +32,11 @@ const Favorite_check = async(stu_id,course_id)=>{
 
         if (student) {
             if (student.courses.length > 0) {
-                if (student.favorites.some(f => f == course_id)) {
-                    return true;
+                if (!student.favorites.some(f => f == course_id)) {
+                    return fasle;
                 }
                 else {
-                    return false;
+                    return true;
                 }
             }
         }
