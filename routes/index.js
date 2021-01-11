@@ -163,7 +163,7 @@ router.route("/auth/facebook/callback").get(
 module.exports = router;
 
 router.get("/lecture_detail", function (req, res) {
-  res.render("lecture_detail");
+  res.render("lecture_detail",{cats: __categories});
 });
 
 router.get("/my_course", function (req, res) {
@@ -198,3 +198,4 @@ router.get("/upload/:storage/:file",(req,res)=>{
   })
 
 })
+
