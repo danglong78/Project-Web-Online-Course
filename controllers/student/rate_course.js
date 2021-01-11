@@ -5,6 +5,13 @@ const rateCourse = async (studentID, courseID, score, review) => {
 
     try {
         let course = await Course.findOne({ _id: courseID });
+        let aStu = await Student.findbyID(studentID);
+        if(aStu){
+            let index = aStu.courses.findIndex(c=>c.course == courseID);
+            if(index==-1){
+                return false;
+            }
+        }
 
         if (course) {
             let foundIdx = course.rates.findIndex(c => c.student == studentID);
