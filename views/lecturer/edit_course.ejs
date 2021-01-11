@@ -3,7 +3,6 @@
 
 
 <!-- Mirrored from gambolthemes.net/html-items/Learnic_demo_f12/create_new_course.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 20 Jun 2020 12:55:52 GMT -->
-
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -17,35 +16,18 @@
 
     <!-- Stylesheets -->
     <%- include('../partials/head'); -%>
-        <link href="/css/instructor-dashboard.css" rel="stylesheet" type="text/css">
-        <link href="/css/instructor-responsive.css" rel=rel="stylesheet" type="text/css">
-        <link href="/css/vertical-responsive-menu1.min.css" rel="stylesheet" type="text/css">
-        <link href="/css/jquery-steps.css" rel="stylesheet">
-        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-        <script type="text/javascript"
-            src='https://cdn.tiny.cloud/1/l7uyy2f87we33kyvy3smlnrcrkdof0ulv3tcn44r5xwkox4h/tinymce/5/tinymce.min.js'
-            referrerpolicy="origin">
-            </script>
-        <script type="text/javascript">
-            let courseEditor = new tinymce.Editor('CourseDescribe',
-                {
-                    width: 1000,
-                    height: 300,
-                    plugins: [
-                        'advlist autolink link image lists charmap print preview hr anchor pagebreak',
-                        'searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking',
-                        'table emoticons template paste help'
-                    ],
-                    toolbar: 'undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | ' +
-                        'bullist numlist outdent indent | link image | print preview media fullpage | ' +
-                        'forecolor backcolor emoticons | help',
-                    menu: {
-                        favs: { title: 'My Favorites', items: 'code visualaid | searchreplace | emoticons' }
-                    },
-                    menubar: 'favs file edit view insert format tools table help'
-                }, tinymce.EditorManager);
-            let chapterEditor = new tinymce.Editor('ChapterDescribe', {
-                width: 1000,
+    <link href="/css/instructor-dashboard.css" rel="stylesheet" type="text/css">
+    <link href="/css/instructor-responsive.css" rel=rel="stylesheet" type="text/css">
+    <link href="/css/vertical-responsive-menu1.min.css" rel="stylesheet" type="text/css">
+    <link href="/css/jquery-steps.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <script
+            type="text/javascript"
+            src='https://cdn.tiny.cloud/1/l7uyy2f87we33kyvy3smlnrcrkdof0ulv3tcn44r5xwkox4h/tinymce/5/tinymce.min.js' referrerpolicy="origin">
+    </script>
+    <script type="text/javascript">
+        let courseEditor= new tinymce.Editor('CourseDescribe',
+            {width: 1000,
                 height: 300,
                 plugins: [
                     'advlist autolink link image lists charmap print preview hr anchor pagebreak',
@@ -56,1169 +38,948 @@
                     'bullist numlist outdent indent | link image | print preview media fullpage | ' +
                     'forecolor backcolor emoticons | help',
                 menu: {
-                    favs: { title: 'My Favorites', items: 'code visualaid | searchreplace | emoticons' }
+                    favs: {title: 'My Favorites', items: 'code visualaid | searchreplace | emoticons'}
                 },
                 menubar: 'favs file edit view insert format tools table help'
-
             }, tinymce.EditorManager);
+        let chapterEditor = new tinymce.Editor('ChapterDescribe', {width: 1000,
+            height: 300,
+            plugins: [
+                'advlist autolink link image lists charmap print preview hr anchor pagebreak',
+                'searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking',
+                'table emoticons template paste help'
+            ],
+            toolbar: 'undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | ' +
+                'bullist numlist outdent indent | link image | print preview media fullpage | ' +
+                'forecolor backcolor emoticons | help',
+            menu: {
+                favs: {title: 'My Favorites', items: 'code visualaid | searchreplace | emoticons'}
+            },
+            menubar: 'favs file edit view insert format tools table help'
 
-            courseEditor.render();
-            chapterEditor.render();
-        </script>
+        }, tinymce.EditorManager);
+
+        courseEditor.render();
+        chapterEditor.render();
+    </script>
 
 
 </head>
 
 <body>
-    <!-- Header Start -->
-    <%- include('../partials/instructor-navbar'); -%>
-        <!-- Header End -->
-        <!-- Left Sidebar Start -->
-        <%- include('../partials/instructor-left-menu'); -%>
-            <!-- Left Sidebar End -->
-            <!-- Body Start -->
-            <div class="wrapper">
-                <div class="sa4d25">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-lg-12">
-                                <h2 class="st_title"><i class="uil uil-analysis"></i> Create New Course</h2>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-12">
-                                <div class="course_tabs_1">
-                                    <div id="add-course-tab" class="step-app">
-                                        <ul class="step-steps">
-                                            <li class="active">
-                                                <a href="#tab_step1">
-                                                    <span class="number"></span>
-                                                    <span class="step-name">General Information</span>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="#tab_step2">
-                                                    <span class="number"></span>
-                                                    <span class="step-name">View</span>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="#tab_step3">
-                                                    <span class="number"></span>
-                                                    <span class="step-name">Course Content</span>
-                                                </a>
-                                            <li>
-                                                <a href="#tab_step4">
-                                                    <span class="number"></span>
-                                                    <span class="step-name">Extra Information</span>
-                                                </a>
-                                            </li>
-                                        </ul>
-                                        <div class="step-content">
-                                            <div class="step-tab-panel step-tab-info active" id="tab_step1">
-                                                <div class="tab-from-content">
-                                                    <div class="title-icon">
-                                                        <h3 class="title"><i class="uil uil-info-circle"></i>General
-                                                            Information</h3>
-                                                    </div>
-                                                    <div class="course__form">
-                                                        <div class="general_info10">
-                                                            <div class="row">
-                                                                <div class="col-lg-6 col-md-6">
-                                                                    <div class="ui search focus mt-30 lbel25">
-                                                                        <label>Course Title*</label>
-                                                                        <div class="ui left icon input swdh19">
-                                                                            <input class="prompt srch_explore "
-                                                                                type="text"
-                                                                                placeholder="Insert your course title."
-                                                                                name="title" maxlength="60"
-                                                                                value="<%=course.title%>"
-                                                                                trigger="manual" data-toggle="tooltip"
-                                                                                data-placement="right"
-                                                                                title="Please input Title">
-                                                                            <div class="badge_num" id="badge_title">
-                                                                                <%=60-course.title.length%>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-
-                                                                </div>
-                                                                <div class="col-lg-12 col-md-12">
-                                                                    <div class="ui search focus mt-30 lbel25">
-                                                                        <label>Course Short Description*</label>
-                                                                        <div class="ui left icon input swdh19">
-                                                                            <input class="prompt srch_explore "
-                                                                                type="text"
-                                                                                placeholder="Insert your course Short Description."
-                                                                                name="shortDescription" maxlength="120"
-                                                                                value="<%=course.short_description%>"
-                                                                                trigger="manual" data-toggle="tooltip"
-                                                                                data-placement="right"
-                                                                                title="Please input short description">
-                                                                            <div class="badge_num2"
-                                                                                id="badge_shortDescription">
-                                                                                <%=120-course.short_description.length%>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-lg-12 col-md-12">
-                                                                    <div class="course_des_textarea mt-30 lbel25">
-                                                                        <label id="CourseDescribe1" trigger="manual"
-                                                                            data-toggle="tooltip" data-placement="right"
-                                                                            title="Please input detail description">Course
-                                                                            Detail Description*</label>
-                                                                        <textarea
-                                                                            id="CourseDescribe"><%-course.detail_description%></textarea>
-
-                                                                    </div>
-                                                                </div>
-
-                                                                <div class="col-lg-4 col-md-6">
-                                                                    <div class="mt-30 lbel25" id="CateLabel"
-                                                                        trigger="manual" data-toggle="tooltip"
-                                                                        data-placement="top"
-                                                                        title="Please select category">
-                                                                        <label>Course Category*</label>
-                                                                    </div>
-                                                                    <select
-                                                                        class="ui hj145 dropdown cntry152 prompt srch_explore"
-                                                                        id="category_select">
-                                                                        <option value="">Select Category</option>
-                                                                        <% for(i=0;i<category.length;i++) {%>
-                                                                            <option value='<%=category[i]._id%>'>
-                                                                                <%= category[i].name%>
-                                                                            </option>
-                                                                            <%}%>
-
-
-                                                                    </select>
-                                                                </div>
-                                                                <div class="col-lg-4 col-md-6">
-                                                                    <div class="mt-30 lbel25" id="subCateLabel"
-                                                                        trigger="manual" data-toggle="tooltip"
-                                                                        data-placement="top"
-                                                                        title="Please select sub category">
-                                                                        <label>Course Subcategory*</label>
-                                                                    </div>
-                                                                    <div class="ui selection dropdown cntry152 prompt srch_explore"
-                                                                        id="subCategory_select">
-                                                                        <input type="hidden" name="subcategory">
-                                                                        <i class="dropdown icon"></i>
-                                                                        <div class="default text">Select Subcategory
-                                                                        </div>
-                                                                        <div class="menu">
-
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="price_course">
-                                                            <div class="row">
-                                                                <div class="col-lg-12">
-                                                                    <div class="price_title">
-                                                                        <h4><i
-                                                                                class="uil uil-dollar-sign-alt"></i>Pricing
-                                                                        </h4>
-                                                                    </div>
-                                                                </div>
-
-                                                                <div class="col-lg-3 col-md-4 col-sm-6">
-                                                                    <div class="ui search focus mt-30 lbel25">
-                                                                        <label>Price</label>
-                                                                        <div class="ui left icon input swdh19">
-                                                                            <input class="prompt srch_explore "
-                                                                                type="number" name="title" min="0"
-                                                                                max="1000000" value=<%-course.price%>
-                                                                            trigger="manual" data-toggle="tooltip"
-                                                                            data-placement="right">
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div class="step-tab-panel step-tab-gallery" id="tab_step2">
-                                                <div class="tab-from-content">
-                                                    <div class="title-icon">
-                                                        <h3 class="title"><i class="uil uil-image-upload"></i>View</h3>
-                                                    </div>
-                                                    <div class="course__form">
-                                                        <div class="view_info10">
-                                                            <div class="row">
-                                                                <div class="col-lg-12">
-                                                                    <div class="view_all_dt">
-                                                                        <div class="view_img_left">
-                                                                            <div class="view__img">
-                                                                                <img src="<%=course.avatar%>" alt="">
-
-
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="view_img_right">
-                                                                            <h4>Cover Image</h4>
-                                                                            <p>Upload your course image here. It must
-                                                                                meet our course image quality standards
-                                                                                to be accepted. Important guidelines:
-                                                                                750x422 pixels; .jpg, .jpeg,. gif, or
-                                                                                .png. no text on the image.</p>
-                                                                            <div class="upload__input">
-                                                                                <div class="input-group row">
-                                                                                    <div class=" col-lg-3 col-md-6">
-                                                                                        <button
-                                                                                            class="part_btn_save prt-sv"
-                                                                                            type="button"
-                                                                                            id="UploadImgBtn">Change</button>
-                                                                                    </div>
-                                                                                    <div class="col-lg-3 col-md-6">
-                                                                                        <button
-                                                                                            class="part_btn_save prt-sv"
-                                                                                            type="button"
-                                                                                            id="DelUploadImgBtn">Delete</button>
-                                                                                    </div>
-                                                                                    <input type="file"
-                                                                                        class="custom-file-input"
-                                                                                        data-mode="true" id="inputImage"
-                                                                                        name="image"
-                                                                                        accept="image/png,image/gif,image/jpeg,image/jpg">
-
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div class="step-tab-panel step-tab-location" id="tab_step3">
-                                                <div class="tab-from-content">
-                                                    <div class="title-icon">
-                                                        <h3 class="title"><i class="uil uil-film"></i>Course Content
-                                                        </h3>
-                                                    </div>
-                                                    <div class="course__form">
-                                                        <div class="row">
-                                                            <div class="col-lg-12">
-                                                                <div class="extra_info">
-                                                                    <h4 class="part__title">New Course Content</h4>
-                                                                </div>
-                                                                <div class="view_info10">
-                                                                    <div class="row">
-                                                                        <div class="col-lg-12 col-md-12">
-                                                                            <div class="ui search focus mt-30 lbel25">
-                                                                                <label>Chapter Title*</label>
-                                                                                <div class="ui left icon input swdh19">
-                                                                                    <input class="prompt srch_explore"
-                                                                                        type="text"
-                                                                                        placeholder="Insert your chapter title."
-                                                                                        name="titleChapter"
-                                                                                        maxlength="80" id="chapterTitle"
-                                                                                        value="" trigger="manual"
-                                                                                        data-toggle="tooltip"
-                                                                                        data-placement="right"
-                                                                                        title="Please input chapter title">
-                                                                                    <div class="badge_num"
-                                                                                        id="badge_chapterTitle">80</div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="col-lg-12 col-md-12">
-                                                                            <div class="lecture_title">
-                                                                                <h4>Add Lecture</h4>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="col-lg-6 col-md-12">
-                                                                            <div class="ui search focus mt-30 lbel25">
-                                                                                <label>Lecture Title*</label>
-                                                                                <div class="ui left icon input swdh19">
-                                                                                    <input class="prompt srch_explore"
-                                                                                        type="text"
-                                                                                        placeholder="Insert your lecture title."
-                                                                                        name="titleLecture"
-                                                                                        maxlength="80"
-                                                                                        id="lecture_title" value=""
-                                                                                        trigger="manual"
-                                                                                        data-toggle="tooltip"
-                                                                                        data-placement="right"
-                                                                                        title="Please input lecture title">
-                                                                                    <div class="badge_num"
-                                                                                        id="badge_lectureTitle">80</div>
-
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="col-lg-4 col-md-6">
-                                                                            <div class="part_input mt-30 lbel25">
-                                                                                <label>File*</label>
-                                                                                <div class="input-group">
-                                                                                    <div class="custom-file">
-                                                                                        <input type="file"
-                                                                                            class="custom-file-input"
-                                                                                            id="inputGroupFile06"
-                                                                                            accept="video/*">
-                                                                                        <label class="custom-file-label"
-                                                                                            for="inputGroupFile06">No
-                                                                                            Choose file -
-                                                                                            (Video)</label>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-
-                                                                        <div class="col-lg-12 col-md-12">
-                                                                            <div class=" mt-30 lbel25">
-                                                                                <label id="ChapterDescribe1"
-                                                                                    trigger="manual"
-                                                                                    data-toggle="tooltip"
-                                                                                    data-placement="right"
-                                                                                    title="Please input lecture description">Description*</label>
-                                                                                <textarea
-                                                                                    id="ChapterDescribe"></textarea>
-
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="col-lg-5 col-md-6">
-                                                                            <div class="ui search focus mt-30 lbel25">
-                                                                                <label>Duration*</label>
-                                                                                <div
-                                                                                    class="ui left icon input swdh19 swdh55">
-                                                                                    <input
-                                                                                        class="prompt srch_explore html-duration-picker"
-                                                                                        data-hide-seconds
-                                                                                        name="duration"
-                                                                                        style="height: 40px"
-                                                                                        placeholder="0">
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="col-lg-5 col-md-6">
-                                                                            <div class="ui search focus mt-30 lbel25">
-                                                                                <label>Preview Permission*</label>
-                                                                                <div class="ui toggle checkbox _1457s2">
-                                                                                    <input type="checkbox"
-                                                                                        name="previewTag">
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="col-lg-2 col-md-12">
-                                                                            <div class="save_content">
-                                                                                <button class="part_btn_save prt-sv"
-                                                                                    data-id="add"
-                                                                                    id="SaveLectureBtn">Add
-                                                                                    Lecture</button>
-                                                                            </div>
-
-                                                                        </div>
-                                                                        <div class="col-lg-12 col-md-12">
-                                                                            <div class="table-responsive mt-50 mb-0">
-                                                                                <table class="table ucp-table">
-                                                                                    <thead class="thead-s">
-                                                                                        <tr>
-                                                                                            <th class="text-center"
-                                                                                                scope="col">Lecture</th>
-                                                                                            <th class="text-center">
-                                                                                                Title</th>
-                                                                                            <th class="text-center">
-                                                                                                Preview</th>
-                                                                                            <th class="text-center"
-                                                                                                scope="col">Duration
-                                                                                            </th>
-                                                                                            <th class="text-center"
-                                                                                                scope="col">File</th>
-                                                                                            <th class="text-center"
-                                                                                                scope="col">Controls
-                                                                                            </th>
-                                                                                        </tr>
-                                                                                    </thead>
-                                                                                    <tbody id="lecture_table"
-                                                                                        trigger="manual"
-                                                                                        data-toggle="tooltip"
-                                                                                        data-placement="right"
-                                                                                        title="Please add lecture ">
-
-                                                                                    </tbody>
-                                                                                </table>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="col-lg-12 col-md-12">
-                                                                            <div class="save_content">
-                                                                                <button class="save_content_btn uil"
-                                                                                    id="saveChapterBtn" data-id="add"
-                                                                                    type="button">Add Chapter</button>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="table-responsive mt-30">
-                                                        <table class="table ucp-table" id="content-table">
-                                                            <thead class="thead-s">
-                                                                <tr>
-                                                                    <th class="text-center" scope="col">Chapter</th>
-                                                                    <th class="cell-ta">Title</th>
-                                                                    <th class="text-center" scope="col">Lectures</th>
-                                                                    <th class="text-center" scope="col">Duration</th>
-                                                                    <th class="text-center" scope="col">Controls</th>
-                                                                </tr>
-                                                            </thead>
-                                                            <tbody id="chapter_table">
-                                                                <% for(var i=0;i<course.chapter.length;i++){%>
-                                                                    <tr>
-                                                                        <td class="text-center">
-                                                                            <%=i+1%>
-                                                                        </td>
-                                                                        <td class="cell-ta">
-                                                                            <%=course.chapter[i].title%>
-                                                                        </td>
-                                                                        <td class="text-center">
-                                                                            <%=course.chapter[i].lecture.length%>
-                                                                        </td>
-                                                                        <td class="text-center">
-                                                                            <%=course.chapter[i].durationText%>
-                                                                        </td>
-                                                                        <td
-                                                                            class="text-center d-flex justify-content-center">
-                                                                            <a class="gray-s editChapterBtn"
-                                                                                title="Edit" href="#"><i
-                                                                                    class="uil uil-edit-alt"></i></a>
-                                                                            <a class="gray-s delChapterBtn"
-                                                                                title="Delete" href="#"><i
-                                                                                    class="uil uil-trash-alt"></i></a>
-                                                                        </td>
-                                                                    </tr>
-
-                                                                    <%}%>
-                                                            </tbody>
-                                                        </table>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div class="step-tab-panel step-tab-amenities" id="tab_step4">
-                                                <div class="tab-from-content">
-                                                    <div class="title-icon">
-                                                        <h3 class="title"><i class="uil uil-file-copy-alt"></i>Extra
-                                                            Information</h3>
-                                                    </div>
-                                                    <div class="course__form">
-                                                        <div class="row">
-                                                            <div class="col-lg-12">
-                                                                <div class="view_info10">
-                                                                    <div class="row">
-                                                                        <div class="col-md-4">
-                                                                            <div class="ui toggle checkbox _1457s2">
-                                                                                <input type="checkbox"
-                                                                                    name="finishedTag">
-                                                                                <label>Finished Version</label>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-
+<!-- Header Start -->
+<%- include('../partials/instructor-navbar'); -%>
+<!-- Header End -->
+<!-- Left Sidebar Start -->
+<%- include('../partials/instructor-left-menu'); -%>
+<!-- Left Sidebar End -->
+<!-- Body Start -->
+<div class="wrapper">
+    <div class="sa4d25">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h2 class="st_title"><i class="uil uil-analysis"></i> Create New Course</h2>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <div class="course_tabs_1">
+                        <div id="add-course-tab" class="step-app">
+                            <ul class="step-steps">
+                                <li class="active">
+                                    <a href="#tab_step1">
+                                        <span class="number"></span>
+                                        <span class="step-name">General Information</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#tab_step2">
+                                        <span class="number"></span>
+                                        <span class="step-name">View</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#tab_step3">
+                                        <span class="number"></span>
+                                        <span class="step-name">Course Content</span>
+                                    </a>
+                                <li>
+                                    <a href="#tab_step4">
+                                        <span class="number"></span>
+                                        <span class="step-name">Extra Information</span>
+                                    </a>
+                                </li>
+                            </ul>
+                            <div class="step-content">
+                                <div class="step-tab-panel step-tab-info active" id="tab_step1">
+                                    <div class="tab-from-content">
+                                        <div class="title-icon">
+                                            <h3 class="title"><i class="uil uil-info-circle"></i>General Information</h3>
                                         </div>
-                                        <div class="step-footer step-tab-pager">
-                                            <button data-direction="prev"
-                                                class="btn btn-default steps_btn">PREVIOUS</button>
-                                            <button data-direction="next"
-                                                class="btn btn-default steps_btn">Next</button>
-                                            <button data-direction="finish" class="btn btn-default steps_btn">Submit for
-                                                Review</button>
+                                        <div class="course__form">
+                                            <div class="general_info10">
+                                                <div class="row">
+                                                    <div class="col-lg-6 col-md-6">
+                                                        <div class="ui search focus mt-30 lbel25">
+                                                            <label>Course Title*</label>
+                                                            <div class="ui left icon input swdh19">
+                                                                <input class="prompt srch_explore " type="text" placeholder="Insert your course title." name="title"  maxlength="60" value="<%=course.title%>" trigger="manual"  data-toggle="tooltip" data-placement="right" title="Please input Title">
+                                                                <div class="badge_num" id="badge_title"><%=60-course.title.length%></div>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                    <div class="col-lg-12 col-md-12">
+                                                        <div class="ui search focus mt-30 lbel25">
+                                                            <label>Course Short Description*</label>
+                                                            <div class="ui left icon input swdh19">
+                                                                <input class="prompt srch_explore " type="text" placeholder="Insert your course Short Description." name="shortDescription"
+                                                                       maxlength="120"  value="<%=course.short_description%>" trigger="manual"  data-toggle="tooltip" data-placement="right" title="Please input short description">
+                                                                <div  class="badge_num2" id="badge_shortDescription"><%=120-course.short_description.length%></div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-12 col-md-12">
+                                                        <div class="course_des_textarea mt-30 lbel25">
+                                                            <label  id="CourseDescribe1" trigger="manual"  data-toggle="tooltip" data-placement="right" title="Please input detail description">Course Detail Description*</label>
+                                                            <textarea id="CourseDescribe" ><%-course.detail_description%></textarea>
+
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-lg-4 col-md-6">
+                                                        <div class="mt-30 lbel25" id="CateLabel" trigger="manual"  data-toggle="tooltip" data-placement="top" title="Please select category">
+                                                            <label>Course Category*</label>
+                                                        </div>
+                                                        <select class="ui hj145 dropdown cntry152 prompt srch_explore" id="category_select" >
+                                                            <option value="">Select Category</option>
+                                                            <% for(i=0;i<category.length;i++) {%>
+                                                            <option value='<%=category[i]._id%>'> <%= category[i].name%></option>
+                                                            <%}%>
+
+
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-lg-4 col-md-6">
+                                                        <div class="mt-30 lbel25" id="subCateLabel" trigger="manual"  data-toggle="tooltip" data-placement="top" title="Please select sub category">
+                                                            <label>Course Subcategory*</label>
+                                                        </div>
+                                                        <div class="ui selection dropdown cntry152 prompt srch_explore" id="subCategory_select">
+                                                            <input type="hidden" name="subcategory">
+                                                            <i class="dropdown icon"></i>
+                                                            <div class="default text">Select Subcategory</div>
+                                                            <div class="menu">
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="price_course">
+                                                <div class="row">
+                                                    <div class="col-lg-12">
+                                                        <div class="price_title">
+                                                            <h4><i class="uil uil-dollar-sign-alt"></i>Pricing</h4>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-lg-3 col-md-4 col-sm-6">
+                                                        <div class="ui search focus mt-30 lbel25">
+                                                            <label>Price</label>
+                                                            <div class="ui left icon input swdh19">
+                                                                <input class="prompt srch_explore " type="number"  name="title"  min="0" max="1000000"  value=<%-course.price%> trigger="manual"  data-toggle="tooltip" data-placement="right">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
+
+                                <div class="step-tab-panel step-tab-gallery" id="tab_step2">
+                                    <div class="tab-from-content">
+                                        <div class="title-icon">
+                                            <h3 class="title"><i class="uil uil-image-upload"></i>View</h3>
+                                        </div>
+                                        <div class="course__form">
+                                            <div class="view_info10">
+                                                <div class="row">
+                                                    <div class="col-lg-12">
+                                                        <div class="view_all_dt">
+                                                            <div class="view_img_left">
+                                                                <div class="view__img">
+                                                                    <img src="<%=course.avatar%>" alt="">
+
+
+                                                                </div>
+                                                            </div>
+                                                            <div class="view_img_right">
+                                                                <h4>Cover Image</h4>
+                                                                <p>Upload your course image here. It must meet our course image quality standards to be accepted. Important guidelines: 750x422 pixels; .jpg, .jpeg,. gif, or .png. no text on the image.</p>
+                                                                <div class="upload__input">
+                                                                    <div class="input-group row">
+                                                                        <div class=" col-lg-3 col-md-6">
+                                                                            <button class="part_btn_save prt-sv" type="button" id="UploadImgBtn">Change</button>
+                                                                        </div>
+                                                                        <div class="col-lg-3 col-md-6">
+                                                                            <button class="part_btn_save prt-sv" type="button" id="DelUploadImgBtn"  >Delete</button>
+                                                                        </div>
+                                                                        <input type="file" class="custom-file-input" data-mode="true" id="inputImage" name="image" accept="image/png,image/gif,image/jpeg,image/jpg" >
+
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="step-tab-panel step-tab-location" id="tab_step3">
+                                    <div class="tab-from-content">
+                                        <div class="title-icon">
+                                            <h3 class="title"><i class="uil uil-film"></i>Course Content</h3>
+                                        </div>
+                                        <div class="course__form">
+                                            <div class="row">
+                                                <div class="col-lg-12">
+                                                    <div class="extra_info">
+                                                        <h4 class="part__title">New Course Content</h4>
+                                                    </div>
+                                                    <div class="view_info10">
+                                                        <div class="row">
+                                                            <div class="col-lg-12 col-md-12">
+                                                                <div class="ui search focus mt-30 lbel25">
+                                                                    <label>Chapter Title*</label>
+                                                                    <div class="ui left icon input swdh19">
+                                                                        <input class="prompt srch_explore" type="text" placeholder="Insert your chapter title." name="titleChapter"  maxlength="80" id="chapterTitle" value="" trigger="manual"  data-toggle="tooltip" data-placement="right" title="Please input chapter title">
+                                                                        <div class="badge_num" id="badge_chapterTitle">80</div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-12 col-md-12">
+                                                                <div class="lecture_title">
+                                                                    <h4>Add Lecture</h4>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-6 col-md-12">
+                                                                <div class="ui search focus mt-30 lbel25">
+                                                                    <label>Lecture Title*</label>
+                                                                    <div class="ui left icon input swdh19">
+                                                                        <input class="prompt srch_explore" type="text" placeholder="Insert your lecture title." name="titleLecture"  maxlength="80" id="lecture_title" value="" trigger="manual"  data-toggle="tooltip" data-placement="right" title="Please input lecture title">
+                                                                        <div class="badge_num" id="badge_lectureTitle">80</div>
+
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-4 col-md-6">
+                                                                <div class="part_input mt-30 lbel25">
+                                                                    <label>File*</label>
+                                                                    <div class="input-group">
+                                                                        <div class="custom-file">
+                                                                            <input type="file" class="custom-file-input" id="inputGroupFile06" accept="video/*">
+                                                                            <label class="custom-file-label" for="inputGroupFile06">No Choose file - (Video)</label>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="col-lg-12 col-md-12">
+                                                                <div class=" mt-30 lbel25">
+                                                                    <label id="ChapterDescribe1" trigger="manual"  data-toggle="tooltip" data-placement="right" title="Please input lecture description" >Description*</label>
+                                                                    <textarea id="ChapterDescribe"></textarea>
+
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-5 col-md-6">
+                                                                <div class="ui search focus mt-30 lbel25">
+                                                                    <label>Duration*</label>
+                                                                    <div class="ui left icon input swdh19 swdh55">
+                                                                        <input class="prompt srch_explore html-duration-picker" data-hide-seconds name="duration"  style="height: 40px" placeholder="0">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-5 col-md-6">
+                                                                <div class="ui search focus mt-30 lbel25">
+                                                                    <label>Preview Permission*</label>
+                                                                    <div class="ui toggle checkbox _1457s2">
+                                                                        <input type="checkbox" name="previewTag" >
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-2 col-md-12">
+                                                                <div class="save_content">
+                                                                    <button class="part_btn_save prt-sv" data-id="add" id="SaveLectureBtn" >Add Lecture</button>
+                                                                </div>
+
+                                                            </div>
+                                                            <div class="col-lg-12 col-md-12">
+                                                                <div class="table-responsive mt-50 mb-0">
+                                                                    <table class="table ucp-table">
+                                                                        <thead class="thead-s">
+                                                                        <tr>
+                                                                            <th class="text-center" scope="col">Lecture</th>
+                                                                            <th class="text-center">Title</th>
+                                                                            <th class="text-center">Preview</th>
+                                                                            <th class="text-center" scope="col">Duration</th>
+                                                                            <th class="text-center" scope="col">File</th>
+                                                                            <th class="text-center" scope="col">Controls</th>
+                                                                        </tr>
+                                                                        </thead>
+                                                                        <tbody id="lecture_table" trigger="manual"  data-toggle="tooltip" data-placement="right" title="Please add lecture ">
+
+                                                                        </tbody>
+                                                                    </table>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-12 col-md-12">
+                                                                <div class="save_content">
+                                                                    <button class="save_content_btn uil" id="saveChapterBtn" data-id="add" type="button">Add Chapter</button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="table-responsive mt-30">
+                                            <table class="table ucp-table" id="content-table">
+                                                <thead class="thead-s">
+                                                <tr>
+                                                    <th class="text-center" scope="col">Chapter</th>
+                                                    <th class="cell-ta">Title</th>
+                                                    <th class="text-center" scope="col">Lectures</th>
+                                                    <th class="text-center" scope="col">Duration</th>
+                                                    <th class="text-center" scope="col">Controls</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody id="chapter_table" >
+                                                    <% for(var i=0;i<course.chapter.length;i++){%>
+                                                        <tr>
+                                                            <td class="text-center"><%=i+1%></td>
+                                                            <td class="cell-ta"><%=course.chapter[i].title%></td>
+                                                            <td class="text-center"><%=course.chapter[i].lecture.length%></td>
+                                                            <td class="text-center"><%=course.chapter[i].durationText%></td>
+                                                            <td class="text-center d-flex justify-content-center">
+                                                                <a class="gray-s editChapterBtn" title="Edit" href="#"><i class="uil uil-edit-alt"></i></a>
+                                                                <a class="gray-s delChapterBtn" title="Delete" href="#"><i class="uil uil-trash-alt"></i></a>
+                                                            </td>
+                                                        </tr>
+
+                                                    <%}%>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="step-tab-panel step-tab-amenities" id="tab_step4">
+                                    <div class="tab-from-content">
+                                        <div class="title-icon">
+                                            <h3 class="title"><i class="uil uil-file-copy-alt"></i>Extra Information</h3>
+                                        </div>
+                                        <div class="course__form">
+                                            <div class="row">
+                                                <div class="col-lg-12">
+                                                    <div class="view_info10">
+                                                        <div class="row">
+                                                            <div class="col-md-4">
+                                                                <div class="ui toggle checkbox _1457s2">
+                                                                    <input type="checkbox" name="finishedTag" >
+                                                                    <label>Finished Version</label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="step-footer step-tab-pager">
+                                <button data-direction="prev" class="btn btn-default steps_btn">PREVIOUS</button>
+                                <button data-direction="next" class="btn btn-default steps_btn">Next</button>
+                                <button data-direction="finish" class="btn btn-default steps_btn">Submit for Review</button>
                             </div>
                         </div>
                     </div>
                 </div>
-                <%- include('../partials/footer'); -%>
             </div>
-            <!-- Body End -->
+        </div>
+    </div>
+    <%- include('../partials/footer'); -%>
+</div>
+<!-- Body End -->
 
-            <script src="/js/vertical-responsive-menu.min.js"></script>
-            <script src="/js/jquery-3.3.1.min.js"></script>
-            <script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-            <script src="/vendor/OwlCarousel/owl.carousel.js"></script>
-            <script src="/vendor/semantic/semantic.min.js"></script>
-            <script src="/js/custom.js"></script>
-            <script src="/js/night-mode.js"></script>
-            <script src="/js/jquery-steps.min.js"></script>
-            <script src="https://cdn.jsdelivr.net/npm/html-duration-picker/dist/html-duration-picker.min.js"></script>
+<script src="/js/vertical-responsive-menu.min.js"></script>
+<script src="/js/jquery-3.3.1.min.js"></script>
+<script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="/vendor/OwlCarousel/owl.carousel.js"></script>
+<script src="/vendor/semantic/semantic.min.js"></script>
+<script src="/js/custom.js"></script>
+<script src="/js/night-mode.js"></script>
+<script src="/js/jquery-steps.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/html-duration-picker/dist/html-duration-picker.min.js"></script>
 
-            <!--Hàm chung-->
-            <script>
-                const min2int = function (s) {
-                    var temp = s.split(':');
-                    var re = 0;
-                    for (var i = 0; i < temp.length; i++) {
-                        re = re * 60;
-                        re += parseInt(temp[i]);
-                    }
-                    return re;
-                }
+<!--Hàm chung-->
+<script>
+    const min2int = function (s) {
+        var temp = s.split(':');
+        var re = 0;
+        for (var i = 0; i < temp.length; i++) {
+            re = re * 60;
+            re += parseInt(temp[i]);
+        }
+        return re;
+    }
 
-                const int2min = function (n) {
-                    var sec = n % 60;
-                    n = (n - sec) / 60;
-                    var min = n % 60;
-                    n = (n - min) / 60;
-                    var hour = n;
-                    var re = "";
-                    if (hour > 0) {
-                        re += hour.toString();
-                        re += ":";
-                    }
-                    min = min.toString();
-                    if (min.length < 2) {
-                        min = "0" + min;
-                    }
-                    re += min;
-                    re += ":";
-                    sec = sec.toString();
-                    if (sec.length < 2) {
-                        sec = "0" + sec;
-                    }
-                    re += sec;
-                    return re;
-                }
+    const int2min = function (n) {
+        var sec = n % 60;
+        n = (n - sec) / 60;
+        var min = n % 60;
+        n = (n - min) / 60;
+        var hour = n;
+        var re = "";
+        if (hour > 0) {
+            re += hour.toString();
+            re += ":";
+        }
+        min = min.toString();
+        if (min.length < 2) {
+            min = "0" + min;
+        }
+        re += min;
+        re += ":";
+        sec = sec.toString();
+        if (sec.length < 2) {
+            sec = "0" + sec;
+        }
+        re += sec;
+        return re;
+    }
 
-                const add = function (s1, s2) {
-                    var n1 = min2int(s1);
-                    var n2 = min2int(s2);
-                    var sum = n1 + n2;
-                    return int2min(sum);
-                }
-                $('#add-course-tab').steps({
-                    enableAllSteps: false,
-                    onChange: function (currentIndex, newIndex, stepDirection) {
-                        if (currentIndex === 0) {
-                            if (stepDirection === 'forward') {
-                                if ($('input[name="title"]').val() === "") {
-                                    $('input[name="title"]').tooltip("show")
-                                    Swal.fire({
-                                        title: 'Error!',
-                                        text: 'You didn\'t input Title Course',
-                                        icon: 'error',
-                                    })
-                                    return false;
-                                }
-                                if ($('input[name="shortDescription"]').val() === "") {
-                                    $('input[name="shortDescription"]').tooltip("show")
-                                    Swal.fire({
-                                        title: 'Error!',
-                                        text: 'You didn\'t input Short Description',
-                                        icon: 'error',
-                                    })
-                                    return false;
-                                }
-                                if (courseEditor.getContent() === "") {
-                                    $('#CourseDescribe1').tooltip("show")
-                                    Swal.fire({
-                                        title: 'Error!',
-                                        text: 'You didn\'t input Detail Description',
-                                        icon: 'error',
-                                    })
-                                    return false;
-                                }
-                                if ($('#category_select').dropdown('get value') === "") {
-                                    Swal.fire({
-                                        title: 'Error!',
-                                        text: 'You didn\'t select Category',
-                                        icon: 'error',
-                                    })
-                                    $('#CateLabel').tooltip("show")
-                                    return false;
-                                }
-                                if ($('#subCategory_select').dropdown('get value') === "") {
-                                    Swal.fire({
-                                        title: 'Error!',
-                                        text: 'You didn\'t select Sub Category',
-                                        icon: 'error',
-                                    })
-                                    $('#subCateLabel').tooltip("show")
-                                    return false;
-                                }
-                            }
-                        }
-                        if (currentIndex === 1) {
-                            if (stepDirection === 'forward') {
-                                if ($('#inputImage').data('mode') !== true) {
-
-                                    if ($('#inputImage').val() === "") {
-                                        Swal.fire({
-                                            title: 'Error!',
-                                            text: 'You didn\'t choose Image',
-                                            icon: 'error',
-                                        })
-                                        return false;
-                                    }
-                                }
-                            }
-                        }
-                        if (currentIndex === 2) {
-                            if (stepDirection === 'forward') {
-                                if ($('#chapter_table tr').length === 0) {
-
-                                    Swal.fire({
-                                        title: 'Error!',
-                                        text: 'You don\'t have any chapter yet',
-                                        icon: 'error',
-                                    })
-                                    return false;
-                                }
-                            }
-                        }
-
-                        return true;
-                    },
-                    onFinish: async function () {
+    const add = function (s1, s2) {
+        var n1 = min2int(s1);
+        var n2 = min2int(s2);
+        var sum = n1 + n2;
+        return int2min(sum);
+    }
+    $('#add-course-tab').steps({
+        enableAllSteps: false,
+        onChange: function (currentIndex, newIndex, stepDirection) {
+            if (currentIndex === 0) {
+                if (stepDirection === 'forward') {
+                    if($('input[name="title"]').val()===""){
+                        $('input[name="title"]').tooltip("show")
                         Swal.fire({
-                            title: 'Are you sure?',
-                            text: "You won't be able to revert this!",
-                            icon: 'warning',
-                            showCancelButton: true,
-                            confirmButtonText: 'Yes',
-                            showLoaderOnConfirm: true,
-                        }).then((result) => {
-                            if (result.isConfirmed) {
-                                var rs = {
-                                    title: $('input[name="title"]').val(),
-                                    finished: $('input[name="finishedTag"]:checked').length === 1,
-                                    short_description: $('input[name="shortDescription"]').val(),
-                                    detail_description: courseEditor.getContent(),
-                                    price: $('select[name="price"]').val(),
-                                    chapter: chapter,
-                                    category: $('#category_select').dropdown('get value'),
-                                    subCategory: $('#subCategory_select .item.selected').attr("value"),
-                                    updateDate: new Date(),
-                                }
-                                var id;
-                                var ChapterID;
-                                $.ajax({
-                                    async: false,
-                                    url: "/lecturer/create",
-                                    type: 'POST',
-                                    contentType: "application/json; charset=UTF-8",
-                                    data: JSON.stringify(rs),
-                                    success: function (e) {
-                                        // alert("send success  "+e);
-                                        id = e.id;
-                                        chapterID = e.chapter;
-                                    },
-                                    error: function (result) {
-                                        Swal.fire(
-                                            'Error!',
-                                            'Upload course information fail.',
-                                            'error'
-                                        );
-                                        return;
-                                    }
-
-                                })
-                                if ($('#inputImage').data('mode') !== true) {
-                                    var img = new FormData();
-                                    imgname = $('#inputImage').prop('files')[0].name;
-                                    let extension = imgname.substr((imgname.lastIndexOf('.') + 1));
-                                    img.append('image', $('#inputImage').prop('files')[0], `${id}.${extension}`)
-                                    img.append('id', id)
-
-                                    $.ajax({
-                                        url: '/lecturer/upload_img',
-                                        type: 'POST',
-                                        contentType: false,
-                                        processData: false,
-                                        cache: false,
-                                        data: img,
-                                        success: function (res) {
-                                            // alert(res);
-                                        },
-                                        error: function () {
-                                            Swal.fire(
-                                                'Error!',
-                                                'Upload image fail.',
-                                                'error'
-                                            );
-                                            return;
-                                        }
-
-                                    })
-                                }
-
-                                Swal.fire(
-                                    'Save!',
-                                    'Your Course has been edited.',
-                                    'success'
-                                )
-                            }
+                            title: 'Error!',
+                            text: 'You didn\'t input Title Course',
+                            icon: 'error',
                         })
-
+                        return false;
                     }
-                })
-
-                $.extend({
-                    el: function (el, props) {
-                        let $el = $($("<" + el + " />"));
-                        $el.attr(props);
-                        return $el;
+                    if($('input[name="shortDescription"]').val()===""){
+                        $('input[name="shortDescription"]').tooltip("show")
+                        Swal.fire({
+                            title: 'Error!',
+                            text: 'You didn\'t input Short Description',
+                            icon: 'error',
+                        })
+                        return false;
                     }
-                });
-                function readURL(input) {
-                    if (input.files && input.files[0]) {
-                        var reader = new FileReader();
-                        reader.onload = function (e) {
-                            $('.view__img img').attr('src', e.target.result);
-
-                        }
-
-                        reader.readAsDataURL(input.files[0]); // convert to base64 string
+                    if(courseEditor.getContent()===""){
+                        $('#CourseDescribe1').tooltip("show")
+                        Swal.fire({
+                            title: 'Error!',
+                            text: 'You didn\'t input Detail Description',
+                            icon: 'error',
+                        })
+                        return false;
+                    }
+                    if($('#category_select').dropdown('get value')==="")
+                    {
+                        Swal.fire({
+                            title: 'Error!',
+                            text: 'You didn\'t select Category',
+                            icon: 'error',
+                        })
+                        $('#CateLabel').tooltip("show")
+                        return false;
+                    }
+                    if($('#subCategory_select').dropdown('get value')=== "")
+                    {
+                        Swal.fire({
+                            title: 'Error!',
+                            text: 'You didn\'t select Sub Category',
+                            icon: 'error',
+                        })
+                        $('#subCateLabel').tooltip("show")
+                        return false;
                     }
                 }
-            </script>
-            <!--Hàm cho tab1-->
+            }
+            if (currentIndex === 1) {
+                    if (stepDirection === 'forward') {
+                        if($('#inputImage').data('mode')!==true) {
 
-            <script>
-                $(document).ready(function () {
-                    $('input[name="duration"]').next().remove()
-
-                    $('input[name="title"]').on('keyup', function () {
-                        $('#badge_title').text(60 - $('input[name="title"]').val().length)
-                    });
-
-                    $('input[name="shortDescription"]').on('keyup', function () {
-                        $('#badge_shortDescription').text(120 - $('input[name="shortDescription"]').val().length)
-                    });
-
-                    $('#category_select').on('change', function () {
-                        let id = $('#category_select').val();
-                        $('#subCategory_select .menu').empty();
-                        $('#subCategory_select').dropdown('restore defaults')
-
-                        $(`#subcateOption div[data-id=${id}]`).clone().appendTo($('#subCategory_select .menu'))
-                    });
-                })
-            </script>
-            <!--Hàm cho tab2-->
-            <script>
-                $(document).ready(function () {
-
-                    $('#UploadImgBtn').click(function () {
-                        $('#inputImage').click();
-                        $('#inputImage').data('mode', 'false')
-
-                    })
-                    $("#inputImage").change(function () {
-                        if ($('#inputImage').val() !== "") {
-                            readURL(this);
-                            $('#DelUploadImgBtn').removeAttr('hidden');
-                            $('#UploadImgBtn').text('Change');
+                            if ($('#inputImage').val() === "") {
+                            Swal.fire({
+                                title: 'Error!',
+                                text: 'You didn\'t choose Image',
+                                icon: 'error',
+                            })
+                            return false;
                         }
+                    }
+                }
+            }
+            if (currentIndex === 2) {
+                if (stepDirection === 'forward') {
+                    if($('#chapter_table tr').length===0)
+                    {
 
-                    });
-                    $('#DelUploadImgBtn').click(function () {
-                        $('#inputImage').val("");
-                        $(this).attr('hidden', 'true');
-                        $('#UploadImgBtn').text('Upload')
-                        $('.view__img img').attr('src', "/images/courses/add_img.jpg")
-                        $('#inputImage').data('mode', 'false')
+                        Swal.fire({
+                            title: 'Error!',
+                            text: 'You don\'t have any chapter yet',
+                            icon: 'error',
+                        })
+                        return false;
+                    }
+                }
+            }
 
-                    });
-
-                });
-
-            </script>
-            <!--Hàm cho tab3-->
-            <script>
-                var courseID = '<%- course._id%>'
-                var chapter = <%- JSON.stringify(course.chapter) %>;
-                let lectures = [];
-                let lectureVideos = [];
-
-                $(document).ready(function () {
-                    $('input[name="titleChapter"]').on('keyup', function () {
-                        $('#badge_chapterTitle').text(80 - $('input[name="titleChapter"]').val().length)
-                    });
-
-                    $('input[name="titleLecture"]').on('keyup', function () {
-                        $('#badge_lectureTitle').text(80 - $('input[name="titleLecture"]').val().length)
-                    });
-                    $('.custom-file').on('change', '#inputGroupFile06', function (e) {
-                        //get the file name
-                        var fileName = e.target.files[0].name;            //replace the "Choose a file" label
-                        $(this).next('.custom-file-label').html(fileName);
-                    });
-                    $('#SaveLectureBtn').click(function () {
-                        if ($('#lecture_title').val() === "") {
-                            $('#lecture_title').tooltip('show');
-                        }
-                        if ($('input[name="duration"]').val() === "") {
-                            $('input[name="duration"]').tooltip('show');
-                        }
-                        if (chapterEditor.getContent() === "") {
-                            $('#ChapterDescribe1').tooltip('show');
-                        }
-                        if ($('#inputGroupFile06').next().text() === "No Choose file - (Video)") {
+            return true;
+        },
+        onFinish: async function () {
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Yes',
+                showLoaderOnConfirm: true,
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    var rs={
+                        title: $('input[name="title"]').val(),
+                        finished:$('input[name="finishedTag"]:checked').length===1,
+                        short_description: $('input[name="shortDescription"]').val(),
+                        detail_description: courseEditor.getContent(),
+                        price:$('select[name="price"]').val(),
+                        chapter: chapter,
+                        category:$('#category_select').dropdown('get value'),
+                        subCategory:$('#subCategory_select .item.selected').attr("value"),
+                        updateDate: new Date(),
+                    }
+                    var id;
+                    var ChapterID;
+                    $.ajax({
+                        async:false,
+                        url: "/lecturer/create",
+                        type: 'POST',
+                        contentType: "application/json; charset=UTF-8",
+                        data:JSON.stringify(rs),
+                        success: function(e) {
+                            // alert("send success  "+e);
+                            id=e.id;
+                            chapterID=e.chapter;
+                        },
+                        error: function(result) {
                             Swal.fire(
                                 'Error!',
-                                'You did not upload video!.',
+                                'Upload course information fail.',
                                 'error'
                             );
+                            return;
                         }
-                        if (($('#lecture_title').val() !== "") && ($('input[name="duration"]').val() !== "") && (chapterEditor.getContent() !== "") && ($('#inputGroupFile06').next().text() !== "No Choose file - (Video)")) {
-                            if ($('#saveChapterBtn').data('id') === 'add') {
-                                if ($(this).attr('data-id') === 'add') {
-                                    $('#lecture_table').append(
-                                        $.el('tr', {}).append(
-                                            $.el('td', { 'class': 'text-center' }).text($('#lecture_table tr').length + 1)
-                                        ).append(
-                                            $.el('td', { 'class': 'cell-ta' }).text($('#lecture_title').val())
-                                        ).append(
-                                            $.el('td', { 'class': 'text-center' }).html(($('input[name="previewTag"]:checked').length === 1) ? "<i class='uil uil-check text-success' style='font-size: 150%'></i>" : "")
-                                        ).append(
-                                            $.el('td', { 'class': 'text-center' }).text($('input[name="duration"]').val())
-                                        ).append(
-                                            $.el('td', { 'class': 'text-center' }).text($('#inputGroupFile06').prop('files')[0].name)
-                                        ).append(
-                                            $.el('td', { 'class': 'text-center d-flex justify-content-center' }).append(
-                                                $.el('a', { 'class': 'gray-s editLectureBtn', 'title': 'Edit', 'href': '#' }).append(
-                                                    $.el('i', { 'class': 'uil uil-edit-alt' })
-                                                )
-                                            ).append(
-                                                $.el('a', { 'class': 'gray-s delLectureBtn', 'title': 'Delete', 'href': '#' }).append(
-                                                    $.el('i', { 'class': 'uil uil-trash-alt' })
-                                                )
-                                            )
-                                        )
-                                    )
 
-                                    lectures.push({
-                                        title: $('#lecture_title').val(),
-                                        durationText: $('input[name="duration"]').val(),
-                                        description: chapterEditor.getContent(),
-                                        file: $('#inputGroupFile06').prop('files')[0],
-                                        preview: $('input[name="previewTag"]:checked').length === 1
-                                    })
-                                }
-                                else {
-                                    let idlecture = parseInt($(this).attr('data-id'));
-                                    let fn = lectures[idlecture].file;
-                                    temp = {
-                                        title: $('#lecture_title').val(),
-                                        durationText: $('input[name="duration"]').val(),
-                                        description: chapterEditor.getContent(),
-                                        file: $('#inputGroupFile06').prop('files')[0],
-                                        preview: $('input[name="previewTag"]:checked').length === 1
-                                    }
-                                    if (temp.file === undefined)
-                                        temp.file = fn;
-                                    $(`#lecture_table tr:eq(${idlecture}) td:eq(1)`).text(temp.title)
-                                    $(`#lecture_table tr:eq(${idlecture}) td:eq(2)`).html(($('input[name="previewTag"]:checked').length === 1) ? "<i class='uil uil-check text-success' style='font-size: 150%'></i>" : "")
-                                    $(`#lecture_table tr:eq(${idlecture}) td:eq(3)`).text(temp.durationText)
-                                    $(`#lecture_table tr:eq(${idlecture}) td:eq(4)`).text(temp.file.name)
-
-                                    lectures[idlecture] = temp;
-                                    $(this).attr('data-id', 'add');
-                                    $('#SaveLectureBtn').text('Add Lecture')
-
-                                }
-                            }
-                            else {
-                                if ($(this).attr('data-id') === 'add') {
-                                    chapterID = $('#saveChapterBtn').data('id')
-                                    $.ajax({
-                                        async: false,
-                                        url: "/lecturer/addLecture",
-                                        type: 'POST',
-                                        contentType: "application/json; charset=UTF-8",
-                                        data: JSON.stringify({
-                                            id: courseID,
-                                            chapterID: $('#saveChapterBtn').data('id'),
-                                            lecture: {
-                                                title: $('#lecture_title').val(),
-                                                durationText: $('input[name="duration"]').val(),
-                                                description: chapterEditor.getContent(),
-                                                preview: $('input[name="previewTag"]:checked').length === 1,
-                                            }
-                                        }),
-                                        success: function (data) {
-                                            if (data.success) {
-                                                Swal.fire(
-                                                    'Added!',
-                                                    'Lecture has been added.',
-                                                    'success'
-                                                ).then(() => {
-                                                    $('#lecture_table').append(
-                                                        $.el('tr', {}).append(
-                                                            $.el('td', { 'class': 'text-center' }).text($('#lecture_table tr').length + 1)
-                                                        ).append(
-                                                            $.el('td', { 'class': 'cell-ta' }).text($('#lecture_title').val())
-                                                        ).append(
-                                                            $.el('td', { 'class': 'text-center' }).html(($('input[name="previewTag"]:checked').length === 1) ? "<i class='uil uil-check text-success' style='font-size: 150%'></i>" : "")
-                                                        ).append(
-                                                            $.el('td', { 'class': 'text-center' }).text($('input[name="duration"]').val())
-                                                        ).append(
-                                                            $.el('td', { 'class': 'text-center' }).text($('#inputGroupFile06').next().text())
-                                                        ).append(
-                                                            $.el('td', { 'class': 'text-center d-flex justify-content-center' }).append(
-                                                                $.el('a', { 'class': 'gray-s editLectureBtn', 'title': 'Edit', 'href': '#' }).append(
-                                                                    $.el('i', { 'class': 'uil uil-edit-alt' })
-                                                                )
-                                                            ).append(
-                                                                $.el('a', { 'class': 'gray-s delLectureBtn', 'title': 'Delete', 'href': '#' }).append(
-                                                                    $.el('i', { 'class': 'uil uil-trash-alt' })
-                                                                )
-                                                            )
-                                                        )
-                                                    )
-                                                    let filename = $('#inputGroupFile06').prop('files')[0].name;
-                                                    let extension = filename.substr((filename.lastIndexOf('.') + 1));
-                                                    lectures.push({
-                                                        title: $('#lecture_title').val(),
-                                                        durationText: $('input[name="duration"]').val(),
-                                                        description: chapterEditor.getContent(),
-                                                        preview: $('input[name="previewTag"]:checked').length === 1,
-                                                        file: `/upload/video/${id}_${data.lectureID}.${extension}`
-                                                    })
-                                                    if ($('#inputGroupFile06').prop('files')[0] !== undefined) {
-                                                        vid = new FormData();
-                                                        let filename = $('#inputGroupFile06').prop('files')[0].name;
-                                                        let extension = filename.substr((filename.lastIndexOf('.') + 1));
-                                                        var FileName = `/upload/video/${id}_${data.lectureID}.${extension}`;
-                                                        vid.append(`video`, $('#inputGroupFile06').prop('files')[0], `${id}_${data.lectureID}.${extension}`)
-                                                        vid.append('videoName', FileName)
-                                                        vid.append('id', courseID)
-                                                        vid.append('chapterIndex', parseInt($('#saveChapterBtn').data('id')))
-                                                        vid.append('lectureIndex', lectures.length - 1)
-                                                        $.ajax({
-                                                            async: false,
-                                                            url: '/lecturer/addLecture_video',
-                                                            type: 'POST',
-                                                            contentType: false,
-                                                            processData: false,
-                                                            cache: false,
-                                                            data: vid,
-                                                            success: function (res) {
-                                                                Swal.fire(
-                                                                    'Success!',
-                                                                    'Upload video success.',
-                                                                    'success'
-                                                                );
-                                                            },
-                                                            error: function () {
-                                                                Swal.fire(
-                                                                    'Error!',
-                                                                    'Upload video fail.',
-                                                                    'error'
-                                                                );
-                                                                return;
-                                                            }
-                                                        })
-                                                    }
-
-                                                })
-                                            }
-                                            else {
-                                                Swal.fire(
-                                                    'Fail!',
-                                                    'Add lecture Fail !!!.',
-                                                    'error'
-                                                )
-                                            }
-                                            $('#inputGroupFile06').next('.custom-file-label').html("");
-                                            $('#lecture_title').val("")
-                                            $('input[name="duration"]').val("")
-                                            chapterEditor.setContent("")
-                                            $('#inputGroupFile06').val("")
-                                            $("input[name='previewTag']").prop("checked", false);
-                                            $('#inputGroupFile06').next('.custom-file-label').html("No Choose file - (Video)");
-                                        },
-                                        error: function (result) {
-                                            Swal.fire(
-                                                'Error!',
-                                                `${JSON.stringify(result)}`,
-                                                'error'
-                                            );
-                                        }
-
-                                    })
-
-                                }
-                                else {
-                                    let idlecture = parseInt($(this).attr('data-id'));
-                                    let fn = lectures[idlecture].file;
-                                    $.ajax({
-                                        async: false,
-                                        url: "/lecturer/editLecture",
-                                        type: 'POST',
-                                        contentType: "application/json; charset=UTF-8",
-                                        data: JSON.stringify({
-                                            id: courseID,
-                                            chapterID: $('#saveChapterBtn').data('id'),
-                                            lectureID: idlecture,
-                                            lecture: {
-                                                title: $('#lecture_title').val(),
-                                                durationText: $('input[name="duration"]').val(),
-                                                description: chapterEditor.getContent(),
-                                                preview: $('input[name="previewTag"]:checked').length === 1,
-                                            }
-                                        }),
-                                        success: function (data) {
-                                            if (data.success) {
-                                                Swal.fire(
-                                                    'Edited!',
-                                                    'Lecture has been Edited.',
-                                                    'success'
-                                                ).then(() => {
-                                                    temp = {
-                                                        title: $('#lecture_title').val(),
-                                                        durationText: $('input[name="duration"]').val(),
-                                                        description: chapterEditor.getContent(),
-                                                        file: $('#inputGroupFile06').next().text(),
-                                                        preview: $('input[name="previewTag"]:checked').length === 1
-                                                    }
-                                                    $(`#lecture_table tr:eq(${idlecture}) td:eq(1)`).text(temp.title)
-                                                    $(`#lecture_table tr:eq(${idlecture}) td:eq(2)`).html(($('input[name="previewTag"]:checked').length === 1) ? "<i class='uil uil-check text-success' style='font-size: 150%'></i>" : "")
-                                                    $(`#lecture_table tr:eq(${idlecture}) td:eq(3)`).text(temp.durationText)
-                                                    $(`#lecture_table tr:eq(${idlecture}) td:eq(4)`).text(temp.file)
-
-                                                    lectures[idlecture] = temp;
-                                                    $(this).attr('data-id', 'add');
-                                                    $('#SaveLectureBtn').text('Add Lecture')
-
-                                                    let filename = $('#inputGroupFile06').prop('files')[0].name;
-                                                    let extension = filename.substr((filename.lastIndexOf('.') + 1));
-
-                                                    if ($('#inputGroupFile06').prop('files')[0] !== undefined) {
-                                                        vid = new FormData();
-                                                        let filename = $('#inputGroupFile06').prop('files')[0].name;
-                                                        let extension = filename.substr((filename.lastIndexOf('.') + 1));
-                                                        var FileName = `/upload/video/${id}_${data.lectureID}.${extension}`;
-                                                        vid.append(`video`, $('#inputGroupFile06').prop('files')[0], `${id}_${data.lectureID}.${extension}`)
-                                                        vid.append('videoName', FileName)
-                                                        vid.append('id', courseID)
-                                                        vid.append('chapterIndex', parseInt($('#saveChapterBtn').data('id')))
-                                                        vid.append('lectureIndex', lectures.length - 1)
-                                                        $.ajax({
-                                                            async: false,
-                                                            url: '/lecturer/addLecture_video',
-                                                            type: 'POST',
-                                                            contentType: false,
-                                                            processData: false,
-                                                            cache: false,
-                                                            data: vid,
-                                                            success: function (res) {
-                                                                Swal.fire(
-                                                                    'Success!',
-                                                                    'Upload video success.',
-                                                                    'success'
-                                                                );
-                                                            },
-                                                            error: function () {
-                                                                Swal.fire(
-                                                                    'Error!',
-                                                                    'Upload video fail.',
-                                                                    'error'
-                                                                );
-                                                                return;
-                                                            }
-                                                        })
-                                                    }
-
-                                                })
-                                            }
-                                            else {
-                                                Swal.fire(
-                                                    'Fail!',
-                                                    'Add lecture Fail !!!.',
-                                                    'error'
-                                                )
-                                            }
-                                            $('#inputGroupFile06').next('.custom-file-label').html("");
-                                            $('#lecture_title').val("")
-                                            $('input[name="duration"]').val("")
-                                            chapterEditor.setContent("")
-                                            $('#inputGroupFile06').val("")
-                                            $("input[name='previewTag']").prop("checked", false);
-                                            $('#inputGroupFile06').next('.custom-file-label').html("No Choose file - (Video)");
-                                        },
-                                        error: function (result) {
-                                            Swal.fire(
-                                                'Error!',
-                                                `${JSON.stringify(result)}`,
-                                                'error'
-                                            );
-                                        }
-
-                                    })
-
-
-
-
-                                }
-                            }
-                            
-                        }
                     })
+                    if($('#inputImage').data('mode')!==true) {
+                        var img = new FormData();
+                        imgname = $('#inputImage').prop('files')[0].name;
+                        let extension = imgname.substr((imgname.lastIndexOf('.') + 1));
+                        img.append('image', $('#inputImage').prop('files')[0], `${id}.${extension}`)
+                        img.append('id', id)
 
-                    $('#lecture_table').on('click', 'a.delLectureBtn', function () {
-                        let id = $('.delLectureBtn').index($(this))
+                        $.ajax({
+                            url: '/lecturer/upload_img',
+                            type: 'POST',
+                            contentType: false,
+                            processData: false,
+                            cache: false,
+                            data: img,
+                            success: function (res) {
+                                // alert(res);
+                            },
+                            error: function () {
+                                Swal.fire(
+                                    'Error!',
+                                    'Upload image fail.',
+                                    'error'
+                                );
+                                return;
+                            }
 
-                        Swal.fire({
-                            title: 'Are you sure?',
-                            text: "You won't be able to revert this!",
-                            icon: 'warning',
-                            showCancelButton: true,
-                            confirmButtonText: 'Yes, delete it!'
-                        }).then((result) => {
-                            if (result.isConfirmed) {
-                                if ($('#saveChapterBtn').data('id') !== 'add') {
-                                    $.ajax({
-                                        async: false,
-                                        url: "/lecturer/delLecture",
-                                        type: 'POST',
-                                        contentType: "application/json; charset=UTF-8",
-                                        data: JSON.stringify({ id: courseID, chapterID: $('#saveChapterBtn').data('id'), lectureID: id }),
-                                        success: function (data) {
-                                            if (data.success) {
-                                                Swal.fire(
-                                                    'Deleted!',
-                                                    'Lecture has been deleted.',
-                                                    'success'
-                                                ).then(() => {
-                                                    $('#lecture_table tr').eq(id).remove();
-                                                    lectures.splice(id, 1);
-                                                })
-                                            } else {
-                                                Swal.fire(
-                                                    'Fail!',
-                                                    'Delete lecture Fail !!!.',
-                                                    'error'
+                        })
+                    }
+
+                    Swal.fire(
+                        'Save!',
+                        'Your Course has been edited.',
+                        'success'
+                    )
+                }
+            })
+
+        }
+    })
+
+    $.extend({
+        el: function(el, props) {
+            let $el = $($("<"+el+" />"));
+            $el.attr(props);
+            return $el;
+        }
+    });
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                $('.view__img img').attr('src', e.target.result);
+
+            }
+
+            reader.readAsDataURL(input.files[0]); // convert to base64 string
+        }
+    }
+</script>
+<!--Hàm cho tab1-->
+
+<script>
+    $(document).ready(function () {
+        $('input[name="duration"]').next().remove()
+
+        $('input[name="title"]').on('keyup',function () {
+            $('#badge_title').text( 60-$('input[name="title"]').val().length)
+        });
+
+        $('input[name="shortDescription"]').on('keyup',function () {
+            $('#badge_shortDescription').text( 120-$('input[name="shortDescription"]').val().length)
+        });
+
+        $('#category_select').on('change',function () {
+            let id=$('#category_select').val();
+            $('#subCategory_select .menu').empty();
+            $('#subCategory_select').dropdown('restore defaults')
+
+            $(`#subcateOption div[data-id=${id}]`).clone().appendTo($('#subCategory_select .menu'))
+        });
+    })
+</script>
+<!--Hàm cho tab2-->
+<script>
+    $(document).ready(function () {
+
+        $('#UploadImgBtn').click(function () {
+            $('#inputImage').click();
+            $('#inputImage').data('mode','false')
+
+        })
+        $("#inputImage").change(function() {
+            if($('#inputImage').val()!=="") {
+                readURL(this);
+                $('#DelUploadImgBtn').removeAttr('hidden');
+                $('#UploadImgBtn').text('Change');
+            }
+
+        });
+        $('#DelUploadImgBtn').click(function () {
+            $('#inputImage').val("");
+            $(this).attr('hidden','true');
+            $('#UploadImgBtn').text('Upload')
+            $('.view__img img').attr('src',"/images/courses/add_img.jpg")
+            $('#inputImage').data('mode','false')
+
+        });
+
+    });
+
+</script>
+<!--Hàm cho tab3-->
+<script>
+    var courseID = '<%- course._id%>'
+    var chapter= <%-JSON.stringify(course.chapter)%>;
+    let lectures=[];
+    let lectureVideos=[];
+
+    $(document).ready(function () {
+        $('input[name="titleChapter"]').on('keyup',function () {
+            $('#badge_chapterTitle').text( 80-$('input[name="titleChapter"]').val().length)
+        });
+
+        $('input[name="titleLecture"]').on('keyup',function () {
+            $('#badge_lectureTitle').text( 80-$('input[name="titleLecture"]').val().length)
+        });
+        $('.custom-file').on('change','#inputGroupFile06',function(e){
+            //get the file name
+            var fileName = e.target.files[0].name;            //replace the "Choose a file" label
+            $(this).next('.custom-file-label').html(fileName);
+        });
+        $("#SaveLectureBtn").click(function () {
+            if ($("#lecture_title").val() === "") {
+                $("#lecture_title").tooltip("show");
+            }
+            if ($('input[name="duration"]').val() === "") {
+                $('input[name="duration"]').tooltip("show");
+            }
+            if (chapterEditor.getContent() === "") {
+                $("#ChapterDescribe1").tooltip("show");
+            }
+            if ($("#inputGroupFile06").next().text() === "No Choose file - (Video)") {
+                Swal.fire("Error!", "You did not upload video!.", "error");
+            }
+            if ($("#lecture_title").val() !== "" && $('input[name="duration"]').val() !== "" && chapterEditor.getContent() !== "" && $("#inputGroupFile06").next().text() !== "No Choose file - (Video)") {
+                if ($("#saveChapterBtn").data("id") === "add") {
+                    if ($(this).attr("data-id") === "add") {
+                        $("#lecture_table").append(
+                            $.el("tr", {})
+                                .append($.el("td", { class: "text-center" }).text($("#lecture_table tr").length + 1))
+                                .append($.el("td", { class: "cell-ta" }).text($("#lecture_title").val()))
+                                .append($.el("td", { class: "text-center" }).html($('input[name="previewTag"]:checked').length === 1 ? "<i class='uil uil-check text-success' style='font-size: 150%'></i>" : ""))
+                                .append($.el("td", { class: "text-center" }).text($('input[name="duration"]').val()))
+                                .append($.el("td", { class: "text-center" }).text($("#inputGroupFile06").prop("files")[0].name))
+                                .append(
+                                    $.el("td", { class: "text-center d-flex justify-content-center" })
+                                        .append($.el("a", { class: "gray-s editLectureBtn", title: "Edit", href: "#" }).append($.el("i", { class: "uil uil-edit-alt" })))
+                                        .append($.el("a", { class: "gray-s delLectureBtn", title: "Delete", href: "#" }).append($.el("i", { class: "uil uil-trash-alt" })))
+                                )
+                        );
+
+                        lectures.push({
+                            title: $("#lecture_title").val(),
+                            durationText: $('input[name="duration"]').val(),
+                            description: chapterEditor.getContent(),
+                            file: $("#inputGroupFile06").prop("files")[0],
+                            preview: $('input[name="previewTag"]:checked').length === 1,
+                        });
+                    } else {
+                        let idlecture = parseInt($(this).attr("data-id"));
+                        let fn = lectures[idlecture].file;
+                        temp = {
+                            title: $("#lecture_title").val(),
+                            durationText: $('input[name="duration"]').val(),
+                            description: chapterEditor.getContent(),
+                            file: $("#inputGroupFile06").prop("files")[0],
+                            preview: $('input[name="previewTag"]:checked').length === 1,
+                        };
+                        if (temp.file === undefined) temp.file = fn;
+                        $(`#lecture_table tr:eq(${idlecture}) td:eq(1)`).text(temp.title);
+                        $(`#lecture_table tr:eq(${idlecture}) td:eq(2)`).html($('input[name="previewTag"]:checked').length === 1 ? "<i class='uil uil-check text-success' style='font-size: 150%'></i>" : "");
+                        $(`#lecture_table tr:eq(${idlecture}) td:eq(3)`).text(temp.durationText);
+                        $(`#lecture_table tr:eq(${idlecture}) td:eq(4)`).text(temp.file.name);
+
+                        lectures[idlecture] = temp;
+                        $(this).attr("data-id", "add");
+                        $("#SaveLectureBtn").text("Add Lecture");
+                    }
+                } else {
+                    if ($(this).attr("data-id") === "add") {
+                        let chapterID = $("#saveChapterBtn").data("id");
+                        let file= $("#inputGroupFile06").prop("files")[0]
+                        $.ajax({
+                            async: false,
+                            url: "/lecturer/addLecture",
+                            type: "POST",
+                            contentType: "application/json; charset=UTF-8",
+                            data: JSON.stringify({
+                                id: courseID,
+                                chapterID: chapterID,
+                                lecture: {
+                                    title: $("#lecture_title").val(),
+                                    durationText: $('input[name="duration"]').val(),
+                                    description: chapterEditor.getContent(),
+                                    preview: $('input[name="previewTag"]:checked').length === 1,
+                                },
+                            }),
+                            success: function (data) {
+                                if (data.success) {
+                                    Swal.fire("Added!", "Lecture has been added.", "success").then(() => {
+                                        $("#lecture_table").append(
+                                            $.el("tr", {})
+                                                .append($.el("td", { class: "text-center" }).text($("#lecture_table tr").length + 1))
+                                                .append($.el("td", { class: "cell-ta" }).text($("#lecture_title").val()))
+                                                .append($.el("td", { class: "text-center" }).html($('input[name="previewTag"]:checked').length === 1 ? "<i class='uil uil-check text-success' style='font-size: 150%'></i>" : ""))
+                                                .append($.el("td", { class: "text-center" }).text($('input[name="duration"]').val()))
+                                                .append($.el("td", { class: "text-center" }).text($("#inputGroupFile06").next().text()))
+                                                .append(
+                                                    $.el("td", { class: "text-center d-flex justify-content-center" })
+                                                        .append($.el("a", { class: "gray-s editLectureBtn", title: "Edit", href: "#" }).append($.el("i", { class: "uil uil-edit-alt" })))
+                                                        .append($.el("a", { class: "gray-s delLectureBtn", title: "Delete", href: "#" }).append($.el("i", { class: "uil uil-trash-alt" })))
                                                 )
-                                            }
-                                        },
-                                        error: function (result) {
-                                            Swal.fire(
-                                                'Error!',
-                                                `${JSON.stringify(result)}`,
-                                                'error'
-                                            );
+                                        );
+                                        let filename = file.name;
+                                        let extension = filename.substr(filename.lastIndexOf(".") + 1);
+                                        lectures.push({
+                                            title: $("#lecture_title").val(),
+                                            durationText: $('input[name="duration"]').val(),
+                                            description: chapterEditor.getContent(),
+                                            preview: $('input[name="previewTag"]:checked').length === 1,
+                                            file: `/upload/video/${id}_${data.lectureID}.${extension}`,
+                                        });
+                                        if (file !== undefined) {
+                                            vid = new FormData();
+                                            let filename = file.name;
+                                            let extension = filename.substr(filename.lastIndexOf(".") + 1);
+                                            var FileName = `/upload/video/${courseID}_${data.lectureID}.${extension}`;
+                                            vid.append(`video`, file, `${courseID}_${data.lectureID}.${extension}`);
+                                            vid.append("videoName", FileName);
+                                            vid.append("id", courseID);
+                                            vid.append("chapterIndex", parseInt(chapterID));
+                                            vid.append("lectureIndex", lectures.length - 1);
+                                            $.ajax({
+                                                async: false,
+                                                url: "/lecturer/addLecture_video",
+                                                type: "POST",
+                                                contentType: false,
+                                                processData: false,
+                                                cache: false,
+                                                data: vid,
+                                                success: function (res) {
+                                                    Swal.fire("Success!", "Upload video success.", "success");
+                                                },
+                                                error: function () {
+                                                    Swal.fire("Error!", "Upload video fail.", "error");
+                                                    return;
+                                                },
+                                            });
                                         }
-
-                                    })
+                                    });
+                                } else {
+                                    Swal.fire("Fail!", "Add lecture Fail !!!.", "error");
                                 }
-                                else {
+                            },
+                            error: function (result) {
+                                Swal.fire("Error!", `${JSON.stringify(result)}`, "error");
+                            },
+                        });
+                    } else {
+                        let file =$("#inputGroupFile06").prop("files")[0];
+                        let chapterID = $("#saveChapterBtn").data("id");
+                        let idlecture = parseInt($(this).attr("data-id"));
+                        let fn = lectures[idlecture].file;
+                        let temp = {
+                            title: $("#lecture_title").val(),
+                            durationText: $('input[name="duration"]').val(),
+                            description: chapterEditor.getContent(),
+                            file: $("#inputGroupFile06").next().text(),
+                            preview: $('input[name="previewTag"]:checked').length === 1,
+                        };
+
+                        $.ajax({
+                            async: false,
+                            url: "/lecturer/editLecture",
+                            type: "POST",
+                            contentType: "application/json; charset=UTF-8",
+                            data: JSON.stringify({
+                                id: courseID,
+                                chapterID: chapterID,
+                                lectureID: idlecture,
+                                lecture: {
+                                    title: $("#lecture_title").val(),
+                                    durationText: $('input[name="duration"]').val(),
+                                    description: chapterEditor.getContent(),
+                                    preview: $('input[name="previewTag"]:checked').length === 1,
+                                },
+                            }),
+                            success: function (data) {
+                                if (data.success) {
+                                    Swal.fire("Edited!", "Lecture has been Edited.", "success")
+                                        $(`#lecture_table tr:eq(${idlecture}) td:eq(1)`).text(temp.title);
+                                        $(`#lecture_table tr:eq(${idlecture}) td:eq(2)`).html($('input[name="previewTag"]:checked').length === 1 ? "<i class='uil uil-check text-success' style='font-size: 150%'></i>" : "");
+                                        $(`#lecture_table tr:eq(${idlecture}) td:eq(3)`).text(temp.durationText);
+                                        $(`#lecture_table tr:eq(${idlecture}) td:eq(4)`).text(temp.file);
+
+                                        lectures[idlecture] = temp;
+                                        $(this).attr("data-id", "add");
+                                        $("#SaveLectureBtn").text("Add Lecture");
+
+                                        if (file !== undefined) {
+                                            vid = new FormData();
+                                            let filename = file.name;
+                                            let extension = filename.substr(filename.lastIndexOf(".") + 1);
+                                            var FileName = `/upload/video/${courseID}_${data.lectureID}.${extension}`;
+                                            vid.append('video', file, `${courseID}_${data.lectureID}.${extension}`);
+                                            vid.append("videoName", FileName);
+                                            vid.append("id", courseID);
+                                            vid.append("chapterIndex", parseInt(chapterID));
+                                            vid.append("lectureIndex", lectures.length - 1);
+                                            alert(FileName)
+
+                                            $.ajax({
+                                                async: false,
+                                                url: "/lecturer/addLecture_video",
+                                                type: "POST",
+                                                contentType: false,
+                                                processData: false,
+                                                cache: false,
+                                                data: vid,
+                                                success: function (res) {
+                                                    alert(6)
+                                                    Swal.fire("Success!", "Upload video success.", "success");
+                                                },
+                                                error: function () {
+                                                    Swal.fire("Error!", "Upload video fail.", "error");
+                                                    return;
+                                                },
+                                            });
+                                        }
+                                    ;
+                                } else {
+                                    Swal.fire("Fail!", "Add lecture Fail !!!.", "error");
+                                }
+                            },
+                            error: function (result) {
+                                Swal.fire("Error!", `${JSON.stringify(result)}`, "error");
+                            },
+                        });
+                    }
+                }
+                $("#inputGroupFile06").next(".custom-file-label").html("");
+                $("#lecture_title").val("");
+                $('input[name="duration"]').val("");
+                chapterEditor.setContent("");
+                $("#inputGroupFile06").val("");
+                $("input[name='previewTag']").prop("checked", false);
+                $("#inputGroupFile06").next(".custom-file-label").html("No Choose file - (Video)");
+            }
+        });
+
+        $('#lecture_table').on('click','a.delLectureBtn',function () {
+            let id= $('.delLectureBtn').index($(this))
+
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    if($('#saveChapterBtn').data('id')!=='add') {
+                        $.ajax({
+                            async: false,
+                            url: "/lecturer/delLecture",
+                            type: 'POST',
+                            contentType: "application/json; charset=UTF-8",
+                            data: JSON.stringify({id: courseID,chapterID:$('#saveChapterBtn').data('id'), lectureID: id}),
+                            success: function (data) {
+                                if (data.success) {
                                     Swal.fire(
                                         'Deleted!',
                                         'Lecture has been deleted.',
@@ -1227,339 +988,365 @@
                                         $('#lecture_table tr').eq(id).remove();
                                         lectures.splice(id, 1);
                                     })
+                                } else {
+                                    Swal.fire(
+                                        'Fail!',
+                                        'Delete lecture Fail !!!.',
+                                        'error'
+                                    )
                                 }
-
-
+                            },
+                            error: function (result) {
+                                Swal.fire(
+                                    'Error!',
+                                    `${JSON.stringify(result)}`,
+                                    'error'
+                                );
                             }
+
                         })
+                    }
+                    else{
+                        Swal.fire(
+                            'Deleted!',
+                            'Lecture has been deleted.',
+                            'success'
+                        ).then(() => {
+                            $('#lecture_table tr').eq(id).remove();
+                            lectures.splice(id, 1);
+                        })
+                    }
 
 
-                    })
-
-                    $('#lecture_table').on('click', 'a.editLectureBtn', function () {
-                        if ($('#saveChapterBtn').data('id') === 'add') {
-                            let id = $('.editLectureBtn').index($(this))
-                            $('#SaveLectureBtn').attr('data-id', id)
-                            $('#SaveLectureBtn').text('Save Lecture')
-                            $('#inputGroupFile06').next('.custom-file-label').html(lectures[id].file.name);
-                            $('#lecture_title').val(lectures[id].title)
-                            $('input[name="duration"]').val(lectures[id].durationText)
-                            chapterEditor.setContent(lectures[id].description)
-                            $("input[name='previewTag']").prop("checked", lectures[id].preview);
-                        }
-                        else {
-                            let id = $('.editLectureBtn').index($(this))
-                            $('#SaveLectureBtn').attr('data-id', id)
-                            $('#SaveLectureBtn').text('Save Lecture')
-                            $('#inputGroupFile06').next('.custom-file-label').html(lectures[id].file);
-                            $('#lecture_title').val(lectures[id].title)
-                            $('input[name="duration"]').val(lectures[id].durationText)
-                            chapterEditor.setContent(lectures[id].description)
-                            $("input[name='previewTag']").prop("checked", lectures[id].preview);
-                        }
-
-                    })
-
-                    $('#saveChapterBtn').click(function () {
-                        if ($('#chapterTitle').val() === "") {
-                            $('#chapterTitle').tooltip('show');
-                        }
-                        if (lectures.length === 0) {
-                            $('#lecture_table').tooltip('show');
-                        }
-                        if ($('#chapterTitle').val() !== "" && lectures.length !== 0) {
-                            let totalDur = "00:00";
-                            lectures.forEach(element => totalDur = add(totalDur, (element.durationText)));
-
-                            if ($(this).attr('data-id') === 'add') {
-                                $.ajax({
-                                    async: false,
-                                    url: "/lecturer/addChapter",
-                                    type: 'POST',
-                                    contentType: "application/json; charset=UTF-8",
-                                    data: JSON.stringify({
-                                        id: courseID, chapter: {
-                                            title: $('#chapterTitle').val(),
-                                            durationText: totalDur,
-                                            lecture: lectures,
-                                        }
-                                    }),
-                                    success: function (data) {
-                                        if (data.success) {
-                                            Swal.fire(
-                                                'Added!',
-                                                'Lecture has been Added.',
-                                                'success'
-                                            ).then(() => {
-                                                $('#chapter_table').append(
-                                                    $.el('tr', {}).append(
-                                                        $.el('td', { 'class': 'text-center' }).text($('#chapter_table tr').length + 1)
-                                                    ).append(
-                                                        $.el('td', { 'class': 'cell-ta' }).text($('#chapterTitle').val())
-                                                    ).append(
-                                                        $.el('td', { 'class': 'text-center' }).text(lectures.length)
-                                                    ).append(
-                                                        $.el('td', { 'class': 'text-center' }).text(totalDur)
-                                                    ).append(
-                                                        $.el('td', { 'class': 'text-center d-flex justify-content-center' }).append(
-                                                            $.el('a', { 'class': 'gray-s editChapterBtn', 'title': 'Edit', 'href': '#' }).append(
-                                                                $.el('i', { 'class': 'uil uil-edit-alt' })
-                                                            )
-                                                        ).append(
-                                                            $.el('a', { 'class': 'gray-s delChapterBtn', 'title': 'Delete', 'href': '#' }).append(
-                                                                $.el('i', { 'class': 'uil uil-trash-alt' })
-                                                            )
-                                                        )
-                                                    )
-                                                )
-                                                chapter.push({
-                                                    title: $('#chapterTitle').val(),
-                                                    durationText: totalDur,
-                                                    lecture: [...lectures],
-                                                })
-
-                                                var vid = new FormData();
-                                                var FileName = []
-                                                for (j = 0; j < lectures.length; j++) {
-                                                    let filename = chapter[chapter.length - 1].lecture[j].file.name;
-                                                    let extension = filename.substr((filename.lastIndexOf('.') + 1));
-                                                    FileName.push(`/upload/video/${courseID}_${data.lectureID[j]}.${extension}`);
-                                                    vid.append(`c${i}l${j}`, chapter[chapter.length - 1].lecture[j].file, `${courseID}_${data.lectureID[j]}.${extension}}`)
-                                                    chapter[chapter.length - 1].lecture[j].file = `/upload/video/${courseID}_${data.lectureID[j]}.${extension}`
-                                                }
-                                                vid.append('video', JSON.stringify(FileName))
-                                                vid.append('id', id)
-                                                $.ajax({
-                                                    url: '/lecturer/addChapter_video',
-                                                    type: 'POST',
-                                                    contentType: false,
-                                                    processData: false,
-                                                    cache: false,
-                                                    data: vid,
-                                                    success: function (res) {
-                                                        Swal.fire(
-                                                            'Save!',
-                                                            'Videos has been saved.',
-                                                            'success'
-                                                        )
-                                                    },
-                                                    error: function () {
-                                                        Swal.fire(
-                                                            'Error!',
-                                                            'Upload video fail.',
-                                                            'error'
-                                                        );
-                                                        return;
-                                                    }
-                                                })
+                }
+            })
 
 
-                                                lectures = []
-                                                $('#lecture_table').empty();
-                                                $('#inputGroupFile06').next('.custom-file-label').html("No Choose file - (Video)");
-                                                $('#lecture_title').val("")
-                                                $('input[name="duration"]').val("")
-                                                chapterEditor.setContent("")
-                                                $('#inputGroupFile06').val("")
-                                                $('#chapterTitle').val("")
-                                                $("input[name='previewTag']").prop("checked", false);
-                                            })
-                                        }
-                                        else {
-                                            Swal.fire(
-                                                'Fail!',
-                                                'Added chapter Fail !!!.',
-                                                'error'
-                                            )
-                                        }
-                                    },
-                                    error: function (result) {
-                                        Swal.fire(
-                                            'Error!',
-                                            `${JSON.stringify(result)}`,
-                                            'error'
-                                        );
-                                    }
+        })
 
-                                })
+        $('#lecture_table').on('click','a.editLectureBtn',function () {
+            if($('#saveChapterBtn').data('id')==='add') {
+                let id = $('.editLectureBtn').index($(this))
+                $('#SaveLectureBtn').attr('data-id', id)
+                $('#SaveLectureBtn').text('Save Lecture')
+                $('#inputGroupFile06').next('.custom-file-label').html(lectures[id].file.name);
+                $('#lecture_title').val(lectures[id].title)
+                $('input[name="duration"]').val(lectures[id].durationText)
+                chapterEditor.setContent(lectures[id].description)
+                $("input[name='previewTag']").prop("checked", lectures[id].preview);
+            }
+            else
+            {
+                let id = $('.editLectureBtn').index($(this))
+                $('#SaveLectureBtn').attr('data-id', id)
+                $('#SaveLectureBtn').text('Save Lecture')
+                $('#inputGroupFile06').next('.custom-file-label').html(lectures[id].file);
+                $('#lecture_title').val(lectures[id].title)
+                $('input[name="duration"]').val(lectures[id].durationText)
+                chapterEditor.setContent(lectures[id].description)
+                $("input[name='previewTag']").prop("checked", lectures[id].preview);
+            }
 
-                            }
-                            else //Edit Chapter
+        })
+
+        $('#saveChapterBtn').click(function () {
+            if($('#chapterTitle').val()===""){
+                $('#chapterTitle').tooltip('show');
+            }
+            if(lectures.length ===0)
+            {
+                $('#lecture_table').tooltip('show');
+            }
+            if($('#chapterTitle').val()!=="" && lectures.length !==0)
+            {
+                let totalDur="00:00";
+                lectures.forEach(element => totalDur = add(totalDur,(element.durationText)));
+
+                if ($(this).attr('data-id') === 'add') {
+                    $.ajax({
+                        async: false,
+                        url: "/lecturer/addChapter",
+                        type: 'POST',
+                        contentType: "application/json; charset=UTF-8",
+                        data: JSON.stringify({ id:courseID,chapter: {
+                                title: $('#chapterTitle').val(),
+                                durationText: totalDur,
+                                lecture: lectures,
+                            } }),
+                        success: function (data) {
+                            if(data.success)
                             {
-                                let id = parseInt($(this).attr('data-id'));
-                                $.ajax({
-                                    async: false,
-                                    url: "/lecturer/editChapter",
-                                    type: 'POST',
-                                    contentType: "application/json; charset=UTF-8",
-                                    data: JSON.stringify({
-                                        id: courseID, chapterID: id, chapter: {
-                                            title: $('#chapterTitle').val(),
-                                            durationText: totalDur,
-                                        }
-                                    }),
-                                    success: function (data) {
-                                        if (data.success) {
-                                            Swal.fire(
-                                                'Edited!',
-                                                'Lecture has been edited.',
-                                                'success'
-                                            ).then(() => {
-                                                temp = {
-                                                    title: $('#chapterTitle').val(),
-                                                    lecture: [...lectures],
-                                                    durationText: totalDur,
-                                                }
-                                                $(`#chapter_table tr:eq(${id}) td:eq(1)`).text(temp.title)
-                                                $(`#chapter_table tr:eq(${id}) td:eq(2)`).text(temp.lecture.length)
-                                                $(`#chapter_table tr:eq(${id}) td:eq(3)`).text(temp.durationText)
-                                                chapter[id] = temp;
-                                                $(this).attr('data-id', 'add');
-                                                $('#saveChapterBtn').text('Add Chapter')
-
-                                                lectures = []
-                                                $('#lecture_table').empty();
-                                                $('#inputGroupFile06').next('.custom-file-label').html("No Choose file - (Video)");
-                                                $('#lecture_title').val("")
-                                                $('input[name="duration"]').val("")
-                                                chapterEditor.setContent("")
-                                                $('#inputGroupFile06').val("")
-                                                $('#chapterTitle').val("")
-                                                $("input[name='previewTag']").prop("checked", false);
-                                            })
-                                        }
-                                        else {
-                                            Swal.fire(
-                                                'Fail!',
-                                                'Edit Chapter Fail !!!.',
-                                                'error'
+                                Swal.fire(
+                                    'Added!',
+                                    'Lecture has been Added.',
+                                    'success'
+                                ).then( () =>{
+                                    $('#chapter_table').append(
+                                        $.el('tr', {}).append(
+                                            $.el('td', {'class': 'text-center'}).text($('#chapter_table tr').length + 1)
+                                        ).append(
+                                            $.el('td', {'class': 'cell-ta'}).text($('#chapterTitle').val())
+                                        ).append(
+                                            $.el('td', {'class': 'text-center'}).text(lectures.length)
+                                        ).append(
+                                            $.el('td', {'class': 'text-center'}).text(totalDur)
+                                        ).append(
+                                            $.el('td', {'class': 'text-center d-flex justify-content-center'}).append(
+                                                $.el('a', {'class': 'gray-s editChapterBtn', 'title': 'Edit', 'href': '#'}).append(
+                                                    $.el('i', {'class': 'uil uil-edit-alt'})
+                                                )
+                                            ).append(
+                                                $.el('a', {'class': 'gray-s delChapterBtn', 'title': 'Delete', 'href': '#'}).append(
+                                                    $.el('i', {'class': 'uil uil-trash-alt'})
+                                                )
                                             )
-                                        }
-                                    },
-                                    error: function (result) {
-                                        Swal.fire(
-                                            'Error!',
-                                            `${JSON.stringify(result)}`,
-                                            'error'
-                                        );
-                                    }
-
-                                })
-                            }
-                        }
-                    });
-
-                    $('#chapter_table').on('click', 'a.delChapterBtn', function () {
-                        let id = $('.delChapterBtn').index($(this))
-                        Swal.fire({
-                            title: 'Are you sure?',
-                            text: "You won't be able to revert this!",
-                            icon: 'warning',
-                            showCancelButton: true,
-                            confirmButtonText: 'Yes, delete it!'
-                        }).then((result) => {
-                            if (result.isConfirmed) {
-                                $.ajax({
-                                    async: false,
-                                    url: "/lecturer/delChapter",
-                                    type: 'POST',
-                                    contentType: "application/json; charset=UTF-8",
-                                    data: JSON.stringify({ id: courseID, chapterID: id }),
-                                    success: function (data) {
-                                        if (data.success) {
-                                            Swal.fire(
-                                                'Deleted!',
-                                                'Chapter has been deleted.',
-                                                'success'
-                                            ).then(() => {
-                                                $('#chapter_table tr').eq(id).remove();
-                                                chapter.splice(id, 1);
-                                            })
-                                        }
-                                        else {
-                                            Swal.fire(
-                                                'Fail!',
-                                                'Delete chapter Fail !!!.',
-                                                'error'
-                                            )
-                                        }
-                                    },
-                                    error: function (result) {
-                                        Swal.fire(
-                                            'Error!',
-                                            `${JSON.stringify(result)}`,
-                                            'error'
-                                        );
-                                    }
-
-                                })
-
-                            }
-                        })
-                    });
-
-                    $('#chapter_table').on('click', 'a.editChapterBtn', function () {
-                        let id = $('.editChapterBtn').index($(this))
-                        $('#saveChapterBtn').attr('data-id', id)
-                        $('#saveChapterBtn').text('Save Chapter')
-                        $('#chapterTitle').val(chapter[id].title)
-                        chapter[id].lecture.forEach(function (c) {
-                            $('#lecture_table').append(
-                                $.el('tr', {}).append(
-                                    $.el('td', { 'class': 'text-center' }).text($('#lecture_table tr').length + 1)
-                                ).append(
-                                    $.el('td', { 'class': 'cell-ta' }).text(c.title)
-                                ).append(
-                                    $.el('td', { 'class': 'text-center' }).html((c.preview === true) ? "<i class='uil uil-check text-success' style='font-size: 150%'></i>" : "")
-                                ).append(
-                                    $.el('td', { 'class': 'text-center' }).text(c.durationText)
-                                ).append(
-                                    $.el('td', { 'class': 'text-center' }).text(c.file)
-
-                                ).append(
-                                    $.el('td', { 'class': 'text-center d-flex justify-content-center' }).append(
-                                        $.el('a', { 'class': 'gray-s editLectureBtn', 'title': 'Edit', 'href': '#' }).append(
-                                            $.el('i', { 'class': 'uil uil-edit-alt' })
-
-                                        )
-                                    ).append(
-                                        $.el('a', { 'class': 'gray-s delLectureBtn', 'title': 'Delete', 'href': '#' }).append(
-                                            $.el('i', { 'class': 'uil uil-trash-alt' })
                                         )
                                     )
+                                    chapter.push({
+                                        title: $('#chapterTitle').val(),
+                                        durationText: totalDur,
+                                        lecture: [...lectures],
+                                    })
+
+                                    var vid= new FormData();
+                                    var FileName=[]
+                                    for(j=0;j<lectures.length;j++)
+                                    {
+                                        let filename=chapter[chapter.length-1].lecture[j].file.name;
+                                        let extension= filename.substr( (filename.lastIndexOf('.') +1) );
+                                        FileName.push(`/upload/video/${courseID}_${data.lectureID[j]}.${extension}`);
+                                        vid.append(`c${i}l${j}`,chapter[chapter.length-1].lecture[j].file,`${courseID}_${data.lectureID[j]}.${extension}}`)
+                                        chapter[chapter.length-1].lecture[j].file=`/upload/video/${courseID}_${data.lectureID[j]}.${extension}`
+                                    }
+                                    vid.append('video',JSON.stringify(FileName))
+                                    vid.append('id',id)
+                                    $.ajax({
+                                        url:'/lecturer/addChapter_video',
+                                        type: 'POST',
+                                        contentType: false,
+                                        processData: false,
+                                        cache: false,
+                                        data: vid,
+                                        success: function(res){
+                                            Swal.fire(
+                                                'Save!',
+                                                'Videos has been saved.',
+                                                'success'
+                                            )
+                                        },
+                                        error: function(){
+                                            Swal.fire(
+                                                'Error!',
+                                                'Upload video fail.',
+                                                'error'
+                                            );
+                                            return;
+                                        }
+                                    })
+
+
+                                    lectures = []
+                                    $('#lecture_table').empty();
+                                    $('#inputGroupFile06').next('.custom-file-label').html("No Choose file - (Video)");
+                                    $('#lecture_title').val("")
+                                    $('input[name="duration"]').val("")
+                                    chapterEditor.setContent("")
+                                    $('#inputGroupFile06').val("")
+                                    $('#chapterTitle').val("")
+                                    $("input[name='previewTag']").prop("checked", false);
+                                })
+                            }
+                            else{
+                                Swal.fire(
+                                    'Fail!',
+                                    'Added chapter Fail !!!.',
+                                    'error'
                                 )
+                            }
+                        },
+                        error: function (result) {
+                            Swal.fire(
+                                'Error!',
+                                `${JSON.stringify(result)}`,
+                                'error'
+                            );
+                        }
+
+                    })
+
+                }
+                else //Edit Chapter
+                 {
+                    let id = parseInt($(this).attr('data-id'));
+                    $.ajax({
+                        async: false,
+                        url: "/lecturer/editChapter",
+                        type: 'POST',
+                        contentType: "application/json; charset=UTF-8",
+                        data: JSON.stringify({ id:courseID,chapterID:id,chapter: {
+                                title: $('#chapterTitle').val(),
+                                durationText: totalDur,
+                            } }),
+                        success: function (data) {
+                            if(data.success)
+                            {
+                                Swal.fire(
+                                    'Edited!',
+                                    'Lecture has been edited.',
+                                    'success'
+                                ).then( () =>{
+                                    temp = {
+                                        title: $('#chapterTitle').val(),
+                                        lecture: [...lectures],
+                                        durationText: totalDur,
+                                    }
+                                    $(`#chapter_table tr:eq(${id}) td:eq(1)`).text(temp.title)
+                                    $(`#chapter_table tr:eq(${id}) td:eq(2)`).text(temp.lecture.length)
+                                    $(`#chapter_table tr:eq(${id}) td:eq(3)`).text(temp.durationText)
+                                    chapter[id] = temp;
+                                    $(this).attr('data-id', 'add');
+                                    $('#saveChapterBtn').text('Add Chapter')
+
+                                    lectures = []
+                                    $('#lecture_table').empty();
+                                    $('#inputGroupFile06').next('.custom-file-label').html("No Choose file - (Video)");
+                                    $('#lecture_title').val("")
+                                    $('input[name="duration"]').val("")
+                                    chapterEditor.setContent("")
+                                    $('#inputGroupFile06').val("")
+                                    $('#chapterTitle').val("")
+                                    $("input[name='previewTag']").prop("checked", false);
+                                })
+                            }
+                            else{
+                                Swal.fire(
+                                    'Fail!',
+                                    'Edit Chapter Fail !!!.',
+                                    'error'
+                                )
+                            }
+                        },
+                        error: function (result) {
+                            Swal.fire(
+                                'Error!',
+                                `${JSON.stringify(result)}`,
+                                'error'
+                            );
+                        }
+
+                    })
+                }
+            }
+        });
+
+        $('#chapter_table').on('click','a.delChapterBtn',function () {
+            let id= $('.delChapterBtn').index($(this))
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        async: false,
+                        url: "/lecturer/delChapter",
+                        type: 'POST',
+                        contentType: "application/json; charset=UTF-8",
+                        data: JSON.stringify({ id:courseID,chapterID: id }),
+                        success: function (data) {
+                            if(data.success)
+                            {
+                                Swal.fire(
+                                    'Deleted!',
+                                    'Chapter has been deleted.',
+                                    'success'
+                                ).then( () =>{
+                                    $('#chapter_table tr').eq(id).remove();
+                                    chapter.splice(id,1);})
+                            }
+                            else{
+                                Swal.fire(
+                                    'Fail!',
+                                    'Delete chapter Fail !!!.',
+                                    'error'
+                                )
+                            }
+                        },
+                        error: function (result) {
+                            Swal.fire(
+                                'Error!',
+                                `${JSON.stringify(result)}`,
+                                'error'
+                            );
+                        }
+
+                    })
+
+                }
+            })
+        });
+
+        $('#chapter_table').on('click','a.editChapterBtn',function () {
+            let id= $('.editChapterBtn').index($(this))
+            $('#saveChapterBtn').attr('data-id',id)
+            $('#saveChapterBtn').text('Save Chapter')
+            $('#chapterTitle').val(chapter[id].title)
+            chapter[id].lecture.forEach(function (c) {
+                $('#lecture_table').append(
+                    $.el('tr',{}).append(
+                        $.el('td',{'class':'text-center'}).text($('#lecture_table tr').length+1)
+                    ).append(
+                        $.el('td',{'class':'cell-ta'}).text(c.title)
+                    ).append(
+                        $.el('td',{'class':'text-center'}).html((c.preview===true)?"<i class='uil uil-check text-success' style='font-size: 150%'></i>" :"" )
+                    ).append(
+                        $.el('td',{'class':'text-center'}).text(c.durationText)
+                    ).append(
+                        $.el('td',{'class':'text-center'}).text(c.file)
+
+                    ).append(
+                        $.el('td',{'class':'text-center d-flex justify-content-center'}).append(
+                            $.el('a',{'class':'gray-s editLectureBtn','title':'Edit','href':'#'}).append(
+                                $.el('i',{'class':'uil uil-edit-alt'})
+
                             )
-                        })
-                        lectures = chapter[id].lecture;
-                    });
-                });
+                        ).append(
+                            $.el('a',{'class':'gray-s delLectureBtn','title':'Delete','href':'#'}).append(
+                                $.el('i',{'class':'uil uil-trash-alt'})
+                            )
+                        )
+                    )
+                )
+            })
+            lectures=chapter[id].lecture;
+        });
+    });
 
 
-            </script>
-            <!--Hàm cho tab4-->
-            <script>
+</script>
+<!--Hàm cho tab4-->
+<script>
 
-            </script>
-            <div id="subcateOption" hidden>
-                <% for(i=0;i<category.length;i++) {%>
-                    <% for(j=0;j<category[i].subCategory.length;j++) {%>
-                        <div data-id="<%=category[i]._id%>" value='<%=category[i].subCategory[j]._id%>' class="item">
-                            <%= category[i].subCategory[j].name%>
-                        </div>
-                        <%}%>
-                            <%}%>
-            </div>
-            <script>
-                $('#category_select').dropdown('set selected', "<%=course.category%>");
-                $('#subcateOption div[data-id="<%=course.category%>"]').clone().appendTo($('#subCategory_select .menu'));
+</script>
+<div id="subcateOption" hidden>
+    <% for(i=0;i<category.length;i++) {%>
+        <% for(j=0;j<category[i].subCategory.length;j++) {%>
+        <div data-id="<%=category[i]._id%>" value='<%=category[i].subCategory[j]._id%>' class="item"> <%= category[i].subCategory[j].name%></div>
+        <%}%>
+    <%}%>
+</div>
+<script>
+    $('#category_select').dropdown('set selected',"<%=course.category%>");
+    $('#subcateOption div[data-id="<%=course.category%>"]').clone().appendTo($('#subCategory_select .menu'));
 
-                $('#subCategory_select div[value="<%=course.subCategory%>"]').addClass('selected').addClass('active')
+    $('#subCategory_select div[value="<%=course.subCategory%>"]').addClass('selected').addClass('active')
 
-                $('#subCategory_select .default.text').eq(0).text($('#subCategory_select .selected.active').text()).removeClass('default')
-                $('#subCategory_select input').val($('#subCategory_select .selected.active').text())
-            </script>
+    $('#subCategory_select .default.text').eq(0).text($('#subCategory_select .selected.active').text()).removeClass('default')
+    $('#subCategory_select input').val($('#subCategory_select .selected.active').text())
+</script>
 </body>
 
 <!-- Mirrored from gambolthemes.net/html-items/Learnic_demo_f12/create_new_course.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 20 Jun 2020 12:56:02 GMT -->
-
 </html>
