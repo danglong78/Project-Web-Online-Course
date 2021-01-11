@@ -25,7 +25,7 @@ module.exports.isJoinedIn = async (req, res, next) => {
 
         if (student) {
             if (student.courses.length > 0) {
-                if (student.courses.some(f => f.course === courseID)) {
+                if (student.courses.some(f => f.course == courseID)) {
                     next();
                 }
                 else {
