@@ -54,6 +54,7 @@ router.get("/", async (req, res) => {
   });
 });
 
+const test = require('../controllers/student/isOwnedCourse');
 router.get("/test", async function (req, res, next) {
   // let courses = await getTopViews(5);
   // let courses = await getByCategory("Cassandra", 4, 2);
@@ -63,12 +64,18 @@ router.get("/test", async function (req, res, next) {
   // let courses = await getRelatedCourses("9adbbf981a608a69c175cd25", 5);
 
   
-  let result = require(__basedir + "/controllers/student/join_course")();
+  // let result = require(__basedir + "/controllers/student/join_course")();
 
   // console.log("before");
   // console.log(courses);
   // console.log("after");
-  res.json(courses);
+  // res.json(courses);
+  //let courses = await getRelatedCourses("9adbbf981a608a69c175cd25", 5);
+
+  // console.log("before");
+  // console.log(await test.Owned_check(req.body.stu,req.body.course));
+  // console.log("after");
+  // res.send({success: true});
 });
 
 router.use("/courses", coursesRouter); // for search result
@@ -174,7 +181,7 @@ router.route("/auth/facebook/callback").get(
 module.exports = router;
 
 router.get("/lecture_detail", function (req, res) {
-  res.render("lecture_detail");
+  res.render("lecture_detail",{cats: __categories});
 });
 
 router.get("/my_course", function (req, res) {
@@ -209,3 +216,4 @@ router.get("/upload/:storage/:file",(req,res)=>{
   })
 
 })
+

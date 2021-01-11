@@ -944,7 +944,7 @@
                                         contentType: "application/json; charset=UTF-8",
                                         data: JSON.stringify({
                                             id: courseID,
-                                            chapterID: chapterID,
+                                            chapterID: $('#saveChapterBtn').data('id'),
                                             lecture: {
                                                 title: $('#lecture_title').val(),
                                                 durationText: $('input[name="duration"]').val(),
@@ -1036,7 +1036,13 @@
                                                     'error'
                                                 )
                                             }
-
+                                            $('#inputGroupFile06').next('.custom-file-label').html("");
+                                            $('#lecture_title').val("")
+                                            $('input[name="duration"]').val("")
+                                            chapterEditor.setContent("")
+                                            $('#inputGroupFile06').val("")
+                                            $("input[name='previewTag']").prop("checked", false);
+                                            $('#inputGroupFile06').next('.custom-file-label').html("No Choose file - (Video)");
                                         },
                                         error: function (result) {
                                             Swal.fire(
@@ -1059,7 +1065,7 @@
                                         contentType: "application/json; charset=UTF-8",
                                         data: JSON.stringify({
                                             id: courseID,
-                                            chapterID: chapterID,
+                                            chapterID: $('#saveChapterBtn').data('id'),
                                             lectureID: idlecture,
                                             lecture: {
                                                 title: $('#lecture_title').val(),
@@ -1139,7 +1145,13 @@
                                                     'error'
                                                 )
                                             }
-
+                                            $('#inputGroupFile06').next('.custom-file-label').html("");
+                                            $('#lecture_title').val("")
+                                            $('input[name="duration"]').val("")
+                                            chapterEditor.setContent("")
+                                            $('#inputGroupFile06').val("")
+                                            $("input[name='previewTag']").prop("checked", false);
+                                            $('#inputGroupFile06').next('.custom-file-label').html("No Choose file - (Video)");
                                         },
                                         error: function (result) {
                                             Swal.fire(
@@ -1156,13 +1168,7 @@
 
                                 }
                             }
-                            $('#inputGroupFile06').next('.custom-file-label').html("");
-                            $('#lecture_title').val("")
-                            $('input[name="duration"]').val("")
-                            chapterEditor.setContent("")
-                            $('#inputGroupFile06').val("")
-                            $("input[name='previewTag']").prop("checked", false);
-                            $('#inputGroupFile06').next('.custom-file-label').html("No Choose file - (Video)");
+                            
                         }
                     })
 

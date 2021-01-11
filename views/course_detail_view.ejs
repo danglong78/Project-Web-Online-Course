@@ -12,9 +12,12 @@
     <title>Learnic - Course Detail View</title>
 
     <!-- Favicon Icon -->
-    <link rel="icon" type="image/png" href="images/fav.png">
+    <link rel="icon" type="image/png" href="/images/fav.png">
 
     <%- include('partials/head', {cats});-%>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <link href="https://vjs.zencdn.net/7.10.2/video-js.css" rel="stylesheet" />
+
     <style>
         .text {
             height: 50px;
@@ -77,10 +80,11 @@
 <%- include('partials/navbar'); -%>
 <!-- Header End -->
 <!-- Left Sidebar Start -->
+<%- include('partials/left-menu'); -%>
 
 <!-- Left Sidebar End -->
 <!-- Body Start -->
-<div class="wrapper _bg4586">
+<div class="wrapper  _bg4586">
     <div class="_215b01">
         <div class="container-fluid">
             <div class="row">
@@ -100,8 +104,12 @@
                                     </a>
                                 </div>
                                 <div class="_215b03">
-                                    <a href="#" class="_215b11">
-                                        <span><i class='uil uil-heart-alt'></i></span>Wishlist
+                                    <a href="#" id="wishlistBtn" class="_215b11">
+                                        <%if(isAddWishList){%>
+                                        <span><i class='fas fa-heart text-danger '></i></span>Wishlist
+                                        <%}else{%>
+                                                <span><i class='uil uil-heart  '></i></span>Wishlist
+                                        <%}%>
                                     </a>
 
                                 </div>
@@ -124,21 +132,29 @@
                                 <div class="_215b06">
 
                                     <div class="_215b08">
-                                        <h1 style="margin-bottom: 0">
-                                        <span>100<i class='uil uil-dollar-sign'></i></span>
-                                        </h1>
-                                        <h3 style="margin-top: 0" >
-                                            <span style="text-decoration: line-through;color:lightgray">90<i class='uil uil-dollar-sign'></i></span>
-                                            <span>10% off</span>
-                                        </h3>
+                                        <% if (course.price !==0) {%>
+                                        $<%=course.price %>
+                                        <%if(course.price !== course.fullPrice){%>
+                                        <h3 style="text-decoration: line-through; margin-left:0.5rem">
+                                        $<%= course.fullPrice %>
+                                            <%}%>
+                                      </h3>
+                                        <%} else {%>
+                                            <h3 style="">
+                                               FREE
+                                            </h3>
+                                        <% } %>
                                     </div>
                                 </div>
                                 <div class="_215b05">
                                     Last updated <%=course.updatedAt.toLocaleDateString("en-US",{year: 'numeric', month: 'long', day: 'numeric'})%>
                                 </div>
                                 <ul class="_215b31">
-                                    <li><button class="btn_adcart">Add to Cart</button></li>
-                                    <li><button class="btn_buy">Buy Now</button></li>
+                                    <%if(isJoined===false){%>
+                                    <li><button id="buyBtn" class="btn_adcart">Buy Now</button></li>
+                                    <%}else {%>
+                                            <li><button id="" class="btn_adcart" style="background-color: #0ea432;border-color: #0ea432 ">Buyed</button></li>
+                                        <%}%>
                                 </ul>
                                 <div class="_215fgt1">
                                     30-Day Money-Back Guarantee
@@ -217,7 +233,7 @@
                                                 </div>
                                                 <div class="details">
                                                     <%if(course.chapter[i].lecture[j].preview) {%>
-                                                    <a href="#" class="preview-text">Preview</a>
+                                                    <a href="#" class="preview-text" data-source="<%=course.chapter[i].lecture[j].file%>" data-toggle="modal" data-target="#exampleModalCenter">Preview</a>
                                                     <%}%>
                                                     <span class="content-summary"><%=course.chapter[i].lecture[j].durationText%></span>
                                                 </div>
@@ -227,7 +243,6 @@
                                         </div>
                                         <%}%>
                                     </div>
-                                    <a class="btn1458" href="#">20 More Sections</a>
                                 </div>
                             </div>
                             <div class="tab-pane fade" id="nav-reviews" role="tabpanel">
@@ -369,9 +384,7 @@
                                                     </div>
 
                                                 <%}%>
-                                                <div class="review_item">
-                                                    <a href="#" class="more_reviews">See More Reviews</a>
-                                                </div>
+
                                             </div>
                                         </div>
                                     </div>
@@ -382,19 +395,10 @@
                                     <div class="row">
                                         <div class="col-md-12">
                                             <h4 class="mhs_title">5 Results</h4>
-                                            <div class="fcrse_1">
-                                                <a href="course_detail_view.html" class="hf_img">
-                                                    <img src="/images/courses/img-1.jpg" alt="">
-                                                    <div class="course-overlay">
-                                                        <div class="badge_seller">Bestseller</div>
-                                                        <div class="crse_reviews">
-                                                            <i class="uil uil-star"></i>4.5
-                                                        </div>
-                                                        <span class="play_btn1"><i class="uil uil-play"></i></span>
-                                                        <div class="crse_timer">
-                                                            25 hours
-                                                        </div>
-                                                    </div>
+                                            <%for (let i =0;i<otherCourse.length;i++){%>
+                                            <div class="fcrse_1 <%=(i!=0) ? 'mt-30' : ''%>">
+                                                <a href="/course/<%=otherCourse[i]._id%>" class="hf_img">
+                                                    <img src="<%=otherCourse[i].avatar%>" alt="">
                                                 </a>
                                                 <div class="hs_content">
                                                     <div class="eps_dots eps_dots10 more_dropdown">
@@ -407,132 +411,18 @@
                                                         </div>
                                                     </div>
                                                     <div class="vdtodt">
-                                                        <span class="vdt14">109k views</span>
-                                                        <span class="vdt14">15 days ago</span>
+                                                        <span class="vdt14"><%=otherCourse[i].viewCount.toLocaleString()%> views</span>
                                                     </div>
-                                                    <a href="course_detail_view.html" class="crse14s title900">Complete Python Bootcamp: Go from zero to hero in Python 3</a>
-                                                    <a href="#" class="crse-cate">Web Development | Python</a>
+                                                    <a href="/course/<%=otherCourse[i]._id%>" class="crse14s title900"><%=otherCourse[i].title%></a>
                                                     <div class="auth1lnkprce">
-                                                        <p class="cr1fot">By <a href="#">John Doe</a></p>
+                                                        <p class="cr1fot">By <a href="#"><%=otherCourse[i].short_description%></a></p>
                                                         <div class="prce142">$10</div>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="fcrse_1 mt-30">
-                                                <a href="course_detail_view.html" class="hf_img">
-                                                    <img src="/images/courses/img-2.jpg" alt="">
-                                                    <div class="course-overlay">
-                                                        <div class="badge_seller">Bestseller</div>
-                                                        <div class="crse_reviews">
-                                                            <i class="uil uil-star"></i>4.5
-                                                        </div>
-                                                        <span class="play_btn1"><i class="uil uil-play"></i></span>
-                                                        <div class="crse_timer">
-                                                            28 hours
-                                                        </div>
-                                                    </div>
-                                                </a>
-                                                <div class="hs_content">
-                                                    <div class="eps_dots eps_dots10 more_dropdown">
-                                                        <a href="#"><i class="uil uil-ellipsis-v"></i></a>
-                                                        <div class="dropdown-content">
-                                                            <span><i class="uil uil-share-alt"></i>Share</span>
-                                                            <span><i class="uil uil-clock-three"></i>Watch Later</span>
-                                                            <span><i class="uil uil-ban"></i>Not Interested</span>
-                                                            <span><i class="uil uil-windsock"></i>Report</span>
-                                                        </div>
-                                                    </div>
-                                                    <div class="vdtodt">
-                                                        <span class="vdt14">5M views</span>
-                                                        <span class="vdt14">15 days ago</span>
-                                                    </div>
-                                                    <a href="course_detail_view.html" class="crse14s title900">The Complete JavaScript Course 2020: Build Real Projects!</a>
-                                                    <a href="#" class="crse-cate">Development | JavaScript</a>
-                                                    <div class="auth1lnkprce">
-                                                        <p class="cr1fot">By <a href="#">Jassica William</a></p>
-                                                        <div class="prce142">$5</div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="fcrse_1 mt-30">
-                                                <a href="course_detail_view.html" class="hf_img">
-                                                    <img src="/images/courses/img-3.jpg" alt="">
-                                                    <div class="course-overlay">
-                                                        <div class="badge_seller">Bestseller</div>
-                                                        <div class="crse_reviews">
-                                                            <i class="uil uil-star"></i>4.5
-                                                        </div>
-                                                        <span class="play_btn1"><i class="uil uil-play"></i></span>
-                                                        <div class="crse_timer">
-                                                            12 hours
-                                                        </div>
-                                                    </div>
-                                                </a>
-                                                <div class="hs_content">
-                                                    <div class="eps_dots eps_dots10 more_dropdown">
-                                                        <a href="#"><i class="uil uil-ellipsis-v"></i></a>
-                                                        <div class="dropdown-content">
-                                                            <span><i class="uil uil-share-alt"></i>Share</span>
-                                                            <span><i class="uil uil-clock-three"></i>Watch Later</span>
-                                                            <span><i class="uil uil-ban"></i>Not Interested</span>
-                                                            <span><i class="uil uil-windsock"></i>Report</span>
-                                                        </div>
-                                                    </div>
-                                                    <div class="vdtodt">
-                                                        <span class="vdt14">1M views</span>
-                                                        <span class="vdt14">18 days ago</span>
-                                                    </div>
-                                                    <a href="course_detail_view.html" class="crse14s title900">Beginning C++ Programming - From Beginner to Beyond</a>
-                                                    <a href="#" class="crse-cate">Development | C++</a>
-                                                    <div class="auth1lnkprce">
-                                                        <p class="cr1fot">By <a href="#">Joginder Singh</a></p>
-                                                        <div class="prce142">$13</div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="fcrse_1 mt-30">
-                                                <a href="course_detail_view.html" class="hf_img">
-                                                    <img src="/images/courses/img-4.jpg" alt="">
-                                                    <div class="course-overlay">
-                                                        <div class="badge_seller">Bestseller</div>
-                                                        <div class="crse_reviews">
-                                                            <i class="uil uil-star"></i>5.0
-                                                        </div>
-                                                        <span class="play_btn1"><i class="uil uil-play"></i></span>
-                                                        <div class="crse_timer">
-                                                            1 hours
-                                                        </div>
-                                                    </div>
-                                                </a>
-                                                <div class="hs_content">
-                                                    <div class="eps_dots eps_dots10 more_dropdown">
-                                                        <a href="#"><i class="uil uil-ellipsis-v"></i></a>
-                                                        <div class="dropdown-content">
-                                                            <span><i class="uil uil-share-alt"></i>Share</span>
-                                                            <span><i class="uil uil-clock-three"></i>Watch Later</span>
-                                                            <span><i class="uil uil-ban"></i>Not Interested</span>
-                                                            <span><i class="uil uil-windsock"></i>Report</span>
-                                                        </div>
-                                                    </div>
-                                                    <div class="vdtodt">
-                                                        <span class="vdt14">153k views</span>
-                                                        <span class="vdt14">3 months ago</span>
-                                                    </div>
-                                                    <a href="course_detail_view.html" class="crse14s title900">The Complete Digital Marketing Course - 12 Courses in 1</a>
-                                                    <a href="#" class="crse-cate">Digital Marketing | Marketing</a>
-                                                    <div class="auth1lnkprce">
-                                                        <p class="cr1fot">By <a href="#">Poonam Verma</a></p>
-                                                        <div class="prce142">$12</div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="main-loader mt-50">
-                                                <div class="spinner">
-                                                    <div class="bounce1"></div>
-                                                    <div class="bounce2"></div>
-                                                    <div class="bounce3"></div>
-                                                </div>
-                                            </div>
+                                            <%}%>
+
+
                                         </div>
                                     </div>
                                 </div>                            </div>
@@ -632,7 +522,145 @@
 <script src="/vendor/semantic/semantic.min.js"></script>
 <script src="/js/custom.js"></script>
 <script src="/js/night-mode.js"></script>
+<script src="https://vjs.zencdn.net/7.10.2/video.min.js"></script>
 
+<script>
+    $.extend({
+        el: function(el, props) {
+            let $el = $($("<"+el+" />"));
+            $el.attr(props);
+            return $el;
+        }
+    });
+    $(document).ready(function () {
+        $('#wishlistBtn').click(function () {
+            if($(this).find('i').hasClass('uil')) {
+                $.ajax({
+                    async: false,
+                    url: "/course/addwishlist/<%= course._id %>",
+                    type: 'POST',
+                    contentType: "application/json; charset=UTF-8",
+                    success: function (data) {
+                        Swal.fire(
+                            'Add Success!',
+                            `You have added this course to your wishlist`,
+                            'success'
+                        );
+                        $('#wishlistBtn').find('i').remove()
+                        $('#wishlistBtn').find('span').append($.el('i',{'class':'fas fa-heart text-danger'}))
+
+                    },
+
+                    error: function () {
+                        Swal.fire(
+                            'Error!',
+                            `${JSON.stringify(result)}`,
+                            'error'
+                        );
+                    },
+
+                })
+            }
+            else{
+                $.ajax({
+                    async: false,
+                    url: "/course/delwishlist/<%= course._id %>",
+                    type: 'POST',
+                    contentType: "application/json; charset=UTF-8",
+                    success: function (data) {
+                        Swal.fire(
+                            'Add Success!',
+                            `You have removed this course from your wishlist`,
+                            'success'
+                        );
+                        $('#wishlistBtn').find('i').remove()
+                        $('#wishlistBtn').find('span').append($.el('i',{'class':'uil uil-heart'}))
+                    },
+
+                    error: function () {
+                        Swal.fire(
+                            'Error!',
+                            `${JSON.stringify(result)}`,
+                            'error'
+                        );
+                    },
+
+                })
+
+            }
+        })
+        $('#buyBtn').click(function () {
+            $.ajax({
+                async: false,
+                url: "/course/buy/<%= course.id %>",
+                type: 'POST',
+                contentType: "application/json; charset=UTF-8",
+
+                success: function (data) {
+
+                    if (data.success) {
+                        Swal.fire(
+                            'Buy Success!',
+                            `You have buy success`,
+                            'success'
+                        );
+                        $ul=$('#buyBtn').closest('ul')
+                        $ul.empty().html('<li><button id="" class="btn_adcart" style="background-color: #0ea432;border-color: #0ea432 ">Buyed</button></li>')
+
+
+                    }
+                    else{
+                        Swal.fire(
+                            {
+                                title: 'You need to login!',
+                                timer: 1000
+                            }
+                        );
+                        window.location.href = "/signin";
+                    }
+                },
+
+                error: function () {
+                    Swal.fire(
+                        'Error!',
+                        `${JSON.stringify(result)}`,
+                        'error'
+                    );
+                },
+
+            })
+        })
+        $('a.preview-text').click(function () {
+            var myVideo = videojs('my-video');
+            myVideo.src([
+                {type: "video/mp4", src: `${$(this).data('source')}`}
+            ]);
+        })
+    })
+</script>
+<div class="modal  fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalCenterTitle">Preview view</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <video id="my-video" class="video-js" controls preload="auto" width="775" height="300"
+                       data-setup="{}">
+                    <source src="/upload/video/5ffa725c3edfd85610eae295_5ffa725c3edfd85610eae297.mp4" type="video/mp4" />
+
+                </video>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
 </body>
 
 <!-- Mirrored from gambolthemes.net/html-items/Learnic_demo_f12/course_detail_view.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 20 Jun 2020 12:56:25 GMT -->
