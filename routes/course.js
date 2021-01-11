@@ -6,6 +6,7 @@ const lectureModel = require('../models/lecturer').model
 const getRelatedCourses = require(__basedir + "/controllers/course/get_related_courses_by_catID");
 const isAuthenticated = require('../controllers/middlewares').isAuthenticated;
 const joinCourse = require('../controllers/student/join_course')
+const delCourse = require('../controllers/student/delete_favorite')
 const checkStudent = require('../controllers/student/isOwnedCourse');
 
 router.get('/:id',  async (req,res)=>{
@@ -33,8 +34,8 @@ router.get('/:id',  async (req,res)=>{
     }
     else{
         console.log(req.user.id)
-        isJoined= await checkStudent.Owned_check(req.user.id,course._id);
-        isAddWishList = await checkStudent.Owned_check(req.user.id,course._id);
+        isJoined= await checkStudent.Owned_check(`${req.user.id}`, `${course._id}`);
+        isAddWishList = await checkStudent.Owned_check(`${req.user.id}`, `${course._id}`);
 
     }
     // console.log(req.user.id)
@@ -48,7 +49,7 @@ router.post('/buy/:id',isAuthenticated,async function (req,res) {
     if(req.user.id===undefined)
         res.send({success:false})
     else {
-        await joinCourse(req.user.id,req.params.id)
+        await joinCourse(`${req.user.id}`,`${req.params.id}`)
         res.send({success: true})
     }
 })
@@ -59,11 +60,22 @@ router.post('/addwishlist/:id',isAuthenticated,async function (req,res) {
     if(req.user.id===undefined)
         res.send({success:false})
     else {
-        await joinCourse(req.user.id,req.params.id)
+        await joinCourse(`${req.user.id}`,`${req.params.id}`)
         res.send({success: true})
     }
 })
 router.get('/addwishlist/:id',isAuthenticated,function (req,res) {
+    res.redirect(`/course/${req.params.id}`)
+})
+router.post('/delwishlist/:id',isAuthenticated,async function (req,res) {
+    if(req.user.id===undefined)
+        res.send({success:false})
+    else {
+        await delCourse(`${req.user.id}`,`${req.params.id}`)
+        res.send({success: true})
+    }
+})
+router.get('/delwishlist/:id',isAuthenticated,function (req,res) {
     res.redirect(`/course/${req.params.id}`)
 })
 module.exports = router;

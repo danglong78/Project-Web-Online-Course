@@ -104,7 +104,11 @@
                                 </div>
                                 <div class="_215b03">
                                     <a href="#" id="wishlistBtn" class="_215b11">
-                                        <span><i class='uil uil-heart-alt'></i></span>Wishlist
+                                        <%if(isAddWishList){%>
+                                        <span><i class='fas fa-heart text-danger '></i></span>Wishlist
+                                        <%}else{%>
+                                                <span><i class='uil uil-heart  '></i></span>Wishlist
+                                        <%}%>
                                     </a>
 
                                 </div>
@@ -148,7 +152,7 @@
                                     <%if(isJoined===false){%>
                                     <li><button id="buyBtn" class="btn_adcart">Buy Now</button></li>
                                     <%}else {%>
-                                            <li><button id="" class="btn_adcart">Buyed</button></li>
+                                            <li><button id="" class="btn_adcart" style="background-color: #0ea432;border-color: #0ea432 ">Buyed</button></li>
                                         <%}%>
                                 </ul>
                                 <div class="_215fgt1">
@@ -521,32 +525,69 @@
 <script src="/js/custom.js"></script>
 <script src="/js/night-mode.js"></script>
 <script>
+    $.extend({
+        el: function(el, props) {
+            let $el = $($("<"+el+" />"));
+            $el.attr(props);
+            return $el;
+        }
+    });
     $(document).ready(function () {
         $('#wishlistBtn').click(function () {
-            $.ajax({
-                async: false,
-                url: "/course/addwishlist",
-                type: 'POST',
-                contentType: "application/json; charset=UTF-8",
-                data: JSON.stringify({id: '<%= course._id %>'}),
-                success: function (data) {
-                    Swal.fire(
-                        'Add Success!',
-                        `You have added this course to your wishlist`,
-                        'success'
-                    );
-                },
+            if($(this).find('i').hasClass('uil')) {
+                $.ajax({
+                    async: false,
+                    url: "/course/addwishlist/<%= course._id %>",
+                    type: 'POST',
+                    contentType: "application/json; charset=UTF-8",
+                    success: function (data) {
+                        Swal.fire(
+                            'Add Success!',
+                            `You have added this course to your wishlist`,
+                            'success'
+                        );
+                        $('#wishlistBtn').find('i').remove()
+                        $('#wishlistBtn').find('span').append($.el('i',{'class':'fas fa-heart text-danger'}))
 
-                error: function () {
-                    Swal.fire(
-                        'Error!',
-                        `${JSON.stringify(result)}`,
-                        'error'
-                    );
-                },
+                    },
 
-            })
+                    error: function () {
+                        Swal.fire(
+                            'Error!',
+                            `${JSON.stringify(result)}`,
+                            'error'
+                        );
+                    },
 
+                })
+            }
+            else{
+                $.ajax({
+                    async: false,
+                    url: "/course/delwishlist/<%= course._id %>",
+                    type: 'POST',
+                    contentType: "application/json; charset=UTF-8",
+                    success: function (data) {
+                        Swal.fire(
+                            'Add Success!',
+                            `You have removed this course from your wishlist`,
+                            'success'
+                        );
+                        $('#wishlistBtn').find('i').remove()
+                        $('#wishlistBtn').find('span').append($.el('i',{'class':'uil uil-heart'}))
+                    },
+
+                    error: function () {
+                        Swal.fire(
+                            'Error!',
+                            `${JSON.stringify(result)}`,
+                            'error'
+                        );
+                    },
+
+                })
+
+            }
         })
         $('#buyBtn').click(function () {
             $.ajax({
