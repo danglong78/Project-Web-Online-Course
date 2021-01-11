@@ -2,6 +2,7 @@
 var courseModel = require('../../models/course').model;
 var getAllCate = require('../category/getAll');
 var uploadVideo = require('../course/uploadCourse').uploadVideo;
+var uploadImg = require('../course/uploadCourse').uploadImage;
 var course = require("../../models/course").model;
 
 const getCourseInfor = async function (req, res) {
@@ -109,6 +110,22 @@ const addLecture = (req, res) => {
     //lectureID là objectID của lecture
 
 }
+const receiveImage= (req,res) =>{
+    uploadImg.single('image')(req, res, async (err) => {
+        if (err) {
+            console.log(err);
+            res.send(err);
+        } else {
+
+            res.send('Receive Image success');
+            let c = await courseModel.findOne({ _id: req.body.id })
+            c.avatar = req.body.filename;
+            await c.save();
+            console.log('Image uploaded successfully');
+
+        }
+    });
+}
 const receiveVideo = (req, res) => {
     uploadVideo.single('video')(req, res, async (err) => {
         if (err) {
@@ -137,17 +154,33 @@ const receiveMultiVideo = function (req, res) {
             let videoArr = JSON.parse(req.body.FileName)
             let c = await courseModel.findOne({ _id: req.body.id })
             let i = c.chapter.length - 1;
-            for (j = 0; j < c.chapter[i].lecture.length; j++) {
+            for (let j = 0; j < c.chapter[i].lecture.length; j++) {
                 c.chapter[i].lecture[j].file = `${videoArr[j]}`;
             }
-            c.save();
+            await c.save();
             console.log('Video uploaded succcessfully');
-
         }
     })
 
 }
 
+const editCourse = async (req,res)=>{
+    let course = await courseModel.findOne({ _id: req.body.id })
+    let newInfor= req.body.rs;
+    course.title = newInfor.title;
+    course.finished = newInfor.finished;
+    course.short_description = newInfor.short_description;
+    course.fullPrice = newInfor.price;
+    course.price = newInfor.price;
+    course.category= newInfor.category;
+    course.subCategory = newInfor.subCategory;
+    course.updateDate = newInfor.updateDate;
+
+    await course.save();
+
+    res.send({success:true})
+
+}
 
 const min2int = function (s) {
     var temp = s.split(':');
@@ -201,6 +234,8 @@ module.exports = {
     addChapter,
     addLecture,
     receiveVideo,
-    receiveMultiVideo
+    receiveMultiVideo,
+    receiveImage,
+    editCourse
 
 }

@@ -572,7 +572,6 @@
                         short_description: $('input[name="shortDescription"]').val(),
                         detail_description: courseEditor.getContent(),
                         price:$('select[name="price"]').val(),
-                        chapter: chapter,
                         category:$('#category_select').dropdown('get value'),
                         subCategory:$('#subCategory_select .item.selected').attr("value"),
                         updateDate: new Date(),
@@ -581,14 +580,25 @@
                     var ChapterID;
                     $.ajax({
                         async:false,
-                        url: "/lecturer/create",
+                        url: "/lecturer/edit",
                         type: 'POST',
                         contentType: "application/json; charset=UTF-8",
-                        data:JSON.stringify(rs),
+                        data:JSON.stringify({rs,id:courseID}),
                         success: function(e) {
-                            // alert("send success  "+e);
-                            id=e.id;
-                            chapterID=e.chapter;
+                            if(e.success){
+                                Swal.fire(
+                                    'Success',
+                                    'Upload course information success.',
+                                    'success'
+                                );
+                            }
+                            else{
+                                Swal.fire(
+                                    'Error!',
+                                    'Upload course information fail.',
+                                    'error'
+                                );
+                            }
                         },
                         error: function(result) {
                             Swal.fire(
@@ -604,18 +614,24 @@
                         var img = new FormData();
                         imgname = $('#inputImage').prop('files')[0].name;
                         let extension = imgname.substr((imgname.lastIndexOf('.') + 1));
-                        img.append('image', $('#inputImage').prop('files')[0], `${id}.${extension}`)
-                        img.append('id', id)
+                        img.append('image', $('#inputImage').prop('files')[0], `${courseID}.${extension}`)
+                        img.append('id', courseID)
+                        img.append('filename',`/upload/img/${courseID}.${extension}`)
 
                         $.ajax({
-                            url: '/lecturer/upload_img',
+                            url: '/lecturer/edit_img',
                             type: 'POST',
                             contentType: false,
                             processData: false,
                             cache: false,
                             data: img,
                             success: function (res) {
-                                // alert(res);
+                                Swal.fire(
+                                    'Success!',
+                                    'Upload image success.',
+                                    'success'
+                                ).then( () =>{window.location.href = "/lecturer/courses";});
+
                             },
                             error: function () {
                                 Swal.fire(
@@ -628,7 +644,9 @@
 
                         })
                     }
-
+                    else{
+                        window.location.href = "/lecturer/courses";
+                    }
                     Swal.fire(
                         'Save!',
                         'Your Course has been edited.',

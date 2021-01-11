@@ -638,7 +638,7 @@
                         cache: false,
                         data: vid,
                         success: function(res){
-                            location.href("/courses")
+                            window.location.href = "/lecturer/courses";
                         },
                         error: function(){
                             Swal.fire(

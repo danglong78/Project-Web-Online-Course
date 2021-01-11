@@ -63,10 +63,23 @@ route.post('/addChapter',isAuthenticated,function (req,res) {
     editCourse.addChapter(req,res)
 })
 route.post('/addLecture_video',isAuthenticated,function (req,res) {
+    console.log("ADD VIDEO LECTURE")
     editCourse.receiveVideo(req,res)
 })
 route.post('/addChapter_video',isAuthenticated,function (req,res) {
+    console.log('ADD VIDEO CHAPTER')
     editCourse.receiveMultiVideo(req,res)
+})
+route.post('/edit',isAuthenticated,function (req,res) {
+  console.log('EDIT COURSE')
+  console.log(req.body)
+
+    editCourse.editCourse(req,res)
+})
+route.post('/edit_img',isAuthenticated,function (req,res) {
+    console.log('EDIT IMG')
+    console.log(req.body)
+    editCourse.receiveImage(req,res)
 })
 
 
