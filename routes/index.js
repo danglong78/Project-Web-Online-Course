@@ -170,9 +170,7 @@ router.get("/my_course", test.isStudent, function (req, res) {
   res.render("student_mycourse");
 });
 
-router.get("/admin_cate", test.isAdmin, function (req, res) {
-  adminRouter.View_Cate(res);
-});
+
 router.get("/admin_course", test.isAdmin, function (req, res) {
   adminRouter.View_Course(res);
 });
@@ -180,7 +178,7 @@ router.get("/admin_user", test.isAdmin, function (req, res) {
   adminRouter.View_User(res);
 });
 
-router.use("/category", test.isAdmin, cateRouter);
+
 const admin_user_route = require("./admin_user");
 router.use("/admin", test.isAdmin, admin_user_route);
 

@@ -48,6 +48,7 @@ const admin_view_User = async function (res) {
         res.render('error');
     }
 }
+router.use("/category", cateRouter);
 module.exports = {
     View_Cate: admin_view_Cate,
     View_Course: admin_view_Course,
