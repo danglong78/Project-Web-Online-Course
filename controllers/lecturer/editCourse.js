@@ -4,7 +4,7 @@ var getAllCate = require('../category/getAll');
 var uploadVideo = require('../course/uploadCourse').uploadVideo;
 var uploadImg = require('../course/uploadCourse').uploadImage;
 var course = require("../../models/course").model;
-
+var mongoose = require('mongoose');
 const getCourseInfor = async function (req, res) {
     let course = await courseModel.findOne({ _id: req.query.id })
     console.log(course.chapter[0]._id);
@@ -92,21 +92,62 @@ const editLecture = async (req, res) => {
     course.updateOne({_id:id},{$set:aCourse}).exec();
     res.send({ success: true});
 }
-const addChapter = (req, res) => {
+const addChapter = async (req, res) => {
 
     // id,chapter: { title,durationText, lecture, }
     //lecture chỉ lưu title,durationText,description,preview còn video thì để hàm receiveMultiVideo xử lí rồi
-    console.log("add chapter");
-    console.log(req.body);
-    console.log(req.body.chapter.lecture[0]);
-    res.send({ success: true, lectureID: [] });
+    var chapter = req.body.chapter;
+    var id = req.body.id;
+    var aChapter = {
+        _id: mongoose.Types.ObjectId(),
+        title: chapter.title,
+        durationText: chapter.durationText,
+        lecture: [],
+        duration: 0
+    }
+    var lecture_list = [];
+    for(var i=0;i<chapter.lecture.length;i++){
+        var aLecture = {
+            _id: mongoose.Types.ObjectId(),
+            title: chapter.lecture[i].title,
+            description: chapter.lecture[i].description,
+            durationText: chapter.lecture[i].durationText,
+            //preview: chapter.lecture[i].preview
+        };
+        aChapter.lecture.push(aLecture);
+        lecture_list.push(aLecture._id);
+    }
+    var aCourse = await course.findById(id);
+    if(aCourse==null){
+        res.send({ success: false, lectureID: [] });
+    }
+    aCourse.chapter.push(aChapter);
+    course.updateOne({_id:id},{$set:aCourse}).exec();
+    res.send({ success: true, lectureID: lecture_list });
     //lectureID là list danh sách objectid của lecture
 }
-const addLecture = (req, res) => {
-    console.log("add lecture")
+const addLecture = async (req, res) => {
+    const id = req.body.id;
+    const index = req.body.chapterID;
+    var lecture = req.body.lecture;
+    var aLec = {
+        _id: mongoose.Types.ObjectId(),
+        title: lecture.title,
+        durationText: lecture.durationText,
+        description:lecture.description,
+        //preview: chapter.lecture[i].preview
+    }
+    var aCourse = await course.findById(id);
+    if(aCourse==null){
+        res.send({ success: false, lectureID: 123231223 });
+    }
+    aCourse.chapter[index].lecture.push(aLec);
+    aCourse.chapter[index].durationText = add(aCourse.chapter[index].durationText,aLec.durationText);
+    aCourse.chapter[index].duration = min2int(aCourse.chapter[index].durationText);
+    course.updateOne({_id:id},{$set:aCourse}).exec();
     // id,chapterID,lecureID ,lecture: { title,durationText,description,preview },
     // video thì có hàm receive video xử lý rồi
-    res.send({ success: true, lectureID: 123231223 })
+    res.send({ success: true, lectureID: aLec._id });
     //lectureID là objectID của lecture
 
 }

@@ -43,7 +43,7 @@ const admin_view_User = async function (res) {
                 user[i]["name"] = aUser.name;
             }
         }
-        res.render('admin/user', { user: user, cats: __categories });
+        res.render('admin/user', { user: user, statics: __statics });
     } catch (e) {
         res.render('error');
     }

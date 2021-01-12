@@ -63,9 +63,18 @@ const isLecturer = async (req, res, next) => {
     res.redirect(__host);
 }
 
+const isStudent = async (req, res, next) => {
+    if (req.user.role === 'Student') {
+        next();
+    }
+    req.flash('error', 'You do not have permission.');
+    res.redirect(__host);
+}
+
 module.exports = {
     isAuthenticated,
     isJoinedIn,
     isAdmin,
-    isLecturer
+    isLecturer,
+    isStudent
 }
