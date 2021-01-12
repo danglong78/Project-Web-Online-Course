@@ -3,8 +3,8 @@ var mongoose = require('mongoose');
 var cat_controller = require("../controllers/category/admin_category_view");
 const router = express.Router();
 
-router.get("/", function (req, res) {
-    adminRouter.View_Cate(res);
+router.get("/",async function (req, res) {
+    await cat_controller.admin_Cate_View(res)
 });
 
 

@@ -180,7 +180,7 @@ router.get("/admin_user", test.isAdmin, function (req, res) {
 
 
 const admin_user_route = require("./admin_user");
-router.use("/admin", test.isAdmin, admin_user_route);
+router.use("/admin",test.isAuthenticated, test.isAdmin, adminRouter);
 
 router.get("/upload/img/:file", test.isLecturer,(req,res)=>{
 

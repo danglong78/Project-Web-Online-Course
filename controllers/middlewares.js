@@ -48,24 +48,46 @@ const isJoinedIn = async (req, res, next) => {
 }
 
 const isAdmin = async (req, res, next) => {
-    if (req.user.role === 'Admin') {
-        next();
+    console.log("admin middle ware");
+    if (req.user == undefined) {
+        console.log("undefined");
+        req.flash('error', 'You do not have permission.');
+        res.redirect(__host);
+        return;
     }
+    if (req.user.role === 'Admin') {
+        console.log("is admin");
+        return next();
+        
+    }
+    console.log("else");
     req.flash('error', 'You do not have permission.');
     res.redirect(__host);
 }
 
 const isLecturer = async (req, res, next) => {
+    if (req.user==undefined){
+        req.flash('error', 'You do not have permission.');
+        res.redirect(__host);
+        return;
+    }
     if (req.user.role === 'Lecturer') {
         next();
+        return;
     }
     req.flash('error', 'You do not have permission.');
     res.redirect(__host);
 }
 
 const isStudent = async (req, res, next) => {
+    if (req.user == undefined) {
+        req.flash('error', 'You do not have permission.');
+        res.redirect(__host);
+        return;
+    }
     if (req.user.role === 'Student') {
         next();
+        return;
     }
     req.flash('error', 'You do not have permission.');
     res.redirect(__host);
