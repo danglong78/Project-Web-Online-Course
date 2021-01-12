@@ -7,11 +7,25 @@ const getCourses = require("../controllers/student/get_courses");
 const addProgress = require("../controllers/student/add_progress");
 const rateCourse = require("../controllers/student/rate_course");
 const isJoinedIn = require("../controllers/middlewares").isJoinedIn;
+const isAuthenticated = require('../controllers/middlewares').isAuthenticated;
+const accountSetting = require('../controllers/student/profileSetting')
+const changePassword =require('../controllers/credential/changepassword').changePassword
+const credentialModel = require('../models/credential').model
+const studentModel = require('../models/student').model
 
-router.route("/").get(function (req, res) {
+
+router.get("/",isAuthenticated, async function (req, res) {
   // Student's profile
+    let credential = await  credentialModel.findOne({user:req.user.id})
+    let student =  await  studentModel.findOne({_id:req.user.id})
+    res.render("student/setting",{statics:__statics,student,credential})
+})
+router.post("/",isAuthenticated, function (req,res) {
+  accountSetting(req,res)
 });
-
+router.post("/changePassword",isAuthenticated, function (req,res) {
+  changePassword(req,res)
+})
 router.route("/favorites/add").post(async (req, res) => {
   let { courseID } = req.body;
 
@@ -37,9 +51,10 @@ router.route("/favorites/delete").post(async (req, res) => {
   }
 });
 
-router.route("/courses").get(async (req, res) => {
+
+router.route("/courses").get( isAuthenticated,async (req, res) => {
   let courses = await getCourses(req.user.id);
-  res.render("/student/courses", { courses });
+  res.render("/student/myCourse", { courses });
 });
 
 router.route("/join").post(async (req, res) => {
@@ -52,8 +67,9 @@ router.route("/join").post(async (req, res) => {
   }
 });
 
-router.route("/learn/:courseID").get(isJoinedIn, (req, res) => {
-  res.render("learn", { course });
+router.route("/learn/:courseID").get(isAuthenticated,isJoinedIn, (req, res) => {
+
+  res.render("lecture_detail", { course });
 });
 
 router.route("/progress/add").post(isJoinedIn, async (req, res) => {

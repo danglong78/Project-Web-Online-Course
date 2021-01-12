@@ -28,10 +28,10 @@
 
 <body>
 <!-- Header Start -->
-<%- include('../partials/instructor-navbar'); -%>
+<%- include('../partials/navbar'); -%>
 <!-- Header End -->
 <!-- Left Sidebar Start -->
-<%- include('../partials/instructor-left-menu'); -%>
+<%- include('../partials/left-menu'); -%>
 <!-- Left Sidebar End -->
 <!-- Body Start -->
 <div class="wrapper">
@@ -217,13 +217,6 @@
                     'error'
                 )
             }
-            else if($('input[name="shortDes"]').val()===""){
-                Swal.fire(
-                    'Error',
-                    'Please input the short description',
-                    'error'
-                )
-            }
             else if($('input[name="email"]').val()===""){
                 Swal.fire(
                     'Error',
@@ -238,16 +231,10 @@
                     'error'
                 )
             }
-            else if($('textarea[name="detailDes"]').val()===""){
-                Swal.fire(
-                    'Error',
-                    'Please input the detail Description',
-                    'error'
-                )
-            }
+
             else{
                 $.ajax({
-                    url: "/student/changesetting",
+                    url: "/student",
                     type: 'POST',
                     contentType: "application/json; charset=UTF-8",
                     data: JSON.stringify({

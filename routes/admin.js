@@ -7,6 +7,9 @@ var userModel = require('../models/credential').model;
 var Stu_user = require('../models/student').model;
 var lec_User = require('../models/lecturer').model;
 var ad_User = require('../models/admin').model;
+var router = express.Router();
+const cateRouter = require("./category");
+
 const admin_view_Cate = function (res) {
     cateController.admin_Cate_View(res);
 };
@@ -50,6 +53,7 @@ const admin_view_User = async function (res) {
 }
 router.use("/category", cateRouter);
 module.exports = {
+    router,
     View_Cate: admin_view_Cate,
     View_Course: admin_view_Course,
     View_User: admin_view_User

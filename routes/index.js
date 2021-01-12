@@ -3,11 +3,11 @@ const router = express.Router();
 const passport = require("passport");
 const signUp = require(__basedir + "/controllers/credential/signup");
 const to = require("await-to-js").default;
-const adminRouter = require("./admin");
-const cateRouter = require("./category");
+const adminRouter = require("./admin").router;
 const lecturerRouter = require("./lecturer");
 const coursesRouter = require("./courses");
 const courseRouter = require("./course");
+const studentRouter = require("./student")
 const CONFIG = require("../config.json");
 const fs =require('fs');
 // test
@@ -62,7 +62,7 @@ router.get("/test", async function (req, res, next) {
 router.use("/courses", coursesRouter); // for search result
 
 router.use("/course", courseRouter); // for one single detail course
-
+router.use("/student",studentRouter);
 router.use("/lecturer", test.isLecturer, lecturerRouter);
 // router.get('/course_detail_view', function (req, res, next) {
 //   courseRouter.course_detail_view(req, res);
