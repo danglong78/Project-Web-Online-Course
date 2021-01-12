@@ -62,8 +62,8 @@ router.get("/test", async function (req, res, next) {
 router.use("/courses", coursesRouter); // for search result
 
 router.use("/course", courseRouter); // for one single detail course
-router.use("/student",studentRouter);
-router.use("/lecturer", test.isLecturer, lecturerRouter);
+router.use("/student",test.isAuthenticated,test.isStudent,studentRouter);
+router.use("/lecturer", test.isAuthenticated,test.isLecturer, lecturerRouter);
 // router.get('/course_detail_view', function (req, res, next) {
 //   courseRouter.course_detail_view(req, res);
 // });
@@ -178,7 +178,7 @@ router.get("/my_course", test.isStudent, function (req, res) {
 const admin_user_route = require("./admin_user");
 router.use("/admin",test.isAuthenticated, test.isAdmin, adminRouter);
 
-router.get("/upload/img/:file", test.isLecturer,(req,res)=>{
+router.get("/upload/img/:file",(req,res)=>{
 
 
   var fileName = req.params.file;
@@ -192,7 +192,7 @@ router.get("/upload/img/:file", test.isLecturer,(req,res)=>{
   })
 
 })
-router.get("/upload/video/:file", test.isLecturer,(req,res)=>{
+router.get("/upload/video/:file",(req,res)=>{
 
   var fileName = req.params.file;
   fileName=__basedir+'/upload/video/'+fileName

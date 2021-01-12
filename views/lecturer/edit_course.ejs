@@ -808,8 +808,12 @@
                     }
                 } else {
                     if ($(this).attr("data-id") === "add") {
+                        let file =$("#inputGroupFile06").prop("files")[0];
                         let chapterID = $("#saveChapterBtn").data("id");
-                        let file= $("#inputGroupFile06").prop("files")[0]
+                        let titleTemp= $("#lecture_title").val();
+                        let durationTemp = $('input[name="duration"]').val();
+                        let descriptionTemp =chapterEditor.getContent();
+                        let previewTemp= $('input[name="previewTag"]:checked').length === 1
                         $.ajax({
                             async: false,
                             url: "/lecturer/addLecture",
@@ -827,27 +831,28 @@
                             }),
                             success: function (data) {
                                 if (data.success) {
+                                    let filename = file.name;
+                                    let extension = filename.substr(filename.lastIndexOf(".") + 1);
                                     Swal.fire("Added!", "Lecture has been added.", "success").then(() => {
                                         $("#lecture_table").append(
                                             $.el("tr", {})
                                                 .append($.el("td", { class: "text-center" }).text($("#lecture_table tr").length + 1))
-                                                .append($.el("td", { class: "cell-ta" }).text($("#lecture_title").val()))
-                                                .append($.el("td", { class: "text-center" }).html($('input[name="previewTag"]:checked').length === 1 ? "<i class='uil uil-check text-success' style='font-size: 150%'></i>" : ""))
-                                                .append($.el("td", { class: "text-center" }).text($('input[name="duration"]').val()))
-                                                .append($.el("td", { class: "text-center" }).text($("#inputGroupFile06").next().text()))
+                                                .append($.el("td", { class: "cell-ta" }).text(titleTemp))
+                                                .append($.el("td", { class: "text-center" }).html(previewTemp ? "<i class='uil uil-check text-success' style='font-size: 150%'></i>" : ""))
+                                                .append($.el("td", { class: "text-center" }).text(durationTemp))
+                                                .append($.el("td", { class: "text-center" }).text(filename))
                                                 .append(
                                                     $.el("td", { class: "text-center d-flex justify-content-center" })
                                                         .append($.el("a", { class: "gray-s editLectureBtn", title: "Edit", href: "#" }).append($.el("i", { class: "uil uil-edit-alt" })))
                                                         .append($.el("a", { class: "gray-s delLectureBtn", title: "Delete", href: "#" }).append($.el("i", { class: "uil uil-trash-alt" })))
                                                 )
                                         );
-                                        let filename = file.name;
-                                        let extension = filename.substr(filename.lastIndexOf(".") + 1);
+
                                         lectures.push({
-                                            title: $("#lecture_title").val(),
-                                            durationText: $('input[name="duration"]').val(),
-                                            description: chapterEditor.getContent(),
-                                            preview: $('input[name="previewTag"]:checked').length === 1,
+                                            title: titleTemp,
+                                            durationText: durationTemp,
+                                            description: descriptionTemp,
+                                            preview: previewTemp,
                                             file: `/upload/video/${id}_${data.lectureID}.${extension}`,
                                         });
                                         if (file !== undefined) {

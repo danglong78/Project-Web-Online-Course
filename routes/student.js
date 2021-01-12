@@ -26,25 +26,20 @@ router.post("/",isAuthenticated, function (req,res) {
 router.post("/changePassword",isAuthenticated, function (req,res) {
   changePassword(req,res)
 })
-router.route("/favorites/add").post(async (req, res) => {
-  let { courseID } = req.body;
+router.route("/favorites/add/:id").post(async (req, res) => {
+  let  courseID  = req.params.id;
 
-  if (await addFavorite(req.user.id, courseID)) {
+  if (await addFavorite(`${req.user.id}`,`${courseID}`)) {
     res.json({ success: true });
   } else {
     res.json({ success: false });
   }
 });
 
-router.route("/favorites").get(async (req, res) => {
-  let favorites = await getFavorites(req.user.id);
-  res.render("/student/favorites", { favorites });
-});
-
 router.route("/favorites/delete").post(async (req, res) => {
-  let { courseID } = req.body;
+  let  courseID  = req.body.id;
 
-  if (await deleteFavorite(req.user.id, courseID)) {
+  if (await deleteFavorite(`${req.user.id}`, `${courseID}`)) {
     res.json({ success: true });
   } else {
     res.json({ success: false });
@@ -53,8 +48,10 @@ router.route("/favorites/delete").post(async (req, res) => {
 
 
 router.route("/courses").get( isAuthenticated,async (req, res) => {
-  let courses = await getCourses(req.user.id);
-  res.render("/student/myCourse", { courses });
+  let courses = await getCourses(`${req.user.id}`);
+  let favorites = await  getFavorites(`${req.user.id}`);
+  console.log(favorites)
+  res.render("student/myCourse", { courses,favorites,statics:__statics });
 });
 
 router.route("/join").post(async (req, res) => {

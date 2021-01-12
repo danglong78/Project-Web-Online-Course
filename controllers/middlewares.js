@@ -1,5 +1,5 @@
-const Student = require(__basedir + '/models/student').model;
-const Course = require(__basedir + '/models/course').model;
+const Student = require( '../models/student').model;
+const Course = require( '../models/course').model;
 
 
 const isAuthenticated = (req, res, next) => {
@@ -47,50 +47,59 @@ const isJoinedIn = async (req, res, next) => {
     }
 }
 
-const isAdmin = async (req, res, next) => {
+const isAdmin =  (req, res, next) => {
     console.log("admin middle ware");
     if (req.user == undefined) {
         console.log("undefined");
         req.flash('error', 'You do not have permission.');
         res.redirect(__host);
-        return;
+
     }
-    if (req.user.role === 'Admin') {
+    else if (req.user.role === 'Admin') {
         console.log("is admin");
-        return next();
+         next();
         
     }
-    console.log("else");
-    req.flash('error', 'You do not have permission.');
-    res.redirect(__host);
+
+    else {
+        console.log("else");
+        req.flash('error', 'You do not have permission.');
+        res.redirect(__host);
+    }
 }
 
-const isLecturer = async (req, res, next) => {
+const isLecturer =  (req, res, next) => {
     if (req.user==undefined){
         req.flash('error', 'You do not have permission.');
         res.redirect(__host);
-        return;
+
     }
-    if (req.user.role === 'Lecturer') {
+    else if (req.user.role === 'Lecturer') {
         next();
-        return;
+
     }
-    req.flash('error', 'You do not have permission.');
-    res.redirect(__host);
+    else
+    {
+        req.flash('error', 'You do not have permission.');
+        res.redirect(__host);
+    }
 }
 
-const isStudent = async (req, res, next) => {
+const isStudent =  (req, res, next) => {
     if (req.user == undefined) {
         req.flash('error', 'You do not have permission.');
         res.redirect(__host);
-        return;
+
     }
-    if (req.user.role === 'Student') {
+    else if (req.user.role === 'Student') {
         next();
-        return;
+
     }
-    req.flash('error', 'You do not have permission.');
-    res.redirect(__host);
+    else
+    {
+        req.flash('error', 'You do not have permission.');
+        res.redirect(__host);
+    }
 }
 
 module.exports = {
