@@ -24,7 +24,7 @@ const admin_view_Course = async function (res) {
             courseArr.push({ _id: x._id, title: x.title, mainCate: mainCate.name, subCate: subCate.name })
         }
         console.log(courseArr)
-        res.render('admin/course', { course: courseArr });
+        res.render('admin/course', { course: courseArr ,statics:__statics});
 
     } catch (e) {
         res.render('error');
@@ -54,6 +54,9 @@ const admin_view_User = async function (res) {
 }
 router.use("/category", cateRouter);
 router.use("/user",userRouter);
+router.get("/course",function (req, res) {
+    admin_view_Course(res);
+});
 module.exports = {
     router,
     View_Cate: admin_view_Cate,

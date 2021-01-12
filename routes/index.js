@@ -171,9 +171,7 @@ router.get("/my_course", test.isStudent, function (req, res) {
 });
 
 
-router.get("/admin_course", test.isAdmin, function (req, res) {
-  adminRouter.View_Course(res);
-});
+
 
 
 
