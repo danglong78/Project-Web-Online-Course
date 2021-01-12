@@ -54,39 +54,16 @@ router.get("/", async (req, res) => {
   });
 });
 
-const test = require('../controllers/student/rate_course');
+const test = require('../controllers/middlewares');
 router.get("/test", async function (req, res, next) {
-  // let courses = await getTopViews(5);
-  // let courses = await getByCategory("Cassandra", 4, 2);
-  // let courses = await fullTextSearch("ultimate", "", 1, 5);
-  // let courses = await getNewests(CONFIG.nNewest);
-  // let courses = await getTopWeeklyCats(CONFIG.nTopTrending);
-  // let courses = await getRelatedCourses("9adbbf981a608a69c175cd25", 5);
-
-  
-  // let result = require(__basedir + "/controllers/student/join_course")();
-
-  // console.log("before");
-  // console.log(courses);
-  // console.log("after");
-  // res.json(courses);
-  //let courses = await getRelatedCourses("9adbbf981a608a69c175cd25", 5);
-
-  // console.log("before");
-  // console.log(await test.Owned_check(req.body.stu,req.body.course));
-  // console.log("after");
-  // res.send({success: true});
-  // console.log("before");
-  // console.log(await test(req.body.stu, req.body.course,5,"Good"));
-  // console.log("after");
-  // res.send({success: true});/
+  await test.isAdmin(req,res,req);
 });
 
 router.use("/courses", coursesRouter); // for search result
 
 router.use("/course", courseRouter); // for one single detail course
 
-router.use("/lecturer", lecturerRouter);
+router.use("/lecturer", test.isLecturer, lecturerRouter);
 // router.get('/course_detail_view', function (req, res, next) {
 //   courseRouter.course_detail_view(req, res);
 // });
@@ -184,30 +161,30 @@ router.route("/auth/facebook/callback").get(
 
 module.exports = router;
 
-router.get("/learn/:id", function (req, res) {
+router.get("/learn/:id", test.isStudent, function (req, res) {
 
   study.getCourse(req,res)
 });
 
-router.get("/my_course", function (req, res) {
+router.get("/my_course", test.isStudent, function (req, res) {
   res.render("student_mycourse");
 });
 
-router.get("/admin_cate", function (req, res) {
+router.get("/admin_cate", test.isAdmin, function (req, res) {
   adminRouter.View_Cate(res);
 });
-router.get("/admin_course", function (req, res) {
+router.get("/admin_course", test.isAdmin, function (req, res) {
   adminRouter.View_Course(res);
 });
-router.get("/admin_user", function (req, res) {
+router.get("/admin_user", test.isAdmin, function (req, res) {
   adminRouter.View_User(res);
 });
 
-router.use("/category", cateRouter);
+router.use("/category", test.isAdmin, cateRouter);
 const admin_user_route = require("./admin_user");
-router.use("/admin", admin_user_route);
+router.use("/admin", test.isAdmin, admin_user_route);
 
-router.get("/upload/img/:file",(req,res)=>{
+router.get("/upload/img/:file", test.isLecturer,(req,res)=>{
 
 
   var fileName = req.params.file;
@@ -221,7 +198,7 @@ router.get("/upload/img/:file",(req,res)=>{
   })
 
 })
-router.get("/upload/video/:file",(req,res)=>{
+router.get("/upload/video/:file", test.isLecturer,(req,res)=>{
 
   var fileName = req.params.file;
   fileName=__basedir+'/upload/video/'+fileName

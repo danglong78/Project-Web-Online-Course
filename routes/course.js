@@ -8,6 +8,7 @@ const isAuthenticated = require('../controllers/middlewares').isAuthenticated;
 const joinCourse = require('../controllers/student/join_course')
 const delCourse = require('../controllers/student/delete_favorite')
 const checkStudent = require('../controllers/student/isOwnedCourse');
+const user_check = require('../controllers/middlewares');
 
 router.get('/:id',  async (req,res)=>{
     let id= req.params.id;
@@ -45,7 +46,7 @@ router.get('/:id',  async (req,res)=>{
     res.render('course_detail_view',{course:course,lecturer:lecture,statics: __statics,averageRate,ratesPercent,studentReviewName,otherCourse,isAddWishList,isJoined})
 
 })
-router.post('/buy/:id',isAuthenticated,async function (req,res) {
+router.post('/buy/:id',user_check.isStudent,async function (req,res) {
     if(req.user.id===undefined)
         res.send({success:false})
     else {
@@ -53,10 +54,10 @@ router.post('/buy/:id',isAuthenticated,async function (req,res) {
         res.send({success: true})
     }
 })
-router.get('/buy/:id',isAuthenticated,function (req,res) {
+router.get('/buy/:id',user_check.isStudent,function (req,res) {
     res.redirect(`/course/${req.params.id}`)
 })
-router.post('/addwishlist/:id',isAuthenticated,async function (req,res) {
+router.post('/addwishlist/:id',user_check.isStudent,async function (req,res) {
     if(req.user.id===undefined)
         res.send({success:false})
     else {
@@ -64,10 +65,10 @@ router.post('/addwishlist/:id',isAuthenticated,async function (req,res) {
         res.send({success: true})
     }
 })
-router.get('/addwishlist/:id',isAuthenticated,function (req,res) {
+router.get('/addwishlist/:id', user_check.isStudent,function (req,res) {
     res.redirect(`/course/${req.params.id}`)
 })
-router.post('/delwishlist/:id',isAuthenticated,async function (req,res) {
+router.post('/delwishlist/:id', user_check.isStudent,async function (req,res) {
     if(req.user.id===undefined)
         res.send({success:false})
     else {
@@ -75,7 +76,7 @@ router.post('/delwishlist/:id',isAuthenticated,async function (req,res) {
         res.send({success: true})
     }
 })
-router.get('/delwishlist/:id',isAuthenticated,function (req,res) {
+router.get('/delwishlist/:id', user_check.isStudent,function (req,res) {
     res.redirect(`/course/${req.params.id}`)
 })
 module.exports = router;
