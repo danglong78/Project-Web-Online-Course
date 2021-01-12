@@ -9,6 +9,7 @@ var lec_User = require('../models/lecturer').model;
 var ad_User = require('../models/admin').model;
 var router = express.Router();
 const cateRouter = require("./category");
+const userRouter = require("./admin_user");
 
 const admin_view_Cate = function (res) {
     cateController.admin_Cate_View(res);
@@ -52,6 +53,7 @@ const admin_view_User = async function (res) {
     }
 }
 router.use("/category", cateRouter);
+router.use("/user",userRouter);
 module.exports = {
     router,
     View_Cate: admin_view_Cate,

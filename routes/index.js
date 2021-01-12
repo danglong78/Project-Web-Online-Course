@@ -174,9 +174,7 @@ router.get("/my_course", test.isStudent, function (req, res) {
 router.get("/admin_course", test.isAdmin, function (req, res) {
   adminRouter.View_Course(res);
 });
-router.get("/admin_user", test.isAdmin, function (req, res) {
-  adminRouter.View_User(res);
-});
+
 
 
 const admin_user_route = require("./admin_user");

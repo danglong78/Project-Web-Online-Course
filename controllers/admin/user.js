@@ -1,10 +1,35 @@
 const stu_user = require('../../models/student').model;
 const lec_user = require('../../models/lecturer').model;
+const admin_user = require('../../models/admin').model;
 const credential = require('../../models/credential').model;
 const create_user = require('../credential/admin_user_create');
 const bcrypt = require("bcrypt");
 const saltRounds = 10;
 const to = require("await-to-js").default;
+
+const user_view = async function(res){
+    try {
+        let user = await credential.find();
+        for (var i = 0; i < user.length; i++) {
+            var aUser;
+            if (user[i].role == "Student") {
+                aUser = await stu_user.findById(user[i].user);
+                user[i]["name"] = aUser.name;
+            }
+            else if (user[i].role == "Lecturer") {
+                aUser = await lec_user.findById(user[i].user);
+                user[i]["name"] = aUser.name;
+            } else {
+                aUser = await admin_user.findById(user[i].user);
+                user[i]["name"] = aUser.name;
+            }
+            console.log(i);
+        }
+        res.render('admin/user', { user: user, statics: __statics });
+    } catch (e) {
+        res.render('error');
+    }
+};
 
 const del_stu = async function (req, res) {
     const id = req.body.id;
@@ -83,6 +108,7 @@ const change_pass = async function (req, res) {
 
 
 module.exports = {
+    admin_user_view: user_view,
     admin_delete_student: del_stu,
     admin_add_student: add_stu,
     admin_delete_lecture: del_lecturer,
