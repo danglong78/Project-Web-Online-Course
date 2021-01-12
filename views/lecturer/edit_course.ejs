@@ -389,7 +389,7 @@
                                                         <div class="row">
                                                             <div class="col-md-4">
                                                                 <div class="ui toggle checkbox _1457s2">
-                                                                    <input type="checkbox" name="finishedTag" >
+                                                                    <input type="checkbox" name="finishedTag" <%- course.finished ? "checked" : ""%> >
                                                                     <label>Finished Version</label>
                                                                 </div>
                                                             </div>
@@ -438,7 +438,6 @@
         }
         return re;
     }
-
     const int2min = function (n) {
         var sec = n % 60;
         n = (n - sec) / 60;
@@ -463,7 +462,6 @@
         re += sec;
         return re;
     }
-
     const add = function (s1, s2) {
         var n1 = min2int(s1);
         var n2 = min2int(s2);
@@ -942,7 +940,6 @@
                                             vid.append("id", courseID);
                                             vid.append("chapterIndex", parseInt(chapterID));
                                             vid.append("lectureIndex", lectures.length - 1);
-                                            alert(FileName)
 
                                             $.ajax({
                                                 async: false,
@@ -953,7 +950,6 @@
                                                 cache: false,
                                                 data: vid,
                                                 success: function (res) {
-                                                    alert(6)
                                                     Swal.fire("Success!", "Upload video success.", "success");
                                                 },
                                                 error: function () {
@@ -975,7 +971,7 @@
                 }
                 $("#inputGroupFile06").next(".custom-file-label").html("");
                 $("#lecture_title").val("");
-                $('input[name="duration"]').val("");
+                $('input[name="duration"]').val("00:00");
                 chapterEditor.setContent("");
                 $("#inputGroupFile06").val("");
                 $("input[name='previewTag']").prop("checked", false);
@@ -1101,7 +1097,7 @@
                             {
                                 Swal.fire(
                                     'Added!',
-                                    'Lecture has been Added.',
+                                    'Chapter has been Added.',
                                     'success'
                                 ).then( () =>{
                                     $('#chapter_table').append(
@@ -1138,11 +1134,11 @@
                                         let filename=chapter[chapter.length-1].lecture[j].file.name;
                                         let extension= filename.substr( (filename.lastIndexOf('.') +1) );
                                         FileName.push(`/upload/video/${courseID}_${data.lectureID[j]}.${extension}`);
-                                        vid.append(`c${i}l${j}`,chapter[chapter.length-1].lecture[j].file,`${courseID}_${data.lectureID[j]}.${extension}}`)
+                                        vid.append(`videol${j}`,chapter[chapter.length-1].lecture[j].file,`${courseID}_${data.lectureID[j]}.${extension}}`)
                                         chapter[chapter.length-1].lecture[j].file=`/upload/video/${courseID}_${data.lectureID[j]}.${extension}`
                                     }
-                                    vid.append('video',JSON.stringify(FileName))
-                                    vid.append('id',id)
+                                    vid.append('videoName',JSON.stringify(FileName))
+                                    vid.append('id',courseID)
                                     $.ajax({
                                         url:'/lecturer/addChapter_video',
                                         type: 'POST',
@@ -1172,7 +1168,7 @@
                                     $('#lecture_table').empty();
                                     $('#inputGroupFile06').next('.custom-file-label').html("No Choose file - (Video)");
                                     $('#lecture_title').val("")
-                                    $('input[name="duration"]').val("")
+                                    $('input[name="duration"]').val("00:00")
                                     chapterEditor.setContent("")
                                     $('#inputGroupFile06').val("")
                                     $('#chapterTitle').val("")
@@ -1215,7 +1211,7 @@
                             {
                                 Swal.fire(
                                     'Edited!',
-                                    'Lecture has been edited.',
+                                    'CHapter has been edited.',
                                     'success'
                                 ).then( () =>{
                                     temp = {
@@ -1234,7 +1230,7 @@
                                     $('#lecture_table').empty();
                                     $('#inputGroupFile06').next('.custom-file-label').html("No Choose file - (Video)");
                                     $('#lecture_title').val("")
-                                    $('input[name="duration"]').val("")
+                                    $('input[name="duration"]').val("00:00")
                                     chapterEditor.setContent("")
                                     $('#inputGroupFile06').val("")
                                     $('#chapterTitle').val("")

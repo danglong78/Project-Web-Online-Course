@@ -148,6 +148,7 @@ const addLecture = async (req, res) => {
     // id,chapterID,lecureID ,lecture: { title,durationText,description,preview },
     // video thì có hàm receive video xử lý rồi
     res.send({ success: true, lectureID: aLec._id });
+    console.log("LECTURE ID"+aLec._id);
     //lectureID là objectID của lecture
 
 }
@@ -192,7 +193,8 @@ const receiveMultiVideo = function (req, res) {
         else {
 
             res.send('Receive Video sucesss');
-            let videoArr = JSON.parse(req.body.FileName)
+            let videoArr = JSON.parse(req.body.videoName)
+            console.log(req.body.videoName)
             let c = await courseModel.findOne({ _id: req.body.id })
             let i = c.chapter.length - 1;
             for (let j = 0; j < c.chapter[i].lecture.length; j++) {
