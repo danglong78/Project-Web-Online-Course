@@ -24,7 +24,7 @@ router.route("/favorites/add").post(async (req, res) => {
 
 router.route("/favorites").get(async (req, res) => {
   let favorites = await getFavorites(req.user.id);
-  res.render("/student/favorites", { favorites });
+  res.render("student/favorites", { favorites, statics: __statics });
 });
 
 router.route("/favorites/delete").post(async (req, res) => {
@@ -39,7 +39,9 @@ router.route("/favorites/delete").post(async (req, res) => {
 
 router.route("/courses").get(async (req, res) => {
   let courses = await getCourses(req.user.id);
-  res.render("/student/courses", { courses });
+
+  console.log(course);
+  res.render("student/courses", { courses, statics: __statics});
 });
 
 router.route("/join").post(async (req, res) => {
@@ -52,8 +54,8 @@ router.route("/join").post(async (req, res) => {
   }
 });
 
-router.route("/learn/:courseID").get(isJoinedIn, (req, res) => {
-  res.render("learn", { course });
+router.route("/learn/:courseID").get(isJoinedIn, (req, res) => {  
+  res.render("learn", { course, statics: __statics });
 });
 
 router.route("/progress/add").post(isJoinedIn, async (req, res) => {

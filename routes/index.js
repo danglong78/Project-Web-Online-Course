@@ -6,6 +6,7 @@ const to = require("await-to-js").default;
 const adminRouter = require("./admin");
 const cateRouter = require("./category");
 const lecturerRouter = require("./lecturer");
+const studentRouter = require("./student");
 const coursesRouter = require("./courses");
 const courseRouter = require("./course");
 const CONFIG = require("../config.json");
@@ -24,6 +25,14 @@ const getRelatedCourses = require(__basedir + "/controllers/course/get_related_c
 const { addAdditionalFields } = require(__basedir +
   "/controllers/course/helpers");
 const study = require('../controllers/student/study');
+const {sendVerificationMail} = require(__basedir + "/controllers/credential/send_email");
+const verifyRegistration = require(__basedir + "/controllers/credential/verify_registration")
+const middlewares = {
+  isAuthenticated: require(__basedir + "/controllers/middlewares").isAuthenticated
+}
+const jwt = require('jsonwebtoken');
+
+
 // static data
 
 
@@ -79,8 +88,24 @@ router.get("/test", async function (req, res, next) {
   // console.log("before");
   // console.log(await test(req.body.stu, req.body.course,5,"Good"));
   // console.log("after");
-  // res.send({success: true});/
+  // to: "hodaitribm224@gmail.com", // list of receivers
+  // sendMail()
+  // .then((result) => console.log('Email sent...', result))
+  // .catch((error) => console.log(error.message));
+
+  let token = jwt.sign(
+    {
+        email: "123@gmail.com",
+    },
+    process.env.VERIMAIL_SECRECT,
+    { expiresIn: 60 }
+  );
+
+  console.log(token);
+  res.send({token});
 });
+
+router.use('/student', studentRouter);
 
 router.use("/courses", coursesRouter); // for search result
 
@@ -96,7 +121,7 @@ router.use("/lecturer", lecturerRouter);
 // });
 router
   .route("/signin")
-  .get((req, res) => {
+  .get((req, res) => {    
     if (req.isAuthenticated()) {
       res.redirect("http://localhost:3000");
     } else res.render("sign_in");
@@ -136,8 +161,36 @@ router
     }
   });
 
+router.route("/verify/:token")
+.get(async (req, res) => {  
+  console.log(req.params.token)
+
+  try {
+    console.log("1");
+    if (await verifyRegistration(req.params.token)) {
+      req.flash("success", "Successfully verified registration");  
+    }   
+    console.log("2"); 
+  }
+  catch (err) {
+    console.log(err);
+    if (err.name == 'TokenExpiredError') {
+      req.flash("error", "Token is expired. Recheck your email to get new verification link");           
+    }
+    else if (err.name == 'JsonWebTokenError') {
+      req.flash("error", "Token is invalid");         
+    }
+    else {
+      req.flash("error", "Something wrong happened"); 
+    }
+  }
+  finally {
+    res.redirect("/signin");
+  }     
+})
+
 router.route("/signout")
-.get((req, res) => {
+.get(middlewares.isAuthenticated, (req, res) => {
   req.logout();
   res.redirect('/');
 })

@@ -3,6 +3,9 @@ const Student = require(__basedir + "/models/student").model;
 const bcrypt = require("bcrypt");
 const saltRounds = 10;
 const to = require("await-to-js").default;
+const jwt = require('jsonwebtoken');
+const {sendVerificationMail} = require('./send_email');
+
 
 const isUniqueEmail = async function (email) {
   let err, credential;
@@ -41,19 +44,35 @@ module.exports = async (req, res) => {
     password: hash,
     user: newStudent._id,
     role: "Student",
+    isVerified: false
   });
 
   try {
     await newStudent.save();
     await newCredential.save();
-    await req.login({ id: newStudent._id, role: newCredential.role, name: newStudent.name}, (err) => {
-      err.debugMessage = "Something wrong when logging in user";
-      err.userMessage = "Something wrong happened. Please try again!";
-    });
 
-    req.flash("success", "WELCOME TO UDEMY CLONE");
-    let redirectUrl = req.session.redirectUrl || "http://localhost:3000";
-    return res.redirect(redirectUrl);
+    // send verification email
+    // const privateKey = process.env.VERIMAIL_SECRECT;
+    let token = jwt.sign(
+      {
+        email,
+      },
+      process.env.VERIMAIL_SECRECT,
+      { expiresIn: 60 }
+    ); 
+    
+    sendVerificationMail(email, `${__host}/verify/${token}`);
+    req.flash('success', "Please check your email for account activation link");
+    return res.redirect("/signin");
+
+    // await req.login({ id: newStudent._id, role: newCredential.role, name: newStudent.name}, (err) => {
+    //   err.debugMessage = "Something wrong when logging in user";
+    //   err.userMessage = "Something wrong happened. Please try again!";
+    // });
+
+    // req.flash("success", "WELCOME TO UDEMY CLONE");
+    // let redirectUrl = req.session.redirectUrl || "http://localhost:3000";
+    // return res.redirect(redirectUrl);
   } catch (err) {
     err.debugMessage = "Something wrong when saving user";
     err.userMessage = "Something wrong happened. Please try again!";

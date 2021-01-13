@@ -9,7 +9,7 @@ const studentSchema = Schema({
 
   courses: [
     {
-      progress: [Number],
+      progress: [Schema.Types.ObjectId],
       course: {
         type: Schema.Types.ObjectId,
         ref: "Course",

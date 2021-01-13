@@ -54,6 +54,10 @@ const localVerifyCb = async (req, email, password, done) => {
     return done(null, false, req.flash("error", "Incorrect email or password"));
   }
 
+  if (!credential.isVerified) {    
+    return done(null, false, req.flash("error", "Account has not been verified yet"));
+  }
+
   if (!(await bcrypt.compare(password, credential.password))) {
     return done(null, false, req.flash("error", "Incorrect email or password"));
   }

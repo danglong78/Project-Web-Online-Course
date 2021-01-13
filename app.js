@@ -51,8 +51,10 @@ app.use(
 require("./controllers/credential/authenticate").passportSetup(app);
 app.use(flash());
 
+
 // Flash messages
 app.use((req, res, next) => {
+
   res.locals.currentScene = "";
   res.locals.currentUser = req.user;
   res.locals.success = req.flash("success");
