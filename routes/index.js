@@ -8,7 +8,6 @@ const lecturerRouter = require("./lecturer");
 const studentRouter = require("./student");
 const coursesRouter = require("./courses");
 const courseRouter = require("./course");
-const studentRouter = require("./student")
 const CONFIG = require("../config.json");
 const fs =require('fs');
 // test
@@ -28,7 +27,10 @@ const study = require('../controllers/student/study');
 const {sendVerificationMail} = require(__basedir + "/controllers/credential/send_email");
 const verifyRegistration = require(__basedir + "/controllers/credential/verify_registration")
 const middlewares = {
-  isAuthenticated: require(__basedir + "/controllers/middlewares").isAuthenticated
+  isAuthenticated: require(__basedir + "/controllers/middlewares").isAuthenticated,
+  isStudent: require(__basedir + "/controllers/middlewares").isStudent,
+  isLecturer: require(__basedir + "/controllers/middlewares").isLecturer,
+  isAdmin: require(__basedir + "/controllers/middlewares").isAdmin,
 }
 const jwt = require('jsonwebtoken');
 
@@ -112,8 +114,8 @@ router.use("/courses", coursesRouter); // for search result
 router.use("/course", courseRouter); // for one single detail course
 
 
-router.use("/student",test.isAuthenticated,test.isStudent,studentRouter);
-router.use("/lecturer", test.isAuthenticated,test.isLecturer, lecturerRouter);
+router.use("/student", middlewares.isAuthenticated,middlewares.isStudent,studentRouter);
+router.use("/lecturer", middlewares.isAuthenticated,middlewares.isLecturer, lecturerRouter);
 
 
 
@@ -245,7 +247,7 @@ module.exports = router;
 const admin_user_route = require("./admin_user");
 
 
-router.use("/admin",test.isAuthenticated, test.isAdmin, adminRouter);
+router.use("/admin",middlewares.isAuthenticated, middlewares.isAdmin, adminRouter);
 
 
 
