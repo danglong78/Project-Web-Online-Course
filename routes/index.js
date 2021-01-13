@@ -8,7 +8,7 @@ const lecturerRouter = require("./lecturer");
 const studentRouter = require("./student");
 const coursesRouter = require("./courses");
 const courseRouter = require("./course");
-const studentRouter = require("./student")
+//const studentRouter = require("./student")
 const CONFIG = require("../config.json");
 const fs =require('fs');
 // test
