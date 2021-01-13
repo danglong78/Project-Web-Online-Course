@@ -9,7 +9,21 @@ const studentSchema = Schema({
 
   courses: [
     {
-      progress: [Schema.Types.ObjectId],
+      progress: [{
+        lasted_lecture: Schema.Types.ObjectId,
+        tracked_list: [{
+          lecture: Schema.Types.ObjectId,
+          finished: {
+            type: Boolean,
+            default: false
+          },
+          checkPoint: {
+            type: Number,
+            default: 0
+          }
+        }]
+      }],
+      
       course: {
         type: Schema.Types.ObjectId,
         ref: "Course",

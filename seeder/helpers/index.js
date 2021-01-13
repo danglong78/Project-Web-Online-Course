@@ -47,10 +47,20 @@ const joinRandCourses = (nCourses, nProgress) => {
 
   for (let i = 0; i < nCourses; i++) {
     let randProgressArr = randNumArray(courseIDList[randCourses[i]].lecIDs.length, nProgress);
-    let progress = []
+    let tracked_list = []
     randProgressArr.map((j) => {
-      progress.push(courseIDList[randCourses[i]].lecIDs[j]);
+      tracked_list.push({
+        lecture: courseIDList[randCourses[i]].lecIDs[j],
+        finished: false,
+        checkPoint: 0
+      });
     });
+
+
+    let progress = {
+      latest_lecture: courseIDList[randCourses[i]].lecIDs[getRndInteger(0, courseIDList[randCourses[i]].lecIDs.length-1)],
+      tracked_list
+    };
 
     courses.push({
       progress,
