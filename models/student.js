@@ -9,7 +9,7 @@ const studentSchema = Schema({
 
   courses: [
     {
-      progress: [{
+      progress: {
         lasted_lecture: Schema.Types.ObjectId,
         tracked_list: [{
           lecture: Schema.Types.ObjectId,
@@ -22,8 +22,7 @@ const studentSchema = Schema({
             default: 0
           }
         }]
-      }],
-      
+      },
       course: {
         type: Schema.Types.ObjectId,
         ref: "Course",

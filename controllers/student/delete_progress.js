@@ -9,12 +9,12 @@ const deleteProgress = async (studentID, courseID, lectureID) => {
             if (student.courses.length > 0) {
                 let foundIdx = student.courses.findIndex(f => f.course == courseID);
                 if (foundIdx > -1) {
-                    let index = student.courses[foundIdx].progress.findIndex(p => p == lectureID)
+                    let index = student.courses[foundIdx].progress.tracked_list.findIndex(p => p.lecture == lectureID)
                     if (index > -1) {
-                        student.courses[foundIdx].progress.splice(index, 1);
+                        student.courses[foundIdx].progress.tracked_list.splice(index, 1);
                         await student.save();
                         return {success:true,progress:student.courses[foundIdx].progress};
-                    };
+                    }
                 }
             }
         }

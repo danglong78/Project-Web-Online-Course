@@ -65,46 +65,9 @@ router.get("/", async (req, res) => {
   });
 });
 
-const test = require('../controllers/student/rate_course');
-router.get("/test", async function (req, res, next) {
-  // let courses = await getTopViews(5);
-  // let courses = await getByCategory("Cassandra", 4, 2);
-  // let courses = await fullTextSearch("ultimate", "", 1, 5);
-  // let courses = await getNewests(CONFIG.nNewest);
-  // let courses = await getTopWeeklyCats(CONFIG.nTopTrending);
-  // let courses = await getRelatedCourses("9adbbf981a608a69c175cd25", 5);
-
-  
-  // let result = require(__basedir + "/controllers/student/join_course")();
-
-  // console.log("before");
-  // console.log(courses);
-  // console.log("after");
-  // res.json(courses);
-  //let courses = await getRelatedCourses("9adbbf981a608a69c175cd25", 5);
-
-  // console.log("before");
-  // console.log(await test.Owned_check(req.body.stu,req.body.course));
-  // console.log("after");
-  // res.send({success: true});
-  // console.log("before");
-  // console.log(await test(req.body.stu, req.body.course,5,"Good"));
-  // console.log("after");
-  // to: "hodaitribm224@gmail.com", // list of receivers
-  // sendMail()
-  // .then((result) => console.log('Email sent...', result))
-  // .catch((error) => console.log(error.message));
-
-  let token = jwt.sign(
-    {
-        email: "123@gmail.com",
-    },
-    process.env.VERIMAIL_SECRECT,
-    { expiresIn: 60 }
-  );
-
-  console.log(token);
-  res.send({token});
+const test = require('../controllers/student/study').loadLecture;
+router.get("/test", async function (req, res){
+  await test(req,res);
 });
 
 router.use('/student', studentRouter);

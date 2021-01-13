@@ -8,8 +8,13 @@ const addProgress = async (studentID, courseID, lecutureID) => {
             if (student.courses.length > 0) {
                 let foundIdx = student.courses.findIndex(f => f.course == courseID);
                 if (foundIdx > -1) {
-                    if (student.courses[foundIdx].progress.findIndex(p => p == lecutureID) === -1) {
-                        student.courses[foundIdx].progress.push(lecutureID);
+                    if (student.courses[foundIdx].progress.tracked_list.findIndex(p => p.lecture == lecutureID) === -1) {
+                        var temp = {
+                            lecture:lecutureID,
+                            finished: false,
+                            checkPoint:0
+                        }
+                        student.courses[foundIdx].progress.tracked_list.push(temp);
                         await student.save();
                         return {success:true,progress:student.courses[foundIdx].progress};
                     }
