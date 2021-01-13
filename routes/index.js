@@ -53,16 +53,22 @@ router.get("/", async (req, res) => {
   });
 });
 
-const test = require('../controllers/middlewares');
+const test = require('../controllers/admin/course_badge');
 router.get("/test", async function (req, res, next) {
-  await test.isAdmin(req,res,req);
+  await test(10);
+  res.send({success: true});
 });
 
 router.use("/courses", coursesRouter); // for search result
 
 router.use("/course", courseRouter); // for one single detail course
-router.use("/student",test.isAuthenticated,test.isStudent,studentRouter);
-router.use("/lecturer", test.isAuthenticated,test.isLecturer, lecturerRouter);
+
+
+//router.use("/student",test.isAuthenticated,test.isStudent,studentRouter);
+//router.use("/lecturer", test.isAuthenticated,test.isLecturer, lecturerRouter);
+
+
+
 // router.get('/course_detail_view', function (req, res, next) {
 //   courseRouter.course_detail_view(req, res);
 // });
@@ -161,7 +167,11 @@ router.route("/auth/facebook/callback").get(
 module.exports = router;
 
 const admin_user_route = require("./admin_user");
-router.use("/admin",test.isAuthenticated, test.isAdmin, adminRouter);
+
+
+//router.use("/admin",test.isAuthenticated, test.isAdmin, adminRouter);
+
+
 
 router.get("/upload/img/:file",(req,res)=>{
 
