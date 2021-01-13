@@ -12,7 +12,7 @@ const delCourse = require('../controllers/course/deleteCourse').deleteCourse;
 const editCourse = require('../controllers/lecturer/editCourse');
 route.get('/create',async function(req,res){
     let category= await getAllCate();
-    res.render('lecturer/create_course',{category:category});
+    res.render('lecturer/create_course',{category:category,statics:__statics});
 })
 route.post('/create', function (req, res, next) {
     upload.receive_infor(req, res);
@@ -29,7 +29,7 @@ route.get('/courses',  async function (req, res) {
 route.get('/setting',  async function (req, res) {
     let credential = await credentialModel.findOne({user:req.user.id})
     let lecturer = await lecturerModel.findById(req.user.id)
-    res.render("lecturer/setting",{credential,lecturer})
+    res.render("lecturer/setting",{credential,lecturer,statics:__statics})
 });
 route.post('/changePassword',   function (req, res) {
     changePassword(req,res);

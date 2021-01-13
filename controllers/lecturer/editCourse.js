@@ -4,12 +4,13 @@ var getAllCate = require('../category/getAll');
 var uploadVideo = require('../course/uploadCourse').uploadVideo;
 var uploadImg = require('../course/uploadCourse').uploadImage;
 var course = require("../../models/course").model;
+var fs = require('fs')
 var mongoose = require('mongoose');
 const getCourseInfor = async function (req, res) {
     let course = await courseModel.findOne({ _id: req.query.id })
     console.log(course.chapter[0]._id);
     let category = await getAllCate()
-    res.render("lecturer/edit_course", { course, category })
+    res.render("lecturer/edit_course", { course, category, statics:__statics})
 }
 
 
@@ -21,15 +22,28 @@ const deleteChapter = async (req, res) => {
     if (aCourse == null) {
         res.send({ success: false });
     }
-    var temp = [];
-    for (var i = 0; i < aCourse.chapter.length; i++) {
-        if (i != chapterid) {
-            temp.push(aCourse.chapter[i]);
+    else
+    {
+        var temp = [];
+        for (var i = 0; i < aCourse.chapter.length; i++) {
+            if (i != chapterid) {
+                temp.push(aCourse.chapter[i]);
+            }
+            else{
+                for( let l of aCourse.chapter[i].lecture){
+                    try{
+                        if (fs.existsSync(`.${l.file}`))
+                            fs.unlinkSync(`.${l.file}`)
+                    }catch (e) {
+                        console.log(e)
+                    }
+                }
+            }
         }
+        aCourse.chapter = temp;
+        course.updateOne({_id: id}, {$set: aCourse}).exec();
+        res.send({success: true});
     }
-    aCourse.chapter = temp;
-    course.updateOne({ _id: id }, { $set: aCourse }).exec();
-    res.send({ success: true });
 }
 const deleteLecture = async (req, res) => {
     // id,chapterID,lectureID
@@ -39,16 +53,24 @@ const deleteLecture = async (req, res) => {
     var aCourse = await course.findById(id);
     if (aCourse == null) {
         res.send({ success: false });
+
     }
-    var temp = [];
-    for (var i = 0; i < aCourse.chapter[chapter_index].lecture.length; i++) {
-        if (i != lecture_index) {
-            temp.push(aCourse.chapter[chapter_index].lecture[i]);
+    else
+    {
+        var temp = [];
+        for (var i = 0; i < aCourse.chapter[chapter_index].lecture.length; i++) {
+            if (i != lecture_index) {
+                temp.push(aCourse.chapter[chapter_index].lecture[i]);
+            }
+            else{
+                if (fs.existsSync(`.${aCourse.chapter[chapter_index].lecture[i].file}`))
+                    fs.unlinkSync(`.${aCourse.chapter[chapter_index].lecture[i].file}`)
+            }
         }
+        aCourse.chapter[chapter_index].lecture = temp;
+        course.updateOne({_id: id}, {$set: aCourse}).exec();
+        res.send({success: true});
     }
-    aCourse.chapter[chapter_index].lecture = temp;
-    course.updateOne({ _id: id }, { $set: aCourse }).exec();
-    res.send({ success: true });
 }
 const editChapter = async (req, res) => {
     // id,chapterID,chapter: { title,durationText, } ,
@@ -90,7 +112,7 @@ const editLecture = async (req, res) => {
     }
     aCourse.chapter[chap_index].durationText = temp;
     course.updateOne({_id:id},{$set:aCourse}).exec();
-    res.send({ success: true});
+    res.send({ success: true,lectureID: aCourse.chapter[chap_index].lecture[lec_index]._id});
 }
 const addChapter = async (req, res) => {
 

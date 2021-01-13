@@ -23,7 +23,6 @@ const getTopCats = require(__basedir + "/controllers/subcategory/get_top_cats");
 const getRelatedCourses = require(__basedir + "/controllers/course/get_related_courses_by_catID");
 const { addAdditionalFields } = require(__basedir +
   "/controllers/course/helpers");
-const study = require('../controllers/student/study');
 // static data
 
 
@@ -160,20 +159,6 @@ router.route("/auth/facebook/callback").get(
 );
 
 module.exports = router;
-
-router.get("/learn/:id", test.isStudent, function (req, res) {
-
-  study.getCourse(req,res)
-});
-
-router.get("/my_course", test.isStudent, function (req, res) {
-  res.render("student_mycourse");
-});
-
-
-
-
-
 
 const admin_user_route = require("./admin_user");
 router.use("/admin",test.isAuthenticated, test.isAdmin, adminRouter);

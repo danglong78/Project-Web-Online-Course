@@ -12,6 +12,6 @@ getMyCourse= async function(req,res){
         c.categoryName= category.name
 
     }
-    res.render("lecturer/my_courses",{course:course})
+    res.render("lecturer/my_courses",{course:course,statics:__statics})
 }
 module.exports=getMyCourse

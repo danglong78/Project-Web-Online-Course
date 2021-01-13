@@ -20,57 +20,6 @@
 
       <!-- Stylesheets -->
 
-      <style>
-        .text {
-          height: 50px;
-          overflow: hidden;
-          text-overflow: ellipsis;
-          display: -webkit-box;
-          -webkit-line-clamp: 2;
-          /* number of lines to show */
-          -webkit-box-orient: vertical;
-        }
-
-
-        .dropdown:hover>.dropdown-menu {
-          display: block;
-        }
-
-        .dropdown-menu {
-          min-height: 400px;
-          min-width: 250px;
-        }
-
-        .dropdown>.dropdown-toggle:active {
-          /*Without this, clicking will make it sticky*/
-          pointer-events: none;
-        }
-
-        .dropdown-menu .dropdown-toggle:after {
-          border-top: .3em solid transparent;
-          border-right: 0;
-          border-bottom: .3em solid transparent;
-          border-left: .3em solid;
-        }
-
-        .dropdown-menu {
-          margin: 0;
-          min-height: 500px;
-        }
-
-        .megasubmenu {
-          left: 100%;
-          top: 0;
-          min-height: 100%;
-          min-width: 100%;
-        }
-
-        .dropdown-menu>li:hover .megasubmenu {
-          display: block;
-          padding-left: 5%;
-
-        }
-      </style>
   </head>
 
   <body>
@@ -78,11 +27,10 @@
     <%- include('partials/navbar'); -%>
       <!-- Header End -->
       <!-- Left Sidebar Start -->
-
-      <!-- <%- include('partials/left-menu'); -%> -->
+    <%- include('partials/left-menu')%>
       <!-- Left Sidebar End -->
       <!-- Body Start -->
-      <div class="wrapper">
+      <div class="wrapper ">
         <div class="sa4d25">
           <div class="container-fluid">
             <div class="row">
@@ -141,9 +89,11 @@
                                   <div class="prce142">
                                     <% if (enroll.price !==0) {%>
                                       $<%=enroll.price %>
+                                      <%if(enroll.price !=enroll.price){%>
                                       <span style="text-decoration: line-through; margin-left:0.5rem">
                                         $<%= enroll.fullPrice %> 
                                       </span>
+                                      <%}%>
                                       <%} else {%>
                                         FREE
                                       <% } %>

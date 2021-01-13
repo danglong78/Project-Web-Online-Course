@@ -68,10 +68,10 @@
 
 <body>
 <!-- Header Start -->
-<%- include('../partials/instructor-navbar'); -%>
+<%- include('../partials/navbar'); -%>
 <!-- Header End -->
 <!-- Left Sidebar Start -->
-<%- include('../partials/instructor-left-menu'); -%>
+<%- include('../partials/left-menu'); -%>
 <!-- Left Sidebar End -->
 <!-- Body Start -->
 <div class="wrapper">
@@ -1134,7 +1134,7 @@
                                         let filename=chapter[chapter.length-1].lecture[j].file.name;
                                         let extension= filename.substr( (filename.lastIndexOf('.') +1) );
                                         FileName.push(`/upload/video/${courseID}_${data.lectureID[j]}.${extension}`);
-                                        vid.append(`videol${j}`,chapter[chapter.length-1].lecture[j].file,`${courseID}_${data.lectureID[j]}.${extension}}`)
+                                        vid.append(`videol${j}`,chapter[chapter.length-1].lecture[j].file,`${courseID}_${data.lectureID[j]}.${extension}`)
                                         chapter[chapter.length-1].lecture[j].file=`/upload/video/${courseID}_${data.lectureID[j]}.${extension}`
                                     }
                                     vid.append('videoName',JSON.stringify(FileName))
@@ -1223,7 +1223,7 @@
                                     $(`#chapter_table tr:eq(${id}) td:eq(2)`).text(temp.lecture.length)
                                     $(`#chapter_table tr:eq(${id}) td:eq(3)`).text(temp.durationText)
                                     chapter[id] = temp;
-                                    $(this).attr('data-id', 'add');
+                                    $('#saveChapterBtn').attr('data-id', 'add');
                                     $('#saveChapterBtn').text('Add Chapter')
 
                                     lectures = []

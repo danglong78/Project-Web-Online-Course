@@ -6,11 +6,12 @@ const WeeklyTransaction = require(__basedir + '/models/weekly_transaction').mode
 const joinCourse = async (studentID, courseID) => {
     try {
         let foundStudent = await Student.findOne({ _id: studentID });
-
         if (foundStudent) {
             let foundCourse = await Course.findOne({ _id: courseID });
+
             if (foundCourse) {
                 if (!foundStudent.courses.some(f => f.course == courseID)) {
+
                     await Transaction.create({
                         date: new Date(Date.now()),
                         student: foundStudent._id,
@@ -28,7 +29,6 @@ const joinCourse = async (studentID, courseID) => {
 
                     foundCourse.enrollCount++;
                     await foundCourse.save();
-
                     return true;
                 }
             }

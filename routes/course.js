@@ -39,10 +39,6 @@ router.get('/:id',  async (req,res)=>{
         isAddWishList = await checkStudent.Owned_check(`${req.user.id}`, `${course._id}`);
 
     }
-    // console.log(req.user.id)
-
-    console.log(isJoined);
-    console.log(isAddWishList)
     res.render('course_detail_view',{course:course,lecturer:lecture,statics: __statics,averageRate,ratesPercent,studentReviewName,otherCourse,isAddWishList,isJoined})
 
 })

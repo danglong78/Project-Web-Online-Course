@@ -13,17 +13,17 @@ const deleteProgress = async (studentID, courseID, lectureID) => {
                     if (index > -1) {
                         student.courses[foundIdx].progress.splice(index, 1);
                         await student.save();
-                        return true;
+                        return {success:true,progress:student.courses[foundIdx].progress};
                     };
                 }
             }
         }
-        return false;
+        return {success:false};
 
     }
     catch (err) {
         console.log(err);
-        return false;
+        return {success:false};
     }
 }
 
