@@ -115,7 +115,7 @@ const editLecture = async (req, res) => {
     res.send({ success: true,lectureID: aCourse.chapter[chap_index].lecture[lec_index]._id});
 }
 const addChapter = async (req, res) => {
-
+    console.log(req.body);
     // id,chapter: { title,durationText, lecture, }
     //lecture chỉ lưu title,durationText,description,preview còn video thì để hàm receiveMultiVideo xử lí rồi
     var chapter = req.body.chapter;
@@ -149,6 +149,7 @@ const addChapter = async (req, res) => {
     //lectureID là list danh sách objectid của lecture
 }
 const addLecture = async (req, res) => {
+    console.log(req.body);
     const id = req.body.id;
     const index = req.body.chapterID;
     var lecture = req.body.lecture;
