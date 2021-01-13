@@ -18,7 +18,7 @@ const isAuthenticated = (req, res, next) => {
 // Need to check isAuthenticated first so that req.user exists
 const isJoinedIn = async (req, res, next) => {
     const studentID = req.user.id;
-    const courseID = req.body.courseID || req.params.courseID || "0";
+    const courseID = req.body.id || req.params.id || "0";
 
     try {
         let student = await Student.findOne({ _id: studentID });

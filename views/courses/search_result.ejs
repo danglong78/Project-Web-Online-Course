@@ -182,7 +182,7 @@
 													<div class="badge_seller"><%=course.badge %> </div>
 													<% } %> 
 													<div class="crse_reviews">
-														<i class="uil uil-star"></i><%=course.avgRate %> 
+														<i class="uil uil-star"></i><%=course.avgRate.toFixed(1) %>
 													</div>
 													<span class="play_btn1"><i class="uil uil-play"></i></span>
 													<div class="crse_timer">
@@ -192,7 +192,7 @@
 											</a>
 											<div class="hs_content">												
 												<div class="vdtodt">
-													<span class="vdt14"><%=course.viewCount%> views</span>
+													<span class="vdt14"><%=course.viewCount.toLocaleString()%> views</span>
 													<span class="vdt14">
 														Updated: <%=course.updatedAt.toLocaleDateString()%>
 													</span>

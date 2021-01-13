@@ -91,13 +91,13 @@ router.route("/progress/delete").post(isJoinedIn, async (req, res) => {
   }
 });
 
-router.route("/rate").post(isJoinedIn, async (req, res) => {
-  let { courseID, section } = req.body;
-
-  if (await rateCourse(req.user.id, courseID, section)) {
-    //
+router.post("/rate",isJoinedIn, async (req, res) => {
+  let { id, score,review } = req.body;
+  console.log("RATING COURSE");
+  if (await rateCourse.rateCourse(`${req.user.id}`, `${id}`,`${score}`, `${review}` )) {
+    res.send({success:true})
   } else {
-    //
+    res.send({success:false})
   }
 });
 

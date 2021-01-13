@@ -9,7 +9,7 @@
     <meta name="viewport" content="width=device-width, shrink-to-fit=9">
     <meta name="description" content="Gambolthemes">
     <meta name="author" content="Gambolthemes">
-    <title>Learnic - Live Output</title>
+    <title>Learnic - Study</title>
 
     <!-- Favicon Icon -->
     <!-- Favicon Icon -->
@@ -98,7 +98,13 @@
     </div>
     <div class="header_right">
         <ul>
-
+            <li>
+                <%if(!isRated){%>
+                <button type="button" class="btn btn-outline-primary" id="rateBtn" data-toggle="modal" data-target="#staticBackdrop">
+                    Rating
+                </button>
+                <%}%>
+            </li>
             <li>
                 <a href="#" id="progressButton" data-container="body" data-toggle="popover" data-placement="bottom" data-content="Total 0 of 0.">Your progress <i class="uil uil-arrow-circle-down"></i></a>
             </li>
@@ -296,9 +302,70 @@
 
             }
         });
+        $("#SaveReviewBtn").click(function () {
+            $.ajax({
+                async: false,
+                url: "/student/rate",
+                type: 'POST',
+                contentType: "application/json; charset=UTF-8",
+                data: JSON.stringify({ id:"<%=course._id%>",score:$('.ui.rating').rating('get rating'),review:$('#reviewText').val() }),
+                success: function (data) {
+                    if(data.success)
+                    {
+                       $('#rateBtn').hide()
+                    }
+                    else{
+                        Swal.fire(
+                            'Fail!',
+                            'Rate course Fail !!!.',
+                            'error'
+                        )
+                    }
+                },
+                error: function (result) {
+                    Swal.fire(
+                        'Error!',
+                        `${JSON.stringify(result)}`,
+                        'error'
+                    );
+                }
+
+            })
+        })
     })
 
 
+</script>
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title text-center" id="staticBackdropLabel">How would you rate this course?</h3>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body text-center">
+                <div class="ui massive star rating"></div>
+                <div class="form-group mt-10">
+                    <textarea class="form-control" id="reviewText" rows="3"></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" id="SaveReviewBtn">Save</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $('.ui.rating')
+        .rating({
+            initialRating: 0,
+            maxRating: 5
+        })
+    ;
 </script>
 </body>
 
