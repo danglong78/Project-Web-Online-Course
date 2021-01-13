@@ -68,6 +68,7 @@ const tag_badge = async function(n){
     for(i=0;i<course_list.length;i++){
         course.updateOne({_id:course_list[i]._id},{$set:course_list[i]}).exec();
     }
+    console.log("Prepare Database Done");
 }
 
 module.exports = tag_badge

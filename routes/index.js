@@ -53,19 +53,19 @@ router.get("/", async (req, res) => {
   });
 });
 
-const test = require('../controllers/admin/course_badge');
-router.get("/test", async function (req, res, next) {
+const test = require('../controllers/middlewares');
+/*router.get("/test", async function (req, res, next) {
   await test(10);
   res.send({success: true});
-});
+});*/
 
 router.use("/courses", coursesRouter); // for search result
 
 router.use("/course", courseRouter); // for one single detail course
 
 
-//router.use("/student",test.isAuthenticated,test.isStudent,studentRouter);
-//router.use("/lecturer", test.isAuthenticated,test.isLecturer, lecturerRouter);
+router.use("/student",test.isAuthenticated,test.isStudent,studentRouter);
+router.use("/lecturer", test.isAuthenticated,test.isLecturer, lecturerRouter);
 
 
 
@@ -169,7 +169,7 @@ module.exports = router;
 const admin_user_route = require("./admin_user");
 
 
-//router.use("/admin",test.isAuthenticated, test.isAdmin, adminRouter);
+router.use("/admin",test.isAuthenticated, test.isAdmin, adminRouter);
 
 
 
