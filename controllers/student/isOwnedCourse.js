@@ -12,6 +12,8 @@ const Owned_Check = async (stu_id,course_id)=>{
                 else {
                     return true;
                 }
+            }else{
+                return false;
             }
         }
         else {
@@ -37,6 +39,8 @@ const Favorite_check = async(stu_id,course_id)=>{
                 else {
                     return true;
                 }
+            }else{
+                return false;
             }
         }
         else {

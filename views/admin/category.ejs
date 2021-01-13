@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width, shrink-to-fit=9">
     <meta name="description" content="Gambolthemes">
     <meta name="author" content="Gambolthemes">
-    <title>Cursus - Categories</title>
+    <title>Learnic - Categories</title>
 
     <!-- Favicon Icon -->
     <link rel="icon" type="image/png" href="images/fav.png">
@@ -228,13 +228,13 @@
 </div>
 <!-- Body End -->
 
-<script src="js/vertical-responsive-menu.min.js"></script>
-<script src="js/jquery-3.3.1.min.js"></script>
-<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-<script src="vendor/OwlCarousel/owl.carousel.js"></script>
-<script src="vendor/semantic/semantic.min.js"></script>
-<script src="js/custom.js"></script>
-<script src="js/night-mode.js"></script>
+<script src="/js/vertical-responsive-menu.min.js"></script>
+<script src="/js/jquery-3.3.1.min.js"></script>
+<script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="/vendor/OwlCarousel/owl.carousel.js"></script>
+<script src="/vendor/semantic/semantic.min.js"></script>
+<script src="/js/custom.js"></script>
+<script src="/js/night-mode.js"></script>
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script>
 <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.js"></script>
 <!-- Hàm cho main cate-->
@@ -264,7 +264,7 @@
                         Swal.showLoading();
                         $.ajax({
                             async: false,
-                            url: "/category/addMainCate",
+                            url: "/admin/category/addMainCate",
                             type: 'POST',
                             contentType: "application/json; charset=UTF-8",
                             data: JSON.stringify({ name: $('input[name="mainCate"]').val() }),
@@ -342,7 +342,7 @@
                 if (result.isConfirmed) {
                     $.ajax({
                         async: false,
-                        url: "/category/delMainCate",
+                        url: "/admin/category/delMainCate",
                         type: 'POST',
                         contentType: "application/json; charset=UTF-8",
                         data: JSON.stringify({ id: $button.attr("data-id") }),
@@ -431,7 +431,7 @@
                         Swal.showLoading();
                         $.ajax({
                             async: false,
-                            url: "/category/editCate",
+                            url: "/admin/category/editCate",
                             type: 'POST',
                             contentType: "application/json; charset=UTF-8",
                             data: JSON.stringify({ id: $(this).attr("data-id"), name: newName }),
@@ -522,7 +522,7 @@
                             Swal.showLoading();
                             $.ajax({
                                 async: false,
-                                url: "/category/addSubCateToMainCate",
+                                url: "/admin/category/addSubCateToMainCate",
                                 type: 'POST',
                                 contentType: "application/json; charset=UTF-8",
                                 data: JSON.stringify({ idMain: mainCateID, idSubCate: id }),
@@ -592,7 +592,7 @@
                     var x;
                     $.ajax({
                         async: false,
-                        url: "/category/delSubCateFromMainCate",
+                        url: "/admin/category/delSubCateFromMainCate",
                         type: 'POST',
                         contentType: "application/json; charset=UTF-8",
                         data: JSON.stringify({  idSub: $button.attr('data-id'),idMain:mainCateID }),
@@ -666,7 +666,7 @@
                             Swal.showLoading();
                             $.ajax({
                                 async: false,
-                                url: "/category/changeSubCateToMainCate",
+                                url: "/admin/category/changeSubCateToMainCate",
                                 type: 'POST',
                                 contentType: "application/json; charset=UTF-8",
                                 data: JSON.stringify({idMain: mainCateID, oldIDSubCate:oldSubCateID,newIDSubCate: id}),
@@ -727,7 +727,7 @@
                     res.value;
                     $.ajax({
                         async: false,
-                        url: "/category/editSubCateName",
+                        url: "/admin/category/editSubCateName",
                         type: 'POST',
                         contentType: "application/json; charset=UTF-8",
                         data: JSON.stringify({ id:id,name:res.value }),
@@ -774,7 +774,7 @@
                 if (result.isConfirmed) {
                     $.ajax({
                         async: false,
-                        url: "/category/delSubCate",
+                        url: "/admin/category/delSubCate",
                         type: 'POST',
                         contentType: "application/json; charset=UTF-8",
                         data: JSON.stringify({ id:id }),
@@ -828,7 +828,7 @@
                         Swal.showLoading();
                         $.ajax({
                             async: false,
-                            url: "/category/addSubCate",
+                            url: "/admin/category/addSubCate",
                             type: 'POST',
                             contentType: "application/json; charset=UTF-8",
                             data: JSON.stringify({ name: $('input[name="subCate"]').val() }),

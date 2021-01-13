@@ -38,8 +38,22 @@ const rateCourse = async (studentID, courseID, score, review) => {
     }
 }
 
+const check_rated = async function(user_id,course_id){
+    var aCourse = await Course.findById(course_id);
+    if(aCourse==null){
+        return true;
+    }
+    if(!aCourse.rates.some(rate => rate.student==user_id)){
+        return false;
+    }
+    return true;
+}
 
-module.exports = rateCourse;
+
+module.exports ={
+    rateCourse,
+    check_rated
+}
 
 
 

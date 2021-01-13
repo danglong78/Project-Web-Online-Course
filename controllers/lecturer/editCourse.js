@@ -4,12 +4,13 @@ var getAllCate = require('../category/getAll');
 var uploadVideo = require('../course/uploadCourse').uploadVideo;
 var uploadImg = require('../course/uploadCourse').uploadImage;
 var course = require("../../models/course").model;
-
+var fs = require('fs')
+var mongoose = require('mongoose');
 const getCourseInfor = async function (req, res) {
     let course = await courseModel.findOne({ _id: req.query.id })
     console.log(course.chapter[0]._id);
     let category = await getAllCate()
-    res.render("lecturer/edit_course", { course, category })
+    res.render("lecturer/edit_course", { course, category, statics:__statics})
 }
 
 
@@ -21,15 +22,28 @@ const deleteChapter = async (req, res) => {
     if (aCourse == null) {
         res.send({ success: false });
     }
-    var temp = [];
-    for (var i = 0; i < aCourse.chapter.length; i++) {
-        if (i != chapterid) {
-            temp.push(aCourse.chapter[i]);
+    else
+    {
+        var temp = [];
+        for (var i = 0; i < aCourse.chapter.length; i++) {
+            if (i != chapterid) {
+                temp.push(aCourse.chapter[i]);
+            }
+            else{
+                for( let l of aCourse.chapter[i].lecture){
+                    try{
+                        if (fs.existsSync(`.${l.file}`))
+                            fs.unlinkSync(`.${l.file}`)
+                    }catch (e) {
+                        console.log(e)
+                    }
+                }
+            }
         }
+        aCourse.chapter = temp;
+        course.updateOne({_id: id}, {$set: aCourse}).exec();
+        res.send({success: true});
     }
-    aCourse.chapter = temp;
-    course.updateOne({ _id: id }, { $set: aCourse }).exec();
-    res.send({ success: true });
 }
 const deleteLecture = async (req, res) => {
     // id,chapterID,lectureID
@@ -39,16 +53,24 @@ const deleteLecture = async (req, res) => {
     var aCourse = await course.findById(id);
     if (aCourse == null) {
         res.send({ success: false });
+
     }
-    var temp = [];
-    for (var i = 0; i < aCourse.chapter[chapter_index].lecture.length; i++) {
-        if (i != lecture_index) {
-            temp.push(aCourse.chapter[chapter_index].lecture[i]);
+    else
+    {
+        var temp = [];
+        for (var i = 0; i < aCourse.chapter[chapter_index].lecture.length; i++) {
+            if (i != lecture_index) {
+                temp.push(aCourse.chapter[chapter_index].lecture[i]);
+            }
+            else{
+                if (fs.existsSync(`.${aCourse.chapter[chapter_index].lecture[i].file}`))
+                    fs.unlinkSync(`.${aCourse.chapter[chapter_index].lecture[i].file}`)
+            }
         }
+        aCourse.chapter[chapter_index].lecture = temp;
+        course.updateOne({_id: id}, {$set: aCourse}).exec();
+        res.send({success: true});
     }
-    aCourse.chapter[chapter_index].lecture = temp;
-    course.updateOne({ _id: id }, { $set: aCourse }).exec();
-    res.send({ success: true });
 }
 const editChapter = async (req, res) => {
     // id,chapterID,chapter: { title,durationText, } ,
@@ -90,23 +112,66 @@ const editLecture = async (req, res) => {
     }
     aCourse.chapter[chap_index].durationText = temp;
     course.updateOne({_id:id},{$set:aCourse}).exec();
-    res.send({ success: true});
+    res.send({ success: true,lectureID: aCourse.chapter[chap_index].lecture[lec_index]._id});
 }
-const addChapter = (req, res) => {
-
+const addChapter = async (req, res) => {
+    console.log(req.body);
     // id,chapter: { title,durationText, lecture, }
     //lecture chỉ lưu title,durationText,description,preview còn video thì để hàm receiveMultiVideo xử lí rồi
-    console.log("add chapter");
-    console.log(req.body);
-    console.log(req.body.chapter.lecture[0]);
-    res.send({ success: true, lectureID: [] });
+    var chapter = req.body.chapter;
+    var id = req.body.id;
+    var aChapter = {
+        _id: mongoose.Types.ObjectId(),
+        title: chapter.title,
+        durationText: chapter.durationText,
+        lecture: [],
+        duration: 0
+    }
+    var lecture_list = [];
+    for(var i=0;i<chapter.lecture.length;i++){
+        var aLecture = {
+            _id: mongoose.Types.ObjectId(),
+            title: chapter.lecture[i].title,
+            description: chapter.lecture[i].description,
+            durationText: chapter.lecture[i].durationText,
+            //preview: chapter.lecture[i].preview
+        };
+        aChapter.lecture.push(aLecture);
+        lecture_list.push(aLecture._id);
+    }
+    var aCourse = await course.findById(id);
+    if(aCourse==null){
+        res.send({ success: false, lectureID: [] });
+    }
+    aCourse.chapter.push(aChapter);
+    course.updateOne({_id:id},{$set:aCourse}).exec();
+    res.send({ success: true, lectureID: lecture_list });
     //lectureID là list danh sách objectid của lecture
 }
-const addLecture = (req, res) => {
-    console.log("add lecture")
+const addLecture = async (req, res) => {
+    console.log(req.body);
+    const id = req.body.id;
+    const index = req.body.chapterID;
+    var lecture = req.body.lecture;
+    var aLec = {
+        _id: mongoose.Types.ObjectId(),
+        title: lecture.title,
+        durationText: lecture.durationText,
+        description:lecture.description,
+        //preview: chapter.lecture[i].preview
+    }
+    var aCourse = await course.findById(id);
+    if(aCourse==null){
+        res.send({ success: false, lectureID: 123231223 });
+    }
+    aCourse.chapter[index].lecture.push(aLec);
+    aCourse.chapter[index].durationText = add(aCourse.chapter[index].durationText,aLec.durationText);
+    aCourse.chapter[index].duration = min2int(aCourse.chapter[index].durationText);
+    course.updateOne({_id:id},{$set:aCourse}).exec();
     // id,chapterID,lecureID ,lecture: { title,durationText,description,preview },
     // video thì có hàm receive video xử lý rồi
-    res.send({ success: true, lectureID: 123231223 })
+    res.send({ success: true, lectureID: aLec._id });
+    console.log("LECTURE ID"+aLec._id);
     //lectureID là objectID của lecture
 
 }
@@ -151,7 +216,8 @@ const receiveMultiVideo = function (req, res) {
         else {
 
             res.send('Receive Video sucesss');
-            let videoArr = JSON.parse(req.body.FileName)
+            let videoArr = JSON.parse(req.body.videoName)
+            console.log(req.body.videoName)
             let c = await courseModel.findOne({ _id: req.body.id })
             let i = c.chapter.length - 1;
             for (let j = 0; j < c.chapter[i].lecture.length; j++) {

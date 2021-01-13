@@ -3,12 +3,12 @@ const router = express.Router();
 const passport = require("passport");
 const signUp = require(__basedir + "/controllers/credential/signup");
 const to = require("await-to-js").default;
-const adminRouter = require("./admin");
-const cateRouter = require("./category");
+const adminRouter = require("./admin").router;
 const lecturerRouter = require("./lecturer");
 const studentRouter = require("./student");
 const coursesRouter = require("./courses");
 const courseRouter = require("./course");
+const studentRouter = require("./student")
 const CONFIG = require("../config.json");
 const fs =require('fs');
 // test
@@ -111,7 +111,12 @@ router.use("/courses", coursesRouter); // for search result
 
 router.use("/course", courseRouter); // for one single detail course
 
-router.use("/lecturer", lecturerRouter);
+
+router.use("/student",test.isAuthenticated,test.isStudent,studentRouter);
+router.use("/lecturer", test.isAuthenticated,test.isLecturer, lecturerRouter);
+
+
+
 // router.get('/course_detail_view', function (req, res, next) {
 //   courseRouter.course_detail_view(req, res);
 // });
@@ -237,28 +242,12 @@ router.route("/auth/facebook/callback").get(
 
 module.exports = router;
 
-router.get("/learn/:id", function (req, res) {
-
-  study.getCourse(req,res)
-});
-
-router.get("/my_course", function (req, res) {
-  res.render("student_mycourse");
-});
-
-router.get("/admin_cate", function (req, res) {
-  adminRouter.View_Cate(res);
-});
-router.get("/admin_course", function (req, res) {
-  adminRouter.View_Course(res);
-});
-router.get("/admin_user", function (req, res) {
-  adminRouter.View_User(res);
-});
-
-router.use("/category", cateRouter);
 const admin_user_route = require("./admin_user");
-router.use("/admin", admin_user_route);
+
+
+router.use("/admin",test.isAuthenticated, test.isAdmin, adminRouter);
+
+
 
 router.get("/upload/img/:file",(req,res)=>{
 

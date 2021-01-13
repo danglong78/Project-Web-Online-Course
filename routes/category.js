@@ -3,6 +3,10 @@ var mongoose = require('mongoose');
 var cat_controller = require("../controllers/category/admin_category_view");
 const router = express.Router();
 
+router.get("/",async function (req, res) {
+    await cat_controller.admin_Cate_View(res)
+});
+
 
 router.post('/editCate', function (req, res, next) {
     cat_controller.admin_rename_Main_cate(req, res);

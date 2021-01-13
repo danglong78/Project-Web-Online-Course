@@ -4,10 +4,12 @@ const courseModel = require('../models/course').model
 const studentModel =require('../models/student').model
 const lectureModel = require('../models/lecturer').model
 const getRelatedCourses = require(__basedir + "/controllers/course/get_related_courses_by_catID");
-const isAuthenticated = require('../controllers/middlewares').isAuthenticated;
+const isAuthenticated = require('../controllers/middlewares').isAuthenticated
+const addWishList = require('../controllers/student/add_favorite')
 const joinCourse = require('../controllers/student/join_course')
 const delCourse = require('../controllers/student/delete_favorite')
 const checkStudent = require('../controllers/student/isOwnedCourse');
+const user_check = require('../controllers/middlewares');
 
 router.get('/:id',  async (req,res)=>{
     let id= req.params.id;
@@ -33,19 +35,16 @@ router.get('/:id',  async (req,res)=>{
         isAddWishList = false
     }
     else{
-        console.log(req.user.id)
         isJoined= await checkStudent.Owned_check(`${req.user.id}`, `${course._id}`);
-        isAddWishList = await checkStudent.Owned_check(`${req.user.id}`, `${course._id}`);
+        isAddWishList = await checkStudent.Favorite_Check(`${req.user.id}`, `${course._id}`);
 
     }
-    // console.log(req.user.id)
-
-    console.log(isJoined);
+    console.log(isJoined)
     console.log(isAddWishList)
     res.render('course_detail_view',{course:course,lecturer:lecture,statics: __statics,averageRate,ratesPercent,studentReviewName,otherCourse,isAddWishList,isJoined})
 
 })
-router.post('/buy/:id',isAuthenticated,async function (req,res) {
+router.post('/buy/:id',user_check.isAuthenticated,user_check.isStudent,async function (req,res) {
     if(req.user.id===undefined)
         res.send({success:false})
     else {
@@ -53,29 +52,30 @@ router.post('/buy/:id',isAuthenticated,async function (req,res) {
         res.send({success: true})
     }
 })
-router.get('/buy/:id',isAuthenticated,function (req,res) {
+router.get('/buy/:id',user_check.isAuthenticated,user_check.isStudent,function (req,res) {
     res.redirect(`/course/${req.params.id}`)
 })
-router.post('/addwishlist/:id',isAuthenticated,async function (req,res) {
+router.post('/addwishlist/:id',user_check.isAuthenticated,user_check.isStudent,async function (req,res) {
     if(req.user.id===undefined)
         res.send({success:false})
     else {
-        await joinCourse(`${req.user.id}`,`${req.params.id}`)
+        await addWishList(`${req.user.id}`,`${req.params.id}`)
         res.send({success: true})
     }
 })
-router.get('/addwishlist/:id',isAuthenticated,function (req,res) {
+router.get('/addwishlist/:id',user_check.isAuthenticated ,user_check.isStudent,function (req,res) {
     res.redirect(`/course/${req.params.id}`)
 })
-router.post('/delwishlist/:id',isAuthenticated,async function (req,res) {
+router.post('/delwishlist/:id',user_check.isAuthenticated ,user_check.isStudent,async function (req,res) {
     if(req.user.id===undefined)
+
         res.send({success:false})
     else {
         await delCourse(`${req.user.id}`,`${req.params.id}`)
         res.send({success: true})
     }
 })
-router.get('/delwishlist/:id',isAuthenticated,function (req,res) {
+router.get('/delwishlist/:id',user_check.isAuthenticated ,user_check.isStudent,function (req,res) {
     res.redirect(`/course/${req.params.id}`)
 })
 module.exports = router;

@@ -2,11 +2,17 @@
     <button type="button" id="toggleMenu" class="toggle_menu">
         <i class='uil uil-bars'></i>
     </button>
-
+    <button id="collapse_menu" class="collapse_menu">
+        <i class="uil uil-bars collapse_menu--icon "></i>
+        <span class="collapse_menu--label"></span>
+    </button>
     <div class="main_logo" id="logo">
-        <a href="index"><img src="/images/logo.svg" alt=""></a>
-        <a href="index"><img class="logo-inverse" src="/images/ct_logo.svg" alt=""></a>
+        <a href="/"><img src="/images/logo.svg" alt=""></a>
+        <a href="/"><img class="logo-inverse" src="/images/ct_logo.svg" alt=""></a>
     </div>
+    <%if (currentUser){%>
+    <%if(currentUser.role !== "Lecturer"){%>
+
     <div class=" dropdown">
         <a class="btn btn-outline-danger" href="#" data-toggle="dropdown">
             <span class="material-icons">category
@@ -41,6 +47,43 @@
 
         </ul>
     </div>
+    <%}}else{%>
+        <div class=" dropdown">
+            <a class="btn btn-outline-danger" href="#" data-toggle="dropdown">
+            <span class="material-icons">category
+            </span>
+            </a>
+            <ul class="dropdown-menu">
+                <% for (let cat of statics.categories) {%>
+                <li class="has-submenu">
+                    <a class="dropdown-item" href="#">
+                        <%=cat.name %> <span class="dropright dropdown-toggle float-right mt-1"></span>
+                    </a>
+                    <div class="megasubmenu dropdown-menu">
+                        <div class="row">
+                            <div class="col-12">
+                                <ul class="list-unstyled">
+                                    <% for (let subCat of cat.subDetail) { %>
+                                    <li><a class="dropdown-item" href=<%="courses/category/" + subCat._id %> >
+                                            <%=subCat.name %>
+                                        </a></li>
+                                    <% } %>
+
+
+                                </ul>
+                            </div><!-- end col-3 -->
+
+                        </div><!-- end row -->
+                    </div>
+                </li>
+                <% } %>
+
+
+
+            </ul>
+        </div>
+    <%}%>
+
     <div class="search120">
         <form action="/courses/search" method="get">
             <div class="ui search">
@@ -82,16 +125,13 @@
                                 </div>                                 
                             </div>
                             <div class="night_mode_switch__btn">
-                                <a href="#" id="night-mode" class="btn-night-mode">
-                                    <i class="uil uil-moon"></i> Night mode
-                                    <span class="btn-night-mode-switch">
-                                        <span class="uk-switch-button"></span>
-                                    </span>
-                                </a>                                                                
-                                <% if (currentUser.role === "Student") {%> 
-                                    <a href="/student" class="item channel_item" style="margin-right: 100px;">View Profile</a>
-                                <% } else if (currentUser.role === "Lecturer") {%>
-                                    <a href="/lecturer" class="item channel_item">View Profile</a>
+                                <% if (currentUser.role === "Student") {%>
+                                    <a href="/student/courses" class="item channel_item" style="margin-right: 100px;">My Learning</a>
+                                    <a href="/student" class="item channel_item" style="margin-right: 100px;">Profile</a>
+                            <% } else if (currentUser.role === "Lecturer") {%>
+                                    <a href="/lecturer/setting" class="item channel_item">View Profile</a>
+                                    <a href="/lecturer/courses" class="item channel_item">View Profile</a>
+
                                 <% } %>
                                 <a href="/signout" class="item channel_item">Sign out</a>
                             </div>                        

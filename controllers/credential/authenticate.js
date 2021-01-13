@@ -11,16 +11,12 @@ const to = require("await-to-js").default;
 //
 
 passport.serializeUser(function (user, done) {
-  console.log("Serialize:");
-  console.log(user);
 
   // role = "Student" || "Admin" || "Lecturer"
   done(null, { role: user.role, id: user.id, name: user.name });
-  console.log("end serialize");
 });
 
 passport.deserializeUser(async (payload, done) => {
-  console.log("Deserialize:");
 
   let user = {
     id: payload.id,
@@ -28,8 +24,6 @@ passport.deserializeUser(async (payload, done) => {
     name: payload.name,
   };
   done(null, user);
-  console.log(user);
-  console.log("end deserialize");
 });
 
 const localVerifyCb = async (req, email, password, done) => {

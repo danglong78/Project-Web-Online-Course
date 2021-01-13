@@ -17,6 +17,7 @@ const database = require("./models/database");
 const bodyParser = require("body-parser");
 const indexRouter = require("./routes/index");
 const studentRouter = require("./routes/student");
+const course_badge = require("./controllers/admin/course_badge");
 
 // require models
 require("./models/course");
@@ -96,6 +97,9 @@ database
   .catch((err) => {
     console.log("Error connecting to database" + err);
   });
+
+// prepare database:
+course_badge(10);
 
 const port = process.env.PORT || 3000;
 app.listen(port, () => {

@@ -3,6 +3,10 @@ var mongoose = require('mongoose');
 var user_controller = require("../controllers/admin/user");
 const router = express.Router();
 
+router.get("/", function (req, res) {
+    user_controller.admin_user_view(res);
+});
+
 router.post("/addStudent", function (req, res) {
     user_controller.admin_add_student(req, res);
 });

@@ -1,5 +1,5 @@
-const Student = require(__basedir + '/models/student').model;
-const Course = require(__basedir + '/models/course').model;
+const Student = require( '../models/student').model;
+const Course = require( '../models/course').model;
 
 
 const isAuthenticated = (req, res, next) => {
@@ -18,7 +18,7 @@ const isAuthenticated = (req, res, next) => {
 // Need to check isAuthenticated first so that req.user exists
 const isJoinedIn = async (req, res, next) => {
     const studentID = req.user.id;
-    const courseID = req.body.courseID || req.params.courseID || "0";
+    const courseID = req.body.id || req.params.id || "0";
 
     try {
         let student = await Student.findOne({ _id: studentID });
@@ -47,25 +47,65 @@ const isJoinedIn = async (req, res, next) => {
     }
 }
 
-const isAdmin = async (req, res, next) => {
-    if (req.user.role === 'Admin') {
-        next();
+const isAdmin =  (req, res, next) => {
+    console.log("admin middle ware");
+    if (req.user == undefined) {
+        console.log("undefined");
+        req.flash('error', 'You do not have permission.');
+        res.redirect(__host);
+
     }
-    req.flash('error', 'You do not have permission.');
-    res.redirect(__host);
+    else if (req.user.role === 'Admin') {
+        console.log("is admin");
+         next();
+        
+    }
+
+    else {
+        console.log("else");
+        req.flash('error', 'You do not have permission.');
+        res.redirect(__host);
+    }
 }
 
-const isLecturer = async (req, res, next) => {
-    if (req.user.role === 'Lecturer') {
-        next();
+const isLecturer =  (req, res, next) => {
+    if (req.user==undefined){
+        req.flash('error', 'You do not have permission.');
+        res.redirect(__host);
+
     }
-    req.flash('error', 'You do not have permission.');
-    res.redirect(__host);
+    else if (req.user.role === 'Lecturer') {
+        next();
+
+    }
+    else
+    {
+        req.flash('error', 'You do not have permission.');
+        res.redirect(__host);
+    }
+}
+
+const isStudent =  (req, res, next) => {
+    if (req.user == undefined) {
+        req.flash('error', 'You do not have permission.');
+        res.redirect(__host);
+
+    }
+    else if (req.user.role === 'Student') {
+        next();
+
+    }
+    else
+    {
+        req.flash('error', 'You do not have permission.');
+        res.redirect(__host);
+    }
 }
 
 module.exports = {
     isAuthenticated,
     isJoinedIn,
     isAdmin,
-    isLecturer
+    isLecturer,
+    isStudent
 }

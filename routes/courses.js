@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const search = require("../controllers/course/search");
 const getByCatID = require("../controllers/course/get_by_catID");
-const { addAdditionalFields } = require(__basedir +
+const { addDurationText } = require(__basedir +
   "/controllers/course/helpers");
 
 router.route("/search").get( async function (req, res) {
@@ -11,7 +11,7 @@ router.route("/search").get( async function (req, res) {
   const { q, p, cat, sortBy } = req.query;
 
   const paginates = await search(q, cat, p?p:1, __CONFIG.paginateLimit, sortBy);
-  addAdditionalFields(paginates.docs);
+  addDurationText(paginates.docs);
 
   // console.log(paginates);  
   if (sortBy === "rate") paginates.sortBy = "rate";
@@ -31,7 +31,7 @@ router.route("/category/:catID").get(async function(req, res) {
     // console.log("redirect");
     return res.redirect('/');
   }
-  addAdditionalFields(paginates.docs);
+  addDurationText(paginates.docs);
 
   // console.log(paginates);
 

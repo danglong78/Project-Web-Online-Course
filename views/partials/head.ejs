@@ -13,3 +13,115 @@
 <link href="/vendor/OwlCarousel/assets/owl.theme.default.min.css" rel="stylesheet" type="text/css">
 <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css">
 <link rel="stylesheet" type="text/css" href="/vendor/semantic/semantic.min.css">
+<%if(currentUser){%>
+<%if(currentUser.role !== "Lecturer"){%>
+<style>
+
+    .text {
+        height: 50px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        /* number of lines to show */
+        -webkit-box-orient: vertical;
+    }
+
+
+    .dropdown:hover>.dropdown-menu {
+        display: block;
+    }
+
+    .dropdown-menu {
+        min-height: 400px;
+        min-width: 250px;
+    }
+
+    .dropdown>.dropdown-toggle:active {
+        /*Without this, clicking will make it sticky*/
+        pointer-events: none;
+    }
+
+    .dropdown-menu .dropdown-toggle:after {
+        border-top: .3em solid transparent;
+        border-right: 0;
+        border-bottom: .3em solid transparent;
+        border-left: .3em solid;
+    }
+
+    .dropdown-menu {
+        margin: 0;
+        min-height: 500px;
+    }
+
+    .megasubmenu {
+        left: 100%;
+        top: 0;
+        min-height: 100%;
+        min-width: 100%;
+    }
+
+    .dropdown-menu>li:hover .megasubmenu {
+        display: block;
+        padding-left: 5%;
+
+    }
+
+</style>
+<%}}else{%>
+    <style>
+
+        .text {
+            height: 50px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            /* number of lines to show */
+            -webkit-box-orient: vertical;
+        }
+
+
+        .dropdown:hover>.dropdown-menu {
+            display: block;
+        }
+
+        .dropdown-menu {
+            min-height: 400px;
+            min-width: 250px;
+        }
+
+        .dropdown>.dropdown-toggle:active {
+            /*Without this, clicking will make it sticky*/
+            pointer-events: none;
+        }
+
+        .dropdown-menu .dropdown-toggle:after {
+            border-top: .3em solid transparent;
+            border-right: 0;
+            border-bottom: .3em solid transparent;
+            border-left: .3em solid;
+        }
+
+        .dropdown-menu {
+            margin: 0;
+            min-height: 500px;
+        }
+
+        .megasubmenu {
+            left: 100%;
+            top: 0;
+            min-height: 100%;
+            min-width: 100%;
+        }
+
+        .dropdown-menu>li:hover .megasubmenu {
+            display: block;
+            padding-left: 5%;
+
+        }
+
+    </style>
+
+<%}%>
+

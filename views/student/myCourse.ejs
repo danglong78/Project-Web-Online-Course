@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<!-- Mirrored from gambolthemes.net/html-items/Learnic_demo_f12/create_new_course by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 20 Jun 2020 12:55:52 GMT -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, shrink-to-fit=9">
+    <meta name="description" content="Gambolthemes">
+    <meta name="author" content="Gambolthemes">
+    <title>Learnic - My Course</title>
+
+    <!-- Favicon Icon -->
+    <link rel="icon" type="image/png" href="/images/fav.png">
+
+    <!-- Stylesheets -->
+    <%- include('../partials/head'); -%>
+    <link href="/css/instructor-dashboard.css" rel="stylesheet" type="text/css">
+    <link href="/css/instructor-responsive.css" rel=rel="stylesheet" type="text/css">
+    <link href="/css/vertical-responsive-menu1.min.css" rel="stylesheet" type="text/css">
+    <link href="/css/jquery-steps.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.23/css/jquery.dataTables.css">
+
+
+
+</head>
+
+<body>
+<!-- Header Start -->
+<%- include('../partials/navbar'); -%>
+<!-- Header End -->
+<!-- Left Sidebar Start -->
+<%- include('../partials/left-menu'); -%>
+<!-- Left Sidebar End -->
+<!-- Body Start -->
+<div class="wrapper">
+    <div class="sa4d25">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h2 class="st_title"><i class="uil uil-book-alt"></i>Courses</h2>
+                </div>
+                <div class="col-md-12">
+                    <div class="card_dash1">
+                        <div class="card_dash_left1">
+                            <i class="uil uil-book-alt"></i>
+                            <h1>Jump Into Learning</h1>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="my_courses_tabs">
+                        <ul class="nav nav-pills my_crse_nav" id="pills-tab" role="tablist">
+                            <li class="nav-item mr-5">
+                                <a class="nav-link active" id="pills-my-courses-tab" data-toggle="pill" href="#pills-my-courses" role="tab" aria-controls="pills-my-courses" aria-selected="true"><i class="uil uil-book-alt"></i>My Courses</a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link" id="pills-discount-tab" data-toggle="pill" href="#pills-discount" role="tab" aria-controls="pills-discount" aria-selected="false"><i class="uil uil-heart-alt"></i>Favorites</a>
+                            </li>
+
+                        </ul>
+                        <div class="tab-content" id="pills-tabContent">
+                            <div class="tab-pane fade show active" id="pills-my-courses" role="tabpanel">
+                                <div class="table-responsive mt-30">
+                                    <table class="table ucp-table row-border"  id="courseTable">
+                                        <thead class="thead-s">
+                                        <tr>
+                                            <th class="text-center" scope="col">No.</th>
+                                            <th>Title</th>
+
+                                            <th class="text-center" scope="col">Action</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <%if(courses.length !==0){%>
+                                        <% for(var i=0;i<courses.length;i++){%>
+                                        <tr data-id="<%=courses[i].course._id%>">
+                                            <td class="text-center"><%=i+1%></td>
+                                            <td><a href="/course/<%=courses[i].course._id%>"><%=courses[i].course.title%></a></td>
+                                            <td class="text-center">
+                                                <a href="/learn/<%= courses[i].course._id%>" title="Edit" class="gray-s"><i class="uil uil-edit-alt"></i>Study</a>
+                                            </td>
+                                        </tr>
+                                        <%}}%>
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="pills-discount" role="tabpanel">
+
+                                <div class="table-responsive mt-30">
+                                    <table class="table ucp-table row-border"  id="favoriteTable">
+                                        <thead class="thead-s">
+                                        <tr>
+                                            <th class="cell-ta">Course</th>
+                                            <th class="text-center" scope="col">Actions</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <%if(favorites.length !==0){%>
+                                            <% for(var i=0;i<favorites.length;i++){%>
+                                            <tr data-id="<%=favorites[i]._id%>">
+                                                <td><a href="/course/<%=favorites[i]._id%>"><%=favorites[i].title%></a></td>
+                                                <td class="text-center">
+                                                    <a href="#" title="Delete" class="gray-s"><i class="uil uil-trash-alt"></i></a>
+                                                </td>
+                                            </tr>
+                                        <%}}%>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <%- include('../partials/footer'); -%>
+</div>
+<!-- Body End -->
+<%- include('../partials/footer'); -%>
+<script src="/js/vertical-responsive-menu.min.js"></script>
+<script src="/js/jquery-3.3.1.min.js"></script>
+<script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="/vendor/OwlCarousel/owl.carousel.js"></script>
+<script src="/vendor/semantic/semantic.min.js"></script>
+<script src="/js/custom.js"></script>
+<script src="/js/night-mode.js"></script>
+<script src="/js/jquery-steps.min.js"></script>
+<!--Hàm chung-->
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.js"></script>
+
+<script>
+    $.extend({
+        el: function(el, props) {
+            let $el = $($("<"+el+" />"));
+            $el.attr(props);
+            return $el;
+        }
+    });
+    $(document).ready(function () {
+        let table2= $('#courseTable').DataTable();
+        let table = $('#favoriteTable').DataTable();
+        $('a[title="Delete"]').click(function () {
+            let id = $(this).closest('tr').data('id');
+            $tr=$(this).closest('tr');
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        async: false,
+                        url: "/student/favorites/delete",
+                        type: 'POST',
+                        contentType: "application/json; charset=UTF-8",
+                        data: JSON.stringify({id}),
+                        success: function (data) {
+                            Swal.fire(
+                                'Add Success!',
+                                `You have removed this course from your wishlist`,
+                                'success'
+                            );
+                            table.row($tr).remove().draw();
+
+                        },
+
+                        error: function () {
+                            Swal.fire(
+                                'Error!',
+                                `${JSON.stringify(result)}`,
+                                'error'
+                            );
+                        },
+
+                    })
+                }
+
+
+            })
+        })
+    })
+
+</script>
+
+</body>
+
+<!-- Mirrored from gambolthemes.net/html-items/Learnic_demo_f12/create_new_course by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 20 Jun 2020 12:56:02 GMT -->
+</html>

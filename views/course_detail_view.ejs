@@ -543,14 +543,25 @@
                     type: 'POST',
                     contentType: "application/json; charset=UTF-8",
                     success: function (data) {
-                        Swal.fire(
-                            'Add Success!',
-                            `You have added this course to your wishlist`,
-                            'success'
-                        );
-                        $('#wishlistBtn').find('i').remove()
-                        $('#wishlistBtn').find('span').append($.el('i',{'class':'fas fa-heart text-danger'}))
-
+                        if(data.success)
+                        {
+                            Swal.fire(
+                                'Add Success!',
+                                `You have added this course to your wishlist`,
+                                'success'
+                            );
+                            $('#wishlistBtn').find('i').remove()
+                            $('#wishlistBtn').find('span').append($.el('i', {'class': 'fas fa-heart text-danger'}))
+                        }
+                        else{
+                            Swal.fire(
+                                {
+                                    title: 'You need to login!',
+                                    timer: 2000
+                                }
+                            );
+                            window.location.href = "/signin";
+                        }
                     },
 
                     error: function () {
@@ -570,13 +581,24 @@
                     type: 'POST',
                     contentType: "application/json; charset=UTF-8",
                     success: function (data) {
-                        Swal.fire(
-                            'Add Success!',
-                            `You have removed this course from your wishlist`,
-                            'success'
-                        );
-                        $('#wishlistBtn').find('i').remove()
-                        $('#wishlistBtn').find('span').append($.el('i',{'class':'uil uil-heart'}))
+                        if(data.success) {
+                            Swal.fire(
+                                'Add Success!',
+                                `You have removed this course from your wishlist`,
+                                'success'
+                            );
+                            $('#wishlistBtn').find('i').remove()
+                            $('#wishlistBtn').find('span').append($.el('i', {'class': 'uil uil-heart'}))
+                        }
+                        else{
+                            Swal.fire(
+                                {
+                                    title: 'You need to login!',
+                                    timer: 2000
+                                }
+                            );
+                            window.location.href = "/signin";
+                        }
                     },
 
                     error: function () {
@@ -616,7 +638,7 @@
                         Swal.fire(
                             {
                                 title: 'You need to login!',
-                                timer: 1000
+                                timer: 2000
                             }
                         );
                         window.location.href = "/signin";
@@ -634,7 +656,7 @@
             })
         })
         $('._215b31').on('click','#study' , function () {
-            window.location.href="/learn/<%=course._id%>"
+            window.location.href="/student/learn/<%=course._id%>"
         })
         $('a.preview-text').click(function () {
             var myVideo = videojs('my-video');
@@ -656,7 +678,7 @@
             <div class="modal-body">
                 <video id="my-video" class="video-js" controls preload="auto" width="775" height="300"
                        data-setup="{}">
-                    <source src="/upload/video/5ffa725c3edfd85610eae295_5ffa725c3edfd85610eae297.mp4" type="video/mp4" />
+                    <source src="" type="video/mp4" />
 
                 </video>
 
