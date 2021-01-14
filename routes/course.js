@@ -33,7 +33,11 @@ router.get('/:id',  async (req,res)=>{
             rates.push({rate:course.rates[i],student:student.name})
         }
     }
-    averageRate=averageRate/course.rates.length;
+    if (course.rates.length==0){
+        averageRate=0;
+    }else{
+        averageRate = averageRate / course.rates.length;
+    }
     let isJoined;
     let isAddWishList;
 
