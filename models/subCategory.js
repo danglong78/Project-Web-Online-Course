@@ -10,7 +10,7 @@ const subCategorySchema = Schema({
     }
 });
 
-subCategorySchema.plugin(mongoose_delete, { overrideMethods: 'all' });
+subCategorySchema.plugin(mongoose_delete, { overrideMethods: ['count', 'find', 'findOne', 'findOneAndUpdate', 'update'] });
 const subCategory = mongoose.model('SubCategory', subCategorySchema);
 
 module.exports = {model:subCategory};

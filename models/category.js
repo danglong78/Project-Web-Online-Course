@@ -12,7 +12,7 @@ const mainCategorySchema = Schema({
     subCate: [{ type: mongoose.Schema.Types.ObjectId, ref: 'subCategory' }]
 });
 
-mainCategorySchema.plugin(mongoose_delete, { overrideMethods: 'all' });
+mainCategorySchema.plugin(mongoose_delete, { overrideMethods: ['count', 'find', 'findOne', 'findOneAndUpdate', 'update'] });
 const mainCategory = mongoose.model('MainCategory', mainCategorySchema);
 
 

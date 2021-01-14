@@ -13,8 +13,12 @@ const user_check = require('../controllers/middlewares');
 
 router.get('/:id',  async (req,res)=>{
     let id= req.params.id;
-    let course = await courseModel.findById(id)
-    let lecture = await  lectureModel.findById(course.lecturer).lean()
+    let course = await courseModel.findOne({_id:id})
+    if(!course){
+        req.flash("error","Course Not Found");
+        return res.redirect("/");
+    }
+    let lecture = await  lectureModel.findOneWithDeleted({_id:course.lecturer}).lean()
     let otherCourse = await getRelatedCourses(`${id}`,`${course.subCategory}`, 5);
     let averageRate =0;
     let ratesPercent=[0,0,0,0,0]

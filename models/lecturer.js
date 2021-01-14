@@ -25,7 +25,7 @@ const lecturerChema = Schema({
     },
   ],
 });
-lecturerChema.plugin(mongoose_delete, { overrideMethods: 'all' });
+lecturerChema.plugin(mongoose_delete, { overrideMethods: ['count', 'find', 'findOne', 'findOneAndUpdate', 'update'] });
 const Lecturer = mongoose.model("Lecturer", lecturerChema);
 
 
