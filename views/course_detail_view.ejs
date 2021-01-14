@@ -123,6 +123,9 @@
                                 <div class="_215b05">
                                     <%=course.enrollCount.toLocaleString()%> students enrolled
                                 </div>
+                                <div class="_215b05">
+                                    Created by <%=lecturer.name%>
+                                </div>
                                 <div class="_215b06">
 
                                     <div class="_215b08">
@@ -383,7 +386,7 @@
                                                 <%if (course.rates.length-rates.length)%>
                                             </div>
                                             <div class="review_item">
-                                                <a href="#" class="more_reviews">See More Reviews</a>
+                                                <button class="more_reviews btn_adcart text-white">See More Reviews</button>
 
                                             </div>
                                         </div>
@@ -638,11 +641,7 @@
             ]);
         })
         $('.review_item').on('click','.more_reviews',function () {
-            $('.review_item').eq(0).empty().html('<div class="spinner">\n' +
-                '                                                        <div class="bounce1"></div>\n' +
-                '                                                        <div class="bounce2"></div>\n' +
-                '                                                        <div class="bounce3"></div>\n' +
-                '                                                    </div>')
+            $td = $(this).closest('.review_item')
             $.ajax({
                 async: false,
                 url: "/course/getMoreRate",
@@ -650,36 +649,35 @@
                 contentType: "application/json; charset=UTF-8",
                 data:JSON.stringify({id:"<%= course.id %>",numberRateRemain}),
                 success: function (data) {
-
                     if (data.success) {
-                        for(r of data.rates) {
+                        for(let i =0;i<data.rates.length;i++) {
                             $('.review_all120').eq(0).append(`<div class="review_item">
                                                         <div class="review_usr_dt">
                                                             <img src="/images/left-imgs/img-${Math.floor(Math.random() * 16) + 1}.jpg" alt="">
                                                             <div class="rv1458">
-                                                                <h4 class="tutor_name1">${r.student.name}</h4>
+                                                                <h4 class="tutor_name1">${data.rates[i].student.name}</h4>
                                                             </div>
                                                         </div>
                                                         <div class="rating-box mt-20">
-                                                                ${(1<=r.score)?'<span class="rating-star full-star"></span>':'<span class="rating-star empty-star"></span>'}
-                                                                ${(2<=r.score)?'<span class="rating-star full-star"></span>':'<span class="rating-star empty-star"></span>'}
-                                                                ${(3<=r.score)?'<span class="rating-star full-star"></span>':'<span class="rating-star empty-star"></span>'}
-                                                                ${(4<=r.score)?'<span class="rating-star full-star"></span>':'<span class="rating-star empty-star"></span>'}
-                                                                ${(5<=r.score)?'<span class="rating-star full-star"></span>':'<span class="rating-star empty-star"></span>'}
+                                                                ${(1<=data.rates[i].score)?'<span class="rating-star full-star"></span>':'<span class="rating-star empty-star"></span>'}
+                                                                ${(2<=data.rates[i].score)?'<span class="rating-star full-star"></span>':'<span class="rating-star empty-star"></span>'}
+                                                                ${(3<=data.rates[i].score)?'<span class="rating-star full-star"></span>':'<span class="rating-star empty-star"></span>'}
+                                                                ${(4<=data.rates[i].score)?'<span class="rating-star full-star"></span>':'<span class="rating-star empty-star"></span>'}
+                                                                ${(5<=data.rates[i].score)?'<span class="rating-star full-star"></span>':'<span class="rating-star empty-star"></span>'}
 
 
                                                         </div>
-                                                        <p class="rvds10">${r.review}</p>
+                                                        <p class="rvds10">${data.rates[i].review}</p>
                                                     </div>`)
                         }
 
                         numberRateRemain-= data.rates.length;
                         if(numberRateRemain>0)
                         {
-                            $('.review_item').eq(0).empty().html('<a href="#" class="more_reviews">See More Reviews</a>')
+                            $td.empty().html('<button class="more_reviews btn_adcart text-white">See More Reviews</button>')
                         }
                         else{
-                            $('.review_item').eq(0).empty()
+                            $td.empty()
                         }
                     }
                     else{

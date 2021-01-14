@@ -51,8 +51,9 @@ router.get('/:id',  async (req,res)=>{
 
 })
 router.post('/getMoreRate',async (req,res)=>{
-    let rates=getRates(`${req.body.id}`,`${req.body.numberRateRemain}`)
-    res.send({success:true,rates})
+    let rates= await getRates(`${req.body.id}`,`${req.body.numberRateRemain}`)
+
+    res.send({success:true,rates:rates})
 })
 router.post('/buy/:id',user_check.isAuthenticated,user_check.isStudent,async function (req,res) {
     if(req.user.id===undefined)
