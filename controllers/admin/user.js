@@ -13,20 +13,33 @@ const user_view = async function(res){
         for (var i = 0; i < user.length; i++) {
             var aUser;
             if (user[i].role == "Student") {
-                aUser = await stu_user.findOneWithDeleted({ _id: user[i].user });
+                try{
+                    aUser = await stu_user.findOneWithDeleted({ _id: user[i].user });
+                }
+                catch(err){
+                    console.log(err);
+                }
                 user[i]["name"] = aUser.name;
+                console.log(user[i]);
             }
             else if (user[i].role == "Lecturer") {
-                aUser = await lec_user.findOneWithDeleted({ _id: user[i].user });
+                try{
+                    aUser = await lec_user.findOneWithDeleted({ _id: user[i].user });
+                }
+                catch(err){
+                    console.log(err);
+                }
                 user[i]["name"] = aUser.name;
+                console.log(user[i]);
             } else {
-                aUser = await admin_user.findOne({ _id: user[i].user });
+                aUser = await admin_user.findById(user[i].user);
                 user[i]["name"] = aUser.name;
+                console.log(user[i]);
             }
         }
         res.render('admin/user', { user: user, statics: __statics });
-    } catch (e) {
-        console.log(e)
+    } catch (err) {
+        console.log(err);
         res.render('error');
     }
 };

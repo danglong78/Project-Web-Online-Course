@@ -12,7 +12,6 @@ let Imgstorage = multer.diskStorage({
     destination: (req, file, callback) => {
         callback(null, "upload/img");    },
     filename: (req, file, callback) => {
-
         let math = ['image/png','image/gif','image/jpeg','image/jpg'];
         if (math.indexOf(file.mimetype) === -1) {
             let errorMess = `The file <strong>${file.originalname}</strong> is invalid.`;
