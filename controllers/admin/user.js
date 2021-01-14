@@ -73,17 +73,16 @@ const change_infor = async function (req, res) {
     var cre = await credential.findById(id);
     var user;
     if (cre.role == "Student") {
-        console.log('adfads');
         user = await stu_user.findById(cre.user);
         user.name = new_name;
         stu_user.update({ _id: user._id }, { $set: user }).exec();
     } else {
-        console.log('adfadfadfadfadfadsfadsfads');
         user = await lec_user.findById(cre.user);
         user.name = new_name;
         lec_user.update({ _id: user._id }, { $set: user }).exec();
     }
     cre.email = new_email;
+
     credential.update({ _id: id }, { $set: cre }).exec();
     res.send({ success: true });
 
