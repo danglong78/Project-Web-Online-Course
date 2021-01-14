@@ -377,7 +377,7 @@
                         Swal.showLoading();
                         $.ajax({
                             async: false,
-                            url: "/admin/addLecturer",
+                            url: "/admin/user/addLecturer",
                             type: 'POST',
                             contentType: "application/json; charset=UTF-8",
                             data: JSON.stringify({
@@ -416,13 +416,16 @@
                                                 )
                                             )
                                         ).draw();
+                                        $('input[name="lecturerName"]').val("");
+                                        $('input[name="lecturerEmail"]').val("");
+                                        $('input[name="lecturerPass"]').val("");
                                     })
 
                                 }
                                 else{
                                     Swal.fire(
                                         'Error!',
-                                        `Account Exist`,
+                                        `Email Account Exist`,
                                         'error'
                                     );
                                 }
@@ -501,7 +504,7 @@
             else{
                 $.ajax({
                     async: false,
-                    url: "/admin/changeInfor",
+                    url: "/admin/user/changeInfor",
                     type: 'POST',
                     contentType: "application/json; charset=UTF-8",
                     data: JSON.stringify({ id:id,name:$name.find('input').val(),email:$email.find('input').val() }),
@@ -571,7 +574,7 @@
                     res.value;
                     $.ajax({
                         async: false,
-                        url: "/admin/changePassword",
+                        url: "/admin/user/changePassword",
                         type: 'POST',
                         contentType: "application/json; charset=UTF-8",
                         data: JSON.stringify({ id:id,password:res.value }),
@@ -737,7 +740,7 @@
             else{
                 $.ajax({
                     async: false,
-                    url: "/admin/changeInfor",
+                    url: "/admin/user/changeInfor",
                     type: 'POST',
                     contentType: "application/json; charset=UTF-8",
                     data: JSON.stringify({ id:id,name:$name.find('input').val(),email:$email.find('input').val() }),

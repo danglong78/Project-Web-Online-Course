@@ -74,11 +74,11 @@ const add_lecturer = async (req, res) => {
     const email = req.body.email;
     const password = req.body.password;
 
-    if (!(await isUniqueEmail(email))) {
+    if (!(await isUniqueEmail(`${email}`))) {
         let err = new Error();
         err.debugMessage = "Signup: Duplicated email";
         err.userMessage = "This email has already been used for registration";
-        throw err;
+        return res.send({ success: false});
     }
 
     let err, hash;
@@ -86,7 +86,7 @@ const add_lecturer = async (req, res) => {
     if (err) {
         /*err.debugMessage = "Something wrong when hashing";
         err.userMessage = "Something wrong happened. Please try again!";*/
-        res.send({ success: false, _id: 'abcxyz' });
+        return res.send({ success: false, _id: 'abcxyz' });
     }
 
     const newLecturer = new Lecturer({ name: name });
@@ -95,6 +95,8 @@ const add_lecturer = async (req, res) => {
         password: hash,
         user: newLecturer._id,
         role: "Lecturer",
+        isVerified: true,
+        isDisabled:false
     });
 
     try {
@@ -111,7 +113,8 @@ const add_lecturer = async (req, res) => {
     } catch (err) {
         err.debugMessage = "Something wrong when saving user";
         err.userMessage = "Something wrong happened. Please try again!";
-        res.send({ success: false, _id: 'abcxyz' });
+        return res.send({ success: false, _id: 'abcxyz' });
+
     } finally {
         console.log("end signup");
     }
