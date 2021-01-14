@@ -72,6 +72,7 @@
                                         <tr>
                                             <th class="text-center" scope="col">No.</th>
                                             <th>Title</th>
+                                            <th class="text-center" scope="col">Final Version</th>
 
                                             <th class="text-center" scope="col">Action</th>
                                         </tr>
@@ -82,6 +83,7 @@
                                         <tr data-id="<%=courses[i].course._id%>">
                                             <td class="text-center"><%=i+1%></td>
                                             <td><a href="/course/<%=courses[i].course._id%>"><%=courses[i].course.title%></a></td>
+                                            <td class="text-center"><%-(courses[i].course.finished)?"<i class='uil uil-check text-success' style='font-size: 150%'></i> ":""%></td>
                                             <td class="text-center">
                                                 <a href="/student/learn/<%= courses[i].course._id%>" title="Edit" class="gray-s"><i class="uil uil-edit-alt"></i>Study</a>
                                             </td>

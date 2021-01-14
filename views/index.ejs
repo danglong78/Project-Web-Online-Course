@@ -162,9 +162,11 @@
                                   <div class="prce142">
                                     <% if (view.price !==0) {%>
                                       $<%=view.price %>
+                                    <%if(view.price !=view.fullPrice){%>
                                       <span style="text-decoration: line-through; margin-left:0.5rem">
                                         $<%= view.fullPrice %> 
                                       </span>
+                                    <%}%>
                                       <%} else {%>
                                         FREE
                                       <% } %>
@@ -232,9 +234,11 @@
                                   <div class="prce142">
                                     <% if (fav.price !==0) {%>
                                       $<%=fav.price %>
+                                    <%if(fav.price != fav.fullPrice){%>
                                       <span style="text-decoration: line-through; margin-left:0.5rem">
                                         $<%= fav.fullPrice %> 
                                       </span>
+                                    <%}%>
                                     <%} else {%>
                                       FREE
                                     <% } %>
@@ -303,9 +307,11 @@
                                   <div class="prce142">
                                     <% if (newcourse.price !==0) {%>
                                       $<%=newcourse.price %>
+                                    <%if(newcourse.price != newcourse.fullPrice){%>
                                       <span style="text-decoration: line-through; margin-left:0.5rem">
                                         $<%= newcourse.fullPrice %> 
                                       </span>
+                                    <%}%>
                                     <%} else {%>
                                       FREE
                                     <% } %>

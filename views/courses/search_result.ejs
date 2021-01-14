@@ -207,9 +207,11 @@
 													<div class="prce142">
 														<% if (course.price !==0) {%>
 															$<%=course.price %>
+														<%if(course.price != course.fullPrice){%>
 															<span style="text-decoration: line-through; margin-left:0.5rem">
 																$<%= course.fullPrice %> 
 															</span>
+														<%}%>
 														<%} else {%>
 															FREE
 														<% } %>
