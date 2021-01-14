@@ -99,7 +99,7 @@ const courseSchema = mongoose.Schema({
 
 courseSchema.plugin(mongoosePaginate);
 courseSchema.plugin(aggregatePaginate);
-courseSchema.plugin(mongoose_delete, { overrideMethods: 'all' });
+courseSchema.plugin(mongoose_delete, { overrideMethods: ['count', 'find', 'findOne', 'findOneAndUpdate', 'update'] });
 const Course = mongoose.model("Course", courseSchema);
 //Course.paginate().then({}); // Usage
 

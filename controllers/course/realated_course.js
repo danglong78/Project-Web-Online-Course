@@ -26,14 +26,17 @@ const getRelatedCourses = async (courseID, catID, limit) => {
                 {
                     path: "lecturer",
                     model: "Lecturer",
+                    options: { withDeleted: true }
                 },
                 {
                     path: "category",
                     model: "MainCategory",
+                    options: { withDeleted: true }
                 },
                 {
                     path: "subCategory",
                     model: "SubCategory",
+                    options: { withDeleted: true }
                 },
             ]);
         }

@@ -38,7 +38,7 @@ const studentSchema = Schema({
     },
   ],
 });
-studentSchema.plugin(mongoose_delete, { overrideMethods: 'all' });
+studentSchema.plugin(mongoose_delete, { overrideMethods: ['count', 'find', 'findOne', 'findOneAndUpdate', 'update'] });
 const Student = mongoose.model("Student", studentSchema);
 
 

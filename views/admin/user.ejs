@@ -77,7 +77,7 @@
                                         <tr data-id="<%=user[i]._id%>">
                                             <td class="cell-ta" ><%=user[i].name%></td>
                                             <td class="cell-ta" ><%=user[i].email%></td>
-                                            <td class="text-center"><%-(user[i].isDisabled) ? "<i class='uil uil-check text-success' style='font-size: 150%'></i>":""%></td>
+                                            <td class="text-center"><%-(user[i].deleted) ? "<i class='uil uil-check text-success' style='font-size: 150%'></i>":""%></td>
                                             <td class="text-center d-flex justify-content-center align-items-center">
                                                 <a href="#" title="Edit"  data-id="off" class="gray-s"><i class="uil uil-edit-alt"></i></a>
                                                 <a href="#" title="Delete" class="gray-s"><i class="uil uil-trash-alt"></i></a>
@@ -159,7 +159,7 @@
                                         <tr data-id="<%=user[i]._id%>">
                                             <td class="cell-ta" ><%=user[i].name%></td>
                                             <td class="cell-ta" ><%=user[i].email%></td>
-                                            <td class="text-center"><%-(user[i].isDisabled) ? "<i class='uil uil-check text-success' style='font-size: 150%'></i>":""%></td>
+                                            <td class="text-center"><%-(user[i].deleted) ? "<i class='uil uil-check text-success' style='font-size: 150%'></i>":""%></td>
                                             <td class="text-center d-flex justify-content-center align-items-center">
                                                 <a href="#" title="Edit"  data-id="off" class="gray-s"><i class="uil uil-edit-alt"></i></a>
                                                 <a href="#" title="Delete" class="gray-s"><i class="uil uil-trash-alt"></i></a>
@@ -276,7 +276,7 @@
                     success: function (data) {
                         if (data.success) {
                             Swal.fire(
-                                'Deleted!',
+                                'Ban Success!',
                                 'Ban Successfully',
                                 'success'
                             ).then(() => {
@@ -309,7 +309,7 @@
                     success: function (data) {
                         if (data.success) {
                             Swal.fire(
-                                'Deleted!',
+                                'Unlock!',
                                 'Unlock Successfully',
                                 'success'
                             ).then(() => {
@@ -622,7 +622,7 @@
                     success: function (data) {
                         if (data.success) {
                             Swal.fire(
-                                'Deleted!',
+                                'Ban Success!',
                                 'Ban Successfully',
                                 'success'
                             ).then(() => {
@@ -655,7 +655,7 @@
                     success: function (data) {
                         if (data.success) {
                             Swal.fire(
-                                'Deleted!',
+                                'Unlock!',
                                 'Unlock Successfully',
                                 'success'
                             ).then(() => {

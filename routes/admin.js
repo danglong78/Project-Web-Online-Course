@@ -31,17 +31,19 @@ router.post('/changePassword',async function (req,res) {
 
 router.get('/courses', async function (req,res) {
     try {
-        let course = await courseModel.find();
+        let course = await courseModel.findWithDeleted();
+        console.log(course.length);
         let courseArr = [];
         for (let x of course) {
-            let mainCate = await Cate.findById(x.category)
-            let subCate = await SubCate.findById(x.subCategory)
-            let aLecturer = await lec_User.findById(x.lecturer)
-            courseArr.push({ _id: x._id,isDisabled:x.isDisabled ,title: x.title, mainCate: mainCate.name, subCate: subCate.name, Lecturer_name: aLecturer.name })
+            let mainCate = await Cate.findOneWithDeleted({_id:x.category})
+            let subCate = await SubCate.findOneWithDeleted({_id:x.subCategory})
+            let aLecturer = await lec_User.findOneWithDeleted({_id:x.lecturer})
+            courseArr.push({ _id: x._id,isDisabled:x.deleted ,title: x.title, mainCate: mainCate.name, subCate: subCate.name, Lecturer_name: aLecturer.name })
         }
         res.render('admin/course', { course: courseArr ,statics:__statics});
 
     } catch (e) {
+        console.log(e);
         res.render('error');
     }
 });

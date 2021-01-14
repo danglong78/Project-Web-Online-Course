@@ -43,7 +43,7 @@ const credentialSchema = mongoose.Schema({
   },
 });
 
-credentialSchema.plugin(mongoose_delete, { overrideMethods: 'all' });
+credentialSchema.plugin(mongoose_delete, { overrideMethods: ['count', 'find', 'findOne', 'findOneAndUpdate', 'update'] });
 const Credential = mongoose.model("Credential", credentialSchema);
 
 module.exports = {

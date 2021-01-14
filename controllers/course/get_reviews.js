@@ -8,8 +8,11 @@ const getReviews = async (courseID, nLeftReview) => {
     let revs = [];
 
     try {
-        let course = await Course.findOne({_id: courseID}).lean();
-        console.log(course);
+        let course = await Course.findOne({_id: courseID}).populate({
+            path: "rates.student",
+            model: "Student",
+            options: { withDeleted: true }
+        }).lean();
 
         if (course) {
             revs = course.rates.slice(course.rates.length - nLeftReview, course.rates.length - nLeftReview + CONFIG.nReview);     
