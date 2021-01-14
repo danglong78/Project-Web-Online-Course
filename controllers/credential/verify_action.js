@@ -26,7 +26,7 @@ const verifyAction = async (token) => {
             
             if (credential) {
                 credential.isVerified = true;
-                credential.save();
+                await credential.save();
                 return true;
             }
             else throw new Error('Account not found');
@@ -35,7 +35,7 @@ const verifyAction = async (token) => {
             
             if (credential) {
                 credential.email = payload.newEmail;
-                credential.save();
+                await credential.save();
                 return true;
             }
             else throw new Error('Account not found');
@@ -83,4 +83,4 @@ const verifyAction = async (token) => {
     }
 }
 
-module.exports = verifyRegistration;
+module.exports = verifyAction;

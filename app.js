@@ -3,7 +3,7 @@ if (process.env.NODE_ENV !== "production") {
 }
 
 global.__host = process.env.NODE_ENV !== "production" ? "http://localhost:3000" : "https://udemy-clone102.herokuapp.com";
-
+console.log(__host);
 const morgan = require("morgan");
 const createError = require("http-errors");
 const express = require("express");

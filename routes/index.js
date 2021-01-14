@@ -33,6 +33,7 @@ const middlewares = {
   isAdmin: require(__basedir + "/controllers/middlewares").isAdmin,
 }
 const jwt = require('jsonwebtoken');
+const changeEmail = require('../controllers/credential/change_email').changeEmail;
 
 
 // static data
