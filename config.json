@@ -16,5 +16,7 @@
     "nTopTrending": 4,
     "nTopSubCat": 10,
     "nTopWeeklySubCat": 6,
-    "paginateLimit": 3
+    "paginateLimit": 3,
+    "nReview": 5
+
 }
