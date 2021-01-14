@@ -2,7 +2,7 @@ if (process.env.NODE_ENV !== "production") {
   require("dotenv").config();
 }
 
-global.__host = "http://localhost:3000";
+global.__host = process.env.NODE_ENV !== "production" ? "http://localhost:3000" : "https://udemy-clone102.herokuapp.com";
 
 const morgan = require("morgan");
 const createError = require("http-errors");

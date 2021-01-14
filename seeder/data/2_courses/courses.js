@@ -43,7 +43,7 @@ const extractChapter = (crawl) => {
       let newLec = {
         _id: newLecID,
         title: lec.title,
-        preview: lec.can_be_preview,
+        preview: lec.can_be_previewed,
         description: lec.description,
         durationText: lec.content_summary,
         is_coding_exercise: lec.is_coding_exercise,
