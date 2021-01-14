@@ -44,7 +44,9 @@ const rename_MainCate = async function (req, res) {
 };
 
 const add_MainCate = async function (req, res) {
+    console.log(req.body);
     var temp = await Cate.find({ name: req.body.name });
+    console.log(temp.length);
     //var aCate = await cateModel.findById(req.body.id);
     if (temp.length > 0) {
         res.send({ success: false });
@@ -65,6 +67,7 @@ const add_MainCate = async function (req, res) {
 }
 
 const add_SubCate = async function (req, res) {
+    console.log(req.body);
     var temp = await SubCate.find({ name: req.body.name });
     //var aCate = await cateModel.findById(req.body.id);
     if (temp.length > 0) {

@@ -15,6 +15,9 @@ const addDurationText = (courses) => {
 };
 
 const calcAvgRate = (course) => {
+  if (course.rates.length <= 0) {
+    return 0;
+  }
   let avg = 0;
   for (let rate of course.rates) {
     avg += rate.score;
