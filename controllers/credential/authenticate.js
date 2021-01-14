@@ -233,7 +233,7 @@ googleStrategy = new GoogleStrategy(
   {
     clientID: process.env.GOOGLE_ID,
     clientSecret: process.env.GOOGLE_SECRET,
-    callbackURL: "http://localhost:3000/auth/google/callback",
+    callbackURL: __host + "/auth/google/callback",
     passReqToCallback: true,
   },
   googleVerifyCb
@@ -243,7 +243,7 @@ facebookStrategy = new FacebookStrategy(
   {
     clientID: process.env.FACEBOOK_ID,
     clientSecret: process.env.FACEBOOK_SECRET,
-    callbackURL: "http://localhost:3000/auth/facebook/callback",
+    callbackURL: __host + "/auth/facebook/callback",
     passReqToCallback: true,
     profileFields: ["id", "emails", "displayName"],
   },

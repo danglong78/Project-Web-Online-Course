@@ -90,9 +90,9 @@ for (crawl of crawledCourses) {
   let randLecturer = lecturerList[getRndInteger(0, lecturerList.length - 1)];
   lecturerCourseMap.get(randLecturer).push(getObjectId(crawl.id));
   let createdAt = new Date(CONFIG.seeder.dateStart);
-  createdAt.setDate(createdAt.getDate() + getRndInteger(1, 60));
+  createdAt.setDate(createdAt.getDate() + getRndInteger(1, 260));
   let updatedAt = new Date(createdAt);
-  updatedAt.setDate(updatedAt.getDate() + getRndInteger(7, 100));
+  updatedAt.setDate(updatedAt.getDate() + getRndInteger(7, 30));
 
   // add course
   courses.push({
