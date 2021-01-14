@@ -6,6 +6,8 @@ const {
   courseIDList,
 } = require("./seeder/generator");
 
+const CONFIG = require("./config.json");
+
 // const { randDateAfter } = require("./seeder/helpers/index");
 
 // console.log(
@@ -74,8 +76,10 @@ generate().then(() => {
 
   // *************************************** IMPORT TO DATABASE ******************************************
   const path = require("path");
-  const { Seeder } = require("mongo-seeding");
+  const { Seeder, SeederDatabaseConfigObject } = require("mongo-seeding");
   const config = {
+    // database: process.env.DBURI,
+    // dropDatabase: true,
     database: {
       name: "udemyclone",
     },
