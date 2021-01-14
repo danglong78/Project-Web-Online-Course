@@ -259,11 +259,12 @@ const editCourse = async (req,res)=>{
     course.title = newInfor.title;
     course.finished = newInfor.finished;
     course.short_description = newInfor.short_description;
+    course.detail_description = newInfor.detail_description;
     course.fullPrice = newInfor.price;
     course.price = newInfor.price;
     course.category= newInfor.category;
     course.subCategory = newInfor.subCategory;
-    course.updateDate = newInfor.updateDate;
+    course.updatedAt = newInfor.updateDate;
 
     await course.save();
 

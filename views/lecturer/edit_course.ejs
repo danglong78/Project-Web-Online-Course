@@ -188,7 +188,7 @@
                                                         <div class="ui search focus mt-30 lbel25">
                                                             <label>Price</label>
                                                             <div class="ui left icon input swdh19">
-                                                                <input class="prompt srch_explore " type="number"  name="title"  min="0" max="1000000"  value=<%-course.price%> trigger="manual"  data-toggle="tooltip" data-placement="right">
+                                                                <input class="prompt srch_explore " type="number"  id="priceText" name="price"  min="0" max="1000000"  value=<%-course.price%> trigger="manual"  data-toggle="tooltip" data-placement="right">
                                                             </div>
                                                         </div>
                                                     </div>
@@ -568,7 +568,7 @@
                         finished:$('input[name="finishedTag"]:checked').length===1,
                         short_description: $('input[name="shortDescription"]').val(),
                         detail_description: courseEditor.getContent(),
-                        price:$('select[name="price"]').val(),
+                        price:$('#priceText').val(),
                         category:$('#category_select').dropdown('get value'),
                         subCategory:$('#subCategory_select .item.selected').attr("value"),
                         updateDate: new Date(),
