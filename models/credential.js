@@ -32,8 +32,14 @@ const credentialSchema = mongoose.Schema({
     refPath: "role",
   },
 
-  isVerified: Boolean,
-  isDisabled: Boolean,
+  isVerified: {
+    type: Boolean,
+    default: false
+  },
+  isDisabled: {
+    type: Boolean,
+    default: false
+  },
 });
 
 const Credential = mongoose.model("Credential", credentialSchema);

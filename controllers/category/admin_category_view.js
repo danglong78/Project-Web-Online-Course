@@ -39,7 +39,7 @@ const rename_MainCate = async function (req, res) {
     const new_name = req.body.name;
     var aCate = await Cate.findById(id);
     aCate.name = new_name;
-    Cate.update({ _id: id }, { $set: aCate }).exec();
+    Cate.updateOne({ _id: id }, { $set: aCate }).exec();
     res.send({ success: true });
 };
 
@@ -90,7 +90,7 @@ const rename_SubCate = async function (req, res) {
     const new_name = req.body.name;
     var aCate = await SubCate.findById(id);
     aCate.name = new_name;
-    SubCate.update({ _id: id }, { $set: aCate }).exec();
+    SubCate.updateOne({ _id: id }, { $set: aCate }).exec();
     res.send({ success: true });
 };
 
@@ -120,7 +120,7 @@ const add_Subcate_to_Maincate = async function (req, res) {
         }
     }
     aCate.subCate.push(sub_id);
-    Cate.update({ _id: main_id }, { $set: aCate }).exec();
+    Cate.updateOne({ _id: main_id }, { $set: aCate }).exec();
     res.send({ success: true });
 };
 
@@ -140,7 +140,7 @@ const del_subcate = async function (req, res) {
             }
         }
         Cate_list[i].subCate = temp;
-        Cate.update({ _id: Cate_list[i]._id }, { $set: Cate_list[i] }).exec();
+        Cate.updateOne({ _id: Cate_list[i]._id }, { $set: Cate_list[i] }).exec();
     }
     SubCate.findByIdAndDelete(id).exec();
     res.send({ success: true });
@@ -162,7 +162,7 @@ const change_subcate = async function (req, res) {
             break;
         }
     }
-    Cate.update({ _id: main_id }, { $set: aCate }).exec();
+    Cate.updateOne({ _id: main_id }, { $set: aCate }).exec();
     res.send({ success: true });
 };
 
@@ -182,7 +182,7 @@ const dell_subcate_from_main = async function (req, res) {
         }
     }
     aCate.subCate = temp;
-    Cate.update({ _id: idmain }, { $set: aCate }).exec();
+    Cate.updateOne({ _id: idmain }, { $set: aCate }).exec();
     res.send({ success: true });
 };
 
