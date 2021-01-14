@@ -527,8 +527,8 @@
                                     title: 'You need to login!',
                                     timer: 2000
                                 }
-                            );
-                            window.location.href = "/signin";
+                            ).then(()=>{ window.location.href = "/signin";});
+                            
                         }
                     },
 
@@ -608,8 +608,8 @@
                                 title: 'You need to login!',
                                 timer: 2000
                             }
-                        );
-                        window.location.href = "/signin";
+                        ).then(()=>{ window.location.href = "/signin";});
+                        
                     }
                 },
 
