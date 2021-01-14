@@ -32,7 +32,8 @@ router.get('/courses', async function (req,res) {
         for (let x of course) {
             let mainCate = await Cate.findById(x.category)
             let subCate = await SubCate.findById(x.subCategory)
-            courseArr.push({ _id: x._id, title: x.title, mainCate: mainCate.name, subCate: subCate.name })
+            let aLecturer = await lec_User.findById(x.lecturer)
+            courseArr.push({ _id: x._id, title: x.title, mainCate: mainCate.name, subCate: subCate.name, Lecturer_name: aLecturer.name })
         }
         res.render('admin/course', { course: courseArr ,statics:__statics});
 

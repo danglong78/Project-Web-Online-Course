@@ -13,7 +13,6 @@ const getCourse = async (req,res) =>{
     let isRated = await checkRated(`${req.user.id}`,`${course._id}`);
     console.log(isRated)
     res.render("lecture_detail",{statics: __statics,course,progress,isRated});
-
 }
 
 // gửi id course, id lecture cũ, checkpoint của lecture cũ, id của lecture mới
