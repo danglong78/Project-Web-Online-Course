@@ -199,6 +199,7 @@ const disable_course = async function(req,res){
         res.send({success: false});
     }else{
         aCourse.isDisabled = true;
+        await aCourse.save()
         res.send({success: true});
     }
 }
@@ -209,6 +210,8 @@ const able_course = async function (req, res) {
         res.send({ success: false });
     } else {
         aCourse.isDisabled = false;
+        await aCourse.save()
+
         res.send({ success: true });
     }
 }

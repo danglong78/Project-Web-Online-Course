@@ -75,11 +75,11 @@
                                         <tr>
                                             <th class="text-center" scope="col">Item No.</th>
                                             <th>Title</th>
-                                            <th class="text-center" scope="col">Publish Date</th>
                                             <th class="text-center" scope="col">Sales</th>
                                             <th class="text-center" scope="col">Parts</th>
                                             <th class="text-center" scope="col">Category</th>
-                                            <th class="text-center" scope="col">Status</th>
+                                            <th class="text-center" scope="col">Finished</th>
+                                            <th class="text-center" scope="col">Banned</th>
                                             <th class="text-center" scope="col">Action</th>
                                         </tr>
                                         </thead>
@@ -89,14 +89,13 @@
                                             <td class="text-center"><%=i+1%></td>
                                             <td><a href="/course/<%=course[i]._id%>"><%=course[i].title%></a></td>
 
-                                            <td class="text-center"><%=course[i].createdAt.toLocaleDateString("en-US")%></td>
-                                            <td class="text-center"><%=course[i].enrollCount%></td>
-                                            <td class="text-center"><%=course[i].chapter.length%></td>
+                                            <td class="text-center"><%=course[i].enrollCount.toLocaleString()%></td>
+                                            <td class="text-center"><%=course[i].chapter.length.toLocaleString()%></td>
                                             <td class="text-center"><a href="#"><%=course[i].categoryName%></a></td>
                                             <td class="text-center"><b class="text-danger"><%-(course[i].finished) ? "<i class='uil uil-check text-success' style='font-size: 150%'></i>" :""%></b></td>
+                                            <td class="text-center"><b class="text-danger"><%-(course[i].isDisabled) ? "<i class='uil uil-check text-danger' style='font-size: 150%'></i>" :""%></b></td>
                                             <td class="text-center">
                                                 <a href="edit?id=<%= course[i]._id%>" title="Edit" class="gray-s"><i class="uil uil-edit-alt"></i></a>
-                                                <a href="#" title="Delete" class="gray-s"><i class="uil uil-trash-alt"></i></a>
                                             </td>
                                         </tr>
                                         <%}%>
@@ -232,56 +231,6 @@
     });
     $(document).ready(function () {
         let table= $('#courseTable').DataTable();
-        $('a[title="Delete"]').click(function () {
-            let id = $(this).closest('tr').data('id');
-            $tr=$(this).closest('tr');
-            Swal.fire({
-                title: 'Are you sure?',
-                text: "You won't be able to revert this!",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonText: 'Yes, delete it!'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    $.ajax({
-                        async: false,
-                        url: "/lecturer/delCourse",
-                        type: 'POST',
-                        contentType: "application/json; charset=UTF-8",
-                        data: JSON.stringify({ id:id }),
-                        success: function (data) {
-                            if(data.success)
-                            {
-                                Swal.fire(
-                                    'Deleted!',
-                                    'Course has been deleted.',
-                                    'success'
-                                ).then( () =>{
-                                    table.row($tr).remove().draw();
-                                })
-                            }
-                            else{
-                                Swal.fire(
-                                    'Fail!',
-                                    'Delete course Fail !!!.',
-                                    'error'
-                                )
-                            }
-                        },
-                        error: function (result) {
-                            Swal.fire(
-                                'Error!',
-                                `${JSON.stringify(result)}`,
-                                'error'
-                            );
-                        }
-
-                    })
-
-
-                }
-            })
-        })
     })
 </script>
 </body>

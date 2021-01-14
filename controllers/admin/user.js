@@ -9,7 +9,7 @@ const to = require("await-to-js").default;
 
 const user_view = async function(res){
     try {
-        let user = await credential.find();
+        let user = await credential.find().lean();
         for (var i = 0; i < user.length; i++) {
             var aUser;
             if (user[i].role == "Student") {
@@ -23,7 +23,6 @@ const user_view = async function(res){
                 aUser = await admin_user.findById(user[i].user);
                 user[i]["name"] = aUser.name;
             }
-            console.log(i);
         }
         res.render('admin/user', { user: user, statics: __statics });
     } catch (e) {

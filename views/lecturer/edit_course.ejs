@@ -366,7 +366,6 @@
                                                             <td class="text-center"><%=course.chapter[i].durationText%></td>
                                                             <td class="text-center d-flex justify-content-center">
                                                                 <a class="gray-s editChapterBtn" title="Edit" href="#"><i class="uil uil-edit-alt"></i></a>
-                                                                <a class="gray-s delChapterBtn" title="Delete" href="#"><i class="uil uil-trash-alt"></i></a>
                                                             </td>
                                                         </tr>
 
@@ -842,7 +841,6 @@
                                                 .append(
                                                     $.el("td", { class: "text-center d-flex justify-content-center" })
                                                         .append($.el("a", { class: "gray-s editLectureBtn", title: "Edit", href: "#" }).append($.el("i", { class: "uil uil-edit-alt" })))
-                                                        .append($.el("a", { class: "gray-s delLectureBtn", title: "Delete", href: "#" }).append($.el("i", { class: "uil uil-trash-alt" })))
                                                 )
                                         );
 
@@ -991,39 +989,7 @@
             }).then((result) => {
                 if (result.isConfirmed) {
                     if($('#saveChapterBtn').data('id')!=='add') {
-                        $.ajax({
-                            async: false,
-                            url: "/lecturer/delLecture",
-                            type: 'POST',
-                            contentType: "application/json; charset=UTF-8",
-                            data: JSON.stringify({id: courseID,chapterID:$('#saveChapterBtn').data('id'), lectureID: id}),
-                            success: function (data) {
-                                if (data.success) {
-                                    Swal.fire(
-                                        'Deleted!',
-                                        'Lecture has been deleted.',
-                                        'success'
-                                    ).then(() => {
-                                        $('#lecture_table tr').eq(id).remove();
-                                        lectures.splice(id, 1);
-                                    })
-                                } else {
-                                    Swal.fire(
-                                        'Fail!',
-                                        'Delete lecture Fail !!!.',
-                                        'error'
-                                    )
-                                }
-                            },
-                            error: function (result) {
-                                Swal.fire(
-                                    'Error!',
-                                    `${JSON.stringify(result)}`,
-                                    'error'
-                                );
-                            }
 
-                        })
                     }
                     else{
                         Swal.fire(
@@ -1258,54 +1224,6 @@
             }
         });
 
-        $('#chapter_table').on('click','a.delChapterBtn',function () {
-            let id= $('.delChapterBtn').index($(this))
-            Swal.fire({
-                title: 'Are you sure?',
-                text: "You won't be able to revert this!",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonText: 'Yes, delete it!'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    $.ajax({
-                        async: false,
-                        url: "/lecturer/delChapter",
-                        type: 'POST',
-                        contentType: "application/json; charset=UTF-8",
-                        data: JSON.stringify({ id:courseID,chapterID: id }),
-                        success: function (data) {
-                            if(data.success)
-                            {
-                                Swal.fire(
-                                    'Deleted!',
-                                    'Chapter has been deleted.',
-                                    'success'
-                                ).then( () =>{
-                                    $('#chapter_table tr').eq(id).remove();
-                                    chapter.splice(id,1);})
-                            }
-                            else{
-                                Swal.fire(
-                                    'Fail!',
-                                    'Delete chapter Fail !!!.',
-                                    'error'
-                                )
-                            }
-                        },
-                        error: function (result) {
-                            Swal.fire(
-                                'Error!',
-                                `${JSON.stringify(result)}`,
-                                'error'
-                            );
-                        }
-
-                    })
-
-                }
-            })
-        });
 
         $('#chapter_table').on('click','a.editChapterBtn',function () {
             let id= $('.editChapterBtn').index($(this))
@@ -1330,10 +1248,6 @@
                             $.el('a',{'class':'gray-s editLectureBtn','title':'Edit','href':'#'}).append(
                                 $.el('i',{'class':'uil uil-edit-alt'})
 
-                            )
-                        ).append(
-                            $.el('a',{'class':'gray-s delLectureBtn','title':'Delete','href':'#'}).append(
-                                $.el('i',{'class':'uil uil-trash-alt'})
                             )
                         )
                     )

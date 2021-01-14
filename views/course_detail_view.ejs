@@ -19,15 +19,6 @@
     <link href="https://vjs.zencdn.net/7.10.2/video-js.css" rel="stylesheet" />
 
     <style>
-        .text {
-            height: 50px;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            /* number of lines to show */
-            -webkit-box-orient: vertical;
-        }
 
 
         .dropdown:hover>.dropdown-menu {
@@ -125,6 +116,9 @@
                                         <i class="uil uil-star"></i><%=averageRate.toFixed(1)%>
                                     </div>
                                     (<%=course.rates.length%> ratings)
+                                    <div class="crse_reviews mr-2" style="background-color: <%-(course.finished)?"#0ea432":"#e27a00"%>; ">
+                                        <%-(course.finished) ? "Completed Version":"Unfinshed Version"%>
+                                    </div>
                                 </div>
                                 <div class="_215b05">
                                     <%=course.enrollCount.toLocaleString()%> students enrolled
@@ -449,32 +443,6 @@
                                                                         <span><%=lecturer.shortDescbibe%></span>
                                                                     </div>
                                                                 </div>
-                                                                <ul class="_ttl120">
-                                                                    <li>
-                                                                        <div class="_ttl121">
-                                                                            <div class="_ttl122">Enroll Students</div>
-                                                                            <div class="_ttl123">612K</div>
-                                                                        </div>
-                                                                    </li>
-                                                                    <li>
-                                                                        <div class="_ttl121">
-                                                                            <div class="_ttl122">Courses</div>
-                                                                            <div class="_ttl123"><%=lecturer.courses.length%></div>
-                                                                        </div>
-                                                                    </li>
-                                                                    <li>
-                                                                        <div class="_ttl121">
-                                                                            <div class="_ttl122">Reviews</div>
-                                                                            <div class="_ttl123">11K</div>
-                                                                        </div>
-                                                                    </li>
-                                                                    <li>
-                                                                        <div class="_ttl121">
-                                                                            <div class="_ttl122">Subscriptions</div>
-                                                                            <div class="_ttl123">452K</div>
-                                                                        </div>
-                                                                    </li>
-                                                                </ul>
                                                             </div>
                                                             <div class="col-lg-5">
                                                                 <div class="rgt-145">

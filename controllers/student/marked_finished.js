@@ -1,5 +1,5 @@
 const Student = require(__basedir + '/models/student').model;
-
+const addprogress = require('../student/add_progress');
 
 const marked_finish = async function (studentID, courseID, lecutureID){
     var aUser = await Student.findById(studentID);
@@ -9,11 +9,15 @@ const marked_finish = async function (studentID, courseID, lecutureID){
     }
     var lec_index = aUser.courses[index].progress.tracked_list.findIndex(tr => tr.lecture==lecutureID);
     if(lec_index<0){
-        return { success: false };
+        await addprogress(`${studentID}`,`${courseID}`,`${lecutureID}`)
+        aUser = await Student.findById(studentID);
+        lec_index = aUser.courses[index].progress.tracked_list.findIndex(tr => tr.lecture==lecutureID);
     }
     aUser.courses[index].progress.tracked_list[lec_index].finished = true;
-    aUser.save().exec();
-    return{success: true};
+    await aUser.save();
+
+    let count_finished =  (aUser.courses[index].progress.tracked_list.filter( c=> c.finished===true)).length
+    return{success: true,count:count_finished};
 }
 
 const unMarked_finish = async function (studentID, courseID, lecutureID) {
@@ -23,12 +27,15 @@ const unMarked_finish = async function (studentID, courseID, lecutureID) {
         return { success: false };
     }
     var lec_index = aUser.courses[index].progress.tracked_list.findIndex(tr => tr.lecture == lecutureID);
-    if (lec_index < 0) {
-        return { success: false };
+    if(lec_index<0){
+        await addprogress(`${studentID}`,`${courseID}`,`${lecutureID}`)
+        aUser = await Student.findById(studentID);
+        lec_index = aUser.courses[index].progress.tracked_list.findIndex(tr => tr.lecture==lecutureID);
     }
     aUser.courses[index].progress.tracked_list[lec_index].finished = false;
-    aUser.save().exec();
-    return { success: true };
+    await aUser.save();
+    let count_finished =  (aUser.courses[index].progress.tracked_list.filter( c=> c.finished===true)).length
+    return{success: true,count:count_finished};
 }
 
 module.exports = {

@@ -13,6 +13,8 @@ const changePassword =require('../controllers/credential/changepassword').change
 const credentialModel = require('../models/credential').model
 const studentModel = require('../models/student').model
 const study = require('../controllers/student/study');
+const finished = require('../controllers/student/marked_finished').marked_finish;
+const unfinished = require('../controllers/student/marked_finished').unmarked_finish;
 
 
 router.get("/", async function (req, res) {
@@ -37,10 +39,6 @@ router.route("/favorites/add/:id").post(async (req, res) => {
   }
 });
 
-router.route("/favorites").get(async (req, res) => {
-  let favorites = await getFavorites(req.user.id);
-  res.render("student/favorites", { favorites, statics: __statics });
-});
 
 router.route("/favorites/delete").post(async (req, res) => {
   let  courseID  = req.body.id;
@@ -74,6 +72,34 @@ router.route("/learn/:id").get(isJoinedIn, (req, res) => {
   study.getCourse(req,res)
 });
 
+router.post("/progress/finished",isJoinedIn, async (req,res)=>{
+  let { id, section } = req.body;
+  console.log("MARK FINISH")
+
+  let rs =await finished(`${req.user.id}`, `${id}`, `${section}`)
+  if (rs.success) {
+    res.json({ success: true,progress:rs.count });
+    console.log(rs.count)
+
+  } else {
+    res.json({ success: false });
+  }
+})
+
+router.post("/progress/unfinished",isJoinedIn,async (req,res)=>{
+  let { id, section } = req.body;
+  console.log("UNMARK FINISH")
+  let rs =await unfinished(`${req.user.id}`, `${id}`, `${section}`)
+  if (rs.success) {
+    res.json({ success: true,progress:rs.count });
+    console.log(rs.count)
+  } else {
+    res.json({ success: false });
+  }
+})
+router.post("/progress/change",isJoinedIn, async (req,res)=>{
+  await study.changeLecture(req,res)
+})
 router.route("/progress/add").post(isJoinedIn, async (req, res) => {
   let { id, section } = req.body;
 

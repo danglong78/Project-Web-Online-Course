@@ -61,63 +61,13 @@
                         </ul>
                         <div class="tab-content" id="pills-tabContent">
                             <div class="tab-pane fade show active" id="pill-main-category" role="tabpanel">
-                                <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-                                    <div class="panel panel-default">
-                                        <div class="panel-heading" role="tab" id="headingOne">
-                                            <div class="panel-title adcrse1250">
-                                                <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
-                                                    New Student
-                                                </a>
-                                            </div>
-                                        </div>
-                                        <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
-                                            <div class="panel-body adcrse_body">
-                                                <div class="row">
-                                                    <div class="col-lg-8">
-                                                        <div class="discount_form">
-                                                            <div class="row">
-                                                                <div class="col-lg-8 col-md-12">
-                                                                    <div class="ui search focus mt-20 lbel25">
-                                                                        <label>Student name</label>
-                                                                        <div class="ui left icon input swdh19">
-                                                                            <input class="prompt srch_explore " type="text" name="studentName"  data-language="en" placeholder="name">
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-lg-6 col-md-12">
-                                                                    <div class="ui search focus mt-20 lbel25">
-                                                                        <label>Email</label>
-                                                                        <div class="ui left icon input swdh19">
-                                                                            <input class="prompt srch_explore " type="email" name="studentEmail"  data-language="en" placeholder="email">
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-lg-6 col-md-12">
-                                                                    <div class="ui search focus mt-20 lbel25">
-                                                                        <label>Password</label>
-                                                                        <div class="ui left icon input swdh19">
-                                                                            <input class="prompt srch_explore " type="password" name="studentPassword"  data-language="en" placeholder="password">
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-
-                                                                <div class="col-lg-6 col-md-8">
-                                                                    <button class="discount_btn" id="addStudentBtn" type="submit">Save Changes</button>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
                                 <div class="table-responsive mt-30">
                                     <table class="table ucp-table row-border" id="studentTable">
                                         <thead class="thead-s" >
                                         <tr>
                                             <th class="cell-ta" >Name</th>
                                             <th class="cell-ta" >Email</th>
+                                            <th class="text-center">Banned</th>
                                             <th class="text-center" scope="col">Actions</th>
                                         </tr>
                                         </thead>
@@ -127,6 +77,7 @@
                                         <tr data-id="<%=user[i]._id%>">
                                             <td class="cell-ta" ><%=user[i].name%></td>
                                             <td class="cell-ta" ><%=user[i].email%></td>
+                                            <td class="text-center"><%-(user[i].isDisabled) ? "<i class='uil uil-check text-success' style='font-size: 150%'></i>":""%></td>
                                             <td class="text-center d-flex justify-content-center align-items-center">
                                                 <a href="#" title="Edit"  data-id="off" class="gray-s"><i class="uil uil-edit-alt"></i></a>
                                                 <a href="#" title="Delete" class="gray-s"><i class="uil uil-trash-alt"></i></a>
@@ -198,7 +149,7 @@
                                         <tr>
                                             <th class="cell-ta" >Name</th>
                                             <th class="cell-ta" >Email</th>
-
+                                            <th class="text-center">Banned</th>
                                             <th class="text-center" scope="col">Actions</th>
                                         </tr>
                                         </thead>
@@ -208,6 +159,7 @@
                                         <tr data-id="<%=user[i]._id%>">
                                             <td class="cell-ta" ><%=user[i].name%></td>
                                             <td class="cell-ta" ><%=user[i].email%></td>
+                                            <td class="text-center"><%-(user[i].isDisabled) ? "<i class='uil uil-check text-success' style='font-size: 150%'></i>":""%></td>
                                             <td class="text-center d-flex justify-content-center align-items-center">
                                                 <a href="#" title="Edit"  data-id="off" class="gray-s"><i class="uil uil-edit-alt"></i></a>
                                                 <a href="#" title="Delete" class="gray-s"><i class="uil uil-trash-alt"></i></a>
@@ -313,53 +265,76 @@
         })
         $('#lecturerTable').on('click','a[title="Delete"]',function () {
             let id = $(this).closest('tr').data('id');
-            $tr=$(this).closest('tr')
-            Swal.fire({
-                title: 'Are you sure?',
-                text: "You won't be able to revert this!",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonText: 'Yes, delete it!'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    $.ajax({
-                        async: false,
-                        url: "/admin/delLecturer",
-                        type: 'POST',
-                        contentType: "application/json; charset=UTF-8",
-                        data: JSON.stringify({ id:id }),
-                        success: function (data) {
-                            if(data.success)
-                            {
-                                Swal.fire(
-                                    'Deleted!',
-                                    'Delete Successfully',
-                                    'success'
-                                ).then( () =>{
-                                    lecturerTable.row($tr).remove().draw();
-                                })
-                            }
-                            else{
-                                Swal.fire(
-                                    'Fail!',
-                                    'Delete Fail !!!.',
-                                    'error'
-                                )
-                            }
-                        },
-                        error: function (result) {
+            $tr=$(this).closest('tr');
+            if($tr.find('td.text-center').eq(0).text()==="") {
+                $.ajax({
+                    async: false,
+                    url: "/admin/user/banUser",
+                    type: 'POST',
+                    contentType: "application/json; charset=UTF-8",
+                    data: JSON.stringify({id: id}),
+                    success: function (data) {
+                        if (data.success) {
                             Swal.fire(
-                                'Error!',
-                                `${JSON.stringify(result)}`,
+                                'Deleted!',
+                                'Ban Successfully',
+                                'success'
+                            ).then(() => {
+                                $tr.find('td.text-center').eq(0).html("<i class='uil uil-check text-success' style='font-size: 150%'></i>")
+                            })
+                        } else {
+                            Swal.fire(
+                                'Fail!',
+                                'Delete Fail !!!.',
                                 'error'
-                            );
+                            )
                         }
+                    },
+                    error: function (result) {
+                        Swal.fire(
+                            'Error!',
+                            `${JSON.stringify(result)}`,
+                            'error'
+                        );
+                    }
 
-                    })
+                })
+            }else{
+                $.ajax({
+                    async: false,
+                    url: "/admin/user/openUser",
+                    type: 'POST',
+                    contentType: "application/json; charset=UTF-8",
+                    data: JSON.stringify({id: id}),
+                    success: function (data) {
+                        if (data.success) {
+                            Swal.fire(
+                                'Deleted!',
+                                'Unlock Successfully',
+                                'success'
+                            ).then(() => {
+                                $tr.find('td.text-center').eq(0).html("")
+                            })
+                        } else {
+                            Swal.fire(
+                                'Fail!',
+                                'Unlock Fail !!!.',
+                                'error'
+                            )
+                        }
+                    },
+                    error: function (result) {
+                        Swal.fire(
+                            'Error!',
+                            `${JSON.stringify(result)}`,
+                            'error'
+                        );
+                    }
 
+                })
 
-                }
-            })
+            }
+
         })
         $('#addLecturerBtn').click(function () {
             if($('input[name="lecturerName"]').val()==="")
@@ -632,155 +607,73 @@
         $('#studentTable').on('click','a[title="Delete"]',function () {
             let id = $(this).closest('tr').data('id');
             $tr=$(this).closest('tr')
-            Swal.fire({
-                title: 'Are you sure?',
-                text: "You won't be able to revert this!",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonText: 'Yes, delete it!'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    $.ajax({
-                        async: false,
-                        url: "/admin/delStudent",
-                        type: 'POST',
-                        contentType: "application/json; charset=UTF-8",
-                        data: JSON.stringify({ id:id }),
-                        success: function (data) {
-                            if(data.success)
-                            {
-                                Swal.fire(
-                                    'Deleted!',
-                                    'Delete Successfully',
-                                    'success'
-                                ).then( () =>{
-                                    studentTable.row($tr).remove().draw();
-                                })
-                            }
-                            else{
-                                Swal.fire(
-                                    'Fail!',
-                                    'Delete Fail !!!.',
-                                    'error'
-                                )
-                            }
-                        },
-                        error: function (result) {
+            if($tr.find('td.text-center').eq(0).text()==="") {
+                $.ajax({
+                    async: false,
+                    url: "/admin/user/banUser",
+                    type: 'POST',
+                    contentType: "application/json; charset=UTF-8",
+                    data: JSON.stringify({id: id}),
+                    success: function (data) {
+                        if (data.success) {
                             Swal.fire(
-                                'Error!',
-                                `${JSON.stringify(result)}`,
+                                'Deleted!',
+                                'Ban Successfully',
+                                'success'
+                            ).then(() => {
+                                $tr.find('td.text-center').eq(0).html("<i class='uil uil-check text-success' style='font-size: 150%'></i>")
+                            })
+                        } else {
+                            Swal.fire(
+                                'Fail!',
+                                'Delete Fail !!!.',
                                 'error'
-                            );
+                            )
                         }
-
-                    })
-
-
-                }
-            })
-        })
-        $('#addStudentBtn').click(function () {
-            if($('input[name="studentName"]').val()==="")
-            {
-                Swal.fire(
-                    'Error!',
-                    'You did not input name ',
-                    'error'
-                );
-            }
-            else if($('input[name="studentEmail"]').val()==="")
-            {
-                Swal.fire(
-                    'Error!',
-                    'You did not input mail ',
-                    'error'
-                );
-            }
-            else if(!ValidateEmail($('input[name="studentEmail"]').val()))
-            {
-                Swal.fire(
-                    'Error!',
-                    'invalid email address ',
-                    'error'
-                );
-            }
-            else if($('input[name="studentPass"]').val()==="")
-            {
-                Swal.fire(
-                    'Error!',
-                    'You did not input password ',
-                    'error'
-                );
-            }
-            else {
-                Swal.fire({
-                    title: 'Getting response from data',
-
-                    didOpen: () => {
-                        Swal.showLoading();
-                        $.ajax({
-                            async: false,
-                            url: "/admin/addStudent",
-                            type: 'POST',
-                            contentType: "application/json; charset=UTF-8",
-                            data: JSON.stringify({
-                                name: $('input[name="studentName"]').val(),
-                                email:$('input[name="studentEmail"]').val(),
-                                password: $('input[name="studentPassword"]').val()
-                            }),
-                            success: function (data) {
-                                if(data.success)
-                                {
-                                    Swal.fire(
-                                        'Success!',
-                                        `Create account successfully`,
-                                        'success'
-                                    ).then( () =>{
-
-                                        studentTable.row.add(
-                                            $.el('tr',{'data-id':data._id}).append(
-                                                $.el('td',{'class':'cell-ta'}).text($('input[name="studentName"]').val())
-
-                                            ).append(
-                                                $.el('td',{'class':'cell-ta'}).text($('input[name="studentEmail"]').val())
-                                            ).append(
-                                                $.el('td',{'class':'text-center d-flex justify-content-center align-items-center'}).append(
-                                                    $.el('a',{'href':'#','title':'Edit','class':'gray-s'}).append(
-                                                        $.el('i',{'class':'uil uil-edit-alt'})
-                                                    )
-                                                ).append(
-                                                    $.el('a',{'href':'#','title':'Delete','class':'gray-s'}).append(
-                                                        $.el('i',{'class':'uil uil-trash-alt'})
-                                                    )
-                                                ).append(
-                                                    $.el('a',{'href':'#','title':'Password','class':'gray-s'}).append(
-                                                        $.el('i',{'class':'uil uil-keyhole-square'})
-                                                    )
-                                                )
-                                            )
-                                        ).draw();
-                                    })
-
-                                }
-                                else{
-                                    Swal.fire(
-                                        'Error!',
-                                        `Account Exist`,
-                                        'error'
-                                    );
-                                }
-                            },
-                            error: function (result) {
-                                Swal.fire(
-                                    'Error!',
-                                    `${JSON.stringify(result)}`,
-                                    'error'
-                                );
-                            }
-
-                        })
                     },
-                });
+                    error: function (result) {
+                        Swal.fire(
+                            'Error!',
+                            `${JSON.stringify(result)}`,
+                            'error'
+                        );
+                    }
+
+                })
+            }else{
+                $.ajax({
+                    async: false,
+                    url: "/admin/user/openUser",
+                    type: 'POST',
+                    contentType: "application/json; charset=UTF-8",
+                    data: JSON.stringify({id: id}),
+                    success: function (data) {
+                        if (data.success) {
+                            Swal.fire(
+                                'Deleted!',
+                                'Unlock Successfully',
+                                'success'
+                            ).then(() => {
+                                $tr.find('td.text-center').eq(0).html("")
+                            })
+                        } else {
+                            Swal.fire(
+                                'Fail!',
+                                'Unlock Fail !!!.',
+                                'error'
+                            )
+                        }
+                    },
+                    error: function (result) {
+                        Swal.fire(
+                            'Error!',
+                            `${JSON.stringify(result)}`,
+                            'error'
+                        );
+                    }
+
+                })
+
             }
         })
         $('#studentTable').on('click','a[title="Edit"]',function () {

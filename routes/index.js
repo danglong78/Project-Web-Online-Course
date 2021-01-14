@@ -70,7 +70,7 @@ router.get("/test", async function (req, res){
   await test(req,res);
 });
 
-router.use('/student', studentRouter);
+router.use('/student',middlewares.isAuthenticated,middlewares.isStudent ,studentRouter);
 
 router.use("/courses", coursesRouter); // for search result
 

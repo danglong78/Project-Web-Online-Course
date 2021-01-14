@@ -80,6 +80,7 @@
 </head>
 
 <body>
+<%if(progress.lasted_lecture=== undefined) {progress.lasted_lecture=course.chapter[0].lecture[0]._id} %>
 <!-- Header Start -->
 <header class="header clearfix">
     <button type="button" id="toggleMenu" class="toggle_menu">
@@ -163,14 +164,17 @@
                     </label>
                     <ul class="sub_menu">
                         <%for(var j=0;j<course.chapter[i].lecture.length;j++){%>
-                        <%totalLecture+=1;%>
+                        <%totalLecture+=1;var isFinished=false;%>
+                        <%for( let l of progress.tracked_list){if(`${course.chapter[i].lecture[j]._id}`===`${l.lecture}`){isFinished=l.finished}}%>
                         <div class="ui section divider" style="margin: 0"></div>
-                        <li class="sub_menu--item d-flex align-items-center ">
-                            <input type="checkbox" class=" ml-3" name="example" data-id="<%=course.chapter[i].lecture[j]._id%>" <%-progress.includes(course.chapter[i].lecture[j]._id)? "checked" :""%> >
+                        <li class="sub_menu--item d-flex align-items-center <%=(`${course.chapter[i].lecture[j]._id}`===`${progress.lasted_lecture}`)? "selected":""%>">
+                            <input type="checkbox" class=" ml-3" name="example" data-id="<%=course.chapter[i].lecture[j]._id%>" <%-isFinished ? "checked" :""%> >
                                 <a  class="sub_menu--link lecture " style="white-space: normal;line-height: 1.7 "
                                 data-source="<%=course.chapter[i].lecture[j].file%>"
                                 data-content="<%=course.chapter[i].lecture[j].description%>">
                             <%=course.chapter[i].lecture[j].title%>
+
+
 
                             </a>
                         </li>
@@ -231,7 +235,7 @@
 <script src="/js/night-mode.js"></script>
 <script src="https://vjs.zencdn.net/7.10.2/video.min.js"></script>
 <script>
-    $('#progressButton').attr('data-content',`Total <%=progress.length%> of <%=totalLecture%>`)
+    $('#progressButton').attr('data-content',`Total <%=progress.tracked_list.length%> of <%=totalLecture%>`)
     $.extend({
         el: function(el, props) {
             let $el = $($("<"+el+" />"));
@@ -239,8 +243,14 @@
             return $el;
         }
     });
+
     $(document).ready(function () {
         $('a.lecture').click(function () {
+            // let prevID=$('.selected').find('input').data('id');
+            // let nextID= $(this).prev().data('id');
+            // var lastState = videojs('my-video').currentTime();
+
+
             var myVideo = videojs('my-video');
             myVideo.src([
                 {type: "video/mp4", src: `${$(this).data('source')}`}
@@ -256,7 +266,7 @@
             if ($(this).is(":checked")) {
                 $.ajax({
                     async: false,
-                    url: "/student/progress/add",
+                    url: "/student/progress/finished",
                     type: 'POST',
                     contentType: "application/json; charset=UTF-8",
                     data: JSON.stringify({ id:"<%=course._id%>",section:$(this).data('id') }),
@@ -279,7 +289,7 @@
             } else {
                 $.ajax({
                     async: false,
-                    url: "/student/progress/delete",
+                    url: "/student/progress/unfinished",
                     type: 'POST',
                     contentType: "application/json; charset=UTF-8",
                     data: JSON.stringify({ id:"<%=course._id%>",section:$(this).data('id') }),
@@ -366,6 +376,16 @@
             maxRating: 5
         })
     ;
+</script>
+<script>
+    // Warning before leaving the page (back button, or outgoinglink)
+    // window.onbeforeunload = function() {
+    //
+    //
+    //     return "Do you really want to leave our brilliant application?";
+    //     //if we return nothing here (just calling return;) then there will be no pop-up question at all
+    //     //return;
+    // };
 </script>
 </body>
 

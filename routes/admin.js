@@ -13,6 +13,8 @@ const userRouter = require("./admin_user");
 const accountSetting = require('../controllers/admin/accountSetting');
 const changePassword =require('../controllers/credential/changepassword').changePassword
 
+
+
 router.get('/',async  function (req,res){
     let credential = await  userModel.findOne({user:req.user.id})
     let admin =  await  ad_User.findOne({_id:req.user.id})
@@ -22,9 +24,10 @@ router.post("/",async function (req,res) {
     await accountSetting(req,res)
 })
 router.post('/changePassword',async function (req,res) {
-    await changePassword(req,res)
+    await changePssword(req,res)
 
 })
+
 router.get('/courses', async function (req,res) {
     try {
         let course = await courseModel.find();
@@ -33,7 +36,7 @@ router.get('/courses', async function (req,res) {
             let mainCate = await Cate.findById(x.category)
             let subCate = await SubCate.findById(x.subCategory)
             let aLecturer = await lec_User.findById(x.lecturer)
-            courseArr.push({ _id: x._id, title: x.title, mainCate: mainCate.name, subCate: subCate.name, Lecturer_name: aLecturer.name })
+            courseArr.push({ _id: x._id,isDisabled:x.isDisabled ,title: x.title, mainCate: mainCate.name, subCate: subCate.name, Lecturer_name: aLecturer.name })
         }
         res.render('admin/course', { course: courseArr ,statics:__statics});
 

@@ -50,16 +50,19 @@
                                 <th class="cell-ta" >Category</th>
                                 <th class="cell-ta" >Sub Category</th>
                                 <th class="cell-ta"> Lecturer</th>
+                                <th class="text-center" scope="col">Banned</th>
                                 <th class="text-center" scope="col">Actions</th>
                             </tr>
                             </thead>
                             <tbody>
                             <% for(i =0;i<course.length;i++){%>
                             <tr data-id="<%=course[i]._id%>">
-                                <td class="cell-ta" ><%=course[i].title%></td>
+                                <td class="cell-ta" ><a href="/course/<%=course[i]._id%>"><%=course[i].title%></a></td>
                                 <td class="cell-ta" ><%=course[i].mainCate%></td>
                                 <td class="cell-ta" ><%=course[i].subCate%></td>
                                 <td class="cell-ta" ><%=course[i].Lecturer_name%></td>
+                                <td class="text-center"><b class="text-danger"><%-(course[i].isDisabled) ? "<i class='uil uil-check text-success' style='font-size: 150%'></i>" :""%></b></td>
+
                                 <td class="text-center">
                                     <a href="#" title="Delete" class="gray-s"><i class="uil uil-trash-alt"></i></a>
                                 </td>
@@ -103,52 +106,75 @@
         $('#subCategoryTable').on('click','a[title="Delete"]',function () {
             let id = $(this).closest('tr').data('id');
             $tr=$(this).closest('tr');
-            Swal.fire({
-                title: 'Are you sure?',
-                text: "You won't be able to revert this!",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonText: 'Yes, delete it!'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    $.ajax({
-                        async: false,
-                        url: "/course/delCourse",
-                        type: 'POST',
-                        contentType: "application/json; charset=UTF-8",
-                        data: JSON.stringify({ id:id }),
-                        success: function (data) {
-                            if(data.success)
-                            {
-                                Swal.fire(
-                                    'Deleted!',
-                                    'Course has been deleted.',
-                                    'success'
-                                ).then( () =>{
-                                    table.row($tr).remove().draw();
-                                })
-                            }
-                            else{
-                                Swal.fire(
-                                    'Fail!',
-                                    'Delete course Fail !!!.',
-                                    'error'
-                                )
-                            }
-                        },
-                        error: function (result) {
+            if($tr.find('td.text-center').eq(0).text()==="") {
+                $.ajax({
+                    async: false,
+                    url: "/admin/delCourse",
+                    type: 'POST',
+                    contentType: "application/json; charset=UTF-8",
+                    data: JSON.stringify({id: id}),
+                    success: function (data) {
+                        if (data.success) {
                             Swal.fire(
-                                'Error!',
-                                `${JSON.stringify(result)}`,
+                                'Deleted!',
+                                'Course has been banned.',
+                                'success'
+                            ).then(() => {
+                                $tr.find('td.text-center').eq(0).html("<i class='uil uil-check text-success' style='font-size: 150%'></i>")
+                            })
+                        } else {
+                            Swal.fire(
+                                'Fail!',
+                                'Ban course Fail !!!.',
                                 'error'
-                            );
+                            )
                         }
+                    },
+                    error: function (result) {
+                        Swal.fire(
+                            'Error!',
+                            `${JSON.stringify(result)}`,
+                            'error'
+                        );
+                    }
 
-                    })
+                })
+            }
+            else{
+                $.ajax({
+                    async: false,
+                    url: "/admin/openCourse",
+                    type: 'POST',
+                    contentType: "application/json; charset=UTF-8",
+                    data: JSON.stringify({id: id}),
+                    success: function (data) {
+                        if (data.success) {
+                            Swal.fire(
+                                'Deleted!',
+                                'Course has been unbanned.',
+                                'success'
+                            ).then(() => {
+                                $tr.find('td.text-center').eq(0).html("")
+                            })
+                        } else {
+                            Swal.fire(
+                                'Fail!',
+                                'Ban course Fail !!!.',
+                                'error'
+                            )
+                        }
+                    },
+                    error: function (result) {
+                        Swal.fire(
+                            'Error!',
+                            `${JSON.stringify(result)}`,
+                            'error'
+                        );
+                    }
 
+                })
 
-                }
-            })
+            }
         })
 
     })
