@@ -191,6 +191,29 @@ const receiveImage= (req,res) =>{
         }
     });
 }
+// req.body.id : la id cua course can block
+const disable_course = async function(req,res){
+    const id = req.body.id;
+    var aCourse = await course.findById(id);
+    if(aCourse==null){
+        res.send({success: false});
+    }else{
+        aCourse.isDisabled = true;
+        res.send({success: true});
+    }
+}
+const able_course = async function (req, res) {
+    const id = req.body.id;
+    var aCourse = await course.findById(id);
+    if (aCourse == null) {
+        res.send({ success: false });
+    } else {
+        aCourse.isDisabled = false;
+        res.send({ success: true });
+    }
+}
+
+
 const receiveVideo = (req, res) => {
     uploadVideo.single('video')(req, res, async (err) => {
         if (err) {
@@ -302,6 +325,8 @@ module.exports = {
     receiveVideo,
     receiveMultiVideo,
     receiveImage,
-    editCourse
+    editCourse,
+    disable_course,
+    able_course
 
 }

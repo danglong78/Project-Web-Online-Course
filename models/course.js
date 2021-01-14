@@ -90,6 +90,10 @@ const courseSchema = mongoose.Schema({
     type: Number,
     index: true,
   },
+  isDisabled :{
+    type: Boolean,
+    default: false
+  }
 });
 
 courseSchema.plugin(mongoosePaginate);
