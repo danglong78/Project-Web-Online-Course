@@ -94,7 +94,7 @@ router
   .route("/signin")
   .get((req, res) => {    
     if (req.isAuthenticated()) {
-      res.redirect("__host");
+      res.redirect(__host);
     } else res.render("sign_in");
   })
   .post(
@@ -105,7 +105,7 @@ router
     (req, res) => {
       if (req.user) {
         const redirectUrl =
-          "__host" + (req.session.redirectUrl || "/");
+          __host + (req.session.redirectUrl || "/");
         console.log("after authenticate");
         console.log(redirectUrl);
         res.redirect(redirectUrl);
@@ -117,7 +117,7 @@ router
   .route("/signup")
   .get((req, res) => {
     if (req.isAuthenticated()) {
-      res.redirect("__host");
+      res.redirect(__host);
     } else res.render("sign_up");
   })
   .post(async (req, res) => {
@@ -163,9 +163,9 @@ router.route("/verify/:token")
 router.route("/changemail")
 .post(async (req, res) => {
   console.log(req.body);
-  let {email, newEmail} = req.body;
+  let {mail, newEmail} = req.body;
 
-  res.send(changeEmail(email, newEmail));
+  res.send({success:changeEmail(`${mail}`, `${newEmail}`)});
 })
 
 router.route("/changemail/:token")
@@ -215,7 +215,7 @@ router.route("/auth/google/callback").get(
   (req, res) => {
     if (req.user) {
       const redirectUrl =
-        "__host" + (req.session.redirectUrl || "/");
+        __host + (req.session.redirectUrl || "/");
       console.log("after authenticate");
       console.log(redirectUrl);
       res.redirect(redirectUrl);
@@ -235,7 +235,7 @@ router.route("/auth/facebook/callback").get(
   (req, res) => {
     if (req.user) {
       const redirectUrl =
-        "__host" + (req.session.redirectUrl || "/");
+        __host + (req.session.redirectUrl || "/");
       console.log("after authenticate");
       console.log(redirectUrl);
       res.redirect(redirectUrl);

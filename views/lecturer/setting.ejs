@@ -268,12 +268,12 @@
             }
             else{
                 $.ajax({
-                    url: "/lecturer/changesetting",
+                    async:false,
+                    url: "/lecturer/changeSetting",
                     type: 'POST',
                     contentType: "application/json; charset=UTF-8",
                     data: JSON.stringify({
                         name:$('input[name="fullname"]').val(),
-                        email:$('input[name="email"]').val(),
                         shortDes:$('input[name="shortDes"]').val(),
                         detailDes:$('textarea[name="detailDes"]').val()
                     }),
@@ -305,6 +305,46 @@
                     }
 
                 })
+                $.ajax({
+                    url: "/changemail",
+                    type: 'POST',
+                    contentType: "application/json; charset=UTF-8",
+                    data: JSON.stringify({
+                        mail:"<%= credential.email%>",
+                        newEmail:$('input[name="email"]').val(),
+
+                    }),
+                    success: function (data) {
+                        if(data.success)
+                        {
+                            Swal.fire(
+                                {
+                                    title: 'You need to confirm your email!',
+                                    timer: 3000
+                                }
+                            ).then( ()=>{
+                                window.location.href = "/";
+                            });
+                        }
+                        else{
+                            Swal.fire(
+                                'Fail!',
+                                'Something is going wrong.',
+                                'error'
+                            )
+                        }
+                    },
+                    error: function (result) {
+                        Swal.fire(
+                            'Error!',
+                            `${JSON.stringify(result)}`,
+                            'error'
+                        );
+                    }
+
+                })
+
+
 
         }
     })

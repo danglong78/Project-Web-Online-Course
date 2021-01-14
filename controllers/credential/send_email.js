@@ -38,12 +38,12 @@ const sendVerificationMail = async (to, veriLink, action) => {
     let text;
 
     if (action === "res") {
-      html = `<h1>Use this <a href = "${veriLink}">link</a> to verify your action</h1>`;
+        html = `<h1>Verify your e-mail to finish sign up for Learnic</h1><p>Please confirm that you want to this e-mail for your sign <up></up> by click this link <a href = "${veriLink}">${veriLink}</a></p>`;
       subject = "Email verification step";
       text = "Email verification step";
     }
     else if (action === "changemail") {
-      html = `<h1>Use this <a href = "${veriLink}">link</a> to change your email</h1>`;
+      html = `<h1>Verify your e-mail to finish changing e-mail for Learnic</h1><p>Please confirm that you want to change e-mail by click this link <a href = "${veriLink}">${veriLink}</a></p>`;
       subject = "Change email verification step";
       text = "Change email verification step";
     }
