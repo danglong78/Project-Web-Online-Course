@@ -22,7 +22,7 @@ const auth =  {
   accessToken: ""
 }
 
-const sendVerificationMail = async (to, veriLink) => {
+const sendVerificationMail = async (to, veriLink, action) => {
   try {
     const accessToken = await oAuth2Client.getAccessToken();   
     auth.accessToken = accessToken.token;
@@ -33,13 +33,27 @@ const sendVerificationMail = async (to, veriLink) => {
       auth,
     });
 
+    let html;
+    let subject;
+    let text;
+
+    if (action === "res") {
+      html = `<h1>Use this <a href = "${veriLink}">link</a> to verify your action</h1>`;
+      subject = "Email verification step";
+      text = "Email verification step";
+    }
+    else if (action === "changemail") {
+      html = `<h1>Use this <a href = "${veriLink}">link</a> to change your email</h1>`;
+      subject = "Change email verification step";
+      text = "Change email verification step";
+    }
     const mailOptions = {
       from: "UDEMY CLONE <hdaicenter@gmail.com>",
       to: to,
     //   to: "hodaitribm224@gmail.com",
-      subject: "Email verification step",
-      text: "Email verification step",
-      html: `<h1>Use this link to verify your account <a>${veriLink}</a></h1>`,
+      subject,
+      text,
+      html
     };
 
     const result = await transporter.sendMail(mailOptions);

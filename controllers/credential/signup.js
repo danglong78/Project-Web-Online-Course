@@ -56,12 +56,13 @@ module.exports = async (req, res) => {
     let token = jwt.sign(
       {
         email,
+        action: "res"
       },
       process.env.VERIMAIL_SECRECT,
       { expiresIn: 60 }
     ); 
     
-    sendVerificationMail(email, `${__host}/verify/${token}`);
+    sendVerificationMail(email, `${__host}/verify/${token}`, "res");
     req.flash('success', "Please check your email for account activation link");
     return res.redirect("/signin");
 

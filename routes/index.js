@@ -25,7 +25,7 @@ const { addAdditionalFields } = require(__basedir +
   "/controllers/course/helpers");
 const study = require('../controllers/student/study');
 const {sendVerificationMail} = require(__basedir + "/controllers/credential/send_email");
-const verifyRegistration = require(__basedir + "/controllers/credential/verify_registration")
+const verifyAction = require(__basedir + "/controllers/credential/verify_action")
 const middlewares = {
   isAuthenticated: require(__basedir + "/controllers/middlewares").isAuthenticated,
   isStudent: require(__basedir + "/controllers/middlewares").isStudent,
@@ -137,7 +137,7 @@ router.route("/verify/:token")
 
   try {
     console.log("1");
-    if (await verifyRegistration(req.params.token)) {
+    if (await verifyAction(req.params.token)) {
       req.flash("success", "Successfully verified registration");  
     }   
     console.log("2"); 
@@ -158,6 +158,43 @@ router.route("/verify/:token")
     res.redirect("/signin");
   }     
 })
+
+router.route("/changemail")
+.post(async (req, res) => {
+  console.log(req.body);
+  let {email, newEmail} = req.body;
+
+  res.send(changeEmail(email, newEmail));
+})
+
+router.route("/changemail/:token")
+  .get(async (req, res) => {
+    console.log(req.params.token)
+
+    try {
+      console.log("1");
+      if (await verifyAction(req.params.token)) {
+        req.flash("success", "Successfully change email");
+      }
+      console.log("2");
+    }
+    catch (err) {
+      console.log(err);
+      if (err.name == 'TokenExpiredError') {
+        req.flash("error", "Token is expired. Recheck your email to get new verification link");
+      }
+      else if (err.name == 'JsonWebTokenError') {
+        req.flash("error", "Token is invalid");
+      }
+      else {
+        req.flash("error", "Something wrong happened");
+      }
+    }
+    finally {
+      res.redirect("/");
+    }
+  })
+
 
 router.route("/signout")
 .get(middlewares.isAuthenticated, (req, res) => {
