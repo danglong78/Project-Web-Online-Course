@@ -357,17 +357,17 @@
                                                 </div>
                                             </div>
                                             <div class="review_all120">
-                                                <%for(var i=0;i<course.rates.length;i++){%>
+                                                <%for(var i=0;i<rates.length;i++){%>
                                                     <div class="review_item">
                                                         <div class="review_usr_dt">
-                                                            <img src="/images/left-imgs/img-<%=(i%17+1)%>.jpg" alt="">
+                                                            <img src="/images/left-imgs/img-<%=(i%16+1)%>.jpg" alt="">
                                                             <div class="rv1458">
-                                                                <h4 class="tutor_name1"><%=studentReviewName[i]%></h4>
+                                                                <h4 class="tutor_name1"><%=rates[i].student%></h4>
                                                             </div>
                                                         </div>
                                                         <div class="rating-box mt-20">
                                                             <%for(var j=1;j<=5;j++){%>
-                                                                <%if(j<=course.rates[i].score){%>
+                                                                <%if(j<=rates[i].rate.score){%>
                                                                 <span class="rating-star full-star"></span>
                                                             <%}else{%>
                                                                 <span class="rating-star empty-star"></span>
@@ -376,10 +376,14 @@
                                                             <%}%>
 
                                                         </div>
-                                                        <p class="rvds10"><%=course.rates[i].review%></p>
+                                                        <p class="rvds10"><%=rates[i].rate.review%></p>
                                                     </div>
 
                                                 <%}%>
+                                                <%if (course.rates.length-rates.length)%>
+                                            </div>
+                                            <div class="review_item">
+                                                <a href="#" class="more_reviews">See More Reviews</a>
 
                                             </div>
                                         </div>
@@ -436,7 +440,7 @@
                                                                 </a>
                                                                 <div class="dp_dt150">
                                                                     <div class="img148">
-                                                                        <img src="/images/left-imgs/img-<%=Math.floor(Math.random() * 17) + 1;%>.jpg" alt="">
+                                                                        <img src="/images/left-imgs/img-<%=Math.floor(Math.random() * 16) + 1;%>.jpg" alt="">
                                                                     </div>
                                                                     <div class="prfledt1">
                                                                         <h2><%=lecturer.name%></h2>
@@ -495,6 +499,7 @@
 <script src="https://vjs.zencdn.net/7.10.2/video.min.js"></script>
 
 <script>
+    var numberRateRemain = <%=course.rates.length-rates.length%>
     $.extend({
         el: function(el, props) {
             let $el = $($("<"+el+" />"));
@@ -631,6 +636,66 @@
             myVideo.src([
                 {type: "video/mp4", src: `${$(this).data('source')}`}
             ]);
+        })
+        $('.review_item').on('click','.more_reviews',function () {
+            $('.review_item').eq(0).empty().html('<div class="spinner">\n' +
+                '                                                        <div class="bounce1"></div>\n' +
+                '                                                        <div class="bounce2"></div>\n' +
+                '                                                        <div class="bounce3"></div>\n' +
+                '                                                    </div>')
+            $.ajax({
+                async: false,
+                url: "/course/getMoreRate",
+                type: 'POST',
+                contentType: "application/json; charset=UTF-8",
+                data:JSON.stringify({id:"<%= course.id %>",numberRateRemain}),
+                success: function (data) {
+
+                    if (data.success) {
+                        for(r of data.rates) {
+                            $('.review_all120').eq(0).append(`<div class="review_item">
+                                                        <div class="review_usr_dt">
+                                                            <img src="/images/left-imgs/img-${Math.floor(Math.random() * 16) + 1}.jpg" alt="">
+                                                            <div class="rv1458">
+                                                                <h4 class="tutor_name1">${r.student.name}</h4>
+                                                            </div>
+                                                        </div>
+                                                        <div class="rating-box mt-20">
+                                                                ${(1<=r.score)?'<span class="rating-star full-star"></span>':'<span class="rating-star empty-star"></span>'}
+                                                                ${(2<=r.score)?'<span class="rating-star full-star"></span>':'<span class="rating-star empty-star"></span>'}
+                                                                ${(3<=r.score)?'<span class="rating-star full-star"></span>':'<span class="rating-star empty-star"></span>'}
+                                                                ${(4<=r.score)?'<span class="rating-star full-star"></span>':'<span class="rating-star empty-star"></span>'}
+                                                                ${(5<=r.score)?'<span class="rating-star full-star"></span>':'<span class="rating-star empty-star"></span>'}
+
+
+                                                        </div>
+                                                        <p class="rvds10">${r.review}</p>
+                                                    </div>`)
+                        }
+
+                        numberRateRemain-= data.rates.length;
+                        if(numberRateRemain>0)
+                        {
+                            $('.review_item').eq(0).empty().html('<a href="#" class="more_reviews">See More Reviews</a>')
+                        }
+                        else{
+                            $('.review_item').eq(0).empty()
+                        }
+                    }
+                    else{
+                        Swal.fire('Error','Something is going wrong','error');
+                    }
+                },
+
+                error: function () {
+                    Swal.fire(
+                        'Error!',
+                        `${JSON.stringify(result)}`,
+                        'error'
+                    );
+                },
+
+            })
         })
     })
 </script>
