@@ -116,6 +116,7 @@ for (crawl of crawledCourses) {
     subCategory: getObjectId(crawl.topics[1]),
     rates: randRates(),
     chapter: extractChapter(crawl),
+    isDisabled: false
   });
 }
 

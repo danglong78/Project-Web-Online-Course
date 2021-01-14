@@ -14,7 +14,8 @@ for (let i = 0; i < studentList.length; i++) {
     password: defaultHash,
     role: "Student",
     user: getObjectId(studentList[i]),
-    isVerified: true
+    isVerified: true,
+    isDisabled: false
   });
 }
 
@@ -25,7 +26,8 @@ for (let j = 0; j < lecturerList.length; j++) {
     password: defaultHash,
     role: "Lecturer",
     user: getObjectId(lecturerList[j]),
-    isVerified: true
+    isVerified: true,
+    isDisabled: false
   });
 }
 
@@ -36,7 +38,8 @@ for (let k = 0; k < adminList.length; k++) {
     password: defaultHash,
     role: "Admin",
     user: getObjectId(adminList[k]),
-    isVerified: true
+    isVerified: true,
+    isDisabled: false
   });
 }
 

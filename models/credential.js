@@ -33,6 +33,7 @@ const credentialSchema = mongoose.Schema({
   },
 
   isVerified: Boolean,
+  isDisabled: Boolean,
 });
 
 const Credential = mongoose.model("Credential", credentialSchema);
