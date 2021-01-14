@@ -61,7 +61,7 @@
                                 <td class="cell-ta" ><%=course[i].mainCate%></td>
                                 <td class="cell-ta" ><%=course[i].subCate%></td>
                                 <td class="cell-ta" ><%=course[i].Lecturer_name%></td>
-                                <td class="text-center"><b class="text-danger"><%-(course[i].isDisabled) ? "<i class='uil uil-check text-success' style='font-size: 150%'></i>" :""%></b></td>
+                                <td class="text-center"><b><%-(course[i].deleted) ? "<i class='uil uil-check text-success' style='font-size: 150%'></i>" :""%></b></td>
 
                                 <td class="text-center">
                                     <a href="#" title="Delete" class="gray-s"><i class="uil uil-trash-alt"></i></a>
@@ -106,7 +106,8 @@
         $('#subCategoryTable').on('click','a[title="Delete"]',function () {
             let id = $(this).closest('tr').data('id');
             $tr=$(this).closest('tr');
-            if($tr.find('td.text-center').eq(0).text()==="") {
+            alert($tr.find('td.text-center b').eq(0).html())
+            if($tr.find('td.text-center b').eq(0).html()==="") {
                 $.ajax({
                     async: false,
                     url: "/admin/delCourse",
@@ -116,11 +117,11 @@
                     success: function (data) {
                         if (data.success) {
                             Swal.fire(
-                                'Deleted!',
+                                'Banned!',
                                 'Course has been banned.',
                                 'success'
                             ).then(() => {
-                                $tr.find('td.text-center').eq(0).html("<i class='uil uil-check text-success' style='font-size: 150%'></i>")
+                                $tr.find('td.text-center b').eq(0).html("<i class='uil uil-check text-success' style='font-size: 150%'></i>")
                             })
                         } else {
                             Swal.fire(
@@ -150,11 +151,11 @@
                     success: function (data) {
                         if (data.success) {
                             Swal.fire(
-                                'Deleted!',
+                                'Unbanned!',
                                 'Course has been unbanned.',
                                 'success'
                             ).then(() => {
-                                $tr.find('td.text-center').eq(0).html("")
+                                $tr.find('td.text-center b').eq(0).html("")
                             })
                         } else {
                             Swal.fire(

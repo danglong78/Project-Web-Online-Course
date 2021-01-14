@@ -266,7 +266,7 @@
         $('#lecturerTable').on('click','a[title="Delete"]',function () {
             let id = $(this).closest('tr').data('id');
             $tr=$(this).closest('tr');
-            if($tr.find('td.text-center').eq(0).text()==="") {
+            if($tr.find('td.text-center').eq(0).html()==="") {
                 $.ajax({
                     async: false,
                     url: "/admin/user/banUser",
@@ -400,6 +400,8 @@
 
                                             ).append(
                                                 $.el('td',{'class':'cell-ta'}).text($('input[name="lecturerEmail"]').val())
+                                            ).append(
+                                                $.el('td',{'class':'text-center'}).html("<i class='uil uil-check text-success' style='font-size: 150%'></i>")
                                             ).append(
                                                 $.el('td',{'class':'text-center d-flex justify-content-center align-items-center'}).append(
                                                     $.el('a',{'href':'#','title':'Edit','class':'gray-s'}).append(
@@ -610,7 +612,7 @@
         $('#studentTable').on('click','a[title="Delete"]',function () {
             let id = $(this).closest('tr').data('id');
             $tr=$(this).closest('tr')
-            if($tr.find('td.text-center').eq(0).text()==="") {
+            if($tr.find('td.text-center').eq(0).html()==="") {
                 $.ajax({
                     async: false,
                     url: "/admin/user/banUser",

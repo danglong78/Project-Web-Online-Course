@@ -257,6 +257,7 @@
                 );
             }
             else {
+                alert($('input[name="mainCate"]').val())
                 Swal.fire({
                     title: 'Getting response from data',
 
@@ -304,6 +305,8 @@
                                                 )
                                             )
                                         )
+                                        $('input[name="mainCate"]').val("")
+
                                     })
 
                                 }
@@ -313,6 +316,8 @@
                                         `Duplicate name of new main category`,
                                         'error'
                                     );
+                                    $('input[name="mainCate"]').val("")
+
                                 }
                             },
                             error: function (result) {
@@ -327,7 +332,6 @@
                     },
                 });
             }
-            $('input[name="mainCate"]').val("")
 
         })
         $('.card-header').on('click', '.delBtn', function () {
@@ -707,10 +711,11 @@
 <!--Hàm cho sub cate-->
 <script>
     $(document).ready(function () {
-        $('#subCategoryTable').DataTable();
+        let table=$('#subCategoryTable').DataTable();
         $('#subCategoryTable').on('click','a[title="Edit"]',function () {
             let name= $(this).closest('tr').find('td').eq(0).text();
             let id = $(this).closest('tr').data('id');
+            $td = $(this).closest('tr').find('td').eq(0)
             Swal.fire({
                 title:"Edit sub category name",
                 text: `You want to change "${name}" into`,
@@ -739,7 +744,7 @@
                                     'Your sub category has been change.',
                                     'success'
                                 ).then( () =>{
-                                    location.reload();
+                                    $td.text(res.value)
                                 })
                             }
                             else{
@@ -764,6 +769,7 @@
         })
         $('#subCategoryTable').on('click','a[title="Delete"]',function () {
             let id = $(this).closest('tr').data('id');
+            $tr=$(this).closest('tr')
             Swal.fire({
                 title: 'Are you sure?',
                 text: "You won't be able to revert this!",
@@ -786,7 +792,7 @@
                                     'Your sub category has been deleted.',
                                     'success'
                                 ).then( () =>{
-                                   location.reload();
+                                    table.row($tr).remove().draw();
                                 })
                             }
                             else{
@@ -840,7 +846,26 @@
                                         `Your new sub category has been added`,
                                         'success'
                                     ).then( () =>{
-                                        location.reload()
+                                        table.row.add(
+                                            $.el('tr',{'data-id':data.cateID}).append(
+                                                $.el('td',{'class':'cell-ta'}).text($('input[name="subCate"]').val())
+
+                                            ).append(
+                                                $.el('td',{'class':'text-center d-flex justify-content-center align-items-center'}).append(
+                                                    $.el('a',{'href':'#','title':'Edit','class':'gray-s'}).append(
+                                                        $.el('i',{'class':'uil uil-edit-alt'})
+                                                    )
+                                                ).append(
+                                                    $.el('a',{'href':'#','title':'Delete','class':'gray-s'}).append(
+                                                        $.el('i',{'class':'uil uil-trash-alt'})
+                                                    )
+                                                )
+                                            )
+                                        ).draw();
+
+                                        $('input[name="subCate"]').val("")
+
+
                                     })
 
                                 }
@@ -849,7 +874,9 @@
                                         'Error!',
                                         `Duplicate name of new sub category`,
                                         'error'
-                                    );
+                                    ).then(()=>{
+                                        $('input[name="subCate"]').val("")
+                                    });
                                 }
                             },
                             error: function (result) {
@@ -864,7 +891,6 @@
                     },
                 });
             }
-            $('input[name="subCate"]').val("")
         })
 
     })

@@ -12,7 +12,8 @@ const cateRouter = require("./category");
 const userRouter = require("./admin_user");
 const accountSetting = require('../controllers/admin/accountSetting');
 const changePassword =require('../controllers/credential/changepassword').changePassword
-
+const disableCourse = require('../controllers/lecturer/editCourse').disable_course;
+const openCourse = require('../controllers/lecturer/editCourse').able_course;
 
 
 router.get('/',async  function (req,res){
@@ -44,6 +45,12 @@ router.get('/courses', async function (req,res) {
         res.render('error');
     }
 });
+router.post('/delCourse',async  function (req,res) {
+    await disableCourse(req,res)
+})
+router.post('/openCourse',async  function (req,res) {
+    await openCourse(req,res)
+})
 router.use("/category", cateRouter);
 router.use("/user",userRouter);
 

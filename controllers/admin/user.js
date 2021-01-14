@@ -26,6 +26,7 @@ const user_view = async function(res){
         }
         res.render('admin/user', { user: user, statics: __statics });
     } catch (e) {
+        console.log("ERROR")
         res.render('error');
     }
 };

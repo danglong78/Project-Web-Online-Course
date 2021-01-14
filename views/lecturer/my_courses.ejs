@@ -93,7 +93,7 @@
                                             <td class="text-center"><%=course[i].chapter.length.toLocaleString()%></td>
                                             <td class="text-center"><a href="#"><%=course[i].categoryName%></a></td>
                                             <td class="text-center"><b class="text-danger"><%-(course[i].finished) ? "<i class='uil uil-check text-success' style='font-size: 150%'></i>" :""%></b></td>
-                                            <td class="text-center"><b class="text-danger"><%-(course[i].isDisabled) ? "<i class='uil uil-check text-danger' style='font-size: 150%'></i>" :""%></b></td>
+                                            <td class="text-center"><b class="text-danger"><%-(course[i].deleted) ? "<i class='uil uil-check text-danger' style='font-size: 150%'></i>" :""%></b></td>
                                             <td class="text-center">
                                                 <a href="edit?id=<%= course[i]._id%>" title="Edit" class="gray-s"><i class="uil uil-edit-alt"></i></a>
                                             </td>

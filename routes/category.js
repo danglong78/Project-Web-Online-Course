@@ -13,6 +13,7 @@ router.post('/editCate', function (req, res, next) {
 });
 
 router.post('/addMainCate', function (req, res, next) {
+    console.log(req.body)
     cat_controller.admin_add_Main_cate(req, res);
 });
 
@@ -45,8 +46,8 @@ router.post('/editSubCateName', function (req, res, next) {
 });
 
 
-router.post('/addSubCate', function (req, res, next) {
-    cat_controller.admin_add_Sub_cate(req, res);
+router.post('/addSubCate', async function (req, res, next) {
+    await cat_controller.admin_add_Sub_cate(req, res);
 });
 
 module.exports = router;
