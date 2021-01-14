@@ -5,8 +5,8 @@ const banUser = require('../controllers/admin/account_block').User_blocked;
 const unbanUser = require('../controllers/admin/account_block').User_unblocked;
 const router = express.Router();
 
-router.get("/", function (req, res) {
-    user_controller.admin_user_view(res);
+router.get("/", async function  (req, res) {
+   await  user_controller.admin_user_view(res);
 });
 
 router.post("/addLecturer", function (req, res) {

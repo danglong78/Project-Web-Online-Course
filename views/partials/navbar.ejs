@@ -108,12 +108,26 @@
                 <% } else {%>                     
                     <li class="ui dropdown">
                         <a href="#" class="opts_account">
-                            <img src="/images/Anonymous-Avatar.png" alt="">
+                            <% if (currentUser.role === "Student") {%>
+                            <img src="/images/left-imgs/img-9.jpg" alt="">
+                                <% } else if (currentUser.role === "Lecturer") {%>
+                                    <img src="/images/left-imgs/img-10.jpg" alt="">
+                                <% }else{ %>
+                                    <img src="/images/left-imgs/img-15.jpg" alt="">
+
+                                <%}%>
                         </a>
                         <div class="menu dropdown_account">
                             <div class="channel_my">
                                 <div class="profile_link">
-                                    <img src="/images/Anonymous-Avatar.png" alt="">
+                                    <% if (currentUser.role === "Student") {%>
+                                        <img src="/images/left-imgs/img-9.jpg" alt="">
+                                    <% } else if (currentUser.role === "Lecturer") {%>
+                                        <img src="/images/left-imgs/img-10.jpg" alt="">
+                                    <% }else{ %>
+                                        <img src="/images/left-imgs/img-15.jpg" alt="">
+
+                                    <%}%>
                                     <div class="pd_content">
                                         <div class="rhte85">
                                             <h6><%= currentUser.name %> </h6>

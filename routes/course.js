@@ -10,6 +10,7 @@ const joinCourse = require('../controllers/student/join_course')
 const delCourse = require('../controllers/student/delete_favorite')
 const checkStudent = require('../controllers/student/isOwnedCourse');
 const user_check = require('../controllers/middlewares');
+const getRates = require('../controllers/course/get_reviews').getReviews;
 
 router.get('/:id',  async (req,res)=>{
     let id= req.params.id;
@@ -18,13 +19,15 @@ router.get('/:id',  async (req,res)=>{
     let otherCourse = await getRelatedCourses(`${id}`,`${course.subCategory}`, 5);
     let averageRate =0;
     let ratesPercent=[0,0,0,0,0]
-    let studentReviewName=[]
+    let rates = [];
     for (let i=0 ;i<course.rates.length;i++)
     {
         averageRate+=course.rates[i].score;
         ratesPercent[course.rates[i].score-1]+=1;
-        let student = await studentModel.findById(course.rates[i].student).lean()
-        studentReviewName.push(student.name)
+        if(i<5) {
+            let student = await studentModel.findById(course.rates[i].student).lean()
+            rates.push({rate:course.rates[i],student:student.name})
+        }
     }
     averageRate=averageRate/course.rates.length;
     let isJoined;
@@ -39,10 +42,13 @@ router.get('/:id',  async (req,res)=>{
         isAddWishList = await checkStudent.Favorite_Check(`${req.user.id}`, `${course._id}`);
 
     }
-    console.log(isJoined)
-    console.log(isAddWishList)
-    res.render('course_detail_view',{course:course,lecturer:lecture,statics: __statics,averageRate,ratesPercent,studentReviewName,otherCourse,isAddWishList,isJoined})
 
+    res.render('course_detail_view',{course:course,lecturer:lecture,statics: __statics,averageRate,ratesPercent,rates,otherCourse,isAddWishList,isJoined})
+
+})
+router.post('/getMoreRate',async (req,res)=>{
+    let rates=getRates(`${req.body.id}`,`${req.body.numberRateRemain}`)
+    res.send({})
 })
 router.post('/buy/:id',user_check.isAuthenticated,user_check.isStudent,async function (req,res) {
     if(req.user.id===undefined)

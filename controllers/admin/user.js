@@ -12,22 +12,21 @@ const user_view = async function(res){
         let user = await credential.findWithDeleted().lean();
         for (var i = 0; i < user.length; i++) {
             var aUser;
-            console.log(user[i].user);
             if (user[i].role == "Student") {
-                aUser = stu_user.findOneWithDeleted({ _id: user[i].user });
+                aUser = await stu_user.findOneWithDeleted({ _id: user[i].user });
                 user[i]["name"] = aUser.name;
             }
             else if (user[i].role == "Lecturer") {
-                aUser = lec_user.findOneWithDeleted({ _id: user[i].user });
+                aUser = await lec_user.findOneWithDeleted({ _id: user[i].user });
                 user[i]["name"] = aUser.name;
             } else {
-                aUser = admin_user.findOne({ _id: user[i].user });
+                aUser = await admin_user.findOne({ _id: user[i].user });
                 user[i]["name"] = aUser.name;
             }
         }
         res.render('admin/user', { user: user, statics: __statics });
     } catch (e) {
-        console.log("ERROR")
+        console.log(e)
         res.render('error');
     }
 };
