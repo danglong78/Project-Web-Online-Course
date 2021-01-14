@@ -66,9 +66,9 @@ router.get("/", async (req, res) => {
   });
 });
 
-const test = require('../controllers/student/study').loadLecture;
+const test = require('../controllers/course/test');
 router.get("/test", async function (req, res){
-  await test(req,res);
+  res.send({success: await test()});
 });
 
 router.use('/student',middlewares.isAuthenticated,middlewares.isStudent ,studentRouter);

@@ -28,7 +28,7 @@ const admin_Cate_View = async function (res) {
                 subCate: subcate
             });
         }
-        res.render('admin/category', { category: category, subCategory: sub_cate,statics:__statics });
+        res.render('admin/category', { category: category, subCategory: sub_cate, statics: __statics });
     } catch (e) {
         res.render('error');
     }
@@ -99,12 +99,17 @@ const rename_SubCate = async function (req, res) {
 
 const del_Main_cate = async function (req, res) {
     const id = req.body.id;
+    var course_list = await course.find({ category: id });
+    if (course_list.length > 0) {
+        res.send({ success: false });
+        return;
+    }
     var aCate = await Cate.findById(id);
-    if (aCate.subCate.length > 0) {
+    if (aCate.subCate.length <= 0) {
         res.send({ success: false });
     }
     try {
-        Cate.findByIdAndDelete(id).exec();
+        aCate.delete();
         res.send({ success: true });
     } catch (err) {
         res.send({ success: false });
@@ -130,11 +135,11 @@ const add_Subcate_to_Maincate = async function (req, res) {
 const del_subcate = async function (req, res) {
     const id = req.body.id;
     var coure_list = await course.find({ subCategory: id });
-    var Cate_list = await Cate.find({ subCate: id });
     if (coure_list.length > 0) {
         res.send({ success: false });
         return;
     }
+    var Cate_list = await Cate.find({ subCate: id });
     for (var i = 0; i < Cate_list.length; i++) {
         var temp = [];
         for (var z = 0; z < Cate_list[i].subCate.length; z++) {
@@ -145,7 +150,8 @@ const del_subcate = async function (req, res) {
         Cate_list[i].subCate = temp;
         Cate.updateOne({ _id: Cate_list[i]._id }, { $set: Cate_list[i] }).exec();
     }
-    SubCate.findByIdAndDelete(id).exec();
+    var aCate = subCate.findOne({ _id: id });
+    aCate.delete();
     res.send({ success: true });
 };
 

@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+var mongoose_delete = require('mongoose-delete');
 const Schema = mongoose.Schema;
 
 const lecturerChema = Schema({
@@ -24,8 +25,9 @@ const lecturerChema = Schema({
     },
   ],
 });
-
+lecturerChema.plugin(mongoose_delete, { overrideMethods: 'all' });
 const Lecturer = mongoose.model("Lecturer", lecturerChema);
+
 
 module.exports = {
   model: Lecturer,

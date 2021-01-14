@@ -194,24 +194,21 @@ const receiveImage= (req,res) =>{
 // req.body.id : la id cua course can block
 const disable_course = async function(req,res){
     const id = req.body.id;
-    var aCourse = await course.findById(id);
+    var aCourse = await course.findOne({_id: id});
     if(aCourse==null){
         res.send({success: false});
     }else{
-        aCourse.isDisabled = true;
-        await aCourse.save()
+        aCourse.delete();
         res.send({success: true});
     }
 }
 const able_course = async function (req, res) {
     const id = req.body.id;
-    var aCourse = await course.findById(id);
+    var aCourse = await course.findOneDeleted({_id: id});
     if (aCourse == null) {
         res.send({ success: false });
     } else {
-        aCourse.isDisabled = false;
-        await aCourse.save()
-
+        aCourse.restore();
         res.send({ success: true });
     }
 }

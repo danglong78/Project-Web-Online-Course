@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+var mongoose_delete = require('mongoose-delete');
 const Schema = mongoose.Schema;
 
 const studentSchema = Schema({
@@ -37,8 +38,9 @@ const studentSchema = Schema({
     },
   ],
 });
-
+studentSchema.plugin(mongoose_delete, { overrideMethods: 'all' });
 const Student = mongoose.model("Student", studentSchema);
+
 
 module.exports = {
   model: Student,

@@ -3,7 +3,7 @@ var courseModel= require('../../models/course').model;
 const lecturerModel = require('../../models/lecturer').model;
 const categoryModel =require('../../models/category').model
 
-getMyCourse= async function(req,res){
+const getMyCourse= async function(req,res){
     let lecturer = await lecturerModel.findOne({_id:req.user.id}).lean()
     let course = await courseModel.find({_id:lecturer.courses}).lean()
     for( let c of course)

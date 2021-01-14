@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
+var mongoose_delete = require('mongoose-delete');
 
 const credentialSchema = mongoose.Schema({
   email: {
@@ -42,6 +43,7 @@ const credentialSchema = mongoose.Schema({
   },
 });
 
+credentialSchema.plugin(mongoose_delete, { overrideMethods: 'all' });
 const Credential = mongoose.model("Credential", credentialSchema);
 
 module.exports = {

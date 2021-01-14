@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 const mongoosePaginate = require("mongoose-paginate-v2");
 const aggregatePaginate = require('mongoose-aggregate-paginate-v2');
 mongoose.set("useCreateIndex", true);
+var mongoose_delete = require('mongoose-delete');
 
 mongoose.Promise = global.Promise;
 
@@ -98,6 +99,7 @@ const courseSchema = mongoose.Schema({
 
 courseSchema.plugin(mongoosePaginate);
 courseSchema.plugin(aggregatePaginate);
+courseSchema.plugin(mongoose_delete, { overrideMethods: 'all' });
 const Course = mongoose.model("Course", courseSchema);
 //Course.paginate().then({}); // Usage
 

@@ -9,18 +9,19 @@ const to = require("await-to-js").default;
 
 const user_view = async function(res){
     try {
-        let user = await credential.find().lean();
+        let user = await credential.findWithDeleted().lean();
         for (var i = 0; i < user.length; i++) {
             var aUser;
+            console.log(user[i].user);
             if (user[i].role == "Student") {
-                aUser = await stu_user.findById(user[i].user);
+                aUser = stu_user.findOneWithDeleted({ _id: user[i].user });
                 user[i]["name"] = aUser.name;
             }
             else if (user[i].role == "Lecturer") {
-                aUser = await lec_user.findById(user[i].user);
+                aUser = lec_user.findOneWithDeleted({ _id: user[i].user });
                 user[i]["name"] = aUser.name;
             } else {
-                aUser = await admin_user.findById(user[i].user);
+                aUser = admin_user.findOne({ _id: user[i].user });
                 user[i]["name"] = aUser.name;
             }
         }
@@ -34,10 +35,13 @@ const user_view = async function(res){
 const del_stu = async function (req, res) {
     const id = req.body.id;
     try {
-        var cre = await credential.findById(id);
-        var temp = credential.findByIdAndDelete(id).exec();
+        var temp = await credential.findOne({_id:id});
         if (temp) {
-            stu_user.findByIdAndDelete(cre.user).exec();
+            temp.delete();
+            var aStudent = await stu_user.findOne({_id:temp.user});
+            if (aStudent){
+                aStudent.delete();
+            }
         }
     } catch (err) {
         res.send({ success: false });
@@ -52,10 +56,13 @@ const add_stu = function (req, res) {
 const del_lecturer = async function (req, res) {
     const id = req.body.id;
     try {
-        var cre = await credential.findById(id);
-        var temp = credential.findByIdAndDelete(id).exec();
+        var temp = await credential.findOne({ _id: id });
         if (temp) {
-            lec_user.findByIdAndDelete(cre.user).exec();
+            temp.delete();
+            var aLecturer = await lec_user.findOne({_id:temp.user});
+            if (aLecturer) {
+                aLecturer.delete();
+            }
         }
     } catch (err) {
         res.send({ success: false });
@@ -71,20 +78,20 @@ const change_infor = async function (req, res) {
     const id = req.body.id;
     const new_name = req.body.name;
     const new_email = req.body.email;
-    var cre = await credential.findById(id);
+    var cre = await credential.findOne({_id:id});
     var user;
     if (cre.role == "Student") {
-        user = await stu_user.findById(cre.user);
+        user = await stu_user.findOne({_id:cre.user});
         user.name = new_name;
-        stu_user.update({ _id: user._id }, { $set: user }).exec();
+        stu_user.updateOne({ _id: user._id }, { $set: user }).exec();
     } else {
-        user = await lec_user.findById(cre.user);
+        user = await lec_user.findOne({_id:cre.user});
         user.name = new_name;
-        lec_user.update({ _id: user._id }, { $set: user }).exec();
+        lec_user.updateOne({ _id: user._id }, { $set: user }).exec();
     }
     cre.email = new_email;
 
-    credential.update({ _id: id }, { $set: cre }).exec();
+    credential.updateOne({ _id: id }, { $set: cre }).exec();
     res.send({ success: true });
 
 };
@@ -99,9 +106,9 @@ const change_pass = async function (req, res) {
         err.userMessage = "Something wrong happened. Please try again!";*/
         res.send({ success: false });
     }
-    var cre = await credential.findById(id);
+    var cre = await credential.findOne({_id:id});
     cre.password = hash;
-    credential.update({ _id: id }, { $set: cre }).exec();
+    credential.updateOne({ _id: id }, { $set: cre }).exec();
     res.send({ success: true });
 };
 
