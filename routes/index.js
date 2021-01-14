@@ -93,7 +93,7 @@ router
   .route("/signin")
   .get((req, res) => {    
     if (req.isAuthenticated()) {
-      res.redirect("http://localhost:3000");
+      res.redirect("__host");
     } else res.render("sign_in");
   })
   .post(
@@ -104,7 +104,7 @@ router
     (req, res) => {
       if (req.user) {
         const redirectUrl =
-          "http://localhost:3000" + (req.session.redirectUrl || "/");
+          "__host" + (req.session.redirectUrl || "/");
         console.log("after authenticate");
         console.log(redirectUrl);
         res.redirect(redirectUrl);
@@ -116,7 +116,7 @@ router
   .route("/signup")
   .get((req, res) => {
     if (req.isAuthenticated()) {
-      res.redirect("http://localhost:3000");
+      res.redirect("__host");
     } else res.render("sign_up");
   })
   .post(async (req, res) => {
@@ -177,7 +177,7 @@ router.route("/auth/google/callback").get(
   (req, res) => {
     if (req.user) {
       const redirectUrl =
-        "http://localhost:3000" + (req.session.redirectUrl || "/");
+        "__host" + (req.session.redirectUrl || "/");
       console.log("after authenticate");
       console.log(redirectUrl);
       res.redirect(redirectUrl);
@@ -197,7 +197,7 @@ router.route("/auth/facebook/callback").get(
   (req, res) => {
     if (req.user) {
       const redirectUrl =
-        "http://localhost:3000" + (req.session.redirectUrl || "/");
+        "__host" + (req.session.redirectUrl || "/");
       console.log("after authenticate");
       console.log(redirectUrl);
       res.redirect(redirectUrl);
