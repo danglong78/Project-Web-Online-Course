@@ -30,7 +30,7 @@ const localVerifyCb = async (req, email, password, done) => {
   console.log("In local strategy");
   let err, credential;
 
-  [err, credential] = await to(Credential.findOne({ email: email }).populate("user"));
+  [err, credential] = await to(Credential.findOneWithDeleted({ email: email }).populate({path:"user", options: { withDeleted: true }}));
 
   if (err) {
     return done(
@@ -42,6 +42,10 @@ const localVerifyCb = async (req, email, password, done) => {
 
   if (!credential) {
     return done(null, false, req.flash("error", "Incorrect email or password"));
+  }
+
+  if(credential.deleted){
+    return done(null, false, req.flash("error", "User has been banned"));
   }
 
   if (!credential.password) {
